@@ -1,0 +1,6 @@
+*.suo
+*.userprefs
+*.csproj.user
+*.pidb
+*.swp
+bin/
