@@ -1,0 +1,8 @@
+C:\Users\mark\Desktop\560\Assembler\Assembler\bin\Debug\Assembler.exe
+C:\Users\mark\Desktop\560\Assembler\Assembler\bin\Debug\Assembler.pdb
+C:\Users\mark\Desktop\560\Assembler\Assembler\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Users\mark\Desktop\560\Assembler\Assembler\obj\x86\Debug\Assembler.exe
+C:\Users\mark\Desktop\560\Assembler\Assembler\obj\x86\Debug\Assembler.pdb
+C:\Users\mark\Desktop\560\Assembler\Assembler\obj\x86\Debug\Assembler.Properties.Resources.resources
+C:\Users\mark\Desktop\560\Assembler\Assembler\obj\x86\Debug\ResGen.read.1.tlog
+C:\Users\mark\Desktop\560\Assembler\Assembler\obj\x86\Debug\ResGen.write.1.tlog
