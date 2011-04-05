@@ -80,33 +80,45 @@ namespace Assembler.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to CNTL
-        ///HALT
-        ///DUMP
-        ///CLRD
-        ///CLRT
-        ///GOTO
-        ///STACK
-        ///PUSH
-        ///POP
-        ///TEST
-        ///JUMP
-        ///=
-        ///^=
-        ///&lt;
-        ///&gt;
-        ///&lt;=
-        ///&gt;=
-        ///TNULL
-        ///DNULL
-        ///SOPER
-        ///ADD
-        ///SUB
-        ///MUL
-        ///DIV
-        ///OR
-        ///AND
-        ///READ.
+        ///   Looks up a localized string similar to CNTL 00
+        ///HALT 000
+        ///DUMP 001
+        ///CLRD 010
+        ///CLRT 011
+        ///GOTO 100
+        ///STACK 00
+        ///PUSH 101
+        ///POP 110
+        ///TEST 111
+        ///JUMP 01
+        ///= 000
+        ///^= 001
+        ///&lt; 010
+        ///&gt; 011
+        ///&lt;= 100
+        ///&gt;= 101
+        ///TNULL 110
+        ///DNULL 111
+        ///SOPER 10
+        ///ADD 000
+        ///SUB 001
+        ///MUL 010
+        ///DIV 011
+        ///OR 100
+        ///AND 101
+        ///READ 110
+        ///WRITE 111
+        ///MOPER 11
+        ///ADD 000
+        ///SUB 001
+        ///MUL 010
+        ///DIV 011
+        ///OR 100
+        ///AND 101
+        ///READN 110
+        ///READC 110
+        ///WRITEN 111
+        ///WRITEC 111.
         /// </summary>
         internal static string instructions {
             get {
