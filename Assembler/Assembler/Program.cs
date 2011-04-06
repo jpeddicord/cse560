@@ -11,9 +11,8 @@ namespace Assembler
         static void Main(string[] args)
         {
 			Console.WriteLine("Herp derp");
-            Console.WriteLine(Properties.Resources.directives);
+            Console.WriteLine(Properties.Resources.instructions);
             Trace.WriteLine(String.Format("{0} {1}", System.DateTime.Now, "Herp"),"Derp");
-            HERPDERPDERP.herp();
         }
     }
 }
