@@ -5,7 +5,7 @@ class Tokenizer
 {
     public Tokenizer()
     {
-        Trace.WriteLine(String.Format("{0} {1}", System.DateTime.Now, "Initializing tokenizer."), "Tokenizer");
+        Trace.WriteLine(String.Format("{0} -> {1}", System.DateTime.Now, "Initializing tokenizer."), "Tokenizer");
     }
     /**
      * Returns the next token in the provided string.  The next token includes all

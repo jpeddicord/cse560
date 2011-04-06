@@ -10,7 +10,7 @@ namespace Assembler
     {
         public Parser()
         {
-            Trace.WriteLine(String.Format("{0} {1}", System.DateTime.Now, "Initializing parser."), "Parser");
+            Trace.WriteLine(String.Format("{0} -> {1}", System.DateTime.Now, "Initializing parser."), "Parser");
         }
     }
 }
