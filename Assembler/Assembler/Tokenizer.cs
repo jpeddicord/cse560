@@ -30,7 +30,7 @@ class Tokenizer
     /**
      * TODO: Delete this.  Only being used to test stuff currently.
      */
-    public static void Main(string[] args)
+    public static void Test(string[] args)
     {
         //Testing getNextToken
         string ohGodWhatShouldICallIt = "Th,E quick brown fox died.";
