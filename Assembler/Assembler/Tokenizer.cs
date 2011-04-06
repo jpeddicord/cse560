@@ -22,7 +22,6 @@ class Tokenizer
     public static void GetNextToken(ref string Line, ref string Token, ref string TokenKind)
     {
         string[] Tokens = new string[2];
-
         Tokens = Line.Split(new char[] { ' ', ',' }, 2);
         Token = Tokens[0];
         Line = Tokens[1];
