@@ -20,6 +20,11 @@ namespace Assembler
 
         static void InitLogger(DateTime now)
         {
+            // Create the log directory if it doesn't already exist.
+            if (!System.IO.Directory.Exists("Log"))
+            {
+                System.IO.Directory.CreateDirectory("Log");
+            }
             // Creates the text file that the trace listener will write to.
             System.IO.FileStream myTraceLog = new
                System.IO.FileStream(String.Format(
