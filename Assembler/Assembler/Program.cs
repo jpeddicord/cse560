@@ -25,7 +25,10 @@ namespace Assembler
             {
                 System.IO.Directory.CreateDirectory("Log");
             }
+
             // Creates the text file that the trace listener will write to.
+            // log filenames will be in the format:
+            // MM-DD_HH-mm-ss_debug.log
             System.IO.FileStream myTraceLog = new
                System.IO.FileStream(String.Format(
                                         "{0}{1}-{2}_{3}-{4}-{5}_{6}", 
