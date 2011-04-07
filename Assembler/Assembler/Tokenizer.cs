@@ -45,6 +45,10 @@ class Tokenizer
             {
                 Line = Tokens[1];
             }
+            else
+            {
+                Line = "";
+            }
 
             GetTokenKind(Token, ref TokenKind);
         }

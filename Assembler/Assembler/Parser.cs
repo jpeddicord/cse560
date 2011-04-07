@@ -12,7 +12,7 @@ namespace Assembler
         {
             Trace.WriteLine(String.Format("{0} -> {1}", System.DateTime.Now, "Initializing parser."), "Parser");
 
-            string test = "      Jacob is a whore! :and this is a comment";
+            string test = "MOPER ADD,I=59";
             string Token = "";
             string TokenKind = "";
 
