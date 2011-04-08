@@ -6,6 +6,11 @@ namespace Assembler
 {
     class Tokenizer
     {
+        public enum TokenKinds
+        {
+            Label_Or_Command, Literal, Comment, Number, Empty, Error
+        };
+
         public Tokenizer()
         {
             Trace.WriteLine(String.Format("{0} -> {1}", System.DateTime.Now, "Initializing tokenizer."), "Tokenizer");
@@ -27,14 +32,14 @@ namespace Assembler
          * @param Token Used to store the value of the next token.
          * @param TokenKind Used to store the token kind of the next token.
          */
-        public static void GetNextToken(ref string Line, ref string Token, ref string TokenKind)
+        public static void GetNextToken(ref string Line, ref string Token, TokenKinds TokenKind)
         {
             Line = Line.Trim();
 
             if (Line[0] == ':')
             {
                 Token = Line;
-                TokenKind = "Comment";
+                TokenKind = TokenKinds.Comment;
                 Line = "";
             }
             else
@@ -52,54 +57,40 @@ namespace Assembler
                     Line = "";
                 }
 
-                GetTokenKind(Token, ref TokenKind);
+                GetTokenKind(Token, TokenKind);
             }
         }
 
         /**
-         * TODO: Delete this.  Only being used to test stuff currently.
+         * DERp
          */
-        public static void Test(string[] args)
-        {
-            //Testing getNextToken
-            string ohGodWhatShouldICallIt = "Th,E quick brown fox died.";
-            string Token = "";
-            string TokenKind = "";
-            GetNextToken(ref ohGodWhatShouldICallIt, ref Token, ref TokenKind);
-            Console.WriteLine(Token + '\n' + ohGodWhatShouldICallIt);
-
-            /*
-             * TODO: Need to write method(s) to determine the token type.
-             */
-        }
-
-        private static void GetTokenKind(string Token, ref string TokenKind)
+        private static void GetTokenKind(string Token, TokenKinds TokenKind)
         {
             Regex AlphaNumeric = new Regex("[^0-9a-zA-Z]");
             Regex Numeric = new Regex("[^0-9]");
 
             if (Token == "")
             {
-                TokenKind = "Empty";
+                TokenKind = TokenKinds.Empty;
             }
             else if (!AlphaNumeric.IsMatch(Token) && Char.IsLetter(Token[0]))
             {
-                TokenKind = "Label_Or_Command";
+                TokenKind = TokenKinds.Label_Or_Command;
             }
             else if (!Numeric.IsMatch(Token))
             {
-                TokenKind = "Number";
+                TokenKind = TokenKinds.Number;
             }
             else if (Token.Length > 1 && (Token.Substring(0, 2) == "X=" ||
                                          Token.Substring(0, 2) == "B=" ||
                                          Token.Substring(0, 2) == "I=" ||
                                          Token.Substring(0, 2) == "C="))
             {
-                TokenKind = "Literal";
+                TokenKind = TokenKinds.Literal;
             }
             else
             {
-                TokenKind = "Error";
+                TokenKind = TokenKinds.Error;
             }
         }
     }
