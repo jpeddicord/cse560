@@ -16,6 +16,9 @@ namespace Assembler
             Console.WriteLine(Properties.Resources.instructions);
             Parser immaParser = new Parser();
             Tokenizer immaTokenizer = new Tokenizer();
+
+            IntermediateLine line = new IntermediateLine("Herp source", 5);
+            Console.WriteLine(line);
         }
 
         static void InitLogger(DateTime now)
