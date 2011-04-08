@@ -10,17 +10,40 @@ namespace Assembler
     {
         public Parser()
         {
-            Trace.WriteLine(String.Format("{0} -> {1}", System.DateTime.Now, "Initializing parser."), "Parser");
+           
+        }
 
-            string test = "MOPER ADD,I=59";
-            string Token = "";
-            string TokenKind = "";
+        private IntermediateLine ParseLine(string line, short lineNum)
+        {
+            string token = "";
+            Tokenizer.TokenKinds tokenKind = Tokenizer.TokenKinds.Empty;
 
-            while (test.Length > 0)
+            // make Intermediate version of this line to be returned
+            IntermediateLine interLine = new IntermediateLine(line, lineNum);
+
+            // check for a label at the beginning of the line
+            if (char.IsLetter(line[0]))
             {
-                Tokenizer.GetNextToken(ref test, ref Token, ref TokenKind);
-                Console.WriteLine(Token + " - " + TokenKind);
-            } 
+                Tokenizer.GetNextToken(ref line, ref token, tokenKind);
+                if (tokenKind == Tokenizer.TokenKinds.Label_Or_Command
+                    && (2 <= token.Length && token.Length <= 32))
+                {
+                    interLine.Label = token;
+                }
+                else
+                {
+                    interLine.Label = "_ERROR";
+                }
+            }
+
+
+
+            return interLine;
+        }
+
+        public IntermediateFile ParseSource()
+        {
+            return new IntermediateFile();
         }
     }
 }

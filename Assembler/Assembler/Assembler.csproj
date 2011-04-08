@@ -63,6 +63,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Directives.cs" />
     <Compile Include="IntermediateFile.cs" />
     <Compile Include="IntermediateLine.cs" />
     <Compile Include="Parser.cs" />
@@ -74,7 +75,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Tokenizer.cs" />
-    <Compile Include="OpcodeTranslator.cs" />
+    <Compile Include="Instructions.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">

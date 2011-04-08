@@ -9,7 +9,7 @@ namespace Assembler
 	/**
 	 * Opcode translation mechanism. Documentation needs to be written.
 	 */
-    public class OpcodeTranslator
+    public class Instructions
     {
         private Dictionary<string, Dictionary<string, string>> instructions;
 		
@@ -24,7 +24,7 @@ namespace Assembler
 		 * 
 		 * @param filename file to load data from
 		 */
-        public OpcodeTranslator (string filename)
+        public Instructions (string filename)
         {
 			this.instructions = new Dictionary<string, Dictionary<string, string>>();
 			
