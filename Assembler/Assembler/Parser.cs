@@ -85,41 +85,51 @@ namespace Assembler
             string token = "";
             Tokenizer.TokenKinds tokenKind = Tokenizer.TokenKinds.Empty;
 
-            // get what should be the function name
-            Tokenizer.GetNextToken(ref line, ref token, ref tokenKind);
-
-            if (instructionList.IsInstruction(interLine.OpCategory, token))
+            if (ValidOperandField(line))
             {
-                interLine.OpFunction = token;
+                // get what should be the function name
+                Tokenizer.GetNextToken(ref line, ref token, ref tokenKind);
+
+                if (instructionList.IsInstruction(interLine.OpCategory, token))
+                {
+                    interLine.OpFunction = token;
+                }
+                else
+                {
+                    interLine.OpFunction = "_ERROR";
+                }
+
+                // get what should be the function operand
+                Tokenizer.GetNextToken(ref line, ref token, ref tokenKind);
+
+                if (tokenKind == Tokenizer.TokenKinds.Label_Or_Command)
+                {
+                    interLine.OpOperand = token;
+                }
+                else if (tokenKind == Tokenizer.TokenKinds.Literal)
+                {
+                    string operand = "";
+                    string litOperand = "";
+                    ParseLiteralOperand(token, ref operand, ref litOperand);
+                    interLine.OpOperand = operand;
+                    interLine.OpLitOperand = litOperand;
+                }
+                else if (tokenKind == Tokenizer.TokenKinds.Number)
+                {
+                    interLine.OpOperand = Convert.ToString(int.Parse(token), 16).ToUpper();
+                }
+                else
+                {
+                    interLine.OpOperand = "_ERROR";
+                }
             }
             else
             {
                 interLine.OpFunction = "_ERROR";
-            }
-
-            // get what should be the function operand
-            Tokenizer.GetNextToken(ref line, ref token, ref tokenKind);
-
-            if (tokenKind == Tokenizer.TokenKinds.Label_Or_Command)
-            {
-                interLine.OpOperand = token;
-            }
-            else if (tokenKind == Tokenizer.TokenKinds.Literal)
-            {
-                string operand = "";
-                string litOperand = "";
-                ParseLiteralOperand(token, ref operand, ref litOperand);
-                interLine.OpOperand = operand;
-                interLine.OpLitOperand = litOperand;
-            }
-            else if (tokenKind == Tokenizer.TokenKinds.Number)
-            {
-                interLine.OpOperand = Convert.ToString(int.Parse(token), 16).ToUpper();
-            }
-            else
-            {
                 interLine.OpOperand = "_ERROR";
             }
+
+            
         }
 
         private void ParseDirective(ref string line, ref IntermediateLine interLine)
@@ -196,6 +206,18 @@ namespace Assembler
             tempLC++;
             LC = Convert.ToString(tempLC, 16).ToUpper();
         }
+
+        private bool ValidOperandField(string line)
+        {
+            string[] OperandParts = line.Split(new char[] { ',' }, 2);
+            if (OperandParts.Length < 2 || OperandParts[0].Contains(" ") || OperandParts[1].StartsWith(" "))
+            {
+                return false;
+            }
+
+            return true;
+        }
+
         public IntermediateFile ParseSource(string path)
         {
             string[] sourceCode = new string[1];
@@ -217,7 +239,7 @@ namespace Assembler
             IntermediateFile interSource = new IntermediateFile(temp.Label);
             interSource.AddLine(temp);
 
-            for (short i = 2; i < sourceCode.Length; i++)
+            for (short i = 2; i <= sourceCode.Length; i++)
             {
                 temp = ParseLine(sourceCode[i - 1], i);
                 interSource.AddLine(temp);
