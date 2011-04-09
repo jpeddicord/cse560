@@ -12,14 +12,14 @@ namespace Assembler
         Directives directiveList;
         Instructions instructionList;
 
-        int LC;
+        string LC;
 
         public Parser()
         {
             Trace.WriteLine(String.Format("{0} -> {1}", DateTime.Now, "Creating Parser object."), "Parser");
             directiveList = Directives.GetInstance();
             instructionList = Instructions.GetInstance();
-            LC = 0;
+            LC = "0";
         }
 
         private IntermediateLine ParseLine(string line, short lineNum)
@@ -58,8 +58,8 @@ namespace Assembler
                 {
                     interLine.OpCategory = token;
                     ParseInstruction(ref line, ref interLine);
-                    interLine.ProgramCounter = LC.ToString();
-                    LC++;
+                    interLine.ProgramCounter = LC;
+                    IncrementLocationCounter();
                 }
                 else if (directiveList.Contains(token))
                 {
@@ -181,7 +181,7 @@ namespace Assembler
         private IntermediateLine ParseStart(string line, short lineNum)
         {
             IntermediateLine start = ParseLine(line, lineNum);
-            LC = int.Parse(start.DirectiveOperand);
+            LC = start.DirectiveOperand;
             return start;
         }
 
@@ -190,6 +190,12 @@ namespace Assembler
             return new IntermediateLine(line, lineNum);
         }
 
+        private void IncrementLocationCounter()
+        {
+            int tempLC = Convert.ToInt32(LC, 16);
+            tempLC++;
+            LC = Convert.ToString(tempLC, 16).ToUpper();
+        }
         public IntermediateFile ParseSource(string path)
         {
             string[] sourceCode = new string[1];
