@@ -26,9 +26,9 @@ helpful both when developing and for users.
 
 Group roles were assigned and are as follows:
 
-Project/Design Leader: Mark
-Documentation Leader:  Jacob
-Testing Leader:        Andrew
+* Project/Design Leader: Mark
+* Documentation Leader:  Jacob
+* Testing Leader:        Andrew
 
 Previous assignments were met.
 
