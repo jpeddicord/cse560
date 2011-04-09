@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Linq;
 using System.Text;
+using System.Diagnostics;
 
 namespace Assembler
 {
@@ -12,6 +13,7 @@ namespace Assembler
 
         private Directives()
         {
+            Trace.WriteLine(String.Format("{0} -> {1}", DateTime.Now, "Creating instance of Directives."), "Directives");
             directiveList = new ArrayList(Properties.Resources.directives.Split('\n'));
         }
 
