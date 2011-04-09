@@ -11,6 +11,11 @@ namespace Assembler
         // The dictionary that holds all intermediate lines of this source file.
         private Dictionary<int, IntermediateLine> allLines;
 
+        public int TotalLines
+        {
+            get { return allLines.Count; }
+        }
+
         private string prgmName;
 
         public IntermediateFile(string prgmName)
@@ -22,6 +27,11 @@ namespace Assembler
         public void AddLine(IntermediateLine line)
         {
             this.allLines.Add(int.Parse(line.SourceLineNumber), line);
+        }
+
+        public IntermediateLine Line(int lineNumber)
+        {
+            return allLines[lineNumber];
         }
 
         public override string ToString()
