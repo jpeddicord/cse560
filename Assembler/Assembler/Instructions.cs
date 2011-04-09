@@ -31,7 +31,7 @@ namespace Assembler
          * DOCUMENT ME
          */
         private Dictionary<string, Dictionary<string, string>> instructions;
-
+        
         /**
          * Create a translation object. Loads instruction translation data
          * from the given file in filename. The file should have lines of
@@ -49,7 +49,10 @@ namespace Assembler
             foreach (string line in Properties.Resources.instructions.Split('\n'))
             {
                 string[] parts = line.Split(' ');
-                this.instructions[parts[0]] = new Dictionary<string, string>();
+                if (!this.instructions.ContainsKey(parts[0]))
+                {
+                    this.instructions[parts[0]] = new Dictionary<string, string>();
+                }
                 this.instructions[parts[0]][parts[1]] = parts[2];
             }
         }
@@ -66,12 +69,13 @@ namespace Assembler
 
         public bool IsInstruction(string instrGroup, string function)
         {
-            return this.instructions.ContainsKey(instrGroup) && this.instructions[instrGroup].ContainsKey(function);
+            return this.instructions.ContainsKey(instrGroup.ToUpper())
+                && this.instructions[instrGroup.ToUpper()].ContainsKey(function.ToUpper());
         }
 
         public bool IsGroup(string instrGroup)
         {
-            return this.instructions.ContainsKey(instrGroup);
+            return this.instructions.ContainsKey(instrGroup.ToUpper());
         }
 
         /**
@@ -85,6 +89,8 @@ namespace Assembler
          */
         public string GetBytecodeString(string instrGroup, string function)
         {
+            instrGroup = instrGroup.ToUpper();
+            function = function.ToUpper();
             if (!this.instructions.ContainsKey(instrGroup))
             {
                 throw new InstructionException("\"" + instrGroup + "\" is not a valid group.");
