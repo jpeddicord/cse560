@@ -7,11 +7,12 @@ echo "Running doxygen..."
 doxygen >/dev/null
 
 # generate hand-crafted documentation
-mkdir -p out
 echo "Generating hand-made documentation..."
+mkdir -p api/html/rst
+cd src
 for F in *.rst; do
     echo "    $F"
-    rst2html $F > out/${F%.rst}.html
+    rst2html $F > ../out/${F%.rst}.html
 done
 
 echo "Done."
