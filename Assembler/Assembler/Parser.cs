@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.IO;
 using System.Diagnostics;
 
 namespace Assembler
@@ -11,12 +12,14 @@ namespace Assembler
         Directives directiveList;
         Instructions instructionList;
 
+        int LC;
+
         public Parser()
         {
+            Trace.WriteLine(String.Format("{0} -> {1}", DateTime.Now, "Creating Parser object."), "Parser");
             directiveList = Directives.GetInstance();
             instructionList = Instructions.GetInstance();
-
-            Console.WriteLine(ParseLine("PGC  Start 0", 1));
+            LC = 0;
         }
 
         private IntermediateLine ParseLine(string line, short lineNum)
@@ -55,8 +58,10 @@ namespace Assembler
                 {
                     interLine.OpCategory = token;
                     ParseInstruction(ref line, ref interLine);
+                    interLine.ProgramCounter = LC.ToString();
+                    LC++;
                 }
-                else if (directiveList.Contains(token)) 
+                else if (directiveList.Contains(token))
                 {
                     interLine.Directive = token;
                     ParseDirective(ref line, ref interLine);
@@ -166,16 +171,54 @@ namespace Assembler
                 case 'I':
                 case 'i':
                     {
-                       // outOper = 
-                    }break;
+                        // outOper = 
+                    } break;
             }
 
             litType = inOper.Substring(0, 2);
         }
 
-        public IntermediateFile ParseSource()
+        private IntermediateLine ParseStart(string line, short lineNum)
         {
-            return new IntermediateFile();
+            IntermediateLine start = ParseLine(line, lineNum);
+            LC = int.Parse(start.DirectiveOperand);
+            return start;
+        }
+
+        private IntermediateLine ParseEnd(string line, short lineNum)
+        {
+            return new IntermediateLine(line, lineNum);
+        }
+
+        public IntermediateFile ParseSource(string path)
+        {
+            string[] sourceCode = new string[1];
+            try
+            {
+                Trace.WriteLine(String.Format("{0} -> {1}", DateTime.Now, "Opening file: " + path), "Parser");
+                sourceCode = File.ReadAllLines(path);
+            }
+            catch (FileNotFoundException ex)
+            {
+                Trace.WriteLine(String.Format("{0} -> {1}", DateTime.Now, "Failed to open file. Error: " + ex.Message));
+                Console.WriteLine("{0}\n{1}", ex.Message, "Exiting program");
+                System.Environment.Exit(1);
+            }
+
+            // first line is expected to hold the start directive
+            IntermediateLine temp = ParseStart(sourceCode[0], 1);
+
+            IntermediateFile interSource = new IntermediateFile(temp.Label);
+            interSource.AddLine(temp);
+
+            for (short i = 2; i < sourceCode.Length; i++)
+            {
+                temp = ParseLine(sourceCode[i - 1], i);
+                interSource.AddLine(temp);
+            }
+
+            Console.WriteLine(interSource);
+            return interSource;
         }
     }
 }

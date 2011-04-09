@@ -233,7 +233,7 @@ namespace Assembler
 
             string format = "{1}\nLine: {2}{0}LC: {3}{0}Label: {4}{0}Category: {5}{0}Function: " +
             "{6}{0}Operand: {7}{0}Literal Operand: {8}{0}Directive: {9}{0}Directive Operand: {10}{0}" +
-            "Directive Literal Operand: {11}{0}Comment: {12}";
+            "Directive Literal Operand: {11}{0}Comment: {12}\n";
             string seperator = "\n";
             return String.Format(format, seperator, this.SourceLine, this.SourceLineNumber, this.ProgramCounter,
                 this.Label, this.OpCategory, this.OpFunction, this.OpOperand, this.OpLitOperand,
