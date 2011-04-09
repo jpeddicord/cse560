@@ -64,6 +64,16 @@ namespace Assembler
             return instance;
         }
 
+        public bool IsInstruction(string instrGroup, string function)
+        {
+            return this.instructions.ContainsKey(instrGroup) && this.instructions[instrGroup].ContainsKey(function);
+        }
+
+        public bool IsGroup(string instrGroup)
+        {
+            return this.instructions.ContainsKey(instrGroup);
+        }
+
         /**
          * Get a bytecode string corresponding to the proided instruction
          * group and function. The returned string is guaranteed to be

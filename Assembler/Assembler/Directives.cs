@@ -12,7 +12,7 @@ namespace Assembler
 
         private Directives()
         {
-            directiveList = new ArrayList(Properties.Resources.directives.Split(new char[] { '\n' }));
+            directiveList = new ArrayList(Properties.Resources.directives.Split('\n'));
         }
 
         public static Directives GetInstance()
@@ -23,6 +23,11 @@ namespace Assembler
             }
 
             return instance;
+        }
+
+        public ArrayList DirList
+        {
+            get { return directiveList; }
         }
 
         public bool Contains(string dir)
