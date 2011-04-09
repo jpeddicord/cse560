@@ -30,7 +30,6 @@ Global
 		$2.inheritsScope = text/x-csharp
 		$2.scope = text/x-csharp
 		$0.TextStylePolicy = $3
-		$3.FileWidth = 120
 		$3.NoTabsAfterNonTabs = True
 		$3.RemoveTrailingWhitespace = True
 		$3.inheritsSet = VisualStudio
@@ -39,6 +38,9 @@ Global
 		$0.StandardHeader = $4
 		$4.Text = 
 		$4.inheritsSet = Apache2License
+		$0.TextStylePolicy = $5
+		$5.inheritsSet = null
+		$5.scope = application/x-resource
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
