@@ -3,10 +3,15 @@
 cd `dirname $0`
 
 # generate api documentation
-doxygen
+echo "Running doxygen..."
+doxygen >/dev/null
 
 # generate hand-crafted documentation
 mkdir -p out
+echo "Generating hand-made documentation..."
 for F in *.rst; do
-    rst2html $F > out/$F.html
+    echo "    $F"
+    rst2html $F > out/${F%.rst}.html
 done
+
+echo "Done."
