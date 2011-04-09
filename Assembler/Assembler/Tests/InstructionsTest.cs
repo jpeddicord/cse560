@@ -14,7 +14,7 @@ namespace Assembler
         }
 
         [Test]
-        public void InstructionDoesntExists()
+        public void InstructionDoesntExist()
         {
             var i = Instructions.GetInstance();
             Assert.IsFalse(i.IsInstruction("moper", "derp"));
