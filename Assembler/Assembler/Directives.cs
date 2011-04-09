@@ -47,6 +47,10 @@ namespace Assembler
 
         /**
          * Returns true if dir is contained in the list of directives. False, otherwise.
+         * 
+         * @param dir The directive to check for.
+         * @return true if dir is a directive <br />
+         *         false if dir is not a directive
          */
         public bool Contains(string dir)
         {

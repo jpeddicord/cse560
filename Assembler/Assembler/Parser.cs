@@ -9,11 +9,24 @@ namespace Assembler
 {
     class Parser
     {
+        /**
+         * The parser's list of directives.
+         */
         Directives directiveList;
+
+        /**
+         * The parser's list of instructions.
+         */
         Instructions instructionList;
 
+        /**
+         * The current value of the location counter.
+         */
         string LC;
 
+        /**
+         * Creates a Parser with location counter set to 0, ready to parse a single soure file.
+         */
         public Parser()
         {
             Trace.WriteLine(String.Format("{0} -> {1}", DateTime.Now, "Creating Parser object."), "Parser");
@@ -22,6 +35,13 @@ namespace Assembler
             LC = "0";
         }
 
+        /**
+         * Parses a single line of source code.
+         * 
+         * @param line current line to parse
+         * @param lineNum line number of current line
+         * @return the line to be parsed as a single line in the intermediate file
+         */
         private IntermediateLine ParseLine(string line, short lineNum)
         {
             string token = "";
@@ -80,6 +100,12 @@ namespace Assembler
             return interLine;
         }
 
+        /**
+         * Parses the operation section of the line if it has an instruction.
+         * 
+         * @param line current line to parse.
+         * @param interLine the line as a single line in the intermediate file.
+         */
         private void ParseInstruction(ref string line, ref IntermediateLine interLine)
         {
             string token = "";
@@ -132,6 +158,12 @@ namespace Assembler
             
         }
 
+        /**
+         * Parses the operation section of the line if it has an instruction.
+         * 
+         * @param line current line to parse.
+         * @param interLine the line as a single line in the intermediate file.
+         */
         private void ParseDirective(ref string line, ref IntermediateLine interLine)
         {
             string token = "";
@@ -162,6 +194,13 @@ namespace Assembler
             }
         }
 
+        /**
+         * Parses a literal operand, e.g. X=, B=, I=, C=
+         * 
+         * @param inOper the operand to parse
+         * @param outOper the numerical operand from the literal, that is, the part after the X=
+         * @param litType the type of the operand, that is, X, B, etc.
+         */
         private void ParseLiteralOperand(string inOper, ref string outOper, ref string litType)
         {
             switch (inOper[0])
@@ -188,18 +227,36 @@ namespace Assembler
             litType = inOper.Substring(0, 2);
         }
 
-        private IntermediateLine ParseStart(string line, short lineNum)
+        /**
+         * Parses the start directive, properly assigning the operand of start as the
+         * starting location counter.
+         * 
+         * @param line the line containing the start directive
+         * @return the IntermediateLine of this line
+         */
+        private IntermediateLine ParseStart(string line)
         {
-            IntermediateLine start = ParseLine(line, lineNum);
+            IntermediateLine start = ParseLine(line, 1);
             LC = start.DirectiveOperand;
             return start;
         }
 
+        /**
+         * Parses the end directeive, ensuring that the end operand is the same as
+         * the start directive's rlabel.
+         * 
+         * @param line the line containing the end directive
+         * @param lineNum the line number of this line in the source code.
+         * @return The IntermediateLine of this line
+         */
         private IntermediateLine ParseEnd(string line, short lineNum)
         {
             return new IntermediateLine(line, lineNum);
         }
 
+        /**
+         * Adds one to the location counter.
+         */
         private void IncrementLocationCounter()
         {
             int tempLC = Convert.ToInt32(LC, 16);
@@ -207,6 +264,14 @@ namespace Assembler
             LC = Convert.ToString(tempLC, 16).ToUpper();
         }
 
+        /**
+         * Checks to see if the instruction's operand field has valid syntax.
+         * 
+         * @param line the line whose instruction's operand should be checked. <br />
+         *             expected "FUNCTION,OPERAND : POSSIBLE COMMENTS"
+         * @return true if the operand is valid <br />
+         *         false if the operand is invalid
+         */
         private bool ValidOperandField(string line)
         {
             string[] OperandParts = line.Split(new char[] { ',' }, 2);
@@ -218,6 +283,12 @@ namespace Assembler
             return true;
         }
 
+        /**
+         * Parses an entire source code file.
+         * 
+         * @param path the path of the source file to parse.
+         * @return the intermediate file for this source.
+         */
         public IntermediateFile ParseSource(string path)
         {
             string[] sourceCode = new string[1];
@@ -234,7 +305,7 @@ namespace Assembler
             }
 
             // first line is expected to hold the start directive
-            IntermediateLine temp = ParseStart(sourceCode[0], 1);
+            IntermediateLine temp = ParseStart(sourceCode[0]);
 
             IntermediateFile interSource = new IntermediateFile(temp.Label);
             interSource.AddLine(temp);
