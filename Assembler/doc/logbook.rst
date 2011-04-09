@@ -66,6 +66,21 @@ To do
 
 April 8th 2011 - 6:00 pm
 ========================
-Met to discuss further specifics for pass 1.  Tokenizer was updated to use enumerated types for
-token kind rather than strings.  Also added the ability to create intermediate lines which will
-be used to later create our intermediate version.
+Met to discuss further specifics for pass 1 and work on getting some of our ideas coded.  Tokenizer 
+was updated to use enumerated types for token kind rather than strings.  Also added the ability to
+create intermediate lines which will be used to later create our intermediate version.
+
+We installed and tweaked NUnit and it appears it will work very similar to JUnit tests which will
+work well for this project.  We can now begin to code the tests we had planned and make sure that
+our current implementations are functioning correctly.
+
+Mark add directives.cs.
+
+Issues
+------
+An issue came up involving going from pass 1 to pass 2 and value conversions.  When going from pass
+1 to pass 2 we were told that literals should be converted to hex.  However during pass two this must
+be then converted back to binary and then to hex again (because the literal value can be 10 digits long
+in which case there would be overlap and we couldn't simply append the hex value on to the end of the
+translated instruction).  It seems like it would be more efficient to just pass this value as a binary
+value from pass 1 to pass 2.  We plan on bringing this up with an instructor.

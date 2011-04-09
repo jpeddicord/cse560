@@ -55,7 +55,7 @@ namespace Assembler
 
             // If the next token is a comment, we don't need to split up the line and can return everything
             // else as the token
-            if (Line[0] == ':')
+            if (Line.Length > 0 && Line[0] == ':')
             {
                 Token = Line;
                 TokenKind = TokenKinds.Comment;
