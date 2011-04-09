@@ -4,15 +4,18 @@ Logbook
 
 March 28th 2011 - 7:00 pm
 =========================
-Group members are:
-Andrew Buelow
-Mark Mathis
-Jacob Peddicord
+
+Group members
+-------------
+* Andrew Buelow
+* Mark Mathis
+* Jacob Peddicord
 
 We have decided to use C# to code our project.
 
-To do:
-Jacob - Set up git so we have a common project directory.
+To do
+-----
+- Jacob - Set up git so we have a common project directory.
 
 
 March 30th 2011 - 7:30 pm
@@ -29,12 +32,10 @@ Testing Leader:        Andrew
 
 Previous assignments were met.
 
-To do:
-Jacob - Since we are not using Java, we are unable to use Javadoc and must find a new way to
-        document.  Jacob is going to look into methods of documenting and present our options
-		so we can decide what will work the best.
-Andrew  - We also need a structured way to test our implemention without JUnit.  Andrew will
-		  look into testing options.
+To do
+-----
+- Jacob - Since we are not using Java, we are unable to use Javadoc and must find a new way to document. Jacob is going to look into methods of documenting and present our options so we can decide what will work the best.
+- Andrew - We also need a structured way to test our implemention without JUnit. Andrew will look into testing options.
 		  
 		  
 April 4th 2011 - 4:30 pm
@@ -57,10 +58,10 @@ we may use a Map to hold the operation, function and opcode.
 
 Previous assignments were met.
 
-To do:
-Andrew - Write the tokenizer.
-Mark - Begin working on the format of intermediate version/Lab 0 output, either by design or
-       coding.
+To do
+-----
+- Andrew - Write the tokenizer.
+- Mark - Begin working on the format of intermediate version/Lab 0 output, either by design or coding.
 
 
 April 8th 2011 - 6:00 pm
