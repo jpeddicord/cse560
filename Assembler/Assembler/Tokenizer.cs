@@ -45,7 +45,7 @@ namespace Assembler
          * @param Token Used to store the value of the next token.
          * @param TokenKind Used to store the token kind of the next token.
          */
-        public static void GetNextToken(ref string Line, ref string Token, TokenKinds TokenKind)
+        public static void GetNextToken(ref string Line, ref string Token, ref TokenKinds TokenKind)
         {
             // Remove extra whitespace
             Line = Line.Trim();
@@ -82,7 +82,7 @@ namespace Assembler
                 }
 
                 // Determine the kind for this token.
-                GetTokenKind(Token, TokenKind);
+                GetTokenKind(Token, ref TokenKind);
             }
         }
 
@@ -96,7 +96,7 @@ namespace Assembler
          * @param Token Holds the token for which the kind is to be determined.
          * @param TokenKind Used to store the token kind of the specified token.
          */
-        private static void GetTokenKind(string Token, TokenKinds TokenKind)
+        private static void GetTokenKind(string Token, ref TokenKinds TokenKind)
         {
             /**
              * Regular expression used to determine if all characters in the token are
