@@ -36,10 +36,19 @@ namespace Assembler
          * Create a translation object. Loads instruction translation data
          * from the given file in filename. The file should have lines of
          * the format:
-         *     GROUP FUNCTION BITS
+         *     \code GROUP FUNCTION BITS \endcode
          * where GROUP is the instruction group, FUNCTION is the named
          * function, and BITS is the corresponding bytecode (as a string of
          * 0's and 1's) to the function.
+         *
+         * @refcode ???
+         * @errtest Things
+         * @errmsg More things
+         * @creation Someday
+         * @modlog
+         *  Jacob, Tuesday, Fixed the herp to the derp
+         * @codestandard Mark
+         * @teststandard Andrew
          */
         private Instructions()
         {
@@ -61,10 +70,10 @@ namespace Assembler
         {
             if (Instructions.instance == null)
             {
-                instance = new Instructions();
+                Instructions.instance = new Instructions();
             }
             
-            return instance;
+            return Instructions.instance;
         }
 
         public bool IsInstruction(string instrGroup, string function)
