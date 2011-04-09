@@ -13,6 +13,10 @@ namespace Assembler
             InitLogger(DateTime.Now);
             Trace.WriteLine(String.Format("{0} -> {1}", System.DateTime.Now, "Starting Main method of Assembler"), "Main");
 
+            short varA = 1023;
+            short varB = 367;
+            long result = (varA ^ varB) + 1;
+            Console.WriteLine(result);
 
         }
 
