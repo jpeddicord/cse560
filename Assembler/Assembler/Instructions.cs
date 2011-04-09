@@ -6,9 +6,15 @@ namespace Assembler
 {
     public class InstructionException : ApplicationException
     {
-        public InstructionException () : base() {}
-        public InstructionException (string s) : base(s) {}
-        public InstructionException (string s, Exception ex) : base(s, ex) {}
+        public InstructionException() : base()
+        {
+        }
+        public InstructionException(string s) : base(s)
+        {
+        }
+        public InstructionException(string s, Exception ex) : base(s, ex)
+        {
+        }
     }
 
     /**
@@ -35,22 +41,24 @@ namespace Assembler
          * function, and BITS is the corresponding bytecode (as a string of
          * 0's and 1's) to the function.
          */
-        private Instructions ()
+        private Instructions()
         {
-            this.instructions = new Dictionary<string, Dictionary<string, string>> ();
+            this.instructions = new Dictionary<string, Dictionary<string, string>>();
             
             // fill the instruction mapping with data from the file
-            foreach (string line in Properties.Resources.instructions.Split ('\n')) {
-                string[] parts = line.Split (' ');
-                this.instructions[parts[0]] = new Dictionary<string, string> ();
+            foreach (string line in Properties.Resources.instructions.Split('\n'))
+            {
+                string[] parts = line.Split(' ');
+                this.instructions[parts[0]] = new Dictionary<string, string>();
                 this.instructions[parts[0]][parts[1]] = parts[2];
             }
         }
 
-        public static Instructions GetInstance ()
+        public static Instructions GetInstance()
         {
-            if (Instructions.instance == null) {
-                instance = new Instructions ();
+            if (Instructions.instance == null)
+            {
+                instance = new Instructions();
             }
             
             return instance;
@@ -65,14 +73,16 @@ namespace Assembler
          * @param function Function of group to get bytecode for
          * @return string of five '0' and '1' characters
          */
-        public string GetBytecodeString (string instrGroup, string function)
+        public string GetBytecodeString(string instrGroup, string function)
         {
-            if (!this.instructions.ContainsKey (instrGroup)) {
-                throw new InstructionException ("\"" + instrGroup + "\" is not a valid group.");
+            if (!this.instructions.ContainsKey(instrGroup))
+            {
+                throw new InstructionException("\"" + instrGroup + "\" is not a valid group.");
             }
             
-            if (!this.instructions[instrGroup].ContainsKey (function)) {
-                throw new InstructionException ("\"" + function + "\" is not a valid function for " + instrGroup);
+            if (!this.instructions[instrGroup].ContainsKey(function))
+            {
+                throw new InstructionException("\"" + function + "\" is not a valid function for " + instrGroup);
             }
             
             return this.instructions[instrGroup][function];
