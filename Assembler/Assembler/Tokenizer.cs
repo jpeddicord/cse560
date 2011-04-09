@@ -47,6 +47,9 @@ namespace Assembler
          */
         public static void GetNextToken(ref string Line, ref string Token, ref TokenKinds TokenKind)
         {
+            // Write to the log before attempting to remove the next token.
+            Trace.WriteLine(String.Format("{0} -> {1}", System.DateTime.Now, "Getting new token."), "Tokenizer");
+
             // Remove extra whitespace
             Line = Line.Trim();
 
@@ -84,6 +87,9 @@ namespace Assembler
                 // Determine the kind for this token.
                 GetTokenKind(Token, ref TokenKind);
             }
+
+            // Write to the log after the token has been successfully retrieved.
+            Trace.WriteLine(String.Format("{0} -> {1}", System.DateTime.Now, "Token acquired, returning."), "Tokenizer");
         }
 
         /**
@@ -109,6 +115,10 @@ namespace Assembler
              * numbers.
              */
             Regex Numeric = new Regex("[^0-9]");
+
+            // Convert to uppercase to give user flexibility.  Token is passed by value so
+            // this change will not affect the token that is returned to the user.
+            Token = Token.ToUpper();
 
             // Check that we weren't given an empty string first so we can look at
             // characters in the string later.
