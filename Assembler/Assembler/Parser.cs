@@ -16,7 +16,7 @@ namespace Assembler
             directiveList = Directives.GetInstance();
             instructionList = Instructions.GetInstance();
 
-            Console.WriteLine(ParseLine(" MOPER WRITEN,RES  :output RES         3  F807   r", 2));
+            Console.WriteLine(ParseLine("PGC  Start 0", 1));
         }
 
         private IntermediateLine ParseLine(string line, short lineNum)
@@ -58,7 +58,8 @@ namespace Assembler
                 }
                 else if (directiveList.Contains(token)) 
                 {
-                    ParseInstruction(ref line, ref interLine);
+                    interLine.Directive = token;
+                    ParseDirective(ref line, ref interLine);
                 }
             }
 
@@ -116,9 +117,34 @@ namespace Assembler
             }
         }
 
-        private void ParseDirective()
+        private void ParseDirective(ref string line, ref IntermediateLine interLine)
         {
+            string token = "";
+            Tokenizer.TokenKinds tokenKind = Tokenizer.TokenKinds.Empty;
 
+            // get the operand of the directive
+            Tokenizer.GetNextToken(ref line, ref token, ref tokenKind);
+
+            if (tokenKind == Tokenizer.TokenKinds.Label_Or_Command)
+            {
+                interLine.DirectiveOperand = token;
+            }
+            else if (tokenKind == Tokenizer.TokenKinds.Number)
+            {
+                interLine.DirectiveOperand = Convert.ToString(int.Parse(token), 16).ToUpper();
+            }
+            else if (tokenKind == Tokenizer.TokenKinds.Literal)
+            {
+                string operand = "";
+                string litOperand = "";
+                ParseLiteralOperand(token, ref operand, ref litOperand);
+                interLine.DirectiveOperand = operand;
+                interLine.DirectiveLitOperand = litOperand;
+            }
+            else
+            {
+                interLine.DirectiveOperand = "_ERROR";
+            }
         }
 
         private void ParseLiteralOperand(string inOper, ref string outOper, ref string litType)

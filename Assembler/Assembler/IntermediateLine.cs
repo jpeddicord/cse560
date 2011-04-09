@@ -48,7 +48,7 @@ namespace Assembler
         private string operand;
 
         /**
-         * The function's literal operand, if it exists.
+         * The function's literal operand type.
          */
         private string operandLit;
 
@@ -61,6 +61,11 @@ namespace Assembler
          * The directive's operand.
          */
         private string dirOperand;
+
+        /**
+         * The directive's literal operand type.
+         */
+        private string dirLitOperand;
 
         /**
          * Any comment at the end of the line.
@@ -86,6 +91,7 @@ namespace Assembler
             this.operandLit = null;
             this.directive = null;
             this.dirOperand = null;
+            this.dirLitOperand = null;
             this.comment = null;     
         }
 
@@ -156,7 +162,7 @@ namespace Assembler
         }
 
         /**
-         * Allows access for getting and setting the literal operand of the
+         * Allows access for getting and setting the literal operand type of the
          * function in this line of source.
          */
         public string OpLitOperand
@@ -183,6 +189,16 @@ namespace Assembler
         {
             get { return this.dirOperand == null ? "N/A" : this.dirOperand; }
             set { this.dirOperand = value; }
+        }
+
+        /**
+         * Allows access for getting and setting the directive literal operand
+         * type in this line of source.
+         */
+        public string DirectiveLitOperand
+        {
+            get { return this.dirLitOperand == null ? "N/A" : this.dirLitOperand; }
+            set { this.dirLitOperand = value; }
         }
 
         /**
@@ -216,11 +232,12 @@ namespace Assembler
                                            "Printing line " + this.line), "IntermediateLine");
 
             string format = "{1}\nLine: {2}{0}LC: {3}{0}Label: {4}{0}Category: {5}{0}Function: " +
-            "{6}{0}Operand: {7}{0}Literal Operand: {8}{0}Directive: {9}{0}Directive Operand:{10}{0}Comment: {11}";
+            "{6}{0}Operand: {7}{0}Literal Operand: {8}{0}Directive: {9}{0}Directive Operand: {10}{0}" +
+            "Directive Literal Operand: {11}{0}Comment: {12}";
             string seperator = "\n";
             return String.Format(format, seperator, this.SourceLine, this.SourceLineNumber, this.ProgramCounter,
                 this.Label, this.OpCategory, this.OpFunction, this.OpOperand, this.OpLitOperand,
-                this.Directive, this.DirectiveOperand, this.Comment);
+                this.Directive, this.DirectiveOperand, this.DirectiveLitOperand, this.Comment);
         }
     }
 }
