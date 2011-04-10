@@ -6,16 +6,29 @@ namespace Assembler
 
     class IntermediateFile
     {
-        // The dictionary that holds all intermediate lines of this source file.
+        /**
+         * The dictionary that holds all intermediate lines of this source file.
+         */
         private Dictionary<int, IntermediateLine> allLines;
 
+        /**
+         * Returns the total number of lines in this intermediate file (and the source code).
+         */
         public int TotalLines
         {
             get { return allLines.Count; }
         }
 
+        /**
+         * Name of the program represented by this intermediate version.
+         */
         private string prgmName;
 
+        /**
+         * Constructs an intermediate file with the given name and no lines.
+         * 
+         * @param prgmName the name of the program that will be represented by this IntermediateFile
+         */
         public IntermediateFile(string prgmName)
         {
             Trace.WriteLine("Creating IntermediateFile object for " + prgmName, "IntermediateFile");
@@ -23,16 +36,33 @@ namespace Assembler
             this.prgmName = prgmName;
         }
 
+        /**
+         * Adds the indicated IntermediateLine to the file.
+         * 
+         * @param line the InterediateLine file to add
+         */
         public void AddLine(IntermediateLine line)
         {
             this.allLines.Add(int.Parse(line.SourceLineNumber), line);
         }
 
+        /**
+         * Returns the specified line in the IntermediateFile.
+         * 
+         * @param lineNumber the line number of the desired line
+         * @return the lineNumberth line in the file
+         */
         public IntermediateLine Line(int lineNumber)
         {
             return allLines[lineNumber];
         }
 
+        /**
+         * Returns the string that represents this IntermediateFile.
+         * 
+         * @return the file formatted for the screen.  The format for this is as specified in
+         *         IntermediateLine for each line in this file seperated by newlines.
+         */
         public override string ToString()
         {
             string output = "";
