@@ -21,7 +21,7 @@ Unit Testing
 Unit testing will use the NUnit testing framework. Each component will have several tests associated to throughly test the functionality and correctnes of the result.
 
 
-Tokenizer Test List
+`Tokenizer Test List`
 -------------------
 
 Test Number: T1
@@ -131,3 +131,52 @@ Expected Results Achieved:
     Yes
 Concerns:
     None
+
+
+`Directive Test List`
+-------------------
+
+Test Number: D1
+```````````````
+Puspose:
+	Ensures Contains() works for a directive known to exist exactly as it is found in the source file.
+Expected Results Achieved:
+	Yes
+Concerns:
+	None
+	
+Test Number: D2
+```````````````
+Puspose:
+	Ensures Contains() returns false for a directive that does not exist.
+Expected Results Achieved:
+	Yes
+Concerns:
+	None
+	
+Test Number: D3
+```````````````
+Puspose:
+	Ensures that directives can be upper, lower, or mixed case.  This gives the user more flexibility in input.
+Expected Results Achieved:
+	Yes
+Concerns:
+	None
+	
+Test Number: D4
+```````````````
+Puspose:
+	This test serves two purposes. It tests that all directives are being read in from the file and that DirectiveCount is returning the correct number of directives.
+Expected Results Achieved:
+	Yes
+Concerns:
+	Because the count is dependent of all directives being correctly read in, this test could still pass even if all directives have not been read in.  Another test has been added so we can be more confident that it is functioning properly.
+	
+Test Number: D5
+```````````````
+Puspose:
+	This is an extension of test [D4] to show all directives are being read in by checking that both the first and last directive from the text file and be found.
+Expected Results Achieved:
+	Yes
+Concerns:
+	None
