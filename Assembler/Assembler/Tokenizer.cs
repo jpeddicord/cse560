@@ -88,6 +88,9 @@ namespace Assembler
                 GetTokenKind(Token, ref TokenKind);
             }
 
+            //Trim spaces off the beginning of the returned line so the first character is the beginning of the next token.
+            Line = Line.TrimStart();
+
             // Write to the log after the token has been successfully retrieved.
             Trace.WriteLine(String.Format("{0} -> {1}", System.DateTime.Now, "Token acquired, returning."), "Tokenizer");
         }
