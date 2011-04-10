@@ -12,11 +12,30 @@ namespace Assembler
         EQUATED
     }
 
+    /**
+     * A structure that represents a symbol in the symbol table.
+     */
     public struct Symbol
     {
+        /**
+         * The associated label with the symbol.
+         */
         public string rlabel;
+
+        /**
+         * The location counter, if applicable.
+         */
         public string lc;
+
+        /**
+         * The symbol's usage. See the Usage enumeration for options.
+         */
         public Usage usage;
+
+        /**
+         * The optional stored value of the symbol. Most useful for equated
+         * symbols.
+         */
         public string val;
     }
 
