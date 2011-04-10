@@ -80,7 +80,7 @@ namespace Assembler
          * @creation April 8, 2011
          * @modlog
          * @codestandard Mark
-         * @codestandard Andrew
+         * @teststandard Andrew
          */
         public static Instructions GetInstance()
         {
@@ -106,7 +106,7 @@ namespace Assembler
          * @creation April 9, 2011
          * @modlog
          * @codestandard Mark
-         * @codestandard Andrew
+         * @teststandard Andrew
          */
         public bool IsInstruction(string instrGroup, string function)
         {
@@ -129,7 +129,7 @@ namespace Assembler
          * @creation April 9, 2011
          * @modlog
          * @codestandard Mark
-         * @codestandard Andrew
+         * @teststandard Andrew
          */
         public bool IsGroup(string instrGroup)
         {
@@ -155,7 +155,7 @@ namespace Assembler
          * @modlog
          *  April 8, 2011 - Jacob - throw proper exceptions on invalid group/function pairs
          * @codestandard Mark
-         * @codestandard Andrew
+         * @teststandard Andrew
          */
         public string GetBytecodeString(string instrGroup, string function)
         {
