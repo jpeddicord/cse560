@@ -88,5 +88,15 @@ value from pass 1 to pass 2.  We plan on bringing this up with an instructor.
 
 April 9th 2011 - 9:45 pm
 ========================
-HERP
-We added tests for the Directives, Instructions, SymbolTable, and Tokenizer classes. The Parser correctly parses the valid source file provided by Al.
+We added tests for the Directives, Instructions, SymbolTable, and Tokenizer classes. The Parser
+correctly parses the valid source file provided by Al. A documentation framework was created to
+take advantage of Doxygen's capabilities and to make some work more automatic. We're at a point
+where the assembler works for SP0, but it needs lots of polishing.
+
+We're planning on finishing the lab by tomorrow to submit early.
+
+To do
+-----
+- Jacob - Finish documentation generation
+- Everyone - Add DED entries, full source comments, and unit tests
+
