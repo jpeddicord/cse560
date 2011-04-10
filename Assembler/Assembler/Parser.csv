@@ -1,0 +1,20 @@
+directiveList,Parser,Directives,local,list of directives
+instructionList,Parser,Instructions,local,list of instructions
+LC,Parser,string,local,the current value of the location counter
+token,Parser.ParseLine,string,local,holds the token values returned by the Tokenizer
+tokenKind,Parser.ParseLine,Tokenizer.TokenKinds,local,holds the token kind values returned by the Tokenizer
+interLine,Parser.ParseLine,IntermediateLine,local,The IntermediateLine that is currently being constructed by the parser
+token,Parser.ParseInstruction,string,local,holds the token values returned by the Tokenizer
+tokenKind,Parser.ParseInstruction,Tokenizer.TokenKinds,local,holds the token kind values returned by the Tokenizer
+operand,Parser.ParseInstruction,string,local,passed to the ParseLiteralOperand method to be filled with the value of the literal operand in this line
+litOperand,Parser.ParseInstruction,string,local,passed to the ParseLiteralOperand method to be filled with the type of the literal operand in this line
+token,Parser.ParseDirective,string,local,holds the token values returned by the Tokenizer
+tokenKind,Parser.ParseDirective,Tokenizer.TokenKinds,local,holds the token kind values returned by the Tokenizer
+operand,Parser.ParseDirective,string,local,passed to the ParseLiteralOperand method to be filled with the value of the literal operand in this line
+litOperand,Parser.ParseDirective,string,local,passed to the ParseLiteralOperand method to be filled with the type of the literal operand in this line
+start,Parser.ParseStart,IntermediateLine,local,the IntermediateLine that will hold the line with the START directive
+tempLC,Parser.IncrementLocationCounter,int,local,the int value of the LC for incrementing
+sourceCode,Parser.ParseSource,string[],local,holds the lines of source code from the input file.
+symb,Parser.ParseSource,SymbolTable,parameter,out parameter that is initialized here
+line,Parser.ParseSource,IntermediateLine,local,temporary holder of lines while as they are parsed
+interSource,Parser.ParseSource,IntermediateFile,parameter,out parameter that is initialized here
