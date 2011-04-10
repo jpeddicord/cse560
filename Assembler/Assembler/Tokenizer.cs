@@ -48,7 +48,7 @@ namespace Assembler
         public static void GetNextToken(ref string Line, ref string Token, ref TokenKinds TokenKind)
         {
             // Write to the log before attempting to remove the next token.
-            Trace.WriteLine(String.Format("{0} -> {1}", System.DateTime.Now, "Getting new token."), "Tokenizer");
+            Trace.WriteLine(String.Format("{0} -> {1}", System.DateTime.Now.TimeOfDay, "Getting new token."), "Tokenizer");
 
             // Remove extra whitespace
             Line = Line.Trim();
@@ -92,7 +92,7 @@ namespace Assembler
             Line = Line.TrimStart();
 
             // Write to the log after the token has been successfully retrieved.
-            Trace.WriteLine(String.Format("{0} -> {1}", System.DateTime.Now, "Token acquired, returning."), "Tokenizer");
+            Trace.WriteLine(String.Format("{0} -> {1}", System.DateTime.Now.TimeOfDay, "Token acquired, returning."), "Tokenizer");
         }
 
         /**
