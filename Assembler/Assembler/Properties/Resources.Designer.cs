@@ -80,45 +80,53 @@ namespace Assembler.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to CNTL 00
-        ///HALT 000
-        ///DUMP 001
-        ///CLRD 010
-        ///CLRT 011
-        ///GOTO 100
-        ///STACK 00
-        ///PUSH 101
-        ///POP 110
-        ///TEST 111
-        ///JUMP 01
-        ///= 000
-        ///^= 001
-        ///&lt; 010
-        ///&gt; 011
-        ///&lt;= 100
-        ///&gt;= 101
-        ///TNULL 110
-        ///DNULL 111
-        ///SOPER 10
-        ///ADD 000
-        ///SUB 001
-        ///MUL 010
-        ///DIV 011
-        ///OR 100
-        ///AND 101
-        ///READ 110
-        ///WRITE 111
-        ///MOPER 11
-        ///ADD 000
-        ///SUB 001
-        ///MUL 010
-        ///DIV 011
-        ///OR 100
-        ///AND 101
-        ///READN 110
-        ///READC 110
-        ///WRITEN 111
-        ///WRITEC 111.
+        ///   Looks up a localized string similar to EF.1 Invalid start directive.  Assembler has been stopped.
+        ///EF.2 First line not a valid START.  First line must be a valid START.
+        ///EF.3 LC is now larger than 1023.  Your program must use less than 1024 words of memory.
+        ///EF.4 Exceeding the maximum number of symbols.  You must use 50 or less labels.
+        ///ES.1 Invalid function code.  The function code entered is invalid.
+        ///ES.2 Invalid Label defined, label ignored. Labels must start with A-Z, a-z and cannot be longer than 32 characters. 0-9 can be used after the first c [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string errors {
+            get {
+                return ResourceManager.GetString("errors", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CNTL HALT 00000
+        ///CNTL DUMP 00001
+        ///CNTL CLRD 00010
+        ///CNTL CLRT 00011
+        ///CNTL GOTO 00100
+        ///STACK PUSH 00101
+        ///STACK POP 00110
+        ///STACK TEST 00111
+        ///JUMP = 01000
+        ///JUMP ^= 01001
+        ///JUMP &lt; 01010
+        ///JUMP &gt; 01011
+        ///JUMP &lt;= 01100
+        ///JUMP &gt;= 01101
+        ///JUMP TNULL 01110
+        ///JUMP DNULL 01111
+        ///SOPER ADD 10000
+        ///SOPER SUB 10001
+        ///SOPER MUL 10010
+        ///SOPER DIV 10011
+        ///SOPER OR 10100
+        ///SOPER AND 10101
+        ///SOPER READN 10110
+        ///SOPER READC 10110
+        ///SOPER WRITEN 10111
+        ///SOPER WRITEC 10111
+        ///MOPER ADD 11000
+        ///MOPER SUB 11001
+        ///MOPER MUL 11010
+        ///MOPER DIV 11011
+        ///MOPER OR 11100
+        ///MOPER AND 11101
+        ///MOP [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string instructions {
             get {
