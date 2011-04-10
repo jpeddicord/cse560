@@ -100,3 +100,26 @@ To do
 - Jacob - Finish documentation generation
 - Everyone - Add DED entries, full source comments, and unit tests
 
+
+April 10th 2011 - 3:00 pm
+=========================
+The group met last night and worked together to get the rest of the functionality needed for SP0 finished.
+Our program can now read in a correctly formatted FFA program and parse it.  Each line is broken down
+into its different parts and a report is generated for the user.  The program now also creates and sorts
+a symbol table which is displayed at the end of the report.
+
+Currently very few errors are being checked by the parser as this will be a big part of SP1.  We have
+begun planning for how we want to handle these errors and created a file that contains a list of errors we
+may run into with their description of how to fix and what action will be taken by the assembler.  The
+current plan is to have these messages displayed to the user if the error occurs.
+
+Document generation is functional and complete for the purposes of this lab.  We may tweak it later for
+purposes of looks but we are happy with where it is at now.  Since Doxygen is now has our custom tags we
+can document the other items that are required such as original author, modification log, etc.  We plan on
+going through and ensuring all of our procedures have all of these tags.
+
+To do
+-----
+- Everyone - Ensure all of the procedures have been properly documented and make changes when needed.
+           - Finish creating test fixtures for individual procedures.
+		   
