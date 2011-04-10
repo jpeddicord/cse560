@@ -1,2 +1,6 @@
-herp,derp,int,local,to herp the derp
-
+instance, Instructions, Instructions object, local, stores a singleton instance of Instructions
+instructions, Instructions, Nested dictionary of string-string, local, instruction to bitcode map
+line, Instructions constructor, string, local, current line being processed
+parts, Instructions constructor, string array, local, current line split by spaces
+instrGroup, Instructions.GetBytecodeString, string, local, instruction group as a string
+function, Instructions.GetBytecodeString, string, local, function name
