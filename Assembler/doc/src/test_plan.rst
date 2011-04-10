@@ -180,3 +180,106 @@ Expected Results Achieved:
 	Yes
 Concerns:
 	None
+
+
+Instruction Test List
+---------------------
+
+Test Number: I1
+```````````````
+Puspose:
+	A known instruction is shown to exist.
+Expected Results Achieved:
+	Yes
+Concerns:
+	None
+	
+Test Number: I2
+```````````````
+Puspose:
+	Calling IsInstruction() with an existing group but nonexisting instruction should return false.
+Expected Results Achieved:
+	Yes
+Concerns:
+	None
+	
+Test Number: I3
+```````````````
+Puspose:
+	IsInstruction() should be case insensitive.
+Expected Results Achieved:
+	Yes
+Concerns:
+	None
+	
+Test Number: I4
+```````````````
+Puspose:
+	Calling IsInstruction with a group that doesn't exist but and instruction that does should return false.
+Expected Results Achieved:
+	Yes
+Concerns:
+	None
+	
+Test Number: I5
+```````````````
+Puspose:
+	Calling IsInstruction with a group and instruction that doesn't exist should return false.
+Expected Results Achieved:
+	Yes
+Concerns:
+	None
+	
+Test Number: I6
+```````````````
+Puspose:
+	Testing that IsGroup will return true for a group that is known to exist.
+Expected Results Achieved:
+	Yes
+Concerns:
+	None
+	
+Test Number: I7
+```````````````
+Puspose:
+	Testing that IsGroup will return false for a group that does not exist.
+Expected Results Achieved:
+	Yes
+Concerns:
+	None
+	
+Test Number: I8
+```````````````
+Puspose:
+	Ensures that IsGroup is case insensitive and sill return the correct result for both upper and lower case.
+Expected Results Achieved:
+	Yes
+Concerns:
+	None
+	
+Test Number: I9
+```````````````
+Puspose:
+	Tests that getBytecodeString will return the code for the given instruction.
+Expected Results Achieved:
+	No
+Concerns:
+	This test revealed that when the bytecode was removed from the input file, it removed an appended carriage return as well which was unwanted.  This has since been corrected and now correctly passes this test.
+	
+Test Number: I10
+```````````````
+Puspose:
+	Testing that getBytecodeString will throw an exception if the user attempts to look up a group that doesn't exist.
+Expected Results Achieved:
+	Yes
+Concerns:
+	None
+	
+Test Number: I11
+```````````````
+Puspose:
+	Testing that getBytecodeString will throw an exception if the user attempts to look up an instruction that doesn't exist.
+Expected Results Achieved:
+	Yes
+Concerns:
+	None

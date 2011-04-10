@@ -11,3 +11,7 @@ Solution: Tokenizer now checks that the length of the line of code is at least 1
 Date: 4/9/2011
 Error: Checking valid operand field gave an incorrect result when the line began with whitespace.  This only only occurred when the line had multiple spaces or tabs in between tokens.
 Solution: Altered Tokenizer to strip leading white space from the altered line of code that was returned.
+
+Date: 4/10/2011
+Error: getBytecodeString in Instructions.cs would return the correct code but with a carriage return on the end.
+Solution: Trimmed the string before adding it to the dictionary so that unwanted whitespace wasn't added.
