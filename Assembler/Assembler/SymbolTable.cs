@@ -4,6 +4,9 @@ using System.Diagnostics;
 
 namespace Assembler
 {
+    /**
+     * The type of symbol.
+     */
     public enum Usage
     {
         ENTRY,

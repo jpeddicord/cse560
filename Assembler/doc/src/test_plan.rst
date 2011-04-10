@@ -21,7 +21,7 @@ Unit Testing
 Unit testing will use the NUnit testing framework. Each component will have several tests associated to throughly test the functionality and correctnes of the result.
 
 
-`Tokenizer Test List`
+Tokenizer Test List
 -------------------
 
 Test Number: T1
@@ -133,7 +133,7 @@ Concerns:
     None
 
 
-`Directive Test List`
+Directive Test List
 -------------------
 
 Test Number: D1
