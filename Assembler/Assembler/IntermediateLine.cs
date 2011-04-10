@@ -100,6 +100,27 @@ namespace Assembler
             set { this.function = value; }
         }
 
+        /**
+         * Allows access for getting the bytecode for this line.
+         */
+        public string Bytecode
+        {
+            get
+            {
+                try
+                {
+                    return Instructions.GetInstance().GetBytecodeString(
+                        this.category == null ? "" : this.category,
+                        this.function == null ? "" : this.function
+                    );
+                }
+                catch (InstructionException)
+                {
+                    return "00000";
+                }
+            }
+        }
+
 
         /**
          * The function's operand.
@@ -257,12 +278,13 @@ namespace Assembler
                 "Label: {3}",
                 "Category: {4}",
                 "Function: {5}",
-                "Operand: {6}",
-                "Literal Operand: {7}",
-                "Directive: {8}",
-                "Directive Operand: {9}",
-                "Directive Literal Operand: {10}",
-                "Comment: {11}",
+                "Partial Bytecode: {6}",
+                "Operand: {7}",
+                "Literal Operand: {8}",
+                "Directive: {9}",
+                "Directive Operand: {10}",
+                "Directive Literal Operand: {11}",
+                "Comment: {12}",
                 "  --\n\n"
             });
             return String.Format(format,
@@ -272,6 +294,7 @@ namespace Assembler
                 this.Label == null ? "N/A" : this.Label,
                 this.OpCategory == null ? "N/A" : this.OpCategory,
                 this.OpFunction == null ? "N/A" : this.OpFunction,
+                this.Bytecode,
                 this.OpOperand == null ? "N/A" : this.OpOperand,
                 this.OpLitOperand == null ? "N/A" : this.OpLitOperand,
                 this.Directive == null ? "N/A" : this.Directive,
