@@ -28,7 +28,7 @@ namespace Assembler
         public SymbolTable()
         {
             Trace.WriteLine("Creating symbol table", "SymbolTable");   
-            symbols = new Dictionary<string, Symbol>();
+            this.symbols = new Dictionary<string, Symbol>();
         }
 
         public void AddSymbol(Symbol symbol)
