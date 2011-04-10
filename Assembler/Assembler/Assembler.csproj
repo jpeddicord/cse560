@@ -82,6 +82,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Tests\TokenizerTest.cs" />
     <Compile Include="Tokenizer.cs" />
     <Compile Include="Instructions.cs" />
     <Compile Include="Tests\InstructionsTest.cs" />
