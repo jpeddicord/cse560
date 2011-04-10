@@ -29,7 +29,7 @@ namespace Assembler
          */
         public Parser()
         {
-            Trace.WriteLine(String.Format("{0} -> {1}", DateTime.Now, "Creating Parser object."), "Parser");
+            Trace.WriteLine("Creating Parser object.", "Parser");
             directiveList = Directives.GetInstance();
             instructionList = Instructions.GetInstance();
             LC = "0";
@@ -293,15 +293,16 @@ namespace Assembler
          */
         public void ParseSource(string path, out IntermediateFile interSource, out SymbolTable symb)
         {
+
             string[] sourceCode = new string[1];
             try
             {
-                Trace.WriteLine(String.Format("{0} -> {1}", DateTime.Now, "Opening file: " + path), "Parser");
+                Trace.WriteLine("Opening file: " + path, "Parser");
                 sourceCode = File.ReadAllLines(path);
             }
             catch (FileNotFoundException ex)
             {
-                Trace.WriteLine(String.Format("{0} -> {1}", DateTime.Now, "Failed to open file. Error: " + ex.Message));
+                Trace.WriteLine("Failed to open file. Error: " + ex.Message, "Parser");
                 Console.WriteLine("{0}\n{1}", ex.Message, "Exiting program");
                 System.Environment.Exit(1);
             }

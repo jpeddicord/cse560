@@ -26,7 +26,7 @@ namespace Assembler
          */
         private Directives()
         {
-            Trace.WriteLine(String.Format("{0} -> {1}", DateTime.Now, "Creating instance of Directives."), "Directives");
+            Trace.WriteLine("Creating instance of Directives.", "Directives");
             directiveList = new ArrayList(Properties.Resources.directives.Split('\n'));
         }
 
@@ -35,8 +35,7 @@ namespace Assembler
          */
         public static Directives GetInstance()
         {
-            Trace.WriteLine(String.Format("{0} -> {1}", DateTime.Now, 
-                "Request for instance of Directives."), "Directives");
+            Trace.WriteLine("Request for instance of Directives.", "Directives");
             if (Directives.instance == null)
             {
                 instance = new Directives();

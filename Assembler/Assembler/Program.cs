@@ -11,8 +11,7 @@ namespace Assembler
         static void Main(string[] args)
         {
             InitLogger(DateTime.Now);
-            Trace.WriteLine(String.Format("{0} -> {1}", System.DateTime.Now,
-                "Starting Main method of Assembler"), "Main");
+            Trace.WriteLine("Starting Main method of Assembler", "Main");
 
             Parser pars = new Parser();
             IntermediateFile interSource;

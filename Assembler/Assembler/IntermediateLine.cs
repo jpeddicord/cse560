@@ -78,9 +78,7 @@ namespace Assembler
          */
         public IntermediateLine(string source, short lineNum)
         {
-            Trace.WriteLine(String.Format("{0} -> {1}",
-                                           System.DateTime.Now, 
-                                           "Initializing line " + lineNum), "IntermediateLine");
+            Trace.WriteLine("Initializing line " + lineNum, "IntermediateLine");
             this.source = source;
             this.line = lineNum.ToString();
             this.LC = null;
@@ -227,9 +225,7 @@ namespace Assembler
          */
         public override string ToString()
         {
-            Trace.WriteLine(String.Format("{0} -> {1}", 
-                                           System.DateTime.Now, 
-                                           "Printing line " + this.line), "IntermediateLine");
+            Trace.WriteLine("Printing line " + this.line, "IntermediateLine");
 
             string format = String.Join("\n    ", new string[] {
                 "{0}",
