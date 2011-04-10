@@ -27,7 +27,17 @@ namespace Assembler
         /**
          * Constructs an intermediate file with the given name and no lines.
          * 
-         * @param prgmName the name of the program that will be represented by this IntermediateFile
+         * @param prgmName the name of the program that will be represented by
+         *  this IntermediateFile
+         * @refcode
+         * @errtest
+         * @errmsg
+         * @author Mark
+         * @creation April 9, 2011
+         * @modlog
+         *  - April 10, 2011 - Mark - Add logging
+         * @codestandard Mark
+         * @teststandard Andrew
          */
         public IntermediateFile(string prgmName)
         {
@@ -40,6 +50,14 @@ namespace Assembler
          * Adds the indicated IntermediateLine to the file.
          * 
          * @param line the InterediateLine file to add
+         * @refcode
+         * @errtest
+         * @errmsg
+         * @author Mark
+         * @creation April 9, 2011
+         * @modlog
+         * @codestandard Mark
+         * @teststandard Andrew
          */
         public void AddLine(IntermediateLine line)
         {
@@ -51,6 +69,14 @@ namespace Assembler
          * 
          * @param lineNumber the line number of the desired line
          * @return the lineNumberth line in the file
+         * @refcode
+         * @errtest
+         * @errmsg
+         * @author Mark
+         * @creation April 9, 2011
+         * @modlog
+         * @codestandard Mark
+         * @teststandard Andrew
          */
         public IntermediateLine Line(int lineNumber)
         {
@@ -62,6 +88,14 @@ namespace Assembler
          * 
          * @return the file formatted for the screen.  The format for this is as specified in
          *         IntermediateLine for each line in this file seperated by newlines.
+         * @refcode
+         * @errtest
+         * @errmsg
+         * @author Mark
+         * @creation April 9, 2011
+         * @modlog
+         * @codestandard Mark
+         * @teststandard Andrew
          */
         public override string ToString()
         {
