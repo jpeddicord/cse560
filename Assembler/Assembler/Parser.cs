@@ -256,11 +256,13 @@ namespace Assembler
          * @modlog
          *  - April 9, 2011 - Mark - Parses hex and binary literals.
          *  - April 9, 2011 - Mark - Parameters changed. Return type changed to void.
+         *  - April 9, 2011 - Mark - Now parses integer literals.
          * @teststandard Andrew Buelow
          * @codestandard Mark Mathis
          * 
          * @param inOper the operand to parse
          * @param outOper the numerical operand from the literal, that is, the part after the X=
+         *                  will be in hexadecimal
          * @param litType the type of the operand, that is, X, B, etc.
          */
         private void ParseLiteralOperand(string inOper, ref string outOper, ref string litType)
@@ -272,19 +274,22 @@ namespace Assembler
                 case 'X':
                 case 'x':
                     {
+                        Trace.WriteLine("literal operand is hex", "Parser");
                         outOper = inOper.Substring(2);
                     } break;
 
                 case 'B':
                 case 'b':
                     {
+                        Trace.WriteLine("literal operand is binary", "Parser");
                         outOper = Convert.ToString(Convert.ToInt32(inOper.Substring(2), 2), 16).ToUpper();
                     } break;
 
                 case 'I':
                 case 'i':
                     {
-                        // outOper = 
+                        Trace.WriteLine("literal operand is integer", "Parser");
+                        outOper = Convert.ToString(Convert.ToInt32(inOper.Substring(2)), 16).ToUpper();
                     } break;
             }
 
