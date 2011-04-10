@@ -64,7 +64,7 @@ namespace Assembler
             foreach (string s in this.SortedSymbols())
             {
                 Symbol sym = this.symbols[s];
-                disp += String.Format("{0,16}: {1,-8} {2}\n", sym.rlabel, sym.lc, sym.usage);
+                disp += String.Format("{0,10}: 0x{1,-6} {2}\n", sym.rlabel, sym.lc, sym.usage);
             }
             return disp;
         }

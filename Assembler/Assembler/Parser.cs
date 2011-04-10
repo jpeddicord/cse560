@@ -238,6 +238,7 @@ namespace Assembler
         {
             IntermediateLine start = ParseLine(line, 1);
             LC = start.DirectiveOperand;
+            start.ProgramCounter = LC;
             return start;
         }
 
@@ -323,7 +324,7 @@ namespace Assembler
                 interSource.AddLine(line);
 
                 // add to the symbol table if we need to
-                if (line.Label != "N/A") // XXX: N/A?
+                if (line.Label != null)
                 {
                     // this doesn't work with equated symbols, yet.
                     symb.AddSymbol(line.Label, line.ProgramCounter, Usage.LABEL, "");

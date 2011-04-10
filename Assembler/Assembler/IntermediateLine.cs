@@ -117,7 +117,7 @@ namespace Assembler
          */
         public string ProgramCounter
         {
-            get { return this.LC == null ? "N/A" : this.LC; }
+            get { return this.LC == null ? null : this.LC; }
             set { this.LC = value; }
         }
 
@@ -127,7 +127,7 @@ namespace Assembler
          */
         public string Label
         {
-            get { return this.lineLabel == null ? "N/A" : this.lineLabel; ; }
+            get { return this.lineLabel == null ? null : this.lineLabel; ; }
             set { this.lineLabel = value; }
         }
 
@@ -137,7 +137,7 @@ namespace Assembler
          */
         public string OpCategory
         {
-            get { return this.category == null ? "N/A" : this.category; }
+            get { return this.category == null ? null : this.category; }
             set { this.category = value; }
         }
 
@@ -147,7 +147,7 @@ namespace Assembler
          */
         public string OpFunction
         {
-            get { return this.function == null ? "N/A" : this.function; }
+            get { return this.function == null ? null : this.function; }
             set { this.function = value; }
         }
 
@@ -157,7 +157,7 @@ namespace Assembler
          */
         public string OpOperand
         {
-            get { return this.operand == null ? "N/A" : this.operand; }
+            get { return this.operand == null ? null : this.operand; }
             set { this.operand = value; }
         }
 
@@ -167,7 +167,7 @@ namespace Assembler
          */
         public string OpLitOperand
         {
-            get { return this.operandLit == null ? "N/A" : this.operandLit; }
+            get { return this.operandLit == null ? null : this.operandLit; }
             set { this.operandLit = value; }
         }
 
@@ -177,7 +177,7 @@ namespace Assembler
          */
         public string Directive
         {
-            get { return this.directive == null ? "N/A" : this.directive; }
+            get { return this.directive == null ? null : this.directive; }
             set { this.directive = value; }
         }
 
@@ -187,7 +187,7 @@ namespace Assembler
          */
         public string DirectiveOperand
         {
-            get { return this.dirOperand == null ? "N/A" : this.dirOperand; }
+            get { return this.dirOperand == null ? null : this.dirOperand; }
             set { this.dirOperand = value; }
         }
 
@@ -197,7 +197,7 @@ namespace Assembler
          */
         public string DirectiveLitOperand
         {
-            get { return this.dirLitOperand == null ? "N/A" : this.dirLitOperand; }
+            get { return this.dirLitOperand == null ? null : this.dirLitOperand; }
             set { this.dirLitOperand = value; }
         }
 
@@ -207,7 +207,7 @@ namespace Assembler
          */
         public string Comment
         {
-            get { return this.comment == null ? "N/A" : this.comment; }
+            get { return this.comment == null ? null : this.comment; }
             set { this.comment = value; }
         }
 
@@ -231,13 +231,35 @@ namespace Assembler
                                            System.DateTime.Now, 
                                            "Printing line " + this.line), "IntermediateLine");
 
-            string format = "{1}\nLine: {2}{0}LC: {3}{0}Label: {4}{0}Category: {5}{0}Function: " +
-            "{6}{0}Operand: {7}{0}Literal Operand: {8}{0}Directive: {9}{0}Directive Operand: {10}{0}" +
-            "Directive Literal Operand: {11}{0}Comment: {12}\n";
-            string seperator = "\n";
-            return String.Format(format, seperator, this.SourceLine, this.SourceLineNumber, this.ProgramCounter,
-                this.Label, this.OpCategory, this.OpFunction, this.OpOperand, this.OpLitOperand,
-                this.Directive, this.DirectiveOperand, this.DirectiveLitOperand, this.Comment);
+            string format = String.Join("\n    ", new string[] {
+                "{0}",
+                "Line: {1}",
+                "LC: {2}",
+                "Label: {3}",
+                "Category: {4}",
+                "Function: {5}",
+                "Operand: {6}",
+                "Literal Operand: {7}",
+                "Directive: {8}",
+                "Directive Operand: {9}",
+                "Directive Literal Operand: {10}",
+                "Comment: {11}",
+                "  --\n\n"
+            });
+            return String.Format(format,
+                this.SourceLine,
+                this.SourceLineNumber,
+                this.ProgramCounter == null ? "N/A" : this.ProgramCounter,
+                this.Label == null ? "N/A" : this.Label,
+                this.OpCategory == null ? "N/A" : this.OpCategory,
+                this.OpFunction == null ? "N/A" : this.OpFunction,
+                this.OpOperand == null ? "N/A" : this.OpOperand,
+                this.OpLitOperand == null ? "N/A" : this.OpLitOperand,
+                this.Directive == null ? "N/A" : this.Directive,
+                this.DirectiveOperand == null ? "N/A" : this.DirectiveOperand,
+                this.DirectiveLitOperand == null ? "N/A" : this.DirectiveLitOperand,
+                this.Comment == null ? "N/A" : this.Comment
+            );
         }
     }
 }
