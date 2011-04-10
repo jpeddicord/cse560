@@ -56,6 +56,7 @@ namespace Assembler
          *  - April 8, 2011 - Andrew - Fixed an aray out of bounds exception that occured when
          *         tokenizer was given an empty string.
          * @teststandard Andrew Buelow
+         * @codestandard Mark Mathis
          *
          * @param line The line of code from which to find the next token.
          * @param token Used to store the value of the next token.
@@ -130,6 +131,7 @@ namespace Assembler
          *  - April 8, 2011 - Mark - Changed Tokenizer to work with enumerated types.
          *  - April 9, 2011 - Andrew - TokenKind was not case insensitive to literals, fixed.
          * @teststandard Andrew Buelow
+         * @codestandard Mark Mathis
          * 
          * @param token Holds the token for which the kind is to be determined.
          * @param tokenKind Used to store the token kind of the specified token.
