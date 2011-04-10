@@ -15,9 +15,27 @@ namespace Assembler
         private string source;
 
         /**
+         * Allows access for getting the full source line in this object.
+         */
+        public string SourceLine
+        {
+            get { return this.source; }
+        }
+
+
+        /**
          * The line number of this line of source.
          */
         private string line;
+
+        /**
+         * Allows access for getting the line number of this source line.
+         */
+        public string SourceLineNumber
+        {
+            get { return this.line; }
+        }
+
 
         /**
          * The location counter this line will be assigned.
@@ -25,9 +43,31 @@ namespace Assembler
         private string LC;
 
         /**
+         * Allows access for getting and setting the program counter value
+         * associated with this source line.
+         */
+        public string ProgramCounter
+        {
+            get { return this.LC == null ? null : this.LC; }
+            set { this.LC = value; }
+        }
+
+
+        /**
          * The label, if any, assigned to this line.
          */
         private string lineLabel;
+
+        /**
+         * Allows access for getting and setting the label assigned
+         * to this source line.
+         */
+        public string Label
+        {
+            get { return this.lineLabel == null ? null : this.lineLabel; ; }
+            set { this.lineLabel = value; }
+        }
+
 
         /**
          * The category of the instruction, if an instruction is on this line.
@@ -35,9 +75,31 @@ namespace Assembler
         private string category;
 
         /**
+         * Allows access for getting and setting the category of the function
+         * in this line of source.
+         */
+        public string OpCategory
+        {
+            get { return this.category == null ? null : this.category; }
+            set { this.category = value; }
+        }
+
+
+        /**
          * The function name on this line, if it exists.
          */
         private string function;
+
+        /**
+         * Allows access for getting and setting the function name in this line
+         * of source.
+         */
+        public string OpFunction
+        {
+            get { return this.function == null ? null : this.function; }
+            set { this.function = value; }
+        }
+
 
         /**
          * The function's operand.
@@ -45,14 +107,47 @@ namespace Assembler
         private string operand;
 
         /**
+         * Allows access for getting and setting the operand of the function
+         * in this line of source.
+         */
+        public string OpOperand
+        {
+            get { return this.operand == null ? null : this.operand; }
+            set { this.operand = value; }
+        }
+
+
+        /**
          * The function's literal operand type.
          */
         private string operandLit;
 
         /**
+         * Allows access for getting and setting the literal operand type of the
+         * function in this line of source.
+         */
+        public string OpLitOperand
+        {
+            get { return this.operandLit == null ? null : this.operandLit; }
+            set { this.operandLit = value; }
+        }
+
+
+        /**
          * The directive name on this line, if it exists.
          */
         private string directive;
+
+        /**
+         * Allows access for getting and setting the directive name in this
+         * line of source.
+         */
+        public string Directive
+        {
+            get { return this.directive == null ? null : this.directive; }
+            set { this.directive = value; }
+        }
+
         
         /**
          * The directive's operand.
@@ -60,14 +155,47 @@ namespace Assembler
         private string dirOperand;
 
         /**
+         * Allows access for getting and setting the directive operand in this
+         * line of source.
+         */
+        public string DirectiveOperand
+        {
+            get { return this.dirOperand == null ? null : this.dirOperand; }
+            set { this.dirOperand = value; }
+        }
+
+
+        /**
          * The directive's literal operand type.
          */
         private string dirLitOperand;
 
         /**
+         * Allows access for getting and setting the directive literal operand
+         * type in this line of source.
+         */
+        public string DirectiveLitOperand
+        {
+            get { return this.dirLitOperand == null ? null : this.dirLitOperand; }
+            set { this.dirLitOperand = value; }
+        }
+
+
+        /**
          * Any comment at the end of the line.
          */
         private string comment;
+
+        /**
+         * Allows access for getting and setting the comment at the end of this
+         * line of source.
+         */
+        public string Comment
+        {
+            get { return this.comment == null ? null : this.comment; }
+            set { this.comment = value; }
+        }
+
 
         /**
          * Sets the source line and line number, and puts all other values to 
@@ -91,122 +219,6 @@ namespace Assembler
         }
 
         /**
-         * Allows access for getting the full source line in this object.
-         */
-        public string SourceLine
-        {
-            get { return this.source; }
-        }
-
-        /**
-         * Allows access for getting the line number of this source line.
-         */
-        public string SourceLineNumber
-        {
-            get { return this.line; }
-        }
-
-        /**
-         * Allows access for getting and setting the program counter value
-         * associated with this source line.
-         */
-        public string ProgramCounter
-        {
-            get { return this.LC == null ? null : this.LC; }
-            set { this.LC = value; }
-        }
-
-        /**
-         * Allows access for getting and setting the label assigned
-         * to this source line.
-         */
-        public string Label
-        {
-            get { return this.lineLabel == null ? null : this.lineLabel; ; }
-            set { this.lineLabel = value; }
-        }
-
-        /**
-         * Allows access for getting and setting the category of the function
-         * in this line of source.
-         */
-        public string OpCategory
-        {
-            get { return this.category == null ? null : this.category; }
-            set { this.category = value; }
-        }
-
-        /**
-         * Allows access for getting and setting the function name in this line
-         * of source.
-         */
-        public string OpFunction
-        {
-            get { return this.function == null ? null : this.function; }
-            set { this.function = value; }
-        }
-
-        /**
-         * Allows access for getting and setting the operand of the function
-         * in this line of source.
-         */
-        public string OpOperand
-        {
-            get { return this.operand == null ? null : this.operand; }
-            set { this.operand = value; }
-        }
-
-        /**
-         * Allows access for getting and setting the literal operand type of the
-         * function in this line of source.
-         */
-        public string OpLitOperand
-        {
-            get { return this.operandLit == null ? null : this.operandLit; }
-            set { this.operandLit = value; }
-        }
-
-        /**
-         * Allows access for getting and setting the directive name in this
-         * line of source.
-         */
-        public string Directive
-        {
-            get { return this.directive == null ? null : this.directive; }
-            set { this.directive = value; }
-        }
-
-        /**
-         * Allows access for getting and setting the directive operand in this
-         * line of source.
-         */
-        public string DirectiveOperand
-        {
-            get { return this.dirOperand == null ? null : this.dirOperand; }
-            set { this.dirOperand = value; }
-        }
-
-        /**
-         * Allows access for getting and setting the directive literal operand
-         * type in this line of source.
-         */
-        public string DirectiveLitOperand
-        {
-            get { return this.dirLitOperand == null ? null : this.dirLitOperand; }
-            set { this.dirLitOperand = value; }
-        }
-
-        /**
-         * Allows access for getting and setting the comment at the end of this
-         * line of source.
-         */
-        public string Comment
-        {
-            get { return this.comment == null ? null : this.comment; }
-            set { this.comment = value; }
-        }
-
-        /**
          * Displays the line of source and its individual parts. The format of this is:<br />
          * [SourceLine]<br />
          * Line: [SourceLineNumber]<br />
@@ -219,6 +231,19 @@ namespace Assembler
          * Directive: [Directive]<br />
          * Directive Operand: [DirectiveOperand]<br />
          * Comment: [Comment]
+         * 
+         * @refcode N/A
+         * @errtest N/A
+         * @errmsg N/A
+         * @author Mark
+         * @creation April 8, 2011
+         * @modlog
+         *  - April 8, 2011 -  Mark - ToString prints out IntermediateLine.
+         *  - April 8, 2011 -  Mark - Changed separators between values from tabs to newlines.
+         *  - April 9, 2011 -  Mark - Added a spot for literal directive operands in the output.
+         *  - April 9, 2011 -  Mark - Added a newline to the end of the output.
+         *  - April 9, 2011 - Jacob - Made the code pretty.
+         * @teststandard Andrew Buelow
          */
         public override string ToString()
         {
