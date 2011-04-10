@@ -2,6 +2,10 @@
 Logbook
 =======
 
+.. contents::
+   :backlinks: none
+   :depth: 1
+
 March 28th 2011 - 7:00 pm
 =========================
 

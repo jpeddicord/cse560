@@ -4,6 +4,10 @@ Testing Plan
 
 Our testing plan for the assembler will comprise of two parts: unit testing of individual components, and testing of the overall functionality and correctness of the whole program.
 
+.. contents::
+   :backlinks: none
+   :depth: 2
+
 Overall Program Testing
 =======================
 
