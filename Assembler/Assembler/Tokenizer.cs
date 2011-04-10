@@ -6,7 +6,7 @@ namespace Assembler
 {
 
     /**
-     * Tokenizer is used to get the next token from a line. A token is a group of characters seperated from the
+     * Tokenizer is used to get the next token from a line. A token is a group of characters separated from the
      * rest of the line by a space, comma or tab except in the case of a comment where the rest of the line after
      * the ':' is the token or in a line where no comma, space or tab is present in which case the whole line is
      * the token.  Tokens will be returned with a token kind of Label_Or_Command, Literal, Comment, Number, Empty
@@ -57,21 +57,21 @@ namespace Assembler
          * @param Token Used to store the value of the next token.
          * @param TokenKind Used to store the token kind of the next token.
          */
-        public static void GetNextToken(ref string Line, ref string Token, ref TokenKinds TokenKind)
+        public static void GetNextToken(ref string line, ref string token, ref TokenKinds tokenKind)
         {
             // Write to the log before attempting to remove the next token.
             Trace.WriteLine("Getting new token.", "Tokenizer");
 
             // Remove extra whitespace
-            Line = Line.Trim();
+            line = line.Trim();
 
             // If the next token is a comment, we don't need to split up the line and can return everything
             // else as the token
-            if (Line.Length > 0 && Line[0] == ':')
+            if (line.Length > 0 && line[0] == ':')
             {
-                Token = Line;
-                TokenKind = TokenKinds.Comment;
-                Line = "";
+                token = line;
+                tokenKind = TokenKinds.Comment;
+                line = "";
             }
             else
             {
@@ -79,29 +79,29 @@ namespace Assembler
                  * Holds the two pieces of the string after it has been split at the next space, comma or tab.
                  * The first piece is the next token, the other is the rest of the line.
                  */
-                string[] Tokens = { "", "Empty" };
+                string[] tokens = { "", "Empty" };
 
                 // Split the string at the next space, comma or tab and store the first part as the token.
-                Tokens = Line.Split(new char[] { ' ', ',', '\t' }, 2);
-                Token = Tokens[0];
+                tokens = line.Split(new char[] { ' ', ',', '\t' }, 2);
+                token = tokens[0];
 
                 // If we are at the end of a string the second item in the array will be empty so we need to
                 // set the line to be an empty string.
-                if (Tokens.Length > 1)
+                if (tokens.Length > 1)
                 {
-                    Line = Tokens[1];
+                    line = tokens[1];
                 }
                 else
                 {
-                    Line = "";
+                    line = "";
                 }
 
                 // Determine the kind for this token.
-                GetTokenKind(Token, ref TokenKind);
+                GetTokenKind(token, ref tokenKind);
             }
 
             //Trim spaces off the beginning of the returned line so the first character is the beginning of the next token.
-            Line = Line.TrimStart();
+            line = line.TrimStart();
 
             // Write to the log after the token has been successfully retrieved.
             Trace.WriteLine("Token acquired, returning.", "Tokenizer");
@@ -126,48 +126,48 @@ namespace Assembler
          * @param Token Holds the token for which the kind is to be determined.
          * @param TokenKind Used to store the token kind of the specified token.
          */
-        private static void GetTokenKind(string Token, ref TokenKinds TokenKind)
+        private static void GetTokenKind(string token, ref TokenKinds tokenKind)
         {
             /**
              * Regular expression used to determine if all characters in the token are
              * letters or numbers.
              */
-            Regex AlphaNumeric = new Regex("[^0-9a-zA-Z]");
+            Regex alphaNumeric = new Regex("[^0-9a-zA-Z]");
 
             /**
              * Regular expression used to determine if all characters in the token are
              * numbers.
              */
-            Regex Numeric = new Regex("[^0-9]");
+            Regex numeric = new Regex("[^0-9]");
 
             // Convert to uppercase to give user flexibility.  Token is passed by value so
             // this change will not affect the token that is returned to the user.
-            Token = Token.ToUpper();
+            token = token.ToUpper();
 
             // Check that we weren't given an empty string first so we can look at
             // characters in the string later.
-            if (Token == "")
+            if (token == "")
             {
-                TokenKind = TokenKinds.Empty;
+                tokenKind = TokenKinds.Empty;
             } // Can only be a label or command if it begins with a letter and is all letters or numbers.
-            else if (!AlphaNumeric.IsMatch(Token) && Char.IsLetter(Token[0]))
+            else if (!alphaNumeric.IsMatch(token) && Char.IsLetter(token[0]))
             {
-                TokenKind = TokenKinds.Label_Or_Command;
+                tokenKind = TokenKinds.Label_Or_Command;
             } // Check if it is all numbers
-            else if (!Numeric.IsMatch(Token))
+            else if (!numeric.IsMatch(token))
             {
-                TokenKind = TokenKinds.Number;
-            } // Only looks for the four possible Literal flags.  Does not check format of folloing chars.
-            else if (Token.Length > 1 && (Token.Substring(0, 2) == "X=" ||
-                                         Token.Substring(0, 2) == "B=" ||
-                                         Token.Substring(0, 2) == "I=" ||
-                                         Token.Substring(0, 2) == "C="))
+                tokenKind = TokenKinds.Number;
+            } // Only looks for the four possible Literal flags.  Does not check format of following chars.
+            else if (token.Length > 1 && (token.Substring(0, 2) == "X=" ||
+                                         token.Substring(0, 2) == "B=" ||
+                                         token.Substring(0, 2) == "I=" ||
+                                         token.Substring(0, 2) == "C="))
             {
-                TokenKind = TokenKinds.Literal;
+                tokenKind = TokenKinds.Literal;
             }
             else // If no other pattern is matched something is wrong in the token and we give an error.
             {
-                TokenKind = TokenKinds.Error;
+                tokenKind = TokenKinds.Error;
             }
         }
     }

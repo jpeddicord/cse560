@@ -1,0 +1,6 @@
+line,Tokenizer.GetNextToken,string,local,used by the tokenizer to get the next token and returned with that token removed
+token,Tokenizer.GetNextToken,string,local,stores the next token in the line of code
+tokenKind,Tokenizer.GetNextToken,TokenKinds,local,stores the type of token
+tokens,Tokenizer.GetNextToken,string array,local,holds the pieces of the line after being split
+alphaNumeric,Tokenizer.GetTokenKind,Regex,local,checks if a string is composed only of letters and numbers
+numeric,Tokenizer.GetTokenKind,Regex,local,checks if a string is composed only of numbers
