@@ -1,0 +1,3 @@
+allLines,IntermediateFile,"Dictionary<int, IntermediateLine>",local,all the lines of the source in intermediate version
+prgmName,IntermediateFile,string,local,the name of the prgm in this source code
+output,IntermediateFile.ToString,string,local,the entire source code in intermediate version as it will be output to the screen.
