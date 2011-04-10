@@ -6,6 +6,9 @@ namespace Assembler
     [TestFixture]
     public class SymbolTableTest
     {
+        /**
+         * [S1] Tests adding a symbol by structure works.
+         */
         [Test]
         public void AddSymbolStruct()
         {
@@ -19,6 +22,9 @@ namespace Assembler
             Assert.AreEqual(sym, t.GetSymbol("test"));
         }
 
+        /**
+         * [S2] Test adding a symbol by parameters/
+         */
         [Test]
         public void AddSymbolParams()
         {
@@ -32,6 +38,9 @@ namespace Assembler
             Assert.AreEqual(sym, t.GetSymbol("test"));
         }
 
+        /**
+         * [S3] Test the sorted output of symbols.
+         */
         [Test]
         public void Sorting()
         {
@@ -45,6 +54,51 @@ namespace Assembler
             Assert.AreEqual(l[2], "pear");
         }
 
+        /**
+         * [S4] Test that an empty table is indeed empty.
+         */
+        [Test]
+        public void EmptyTable()
+        {
+            var t = new SymbolTable();
+            Assert.AreEqual(0, t.SortedSymbols().Count);
+        }
+
+        /**
+         * [S5] Test that adding a duplicate symbol fails.
+         */
+        [Test]
+        public void DuplicateSymbol()
+        {
+            var t = new SymbolTable();
+            try
+            {
+                t.AddSymbol("one", "0", Usage.ENTRY, "");
+                t.AddSymbol("one", "0", Usage.ENTRY, "");
+            }
+            catch (SymbolException)
+            {
+                return;
+            }
+            Assert.Fail();
+        }
+
+        /**
+         * [S6] Test that looking up a nonexisting symbol fails.
+         */
+        [Test]
+        public void NonexistingSymbol()
+        {
+            var t = new SymbolTable();
+            try
+            {
+                t.GetSymbol("herp");
+            } catch (SymbolException)
+            {
+                return;
+            }
+            Assert.Fail();
+        }
     }
 }
 

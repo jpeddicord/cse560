@@ -16,6 +16,16 @@ namespace Assembler
     }
 
     /**
+     * Exception thrown for invalid symbol operations.
+     */
+    public class SymbolException : ApplicationException
+    {
+        public SymbolException() : base() {}
+        public SymbolException(string s) : base(s) {}
+        public SymbolException(string s, Exception ex) : base(s, ex) {}
+    }
+
+    /**
      * A structure that represents a symbol in the symbol table.
      */
     public struct Symbol
@@ -91,6 +101,10 @@ namespace Assembler
         public void AddSymbol(Symbol symbol)
         {
             Trace.WriteLine(String.Format("Adding {0} to symbol table.", symbol.rlabel), "SymbolTable");
+            if (this.symbols.ContainsKey(symbol.rlabel))
+            {
+                throw new SymbolException("Duplicate symbol in table.");
+            }
             this.symbols[symbol.rlabel] = symbol;
         }
 
@@ -137,7 +151,14 @@ namespace Assembler
          */
         public Symbol GetSymbol(string rlabel)
         {
-            return this.symbols[rlabel];
+            if (this.symbols.ContainsKey(rlabel))
+            {
+                return this.symbols[rlabel];
+            }
+            else
+            {
+                throw new SymbolException("Symbol doesn't exist.");
+            }
         }
 
         /**
