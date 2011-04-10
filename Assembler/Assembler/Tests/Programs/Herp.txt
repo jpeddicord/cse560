@@ -2,9 +2,9 @@ HerpDerp    start    25
             stack Push,HERP       : herp derp!
             soper writec,1
             JUMP =,DERP
-HERP:       MOPER ADD,=0
+HERP       MOPER ADD,=0
             MOPER AND,B=10101010  : 0xAA
-DERP:       CNTL dump,1
+DERP       CNTL dump,1
             CNTL GOTO,HERP
-THEGAME:    MOPRE MUL,I=9001      : it's over nine thousand!
+THEGAME    MOPRE MUL,I=9001      : it's over nine thousand!
             end HerpDerp        : derpy derp
