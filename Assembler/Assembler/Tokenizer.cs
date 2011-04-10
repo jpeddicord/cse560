@@ -30,7 +30,7 @@ namespace Assembler
 
         /**
          * Returns the next token in the provided string.  The next token includes all
-         * characters in the given string until the next ' ', ',', '\t' or when the end of the
+         * characters in the given string until the next ' ', ',', tab, or when the end of the
          * string is reached.  TokenKind is determined based on the characters in the token. <br />
          * Label_Or_Command - Contains only letters and numbers and begins with a letter. <br />
          * Literal - A token that starts with "I=", "X=", "B=" or "C=". <br />
@@ -55,9 +55,9 @@ namespace Assembler
          *         tokenizer was given an empty string.
          * @teststandard Andrew Buelow
          *
-         * @param Line The line of code from which to find the next token.
-         * @param Token Used to store the value of the next token.
-         * @param TokenKind Used to store the token kind of the next token.
+         * @param line The line of code from which to find the next token.
+         * @param token Used to store the value of the next token.
+         * @param tokenKind Used to store the token kind of the next token.
          */
         public static void GetNextToken(ref string line, ref string token, ref TokenKinds tokenKind)
         {
@@ -127,8 +127,8 @@ namespace Assembler
          *  - April 9, 2011 - Andrew - TokenKind was not case insensitive to literals, fixed.
          * @teststandard Andrew Buelow
          * 
-         * @param Token Holds the token for which the kind is to be determined.
-         * @param TokenKind Used to store the token kind of the specified token.
+         * @param token Holds the token for which the kind is to be determined.
+         * @param tokenKind Used to store the token kind of the specified token.
          */
         private static void GetTokenKind(string token, ref TokenKinds tokenKind)
         {
