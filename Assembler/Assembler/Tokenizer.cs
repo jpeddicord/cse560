@@ -19,7 +19,7 @@ namespace Assembler
          */
         public enum TokenKinds
         {
-            Label_Or_Command, Literal, Comment, Number, Empty, Error
+            Label_Or_Command, Literal, Comment, Number, Empty, Error, JumpCond
         };
 
         public Tokenizer()
@@ -36,6 +36,7 @@ namespace Assembler
          * Literal - A token that starts with "I=", "X=", "B=" or "C=". <br />
          * Comment - A token that starts with ':'. <br />
          * Number - Contains only numbers. <br />
+         * JumpCond - One of the six jump conditions: =, ^=, &lt;, &gt;, &lt;=, and &gt;= <br />
          * Empty - The token contains no text. <br />
          * Error - Contains characters that do not belong in any of the other token kinds. <br />
          * Once the token is found it is removed from the given string along with the
@@ -130,6 +131,8 @@ namespace Assembler
          * @modlog 
          *  - April 8, 2011 - Mark - Changed Tokenizer to work with enumerated types.
          *  - April 9, 2011 - Andrew - TokenKind was not case insensitive to literals, fixed.
+         *  - April 10, 2011 - Andrew - Added token kind JumpCond as the jump conditions did
+         *          not fit in the other token kinds.
          * @teststandard Andrew Buelow
          * @codestandard Mark Mathis
          * 
@@ -174,6 +177,11 @@ namespace Assembler
                                          token.Substring(0, 2) == "C="))
             {
                 tokenKind = TokenKinds.Literal;
+            } // Determines if the token is one of the six jump conditions
+            else if (token == "=" || token == "^=" || token == "<" ||
+                     token == ">" || token == "<=" || token == ">=")
+            {
+                tokenKind = TokenKinds.JumpCond;
             }
             else // If no other pattern is matched something is wrong in the token and we give an error.
             {
