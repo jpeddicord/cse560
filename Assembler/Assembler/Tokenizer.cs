@@ -47,11 +47,11 @@ namespace Assembler
          * @author Andrew
          * @creation April 6, 2011
          * @modlog 
-         *         *April 7, 2011 - Andrew - Tokenizer now returns a token kind.
-         *         *April 7, 2011 - Andrew - Fixed a bug that would result in an infinite loop
+         *  - April 7, 2011 - Andrew - Tokenizer now returns a token kind.
+         *  - April 7, 2011 - Andrew - Fixed a bug that would result in an infinite loop
          *         when the end of the line was reached.
-         *         *April 8, 2011 - Mark - Changed Tokenizer to work with enumerated types.
-         *         *April 8, 2011 - Andrew - Fixed an aray out of bounds exception that occured when
+         *  - April 8, 2011 - Mark - Changed Tokenizer to work with enumerated types.
+         *  - April 8, 2011 - Andrew - Fixed an aray out of bounds exception that occured when
          *         tokenizer was given an empty string.
          * @teststandard Andrew Buelow
          *
@@ -123,8 +123,8 @@ namespace Assembler
          * @author Andrew
          * @creation April 7, 2011
          * @modlog 
-         *         *April 8, 2011 - Mark - Changed Tokenizer to work with enumerated types.
-         *         *April 9, 2011 - Andrew - TokenKind was not case insensitive to literals, fixed.
+         *  - April 8, 2011 - Mark - Changed Tokenizer to work with enumerated types.
+         *  - April 9, 2011 - Andrew - TokenKind was not case insensitive to literals, fixed.
          * @teststandard Andrew Buelow
          * 
          * @param Token Holds the token for which the kind is to be determined.
