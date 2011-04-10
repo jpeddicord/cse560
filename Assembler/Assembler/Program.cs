@@ -20,8 +20,6 @@ namespace Assembler
             pars.ParseSource(args[0], out interSource, out symb);
 
             Console.WriteLine(interSource);
-
-            Console.WriteLine("---- SYMBOL TABLE ----");
             Console.WriteLine(symb);
         }
 

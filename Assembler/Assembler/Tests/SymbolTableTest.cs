@@ -37,8 +37,8 @@ namespace Assembler
         {
             var t = new SymbolTable();
             t.AddSymbol("apple", "5", Usage.EQUATED, "derp");
-            t.AddSymbol("pear", "20", Usage.LABEL, "");
-            t.AddSymbol("orange", "42", Usage.LABEL, "");
+            t.AddSymbol("pear", "20", Usage.ENTRY, "");
+            t.AddSymbol("orange", "42", Usage.ENTRY, "");
             var l = t.SortedSymbols();
             Assert.AreEqual(l[0], "apple");
             Assert.AreEqual(l[1], "orange");

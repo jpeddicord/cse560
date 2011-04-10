@@ -311,7 +311,7 @@ namespace Assembler
 
             // first line is expected to hold the start directive
             IntermediateLine line = ParseStart(sourceCode[0]);
-            symb.AddSymbol(line.Label, line.ProgramCounter, Usage.LABEL, "");
+            symb.AddSymbol(line.Label, line.ProgramCounter, Usage.PRGMNAME, "");
 
             interSource = new IntermediateFile(line.Label);
             interSource.AddLine(line);
@@ -327,7 +327,7 @@ namespace Assembler
                 if (line.Label != null)
                 {
                     // this doesn't work with equated symbols, yet.
-                    symb.AddSymbol(line.Label, line.ProgramCounter, Usage.LABEL, "");
+                    symb.AddSymbol(line.Label, line.ProgramCounter, Usage.ENTRY, "");
                 }
             }
         }

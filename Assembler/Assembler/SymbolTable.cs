@@ -5,7 +5,9 @@ namespace Assembler
 {
     public enum Usage
     {
-        LABEL,
+        ENTRY,
+        PRGMNAME,
+        EXTERNAL,
         EQUATED
     }
 
@@ -60,7 +62,7 @@ namespace Assembler
 
         public override string ToString()
         {
-            string disp = "";
+            string disp = "---- SYMBOL TABLE ----\n";
             foreach (string s in this.SortedSymbols())
             {
                 Symbol sym = this.symbols[s];
