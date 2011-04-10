@@ -14,10 +14,12 @@ namespace Assembler
             Trace.WriteLine(String.Format("{0} -> {1}", System.DateTime.Now,
                 "Starting Main method of Assembler"), "Main");
 
-            Directives dirs = Directives.GetInstance();
             Parser pars = new Parser();
-            pars.ParseSource(args[0]);
-            Console.WriteLine(Properties.Resources.errors);
+            IntermediateFile interSource;
+            SymbolTable symb;
+            pars.ParseSource(args[0], out interSource, out symb);
+
+            Console.WriteLine(symb);
         }
 
         /* Two's Complement stuff.

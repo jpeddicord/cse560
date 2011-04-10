@@ -287,9 +287,10 @@ namespace Assembler
          * Parses an entire source code file.
          * 
          * @param path the path of the source file to parse.
-         * @return the intermediate file for this source.
+         * @param interSource resultant intermediate file from this source
+         * @param symb resultant symbol table from this source
          */
-        public IntermediateFile ParseSource(string path)
+        public void ParseSource(string path, out IntermediateFile interSource, out SymbolTable symb)
         {
             string[] sourceCode = new string[1];
             try
@@ -304,20 +305,30 @@ namespace Assembler
                 System.Environment.Exit(1);
             }
 
+
+            symb = new SymbolTable();
+
             // first line is expected to hold the start directive
-            IntermediateLine temp = ParseStart(sourceCode[0]);
+            IntermediateLine line = ParseStart(sourceCode[0]);
+            symb.AddSymbol(line.Label, line.ProgramCounter, Usage.LABEL, "");
 
-            IntermediateFile interSource = new IntermediateFile(temp.Label);
-            interSource.AddLine(temp);
+            interSource = new IntermediateFile(line.Label);
+            interSource.AddLine(line);
 
+            // iterate the lines of the file
             for (short i = 2; i <= sourceCode.Length; i++)
             {
-                temp = ParseLine(sourceCode[i - 1], i);
-                interSource.AddLine(temp);
-            }
+                // parse a line and create an intermediate version
+                line = ParseLine(sourceCode[i - 1], i);
+                interSource.AddLine(line);
 
-            Console.WriteLine(interSource);
-            return interSource;
+                // add to the symbol table if we need to
+                if (line.Label != "N/A") // XXX: N/A?
+                {
+                    // this doesn't work with equated symbols, yet.
+                    symb.AddSymbol(line.Label, line.ProgramCounter, Usage.LABEL, "");
+                }
+            }
         }
     }
 }

@@ -12,7 +12,7 @@ namespace Assembler
     public struct Symbol
     {
         public string rlabel;
-        public int lc;
+        public string lc;
         public Usage usage;
         public string val;
     }
@@ -32,7 +32,7 @@ namespace Assembler
             this.symbols[symbol.rlabel] = symbol;
         }
 
-        public void AddSymbol(string rlabel, int lc, Usage usage, string val)
+        public void AddSymbol(string rlabel, string lc, Usage usage, string val)
         {
             Symbol sym;
             sym.rlabel = rlabel;
@@ -56,6 +56,17 @@ namespace Assembler
             }
             keys.Sort();
             return keys;
+        }
+
+        public override string ToString()
+        {
+            string disp = "";
+            foreach (string s in this.SortedSymbols())
+            {
+                Symbol sym = this.symbols[s];
+                disp += String.Format("{0,16}: {1,-8} {2}\n", sym.rlabel, sym.lc, sym.usage);
+            }
+            return disp;
         }
 
     }
