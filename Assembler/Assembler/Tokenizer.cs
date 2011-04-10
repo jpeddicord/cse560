@@ -41,9 +41,11 @@ namespace Assembler
          * Once the token is found it is removed from the given string along with the
          * separator character.
          * 
+         * @refcode N/A
          * @errtest 
          *          Tokenizer was tested using strings that were empty, contained extra whitespace,
          *          and mixed case letters.  For a full list of tests please look at the testing plan.
+         * @errmsg N/A
          * @author Andrew
          * @creation April 6, 2011
          * @modlog 
@@ -116,10 +118,12 @@ namespace Assembler
          * that a general pattern is matched.  For example, if the token is a label, it
          * will not check that the label is shorter than the maximum label length.
          * 
+         * @refcode N/A
          * @errtest 
          *          GetTokenKind was tested indirectly through GetToken.  If the correct token
          *          kind was not returned then there was an issue with this procedure.  As with
          *          GetToken, please see the testing plan for a full list of tests performed.
+         * @errmsg N/A
          * @author Andrew
          * @creation April 7, 2011
          * @modlog 
