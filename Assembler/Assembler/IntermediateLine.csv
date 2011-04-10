@@ -1,0 +1,13 @@
+source,IntermediateLine,string,local,the full line of source code
+line,IntermediateLine,string,local,the line number of the line of source code
+LC,IntermediateLine,string,local,the location counter assigned to this line
+lineLabel,IntermediateLine,string,local,"the label, if any, on this line"
+category,IntermediateLine,string,local,the category of the instruction on this line
+function,IntermediateLine,string,local,the function on this line
+operand,IntermediateLine,string,local,the operand of the instruction on this line
+operandLit,IntermediateLine,string,local,"the type of this function's literal operand, if any"
+directive,IntermediateLine,string,local,the directive on this line
+dirOperand,IntermediateLine,string,local,the operand of the directive on this line
+dirLitOperand,IntermediateLine,string,local,"the type of this directive's liter operand, if any"
+comment,IntermediateLine,string,local,"the comment on this line, if any"
+format,IntermediateLine.ToString,string,local,the format the IntermediateLine will take when output

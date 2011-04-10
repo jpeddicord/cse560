@@ -1,7 +1,5 @@
 ﻿#define TRACE
 using System;
-using System.Collections;
-using System.Text;
 using System.Diagnostics;
 
 namespace Assembler

@@ -1,0 +1,2 @@
+instance,Directives,Directives,local,The only instance of this class allowed.
+directiveList,Directives,ArrayList,local,Holds the list of directives available.

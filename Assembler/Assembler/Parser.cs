@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.IO;
 using System.Diagnostics;
 
@@ -54,6 +51,7 @@ namespace Assembler
             // check for a label at the beginning of the line
             if (char.IsLetter(line[0]))
             {
+                Trace.WriteLine(String.Format("Line {0} has a label, parsing label", lineNum), "Parser");
                 Tokenizer.GetNextToken(ref line, ref token, ref tokenKind);
                 if (tokenKind == Tokenizer.TokenKinds.Label_Or_Command
                     && (2 <= token.Length && token.Length <= 32))
@@ -175,6 +173,9 @@ namespace Assembler
 
             string token = "";
             Tokenizer.TokenKinds tokenKind = Tokenizer.TokenKinds.Empty;
+
+
+            Trace.WriteLine("Parsing directive operand on line " + interLine.SourceLineNumber, "Parser");
 
             // get the operand of the directive
             Tokenizer.GetNextToken(ref line, ref token, ref tokenKind);
@@ -317,8 +318,6 @@ namespace Assembler
          */
         public void ParseSource(string path, out IntermediateFile interSource, out SymbolTable symb)
         {
-            Trace.WriteLine("Parsing source file at path: " + path, "Parser");
-
             string[] sourceCode = new string[1];
             try
             {
@@ -352,7 +351,7 @@ namespace Assembler
                 // add to the symbol table if we need to
                 if (line.Label != null)
                 {
-                    // this doesn't work with equated symbols, yet.
+                    // this doesn't work with equated symbols, yet. :(
                     symb.AddSymbol(line.Label, line.ProgramCounter, Usage.ENTRY, "");
                 }
             }
