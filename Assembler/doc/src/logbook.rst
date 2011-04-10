@@ -74,7 +74,7 @@ We installed and tweaked NUnit and it appears it will work very similar to JUnit
 work well for this project.  We can now begin to code the tests we had planned and make sure that
 our current implementations are functioning correctly.
 
-Mark add directives.cs.
+Mark add Directives.cs.
 
 Issues
 ------
@@ -84,3 +84,9 @@ be then converted back to binary and then to hex again (because the literal valu
 in which case there would be overlap and we couldn't simply append the hex value on to the end of the
 translated instruction).  It seems like it would be more efficient to just pass this value as a binary
 value from pass 1 to pass 2.  We plan on bringing this up with an instructor.
+
+
+April 9th 2011 - 9:45 pm
+========================
+HERP
+We added tests for the Directives, Instructions, SymbolTable, and Tokenizer classes. The Parser correctly parses the valid source file provided by Al.
