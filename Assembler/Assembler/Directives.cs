@@ -53,6 +53,7 @@ namespace Assembler
          */
         public bool Contains(string dir)
         {
+            Trace.WriteLine(String.Format("Check if {0} is valid directive.", dir), "Directives");
             return directiveList.Contains(dir.ToUpper());
         }
     }

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace Assembler
 {
@@ -26,11 +27,13 @@ namespace Assembler
 
         public SymbolTable()
         {
+            Trace.WriteLine("Creating symbol table", "SymbolTable");   
             symbols = new Dictionary<string, Symbol>();
         }
 
         public void AddSymbol(Symbol symbol)
         {
+            Trace.WriteLine(String.Format("Adding {0} to symbol table.", symbol.rlabel), "SymbolTable");
             this.symbols[symbol.rlabel] = symbol;
         }
 

@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace Assembler
 {
@@ -52,6 +53,7 @@ namespace Assembler
          */
         private Instructions()
         {
+            Trace.WriteLine("Creating instance of Instructions.", "Instructions");
             this.instructions = new Dictionary<string, Dictionary<string, string>>();
             
             // fill the instruction mapping with data from the file
@@ -68,6 +70,7 @@ namespace Assembler
 
         public static Instructions GetInstance()
         {
+            Trace.WriteLine("Request of instance of Instructions.", "Instructions");
             if (Instructions.instance == null)
             {
                 Instructions.instance = new Instructions();
@@ -78,12 +81,18 @@ namespace Assembler
 
         public bool IsInstruction(string instrGroup, string function)
         {
+            Trace.WriteLine(String.Format("Check if {0} is valid function in {1} category.",
+                function, instrGroup), "Instructions");
+
             return this.instructions.ContainsKey(instrGroup.ToUpper())
                 && this.instructions[instrGroup.ToUpper()].ContainsKey(function.ToUpper());
         }
 
         public bool IsGroup(string instrGroup)
         {
+            Trace.WriteLine(String.Format("Check if {0} is valid instruction category", 
+                instrGroup), "Instructions");
+
             return this.instructions.ContainsKey(instrGroup.ToUpper());
         }
 

@@ -44,6 +44,7 @@ namespace Assembler
          */
         private IntermediateLine ParseLine(string line, short lineNum)
         {
+            Trace.WriteLine("Parsing line " + lineNum, "Parser");
             string token = "";
             Tokenizer.TokenKinds tokenKind = Tokenizer.TokenKinds.Empty;
 
@@ -97,6 +98,8 @@ namespace Assembler
                 interLine.Comment = token;
             }
 
+            Trace.WriteLine("Finished parsing line " + lineNum, "Parser");
+
             return interLine;
         }
 
@@ -108,6 +111,8 @@ namespace Assembler
          */
         private void ParseInstruction(ref string line, ref IntermediateLine interLine)
         {
+            Trace.WriteLine("Parsing instruction on line " + interLine.SourceLineNumber, "Parser");
+
             string token = "";
             Tokenizer.TokenKinds tokenKind = Tokenizer.TokenKinds.Empty;
 
@@ -155,7 +160,7 @@ namespace Assembler
                 interLine.OpOperand = "_ERROR";
             }
 
-            
+            Trace.WriteLine("Finished parsing instruction on line " + interLine.SourceLineNumber, "Parser");
         }
 
         /**
@@ -166,6 +171,8 @@ namespace Assembler
          */
         private void ParseDirective(ref string line, ref IntermediateLine interLine)
         {
+            Trace.WriteLine("Parsing directive on line " + interLine.SourceLineNumber, "Parser");
+
             string token = "";
             Tokenizer.TokenKinds tokenKind = Tokenizer.TokenKinds.Empty;
 
@@ -192,6 +199,8 @@ namespace Assembler
             {
                 interLine.DirectiveOperand = "_ERROR";
             }
+
+            Trace.WriteLine("Finished parsing directive on line " + interLine.SourceLineNumber, "Parser");
         }
 
         /**
@@ -203,6 +212,8 @@ namespace Assembler
          */
         private void ParseLiteralOperand(string inOper, ref string outOper, ref string litType)
         {
+            Trace.WriteLine("Parsing literal operand " + inOper, "Parser");
+
             switch (inOper[0])
             {
                 case 'X':
@@ -225,6 +236,8 @@ namespace Assembler
             }
 
             litType = inOper.Substring(0, 2);
+
+            Trace.WriteLine(String.Format("Literal operand parsed as {0} {1}", litType, outOper), "Parser");
         }
 
         /**
@@ -236,9 +249,14 @@ namespace Assembler
          */
         private IntermediateLine ParseStart(string line)
         {
+            Trace.WriteLine("Parsing START directive", "Parser");
+
             IntermediateLine start = ParseLine(line, 1);
             LC = start.DirectiveOperand;
             start.ProgramCounter = LC;
+
+            Trace.WriteLine("Finished parsing START directive", "Parser");
+
             return start;
         }
 
@@ -252,6 +270,7 @@ namespace Assembler
          */
         private IntermediateLine ParseEnd(string line, short lineNum)
         {
+            Trace.WriteLine("Parsing END directive", "Parser");
             return new IntermediateLine(line, lineNum);
         }
 
@@ -260,9 +279,11 @@ namespace Assembler
          */
         private void IncrementLocationCounter()
         {
+            Trace.WriteLine("Incrementing LC from: " + LC, "Parser");
             int tempLC = Convert.ToInt32(LC, 16);
             tempLC++;
             LC = Convert.ToString(tempLC, 16).ToUpper();
+            Trace.WriteLine("LC incremented to: " + LC, "Parser");
         }
 
         /**
@@ -275,12 +296,15 @@ namespace Assembler
          */
         private bool ValidOperandField(string line)
         {
+            Trace.WriteLine("Checking operand for invalid syntax", "Parser");
             string[] OperandParts = line.Split(new char[] { ',' }, 2);
             if (OperandParts.Length < 2 || OperandParts[0].Contains(" ") || OperandParts[1].StartsWith(" "))
             {
+                Trace.WriteLine("Operand syntax invalid!", "Parser");
                 return false;
             }
 
+            Trace.WriteLine("Operand syntax valid", "Parser");
             return true;
         }
 
@@ -293,6 +317,7 @@ namespace Assembler
          */
         public void ParseSource(string path, out IntermediateFile interSource, out SymbolTable symb)
         {
+            Trace.WriteLine("Parsing source file at path: " + path, "Parser");
 
             string[] sourceCode = new string[1];
             try
