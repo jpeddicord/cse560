@@ -11,10 +11,24 @@ namespace Assembler
             InitLogger(DateTime.Now);
             Trace.WriteLine("Starting Main method of Assembler", "Main");
 
+
+            string file = null;
+
+            if (args.Length == 1)
+            {
+                file = args[0];
+            }
+            else
+            {
+                Console.Error.WriteLine("Expected 1 parameter, but received " + args.Length);
+                Console.Error.WriteLine("Program will now exit.");
+                System.Environment.Exit(1);
+            }
+
             Parser pars = new Parser();
             IntermediateFile interSource;
             SymbolTable symb;
-            pars.ParseSource(args[0], out interSource, out symb);
+            pars.ParseSource(file, out interSource, out symb);
 
             Console.WriteLine(interSource);
             Console.WriteLine(symb);

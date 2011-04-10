@@ -35,6 +35,18 @@ namespace Assembler
         /**
          * Parses a single line of source code.
          * 
+         * @refcode N/A
+         * @errtest N/A
+         * @errmsg N/A
+         * @author Mark
+         * @creation April 8, 2011
+         * @modlog
+         *  - April 9, 2011 - Mark - ParseLine parses lines with instructions.
+         *  - April 9, 2011 - Mark - ParseLine parses lines with directives.
+         *  - April 9, 2011 - Mark - Increments program counter after parsing instructions.
+         * @teststandard Andrew Buelow
+         * @codestandard Mark Mathis
+         * 
          * @param line current line to parse
          * @param lineNum line number of current line
          * @return the line to be parsed as a single line in the intermediate file
@@ -104,6 +116,18 @@ namespace Assembler
         /**
          * Parses the operation section of the line if it has an instruction.
          * 
+         * @refcode N/A
+         * @errtest N/A
+         * @errmsg N/A
+         * @author Mark
+         * @creation April 9, 2011
+         * @modlog
+         *  - April 9, 2011 - Mark - ParseInstruction properly parses instructions.
+         *  - April 9, 2011 - Mark - Uses new ParseLiteralOperand format.
+         *  - April 9, 2011 - Mark - Changed to use ValidOperandField.
+         * @teststandard Andrew Buelow
+         * @codestandard Mark Mathis
+         * 
          * @param line current line to parse.
          * @param interLine the line as a single line in the intermediate file.
          */
@@ -164,6 +188,17 @@ namespace Assembler
         /**
          * Parses the operation section of the line if it has an instruction.
          * 
+         * @refcode N/A
+         * @errtest N/A
+         * @errmsg N/A
+         * @author Mark
+         * @creation April 9, 2011
+         * @modlog
+         *  - April 9, 2011 - Mark - ParseDirective properly parses directives.
+         *  - April 9, 2011 - Mark - Uses new ParseLiteralOperand format.
+         * @teststandard Andrew Buelow
+         * @codestandard Mark Mathis
+         * 
          * @param line current line to parse.
          * @param interLine the line as a single line in the intermediate file.
          */
@@ -207,6 +242,17 @@ namespace Assembler
         /**
          * Parses a literal operand, e.g. X=, B=, I=, C=
          * 
+         * @refcode N/A
+         * @errtest N/A
+         * @errmsg N/A
+         * @author Mark
+         * @creation April 9, 2011
+         * @modlog
+         *  - April 9, 2011 - Mark - Parses hex and binary literals.
+         *  - April 9, 2011 - Mark - Parameters changed. Return type changed to void.
+         * @teststandard Andrew Buelow
+         * @codestandard Mark Mathis
+         * 
          * @param inOper the operand to parse
          * @param outOper the numerical operand from the literal, that is, the part after the X=
          * @param litType the type of the operand, that is, X, B, etc.
@@ -245,6 +291,16 @@ namespace Assembler
          * Parses the start directive, properly assigning the operand of start as the
          * starting location counter.
          * 
+         * @refcode N/A
+         * @errtest N/A
+         * @errmsg N/A
+         * @author Mark
+         * @creation April 9, 2011
+         * @modlog
+         *  - April 9, 2011 - Mark - Parses the START directive, correctly setting the LC.
+         * @teststandard Andrew Buelow
+         * @codestandard Mark Mathis
+         * 
          * @param line the line containing the start directive
          * @return the IntermediateLine of this line
          */
@@ -265,6 +321,16 @@ namespace Assembler
          * Parses the end directeive, ensuring that the end operand is the same as
          * the start directive's rlabel.
          * 
+         * @refcode N/A
+         * @errtest N/A
+         * @errmsg N/A
+         * @author Mark
+         * @creation April 9, 2011
+         * @modlog
+         *  - April 9, 2011 - Mark - Not sure if needed.
+         * @teststandard Andrew Buelow
+         * @codestandard Mark Mathis
+         * 
          * @param line the line containing the end directive
          * @param lineNum the line number of this line in the source code.
          * @return The IntermediateLine of this line
@@ -277,6 +343,16 @@ namespace Assembler
 
         /**
          * Adds one to the location counter.
+         * 
+         * @refcode N/A
+         * @errtest N/A
+         * @errmsg N/A
+         * @author Mark
+         * @creation April 9, 2011
+         * @modlog
+         *  - April 9, 2011 - Mark - Correctly increments the location counter by 1.
+         * @teststandard Andrew Buelow
+         * @codestandard Mark Mathis
          */
         private void IncrementLocationCounter()
         {
@@ -290,6 +366,16 @@ namespace Assembler
         /**
          * Checks to see if the instruction's operand field has valid syntax.
          * 
+         * @refcode N/A
+         * @errtest N/A
+         * @errmsg N/A
+         * @author Mark
+         * @creation April 9, 2011
+         * @modlog
+         *  - April 9, 2011 - Mark - Correctly checks if the operand field has valid syntax.
+         * @teststandard Andrew Buelow
+         * @codestandard Mark Mathis
+         * 
          * @param line the line whose instruction's operand should be checked. <br />
          *             expected "FUNCTION,OPERAND : POSSIBLE COMMENTS"
          * @return true if the operand is valid <br />
@@ -301,7 +387,7 @@ namespace Assembler
             string[] OperandParts = line.Split(new char[] { ',' }, 2);
             if (OperandParts.Length < 2 || OperandParts[0].Contains(" ") || OperandParts[1].StartsWith(" "))
             {
-                Trace.WriteLine("Operand syntax invalid!", "Parser");
+                Trace.WriteLine("Operand syntax invalid", "Parser");
                 return false;
             }
 
@@ -311,6 +397,21 @@ namespace Assembler
 
         /**
          * Parses an entire source code file.
+         * 
+         * @refcode N/A
+         * @errtest N/A
+         * @errmsg N/A
+         * @author Mark
+         * @creation April 8, 2011
+         * @modlog
+         *  - April 9, 2011 -  Mark - Parses entire source code file from a string.
+         *  - April 9, 2011 -  Mark - Reads source file in from a file.
+         *  - April 9, 2011 -  Mark - Catches exceptions possibly raised by reading the file.
+         *  - April 9, 2011 - Jacob - Adds symbols to the symbol table. Changed the parameters to 
+         *      pass in an IntermediateFile and SymbolTable with an expected out value. Return type
+         *      is now void.
+         * @teststandard Andrew Buelow
+         * @codestandard Mark Mathis
          * 
          * @param path the path of the source file to parse.
          * @param interSource resultant intermediate file from this source
