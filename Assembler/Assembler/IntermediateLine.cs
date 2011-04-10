@@ -244,6 +244,7 @@ namespace Assembler
          *  - April 9, 2011 -  Mark - Added a newline to the end of the output.
          *  - April 9, 2011 - Jacob - Made the code pretty.
          * @teststandard Andrew Buelow
+         * @codestandard Mark Mathis
          */
         public override string ToString()
         {
