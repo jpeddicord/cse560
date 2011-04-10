@@ -108,12 +108,12 @@ namespace Assembler
             {
                 i.GetBytecodeString("MEM", "ADD");
             }
-            catch (InstructionException e)
+            catch (InstructionException)
             {
-                Assert.True(true, e.Message);
+                return;
             }
 
-            Assert.False(false, "Exception not thrown while accessing with non-existent group.");
+            Assert.Fail("Exception not thrown while accessing with non-existent group.");
         }
 
         /**
@@ -128,12 +128,12 @@ namespace Assembler
             {
                 i.GetBytecodeString("SOPER", "CLEAR");
             }
-            catch (InstructionException e)
+            catch (InstructionException)
             {
-                Assert.True(true, e.Message);
+                return;
             }
 
-            Assert.False(false, "Exception not thrown while accessing with non-existent instruction.");
+            Assert.Fail("Exception not thrown while accessing with non-existent instruction.");
         }
 
     }
