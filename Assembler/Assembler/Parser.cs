@@ -44,6 +44,8 @@ namespace Assembler
          *  - April 9, 2011 - Mark - ParseLine parses lines with instructions.
          *  - April 9, 2011 - Mark - ParseLine parses lines with directives.
          *  - April 9, 2011 - Mark - Increments program counter after parsing instructions.
+         *  - April 9, 2011 - Mark - Sets OpCategory = "_ERROR" if the token expected to be
+         *      an instruction category or a directive is niether of those.
          * @teststandard Andrew Buelow
          * @codestandard Mark Mathis
          * 
