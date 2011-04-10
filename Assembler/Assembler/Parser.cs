@@ -97,6 +97,10 @@ namespace Assembler
                     interLine.Directive = token;
                     ParseDirective(ref line, ref interLine);
                 }
+                else
+                {
+                    interLine.OpCategory = "_ERROR";
+                }
             }
 
             // If there's anything else, get it. If there's anything there,
