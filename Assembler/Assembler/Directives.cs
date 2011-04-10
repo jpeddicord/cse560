@@ -18,6 +18,13 @@ namespace Assembler
          * The list of directives.
          */
         private static ArrayList directiveList;
+        /**
+         * The number of directives.
+         */
+        public int DirectiveCount
+        {
+            get { return directiveList.Count; }
+        }
 
         /**
          * A private constructor that fills the list with the directives.
