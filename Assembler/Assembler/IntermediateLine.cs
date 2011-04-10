@@ -116,7 +116,7 @@ namespace Assembler
                 }
                 catch (InstructionException)
                 {
-                    return "00000";
+                    return null;
                 }
             }
         }
@@ -294,7 +294,7 @@ namespace Assembler
                 this.Label == null ? "N/A" : this.Label,
                 this.OpCategory == null ? "N/A" : this.OpCategory,
                 this.OpFunction == null ? "N/A" : this.OpFunction,
-                this.Bytecode,
+                this.Bytecode == null ? "N/A" : this.Bytecode,
                 this.OpOperand == null ? "N/A" : this.OpOperand,
                 this.OpLitOperand == null ? "N/A" : this.OpLitOperand,
                 this.Directive == null ? "N/A" : this.Directive,
