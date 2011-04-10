@@ -1,6 +1,6 @@
 ﻿#define TRACE
 using System;
-using System.Collections.Generic;
+using System.Collections;
 using System.Text;
 using System.Diagnostics;
 
@@ -11,20 +11,28 @@ namespace Assembler
         static void Main(string[] args)
         {
             InitLogger(DateTime.Now);
-            Trace.WriteLine(String.Format("{0} -> {1}", System.DateTime.Now, "Starting Main method of Assembler"), "Main");
+            Trace.WriteLine(String.Format("{0} -> {1}", System.DateTime.Now,
+                "Starting Main method of Assembler"), "Main");
 
-            short varA = 1023;
-            short varB = 367;
-            long result = (varA ^ varB) + 1;
-            Console.WriteLine(result);
-
+            Directives dirs = Directives.GetInstance();
+            Parser pars = new Parser();
+            pars.ParseSource(args[0]);
+            Console.WriteLine(Properties.Resources.errors);
         }
+
+        /* Two's Complement stuff.
+         *  short varA = 1023;
+-            short varB = 367;
+-            long result = (varA ^ varB) + 1;
+-            Console.WriteLine(result);
+         */
 
         static void InitLogger(DateTime now)
         {
             // Create the log directory if it doesn't already exist.
             if (!System.IO.Directory.Exists("Log"))
             {
+                
                 System.IO.Directory.CreateDirectory("Log");
             }
 
@@ -33,9 +41,9 @@ namespace Assembler
             // MM-DD_HH-mm-ss_debug.log
             System.IO.FileStream myTraceLog = new
                System.IO.FileStream(String.Format(
-                                        "{0}{1}-{2}_{3}-{4}-{5}_{6}", 
-                                        "Log\\",
-                                        now.Month, 
+                                        "{0}{1}-{2}_{3}-{4}-{5}_{6}",
+                                        "Log" + System.IO.Path.DirectorySeparatorChar,
+                                        now.Month,
                                         now.Day,
                                         now.Hour,
                                         now.Minute,
