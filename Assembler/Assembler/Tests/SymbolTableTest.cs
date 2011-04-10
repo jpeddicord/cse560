@@ -23,7 +23,7 @@ namespace Assembler
         }
 
         /**
-         * [S2] Test adding a symbol by parameters/
+         * [S2] Test adding a symbol by parameters.
          */
         [Test]
         public void AddSymbolParams()

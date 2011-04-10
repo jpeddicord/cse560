@@ -138,7 +138,7 @@ Directive Test List
 
 Test Number: D1
 ```````````````
-Puspose:
+Purpose:
 	Ensures Contains() works for a directive known to exist exactly as it is found in the source file.
 Expected Results Achieved:
 	Yes
@@ -147,7 +147,7 @@ Concerns:
 	
 Test Number: D2
 ```````````````
-Puspose:
+Purpose:
 	Ensures Contains() returns false for a directive that does not exist.
 Expected Results Achieved:
 	Yes
@@ -156,7 +156,7 @@ Concerns:
 	
 Test Number: D3
 ```````````````
-Puspose:
+Purpose:
 	Ensures that directives can be upper, lower, or mixed case.  This gives the user more flexibility in input.
 Expected Results Achieved:
 	Yes
@@ -165,7 +165,7 @@ Concerns:
 	
 Test Number: D4
 ```````````````
-Puspose:
+Purpose:
 	This test serves two purposes. It tests that all directives are being read in from the file and that DirectiveCount is returning the correct number of directives.
 Expected Results Achieved:
 	Yes
@@ -174,7 +174,7 @@ Concerns:
 	
 Test Number: D5
 ```````````````
-Puspose:
+Purpose:
 	This is an extension of test [D4] to show all directives are being read in by checking that both the first and last directive from the text file and be found.
 Expected Results Achieved:
 	Yes
@@ -187,7 +187,7 @@ Instruction Test List
 
 Test Number: I1
 ```````````````
-Puspose:
+Purpose:
 	A known instruction is shown to exist.
 Expected Results Achieved:
 	Yes
@@ -196,7 +196,7 @@ Concerns:
 	
 Test Number: I2
 ```````````````
-Puspose:
+Purpose:
 	Calling IsInstruction() with an existing group but nonexisting instruction should return false.
 Expected Results Achieved:
 	Yes
@@ -205,7 +205,7 @@ Concerns:
 	
 Test Number: I3
 ```````````````
-Puspose:
+Purpose:
 	IsInstruction() should be case insensitive.
 Expected Results Achieved:
 	Yes
@@ -214,7 +214,7 @@ Concerns:
 	
 Test Number: I4
 ```````````````
-Puspose:
+Purpose:
 	Calling IsInstruction with a group that doesn't exist but and instruction that does should return false.
 Expected Results Achieved:
 	Yes
@@ -223,7 +223,7 @@ Concerns:
 	
 Test Number: I5
 ```````````````
-Puspose:
+Purpose:
 	Calling IsInstruction with a group and instruction that doesn't exist should return false.
 Expected Results Achieved:
 	Yes
@@ -232,7 +232,7 @@ Concerns:
 	
 Test Number: I6
 ```````````````
-Puspose:
+Purpose:
 	Testing that IsGroup will return true for a group that is known to exist.
 Expected Results Achieved:
 	Yes
@@ -241,7 +241,7 @@ Concerns:
 	
 Test Number: I7
 ```````````````
-Puspose:
+Purpose:
 	Testing that IsGroup will return false for a group that does not exist.
 Expected Results Achieved:
 	Yes
@@ -250,7 +250,7 @@ Concerns:
 	
 Test Number: I8
 ```````````````
-Puspose:
+Purpose:
 	Ensures that IsGroup is case insensitive and sill return the correct result for both upper and lower case.
 Expected Results Achieved:
 	Yes
@@ -259,7 +259,7 @@ Concerns:
 	
 Test Number: I9
 ```````````````
-Puspose:
+Purpose:
 	Tests that getBytecodeString will return the code for the given instruction.
 Expected Results Achieved:
 	No
@@ -267,8 +267,8 @@ Concerns:
 	This test revealed that when the bytecode was removed from the input file, it removed an appended carriage return as well which was unwanted.  This has since been corrected and now correctly passes this test.
 	
 Test Number: I10
-```````````````
-Puspose:
+````````````````
+Purpose:
 	Testing that getBytecodeString will throw an exception if the user attempts to look up a group that doesn't exist.
 Expected Results Achieved:
 	Yes
@@ -276,10 +276,70 @@ Concerns:
 	None
 	
 Test Number: I11
-```````````````
-Puspose:
+````````````````
+Purpose:
 	Testing that getBytecodeString will throw an exception if the user attempts to look up an instruction that doesn't exist.
 Expected Results Achieved:
 	Yes
 Concerns:
 	None
+
+
+Symbol Table Test List
+----------------------
+
+Test Number: S1
+```````````````
+Purpose:
+    Tests adding a symbol by structure works.
+Expected Results Achieved:
+    Yes
+Concerns:
+    None
+
+Test Number: S2
+```````````````
+Purpose:
+    Test adding a symbol by parameters.
+Expected Results Achieved:
+    Yes
+Concerns:
+    None
+
+Test Number: S3
+```````````````
+Purpose:
+    Test the sorted output of symbols.
+Expected Results Achieved:
+    Yes
+Concerns:
+    None
+
+Test Number: S4
+```````````````
+Purpose:
+    Test that an empty table is indeed empty.
+Expected Results Achieved:
+    Yes
+Concerns:
+    None
+
+Test Number: S5
+```````````````
+Purpose:
+    Test that adding a duplicate symbol fails.
+Expected Results Achieved:
+    Yes
+Concerns:
+    None
+
+Test Number: S6
+```````````````
+Purpose:
+    Test that looking up a nonexisting symbol fails.
+Expected Results Achieved:
+    Yes
+Concerns:
+    None
+
+
