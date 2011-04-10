@@ -65,7 +65,7 @@ namespace Assembler
                 {
                     this.instructions[parts[0]] = new Dictionary<string, string>();
                 }
-                this.instructions[parts[0]][parts[1]] = parts[2];
+                this.instructions[parts[0]][parts[1]] = parts[2].Trim();
             }
         }
 
