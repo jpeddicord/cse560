@@ -33,7 +33,7 @@ namespace Assembler
          * characters in the given string until the next ' ', ',', tab, or when the end of the
          * string is reached.  TokenKind is determined based on the characters in the token. <br />
          * Label_Or_Command - Contains only letters and numbers and begins with a letter. <br />
-         * Literal - A token that starts with "I=", "X=", "B=" or "C=". <br />
+         * Literal - A token that starts with "I=", "X=", "B=", "C=" or is equal to "=0" for NOP. <br />
          * Comment - A token that starts with ':'. <br />
          * Number - Contains only numbers. <br />
          * JumpCond - One of the six jump conditions: =, ^=, &lt;, &gt;, &lt;=, and &gt;= <br />
@@ -133,6 +133,7 @@ namespace Assembler
          *  - April 9, 2011 - Andrew - TokenKind was not case insensitive to literals, fixed.
          *  - April 10, 2011 - Andrew - Added token kind JumpCond as the jump conditions did
          *          not fit in the other token kinds.
+         *  - April 10, 2011 - Andrew - Added the NOP flag "=0" to be considered a literal.
          * @teststandard Andrew Buelow
          * @codestandard Mark Mathis
          * 
@@ -170,11 +171,12 @@ namespace Assembler
             else if (!numeric.IsMatch(token))
             {
                 tokenKind = TokenKinds.Number;
-            } // Only looks for the four possible Literal flags.  Does not check format of following chars.
+            } // Only looks for the four possible Literal flags or the NOP flag.  Does not check format of following chars.
             else if (token.Length > 1 && (token.Substring(0, 2) == "X=" ||
                                          token.Substring(0, 2) == "B=" ||
                                          token.Substring(0, 2) == "I=" ||
-                                         token.Substring(0, 2) == "C="))
+                                         token.Substring(0, 2) == "C=" ||
+                                         token == "=0"))
             {
                 tokenKind = TokenKinds.Literal;
             } // Determines if the token is one of the six jump conditions
