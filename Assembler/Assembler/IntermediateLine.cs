@@ -264,6 +264,7 @@ namespace Assembler
          *  - April 9, 2011 -  Mark - Added a spot for literal directive operands in the output.
          *  - April 9, 2011 -  Mark - Added a newline to the end of the output.
          *  - April 9, 2011 - Jacob - Made the code pretty.
+         *  - April 10, 2011 - Jacob - Output partial bytecode.
          * @teststandard Andrew Buelow
          * @codestandard Mark Mathis
          */
