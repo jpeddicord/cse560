@@ -16,11 +16,14 @@ namespace Assembler
 
             if (args.Length >= 1)
             {
+                Trace.WriteLine("Arguments are valid", "Main");
                 file = args;
             }
             else
             {
-                Console.Error.WriteLine("Expected 1 parameter, but received " + args.Length);
+                string error = "Expected 1 parameter, but received " + args.Length;
+                Trace.WriteLine(error, "Main");
+                Console.Error.WriteLine(error);
                 Console.Error.WriteLine("Program will now exit.");
                 System.Environment.Exit(1);
             }

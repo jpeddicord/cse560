@@ -64,7 +64,7 @@ namespace Assembler
             IntermediateLine interLine = new IntermediateLine(line, lineNum);
 
             // check for a label at the beginning of the line
-            if (char.IsLetter(line[0]) && line.Length > 0)
+            if (line.Length > 0 && char.IsLetter(line[0]))
             {
                 Trace.WriteLine(String.Format("Line {0} has a label, parsing label", lineNum), "Parser");
                 Tokenizer.GetNextToken(ref line, ref token, ref tokenKind);
