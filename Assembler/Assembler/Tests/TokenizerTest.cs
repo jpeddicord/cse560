@@ -13,9 +13,9 @@ namespace Assembler
         public void TokenizerSimple()
         {
             string Line = "MOPER ADD,2";
-            string Token = "";
-            Tokenizer.TokenKinds TokenKind = Tokenizer.TokenKinds.Empty;
-            Tokenizer.GetNextToken(ref Line, ref Token, ref TokenKind);
+            string Token;
+            Tokenizer.TokenKinds TokenKind;
+            Tokenizer.GetNextToken(ref Line, out Token, out TokenKind);
             Assert.IsTrue(Token == "MOPER" && TokenKind == Tokenizer.TokenKinds.Label_Or_Command,
                 "Token is 'MOPER' and of kind label.");
         }
@@ -27,9 +27,9 @@ namespace Assembler
         public void TokenizerWhiteSpaceBeginning()
         {
             string Line = "            MOPER ADD,2";
-            string Token = "";
-            Tokenizer.TokenKinds TokenKind = Tokenizer.TokenKinds.Empty;
-            Tokenizer.GetNextToken(ref Line, ref Token, ref TokenKind);
+            string Token;
+            Tokenizer.TokenKinds TokenKind;
+            Tokenizer.GetNextToken(ref Line, out Token, out TokenKind);
             Assert.IsTrue(Token == "MOPER" && TokenKind == Tokenizer.TokenKinds.Label_Or_Command,
                 "Line begins with lots of whitespace.");
         }
@@ -41,15 +41,15 @@ namespace Assembler
         public void TokenizerEntireLine()
         {
             string Line = " MOPER ADD,2";
-            string Token = "";
-            Tokenizer.TokenKinds TokenKind = Tokenizer.TokenKinds.Empty;
+            string Token;
+            Tokenizer.TokenKinds TokenKind;
             string[] expected = { "MOPER", "ADD", "2" };
             string[] actual = new string[3];
 
             int i = 0;
             while (Line.Length > 0)
             {
-                Tokenizer.GetNextToken(ref Line, ref Token, ref TokenKind);
+                Tokenizer.GetNextToken(ref Line, out Token, out TokenKind);
                 actual[i] = Token;
                 i++;
             }
@@ -64,15 +64,15 @@ namespace Assembler
         public void TokenizerEntireLineWS()
         {
             string Line = "     SOPER        ADD,X=55        :I'm a comment    ";
-            string Token = "";
-            Tokenizer.TokenKinds TokenKind = Tokenizer.TokenKinds.Empty;
+            string Token;
+            Tokenizer.TokenKinds TokenKind;
             string[] expected = { "SOPER", "ADD", "X=55", ":I'm a comment" };
             string[] actual = new string[4];
 
             int i = 0;
             while (Line.Length > 0)
             {
-                Tokenizer.GetNextToken(ref Line, ref Token, ref TokenKind);
+                Tokenizer.GetNextToken(ref Line, out Token, out TokenKind);
                 actual[i] = Token;
                 i++;
             }
@@ -87,15 +87,15 @@ namespace Assembler
         public void TokenizerEntireLineMixedCaseToken()
         {
             string Line = " mOpER AdD,x=aBc4";
-            string Token = "";
-            Tokenizer.TokenKinds TokenKind = Tokenizer.TokenKinds.Empty;
+            string Token;
+            Tokenizer.TokenKinds TokenKind;
             string[] TokenExpected = { "mOpER", "AdD", "x=aBc4" };
             string[] TokenActual = new string[3];
 
             int i = 0;
             while (Line.Length > 0)
             {
-                Tokenizer.GetNextToken(ref Line, ref Token, ref TokenKind);
+                Tokenizer.GetNextToken(ref Line, out Token, out TokenKind);
                 TokenActual[i] = Token;
                 i++;
             }
@@ -111,8 +111,8 @@ namespace Assembler
         public void TokenizerEntireLineMixedCaseKind()
         {
             string Line = " mOpER AdD,x=aBc4";
-            string Token = "";
-            Tokenizer.TokenKinds TokenKind = Tokenizer.TokenKinds.Empty;
+            string Token;
+            Tokenizer.TokenKinds TokenKind;
             Tokenizer.TokenKinds[] KindExpected = { Tokenizer.TokenKinds.Label_Or_Command,
                                                     Tokenizer.TokenKinds.Label_Or_Command,
                                                     Tokenizer.TokenKinds.Literal };
@@ -121,7 +121,7 @@ namespace Assembler
             int i = 0;
             while (Line.Length > 0)
             {
-                Tokenizer.GetNextToken(ref Line, ref Token, ref TokenKind);
+                Tokenizer.GetNextToken(ref Line, out Token, out TokenKind);
                 KindActual[i] = TokenKind;
                 i++;
             }
@@ -137,9 +137,9 @@ namespace Assembler
         public void TokenizerLOC()
         {
             string Line = " CNTL CLEAR";
-            string Token = "";
-            Tokenizer.TokenKinds TokenKind = Tokenizer.TokenKinds.Empty;
-            Tokenizer.GetNextToken(ref Line, ref Token, ref TokenKind);
+            string Token;
+            Tokenizer.TokenKinds TokenKind;
+            Tokenizer.GetNextToken(ref Line, out Token, out TokenKind);
             Assert.IsTrue(Token == "CNTL" && TokenKind == Tokenizer.TokenKinds.Label_Or_Command,
                 "Token is 'CNTL' and of kind label.");
         }
@@ -151,9 +151,9 @@ namespace Assembler
         public void TokenizerLiteral()
         {
             string Line = "B=101101  :Comment";
-            string Token = "";
-            Tokenizer.TokenKinds TokenKind = Tokenizer.TokenKinds.Empty;
-            Tokenizer.GetNextToken(ref Line, ref Token, ref TokenKind);
+            string Token;
+            Tokenizer.TokenKinds TokenKind;
+            Tokenizer.GetNextToken(ref Line, out Token, out TokenKind);
             Assert.IsTrue(Token == "B=101101" && TokenKind == Tokenizer.TokenKinds.Literal,
                 "Token is 'B=101101' and of kind Literal.");
         }
@@ -165,9 +165,9 @@ namespace Assembler
         public void TokenizerComment()
         {
             string Line = ": This is a comment with whitespace, and commas that shouldn't be removed.";
-            string Token = "";
-            Tokenizer.TokenKinds TokenKind = Tokenizer.TokenKinds.Empty;
-            Tokenizer.GetNextToken(ref Line, ref Token, ref TokenKind);
+            string Token;
+            Tokenizer.TokenKinds TokenKind;
+            Tokenizer.GetNextToken(ref Line, out Token, out TokenKind);
             Assert.IsTrue(Token == ": This is a comment with whitespace, and commas that shouldn't be removed."
                 && TokenKind == Tokenizer.TokenKinds.Comment,
                 "Token is of kind Comment.");
@@ -180,9 +180,9 @@ namespace Assembler
         public void TokenizerNumber()
         {
             string Line = "9283 X4";
-            string Token = "";
-            Tokenizer.TokenKinds TokenKind = Tokenizer.TokenKinds.Empty;
-            Tokenizer.GetNextToken(ref Line, ref Token, ref TokenKind);
+            string Token;
+            Tokenizer.TokenKinds TokenKind;
+            Tokenizer.GetNextToken(ref Line, out Token, out TokenKind);
             Assert.IsTrue(Token == "9283" && TokenKind == Tokenizer.TokenKinds.Number,
                 "Token is '9283' and of kind Number.");
         }
@@ -194,9 +194,9 @@ namespace Assembler
         public void TokenizerEmpty()
         {
             string Line = "";
-            string Token = "";
-            Tokenizer.TokenKinds TokenKind = Tokenizer.TokenKinds.Empty;
-            Tokenizer.GetNextToken(ref Line, ref Token, ref TokenKind);
+            string Token;
+            Tokenizer.TokenKinds TokenKind;
+            Tokenizer.GetNextToken(ref Line, out Token, out TokenKind);
             Assert.IsTrue(Token == "" && TokenKind == Tokenizer.TokenKinds.Empty,
                 "Token is '' and of kind Empty.");
         }
@@ -208,9 +208,9 @@ namespace Assembler
         public void TokenizerError()
         {
             string Line = "Go_to MOPER ADD,5";
-            string Token = "";
-            Tokenizer.TokenKinds TokenKind = Tokenizer.TokenKinds.Empty;
-            Tokenizer.GetNextToken(ref Line, ref Token, ref TokenKind);
+            string Token;
+            Tokenizer.TokenKinds TokenKind;
+            Tokenizer.GetNextToken(ref Line, out Token, out TokenKind);
             Assert.IsTrue(Token == "Go_to" && TokenKind == Tokenizer.TokenKinds.Error,
                 "Token is 'Go_to' and of kind Error.");
         }
