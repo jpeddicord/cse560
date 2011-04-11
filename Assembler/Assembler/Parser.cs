@@ -41,11 +41,12 @@ namespace Assembler
          * @author Mark
          * @creation April 8, 2011
          * @modlog
-         *  - April 9, 2011 - Mark - ParseLine parses lines with instructions.
-         *  - April 9, 2011 - Mark - ParseLine parses lines with directives.
-         *  - April 9, 2011 - Mark - Increments program counter after parsing instructions.
-         *  - April 9, 2011 - Mark - Sets OpCategory = "_ERROR" if the token expected to be
+         *  - April  9, 2011 - Mark - ParseLine parses lines with instructions.
+         *  - April  9, 2011 - Mark - ParseLine parses lines with directives.
+         *  - April  9, 2011 - Mark - Increments program counter after parsing instructions.
+         *  - April  9, 2011 - Mark - Sets OpCategory = "_ERROR" if the token expected to be
          *      an instruction category or a directive is niether of those.
+         *  - April 10, 2011 - Mark - Properly handles lines that only have a comment.
          * @teststandard Andrew Buelow
          * @codestandard Mark Mathis
          * 
@@ -63,7 +64,7 @@ namespace Assembler
             IntermediateLine interLine = new IntermediateLine(line, lineNum);
 
             // check for a label at the beginning of the line
-            if (char.IsLetter(line[0]))
+            if (char.IsLetter(line[0]) && line.Length > 0)
             {
                 Trace.WriteLine(String.Format("Line {0} has a label, parsing label", lineNum), "Parser");
                 Tokenizer.GetNextToken(ref line, ref token, ref tokenKind);
@@ -104,6 +105,11 @@ namespace Assembler
                     interLine.OpCategory = "_ERROR";
                 }
             }
+            else if (tokenKind == Tokenizer.TokenKinds.Comment)
+            {
+                interLine.Comment = token;
+                return interLine;
+            }
 
             // If there's anything else, get it. If there's anything there,
             // it should be a comment.
@@ -128,10 +134,10 @@ namespace Assembler
          * @author Mark
          * @creation April 9, 2011
          * @modlog
-         *  - April 9, 2011 - Mark - ParseInstruction properly parses instructions.
-         *  - April 9, 2011 - Mark - Uses new ParseLiteralOperand format.
-         *  - April 9, 2011 - Mark - Changed to use ValidOperandField.
-         *  - April 10, 2011 - Jacob - Added single-character parsing support.
+         *  - April  9, 2011 - Mark - ParseInstruction properly parses instructions.
+         *  - April  9, 2011 - Mark - Uses new ParseLiteralOperand format.
+         *  - April  9, 2011 - Mark - Changed to use ValidOperandField.
+         *  - April 10, 2011 - Mark - Handles CLRD and CLRT.
          * @teststandard Andrew Buelow
          * @codestandard Mark Mathis
          * 
@@ -189,7 +195,15 @@ namespace Assembler
                 // token should be either CLRD or CLRT
                 Tokenizer.GetNextToken(ref line, ref token, ref tokenKind);
 
-                
+                if (token.ToUpper().Equals("CLRD") || token.ToUpper().Equals("CLRT"))
+                {
+                    interLine.OpFunction = token;
+                }
+                else
+                {
+                    interLine.OpFunction = "_ERROR";
+                    interLine.OpOperand = "_ERROR";
+                }
             }
             else
             {
@@ -325,7 +339,7 @@ namespace Assembler
                     {
                         Trace.WriteLine("literal operand is character", "Parser");
                         // fix this: parse integers more properly.
-                        outOper = Convert.ToString(Convert.ToInt32(((int) inOper[3]) << 2), 16).ToUpper();
+                        outOper = Convert.ToString(Convert.ToInt32(((int)inOper[3]) << 2), 16).ToUpper();
                     } break;
             }
 
