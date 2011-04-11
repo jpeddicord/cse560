@@ -15,6 +15,65 @@ Tests of the program functionality will be conducted by giving the program vario
 
 This is highly dependent on `Unit Testing`, as the correctness of individual parts effects the outcome of the overall program execution.
 
+Sample test programs
+--------------------
+
+Herp
+````
+
+.. raw:: html
+    
+    <code><pre>
+
+.. raw:: html
+    :file: ../../Assembler/Tests/Programs/Derp.txt
+
+.. raw:: html
+    
+    </pre></code>
+
+Derp
+````
+
+.. raw:: html
+    
+    <code><pre>
+
+.. raw:: html
+    :file: ../../Assembler/Tests/Programs/Herp.txt
+
+.. raw:: html
+    
+    </pre></code>
+
+Sample
+``````
+
+.. raw:: html
+    
+    <code><pre>
+
+.. raw:: html
+    :file: ../../Assembler/Tests/Programs/Sample.txt
+
+.. raw:: html
+    
+    </pre></code>
+
+Testprgm
+````````
+
+.. raw:: html
+    
+    <code><pre>
+
+.. raw:: html
+    :file: ../../Assembler/Tests/Programs/Testprgm.txt
+
+.. raw:: html
+    
+    </pre></code>
+
 Unit Testing
 ============
 
