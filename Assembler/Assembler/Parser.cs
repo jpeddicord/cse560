@@ -171,7 +171,7 @@ namespace Assembler
                 {
                     string operand = "";
                     string litOperand = "";
-                    ParseLiteralOperand(token, ref operand, ref litOperand);
+                    ParseLiteralOperand(token, out operand, out litOperand);
                     interLine.OpOperand = operand;
                     interLine.OpLitOperand = litOperand;
                 }
@@ -188,6 +188,8 @@ namespace Assembler
             {
                 // token should be either CLRD or CLRT
                 Tokenizer.GetNextToken(ref line, ref token, ref tokenKind);
+
+                
             }
             else
             {
@@ -240,7 +242,7 @@ namespace Assembler
             {
                 string operand = "";
                 string litOperand = "";
-                ParseLiteralOperand(token, ref operand, ref litOperand);
+                ParseLiteralOperand(token, out operand, out litOperand);
                 interLine.DirectiveOperand = operand;
                 interLine.DirectiveLitOperand = litOperand;
             }
@@ -261,9 +263,9 @@ namespace Assembler
          * @author Mark
          * @creation April 9, 2011
          * @modlog
-         *  - April 9, 2011 - Mark - Parses hex and binary literals.
-         *  - April 9, 2011 - Mark - Parameters changed. Return type changed to void.
-         *  - April 9, 2011 - Mark - Now parses integer literals.
+         *  - April  9, 2011 -  Mark - Parses hex and binary literals.
+         *  - April  9, 2011 -  Mark - Parameters changed. Return type changed to void.
+         *  - April  9, 2011 -  Mark - Now parses integer literals.
          * @teststandard Andrew Buelow
          * @codestandard Mark Mathis
          * 
@@ -272,11 +274,13 @@ namespace Assembler
          *                  will be in hexadecimal
          * @param litType the type of the operand, that is, X, B, etc.
          */
-        private void ParseLiteralOperand(string inOper, ref string outOper, ref string litType)
+        private void ParseLiteralOperand(string inOper, out string outOper, out string litType)
         {
             Trace.WriteLine("Parsing literal operand " + inOper, "Parser");
 
             int op;
+            outOper = inOper.Substring(2);
+            litType = inOper.Substring(0, 2);
 
             switch (inOper[0])
             {
@@ -323,8 +327,6 @@ namespace Assembler
                         outOper = Convert.ToString(Convert.ToInt32(((int) inOper[3]) << 2), 16).ToUpper();
                     } break;
             }
-
-            litType = inOper.Substring(0, 2);
 
             Trace.WriteLine(String.Format("Literal operand parsed as {0} {1}", litType, outOper), "Parser");
         }
