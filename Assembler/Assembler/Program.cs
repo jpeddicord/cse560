@@ -12,11 +12,11 @@ namespace Assembler
             Trace.WriteLine("Starting Main method of Assembler", "Main");
 
 
-            string file = null;
+            string[] file = null;
 
-            if (args.Length == 1)
+            if (args.Length >= 1)
             {
-                file = args[0];
+                file = args;
             }
             else
             {
@@ -25,13 +25,16 @@ namespace Assembler
                 System.Environment.Exit(1);
             }
 
-            Parser pars = new Parser();
-            IntermediateFile interSource;
-            SymbolTable symb;
-            pars.ParseSource(file, out interSource, out symb);
+            foreach (string path in file)
+            {
+                Parser pars = new Parser();
+                IntermediateFile interSource;
+                SymbolTable symb;
+                pars.ParseSource(path, out interSource, out symb);
 
-            Console.WriteLine(interSource);
-            Console.WriteLine(symb);
+                Console.WriteLine(interSource);
+                Console.WriteLine(symb);
+            }
         }
 
         /* Two's Complement stuff.

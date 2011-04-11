@@ -144,6 +144,7 @@ namespace Assembler
             string token = "";
             Tokenizer.TokenKinds tokenKind = Tokenizer.TokenKinds.Empty;
 
+            // checks for valid operands in all functions besides CLRD and CLRT
             if (ValidOperandField(line))
             {
                 // get what should be the function name
@@ -181,6 +182,11 @@ namespace Assembler
                 {
                     interLine.OpOperand = "_ERROR";
                 }
+            }
+            else if (interLine.OpCategory.ToUpper() == "CNTL")
+            {
+                // token should be either CLRD or CLRT
+                Tokenizer.GetNextToken(ref line, ref token, ref tokenKind);
             }
             else
             {
@@ -269,27 +275,44 @@ namespace Assembler
         {
             Trace.WriteLine("Parsing literal operand " + inOper, "Parser");
 
+            int op;
+
             switch (inOper[0])
             {
                 case 'X':
                 case 'x':
                     {
                         Trace.WriteLine("literal operand is hex", "Parser");
-                        outOper = inOper.Substring(2);
+                        op = Convert.ToInt32(inOper.Substring(2), 16);
+                        if (op < 0)
+                        {
+                            op = BinaryHelper.ConvertNumber(op, 10);
+                        }
+                        outOper = Convert.ToString(op, 16).ToUpper();
                     } break;
 
                 case 'B':
                 case 'b':
                     {
                         Trace.WriteLine("literal operand is binary", "Parser");
-                        outOper = Convert.ToString(Convert.ToInt32(inOper.Substring(2), 2), 16).ToUpper();
+                        op = Convert.ToInt32(inOper.Substring(2), 2);
+                        if (op < 0)
+                        {
+                            op = BinaryHelper.ConvertNumber(op, 10);
+                        }
+                        outOper = Convert.ToString(op, 16).ToUpper();
                     } break;
 
                 case 'I':
                 case 'i':
                     {
                         Trace.WriteLine("literal operand is integer", "Parser");
-                        outOper = Convert.ToString(Convert.ToInt32(inOper.Substring(2)), 16).ToUpper();
+                        op = Convert.ToInt32(inOper.Substring(2));
+                        if (op < 0)
+                        {
+                            op = BinaryHelper.ConvertNumber(op, 10);
+                        }
+                        outOper = Convert.ToString(op, 16).ToUpper();
                     } break;
             }
 
