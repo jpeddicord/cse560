@@ -1,0 +1,6 @@
+file,Program.Main,string,local,list of files sent by the command line
+error,Program.Main,string,local,error message concerning the number of arguments
+pars,Program.Main,Parser,local,the parser that will parse the source files
+interSource,Program.Main,IntermediateFile,local,the intermediate file that will hold the parsed source
+symb,Program.Main,SymbolTable,local,the symbol table that will hold the symbols parsed from the source
+myListener,Program.InitLogger,TextWriterTraceListener,local,the object that listens for and records traces
