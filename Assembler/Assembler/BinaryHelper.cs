@@ -44,18 +44,15 @@ namespace Assembler
         public static int ConvertNumber(int number, int digits)
         {
             int convertedNum = 0;
-            int limit = (int)(Math.Pow(2, digits - 1));
-            int filledDigits = (limit * 2) - 1;
+            int filledDigits = ((int)(Math.Pow(2, digits))) - 1;
 
-            Console.WriteLine("Filled: " + filledDigits);
-
-            if (number > limit)
+            if (number < 0)
             {
-                convertedNum = (number ^ filledDigits) + 1;
+                convertedNum = (Math.Abs(number) ^ filledDigits) + 1;
             }
             else
             {
-                convertedNum = (number - 1) ^ filledDigits;
+                convertedNum = ((number - 1) ^ filledDigits) * -1;
             }
 
             return convertedNum;
