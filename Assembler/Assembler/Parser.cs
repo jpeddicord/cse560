@@ -266,6 +266,7 @@ namespace Assembler
          *  - April  9, 2011 -  Mark - Parses hex and binary literals.
          *  - April  9, 2011 -  Mark - Parameters changed. Return type changed to void.
          *  - April  9, 2011 -  Mark - Now parses integer literals.
+         *  - April 10, 2011 - Jacob - Parses single character in accordance with instruction limits.
          * @teststandard Andrew Buelow
          * @codestandard Mark Mathis
          * 
