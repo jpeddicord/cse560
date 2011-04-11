@@ -40,13 +40,6 @@ namespace Assembler
             }
         }
 
-        /* Two's Complement stuff.
-         *  short varA = 1023;
--            short varB = 367;
--            long result = (varA ^ varB) + 1;
--            Console.WriteLine(result);
-         */
-
         static void InitLogger(DateTime now)
         {
             // Create the log directory if it doesn't already exist.
