@@ -328,11 +328,18 @@ namespace Assembler
                     {
                         Trace.WriteLine("literal operand is integer", "Parser");
                         op = Convert.ToInt32(inOper.Substring(2));
-                        if (op < 0)
+                        if (-512 < op && op < 511)
                         {
-                            op = BinaryHelper.ConvertNumber(op, 10);
+                            if (op < 0)
+                            {
+                                op = BinaryHelper.ConvertNumber(op, 10);
+                            }
+                            outOper = Convert.ToString(op, 16).ToUpper();
                         }
-                        outOper = Convert.ToString(op, 16).ToUpper();
+                        else
+                        {
+                            outOper = "_OUT OF BOUNDS";
+                        }
                     } break;
                 case 'C':
                 case 'c':
