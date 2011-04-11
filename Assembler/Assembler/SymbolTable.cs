@@ -112,10 +112,6 @@ namespace Assembler
          * Add a symbol to the symbol table. Constructs a Symbol based on the
          * input parameters, and adds it to the table.
          *
-         * @param rlabel Label for the constructed symbol
-         * @param lc Location counter for the symbol
-         * @param usage Usage information for the symbol
-         * @param val Optional value for the symbol
          * @refcode
          * @errtest
          * @errmsg
@@ -124,6 +120,12 @@ namespace Assembler
          * @modlog
          * @codestandard Mark
          * @teststandard Andrew
+         * 
+         * 
+         * @param rlabel Label for the constructed symbol
+         * @param lc Location counter for the symbol
+         * @param usage Usage information for the symbol
+         * @param val Optional value for the symbol
          */
         public void AddSymbol(string rlabel, string lc, Usage usage, string val)
         {

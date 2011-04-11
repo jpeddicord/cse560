@@ -67,7 +67,7 @@ namespace Assembler
             if (line.Length > 0 && char.IsLetter(line[0]))
             {
                 Trace.WriteLine(String.Format("Line {0} has a label, parsing label", lineNum), "Parser");
-                Tokenizer.GetNextToken(ref line, ref token, ref tokenKind);
+                Tokenizer.GetNextToken(ref line, out token, out tokenKind);
                 if (tokenKind == Tokenizer.TokenKinds.Label_Or_Command
                     && (2 <= token.Length && token.Length <= 32))
                 {
@@ -83,7 +83,7 @@ namespace Assembler
              * Get the next token, which will specify whether or not the line has a
              * directive or an instruction.
              **/
-            Tokenizer.GetNextToken(ref line, ref token, ref tokenKind);
+            Tokenizer.GetNextToken(ref line, out token, out tokenKind);
 
             if (tokenKind == Tokenizer.TokenKinds.Label_Or_Command)
             {
@@ -113,7 +113,7 @@ namespace Assembler
 
             // If there's anything else, get it. If there's anything there,
             // it should be a comment.
-            Tokenizer.GetNextToken(ref line, ref token, ref tokenKind);
+            Tokenizer.GetNextToken(ref line, out token, out tokenKind);
 
             if (tokenKind == Tokenizer.TokenKinds.Comment)
             {
@@ -155,7 +155,7 @@ namespace Assembler
             if (ValidOperandField(line))
             {
                 // get what should be the function name
-                Tokenizer.GetNextToken(ref line, ref token, ref tokenKind);
+                Tokenizer.GetNextToken(ref line, out token, out tokenKind);
 
                 if (instructionList.IsInstruction(interLine.OpCategory, token))
                 {
@@ -167,7 +167,7 @@ namespace Assembler
                 }
 
                 // get what should be the function operand
-                Tokenizer.GetNextToken(ref line, ref token, ref tokenKind);
+                Tokenizer.GetNextToken(ref line, out token, out tokenKind);
 
                 if (tokenKind == Tokenizer.TokenKinds.Label_Or_Command)
                 {
@@ -193,7 +193,7 @@ namespace Assembler
             else if (interLine.OpCategory.ToUpper() == "CNTL")
             {
                 // token should be either CLRD or CLRT
-                Tokenizer.GetNextToken(ref line, ref token, ref tokenKind);
+                Tokenizer.GetNextToken(ref line, out token, out tokenKind);
 
                 if (token.ToUpper().Equals("CLRD") || token.ToUpper().Equals("CLRT"))
                 {
@@ -242,7 +242,7 @@ namespace Assembler
             Trace.WriteLine("Parsing directive operand on line " + interLine.SourceLineNumber, "Parser");
 
             // get the operand of the directive
-            Tokenizer.GetNextToken(ref line, ref token, ref tokenKind);
+            Tokenizer.GetNextToken(ref line, out token, out tokenKind);
 
             if (tokenKind == Tokenizer.TokenKinds.Label_Or_Command)
             {
