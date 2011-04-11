@@ -343,3 +343,78 @@ Concerns:
     None
 
 
+Binary Helper Test List
+----------------------
+
+Test Number: B1
+```````````````
+Purpose:
+    Tests that a negative number can be correctly converted to two's complement representation using 10 digits.
+Expected Results Achieved:
+    Yes
+Concerns:
+    None
+
+Test Number: B2
+```````````````
+Purpose:
+    Tests that a negative number can be correctly converted to two's complement representation at the max digits of 16.
+Expected Results Achieved:
+    Yes
+Concerns:
+    None
+
+
+Test Number: B3
+```````````````
+Purpose:
+    Tests that a number in 10 digit two's complement can be correctly converted to its non-2's complement representation.
+Expected Results Achieved:
+    Yes
+Concerns:
+    None
+	
+Test Number: B4
+```````````````
+Purpose:
+    Tests that a number in 8 digit two's complement can be correctly converted to its non-2's complement representation.
+Expected Results Achieved:
+    Yes
+Concerns:
+    None
+	
+Test Number: B5
+```````````````
+Purpose:
+    Testing conversion of the smallest number to its negative two's complement representation with max digits (16).  This is an edge case.
+Expected Results Achieved:
+    Yes
+Concerns:
+    None
+	
+Test Number: B6
+```````````````
+Purpose:
+    Testing conversion of a smallest two's complement to its negative corresponding value.  This is an edge case.
+Expected Results Achieved:
+    Yes
+Concerns:
+    None
+	
+Test Number: B7
+```````````````
+Purpose:
+	Testing conversion of the largest number to its negative two's complement representation with max digits (16).  This is an edge case.
+Expected Results Achieved:
+    Yes
+Concerns:
+    None
+	
+Test Number: B8
+```````````````
+Purpose:
+    Testing conversion of the largest two's complement to its negative corresponding value.  This is an edge case.
+Expected Results Achieved:
+    Yes
+Concerns:
+    None

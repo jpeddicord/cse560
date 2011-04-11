@@ -1,0 +1,3 @@
+convertedNum,BinaryHelper.ConvertNumber,int,local,stores the converted value of the incoming number
+limit,BinaryHelper.ConvertNumber,int,local,stores the point at which a number would become a negative number in two's complement
+fillledDigits,BinaryHelper.ConvertNumber,int,local,stores -1 in two's complement with results in a binary number of size digits filled with 1's
