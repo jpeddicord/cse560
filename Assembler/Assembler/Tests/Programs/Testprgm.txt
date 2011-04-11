@@ -1,0 +1,3 @@
+prgm	start	50
+
+		end		prgm
