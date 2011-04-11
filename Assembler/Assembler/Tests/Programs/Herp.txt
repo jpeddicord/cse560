@@ -6,5 +6,7 @@ HERP       MOPER ADD,=0
             MOPER AND,B=10101010  : 0xAA
 DERP       CNTL dump,1
             CNTL GOTO,HERP
+            cntl clrd
+            MOPER OR,c='A'
 THEGAME    MOPER MUL,I=9001      : it's over nine thousand!
             end HerpDerp        : derpy derp

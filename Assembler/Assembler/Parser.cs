@@ -131,6 +131,7 @@ namespace Assembler
          *  - April 9, 2011 - Mark - ParseInstruction properly parses instructions.
          *  - April 9, 2011 - Mark - Uses new ParseLiteralOperand format.
          *  - April 9, 2011 - Mark - Changed to use ValidOperandField.
+         *  - April 10, 2011 - Jacob - Added single-character parsing support.
          * @teststandard Andrew Buelow
          * @codestandard Mark Mathis
          * 
@@ -290,6 +291,13 @@ namespace Assembler
                     {
                         Trace.WriteLine("literal operand is integer", "Parser");
                         outOper = Convert.ToString(Convert.ToInt32(inOper.Substring(2)), 16).ToUpper();
+                    } break;
+                case 'C':
+                case 'c':
+                    {
+                        Trace.WriteLine("literal operand is character", "Parser");
+                        // fix this: parse integers more properly.
+                        outOper = Convert.ToString(Convert.ToInt32(((int) inOper[3]) << 2), 16).ToUpper();
                     } break;
             }
 
