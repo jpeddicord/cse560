@@ -75,6 +75,7 @@
     <Compile Include="Directives.cs" />
     <Compile Include="IntermediateFile.cs" />
     <Compile Include="IntermediateLine.cs" />
+    <Compile Include="Logger288.cs" />
     <Compile Include="Parser.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

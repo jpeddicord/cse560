@@ -25,7 +25,7 @@ namespace Assembler
         public Tokenizer()
         {
             // Write a message to the log to confirm the tokenizer has been initialized
-            Trace.WriteLine("Initializing tokenizer.", "Tokenizer");
+            Logger288.Log("Initializing tokenizer.", "Tokenizer");
         }
 
         /**
@@ -66,7 +66,7 @@ namespace Assembler
         public static void GetNextToken(ref string line, out string token, out TokenKinds tokenKind)
         {
             // Write to the log before attempting to remove the next token.
-            Trace.WriteLine("Getting new token.", "Tokenizer");
+            Logger288.Log("Getting new token.", "Tokenizer");
 
             // Remove extra whitespace
             line = line.Trim();
@@ -110,7 +110,7 @@ namespace Assembler
             line = line.TrimStart();
 
             // Write to the log after the token has been successfully retrieved.
-            Trace.WriteLine("Token acquired, returning.", "Tokenizer");
+            Logger288.Log("Token acquired, returning.", "Tokenizer");
         }
 
         /**

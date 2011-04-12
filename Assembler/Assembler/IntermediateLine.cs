@@ -224,7 +224,7 @@ namespace Assembler
          */
         public IntermediateLine(string source, short lineNum)
         {
-            Trace.WriteLine("Initializing line " + lineNum, "IntermediateLine");
+            Logger288.Log("Initializing line " + lineNum, "IntermediateLine");
             this.source = source;
             this.line = lineNum.ToString();
             this.LC = null;
@@ -270,7 +270,7 @@ namespace Assembler
          */
         public override string ToString()
         {
-            Trace.WriteLine("Printing line " + this.line, "IntermediateLine");
+            Logger288.Log("Printing line " + this.line, "IntermediateLine");
 
             string format = String.Join("\n    ", new string[] {
                 "{0}",

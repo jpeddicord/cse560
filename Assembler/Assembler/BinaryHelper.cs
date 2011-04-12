@@ -15,7 +15,7 @@ namespace Assembler
         public BinaryHelper()
         {
            // Write a message to the log to confirm the binary helper has been initialized
-           Trace.WriteLine("Initializing Binary Helper.", "Binary Helper");
+           Logger288.Log("Initializing Binary Helper.", "Binary Helper");
          }
 
         /**

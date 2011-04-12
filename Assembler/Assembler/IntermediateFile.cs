@@ -41,7 +41,7 @@ namespace Assembler
          */
         public IntermediateFile(string prgmName)
         {
-            Trace.WriteLine("Creating IntermediateFile object for " + prgmName, "IntermediateFile");
+            Logger288.Log("Creating IntermediateFile object for " + prgmName, "IntermediateFile");
             this.allLines = new Dictionary<int, IntermediateLine>();
             this.prgmName = prgmName;
         }

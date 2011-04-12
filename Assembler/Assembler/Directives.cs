@@ -32,7 +32,7 @@ namespace Assembler
          */
         private Directives()
         {
-            Trace.WriteLine("Creating instance of Directives.", "Directives");
+            Logger288.Log("Creating instance of Directives.", "Directives");
             directiveList = new ArrayList(Properties.Resources.directives.Split('\n'));
         }
 
@@ -51,7 +51,7 @@ namespace Assembler
          */
         public static Directives GetInstance()
         {
-            Trace.WriteLine("Request for instance of Directives.", "Directives");
+            Logger288.Log("Request for instance of Directives.", "Directives");
             if (Directives.instance == null)
             {
                 instance = new Directives();
@@ -78,7 +78,7 @@ namespace Assembler
          */
         public bool Contains(string dir)
         {
-            Trace.WriteLine(String.Format("Check if {0} is valid directive.", dir), "Directives");
+            Logger288.Log(String.Format("Check if {0} is valid directive.", dir), "Directives");
             return directiveList.Contains(dir.ToUpper());
         }
     }

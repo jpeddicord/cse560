@@ -26,7 +26,7 @@ namespace Assembler
          */
         public Parser()
         {
-            Trace.WriteLine("Creating Parser object.", "Parser");
+            Logger288.Log("Creating Parser object.", "Parser");
             directiveList = Directives.GetInstance();
             instructionList = Instructions.GetInstance();
             LC = "0";
@@ -56,7 +56,7 @@ namespace Assembler
          */
         private IntermediateLine ParseLine(string line, short lineNum)
         {
-            Trace.WriteLine("Parsing line " + lineNum, "Parser");
+            Logger288.Log("Parsing line " + lineNum, "Parser");
             string token = "";
             Tokenizer.TokenKinds tokenKind = Tokenizer.TokenKinds.Empty;
 
@@ -66,7 +66,7 @@ namespace Assembler
             // check for a label at the beginning of the line
             if (line.Length > 0 && char.IsLetter(line[0]))
             {
-                Trace.WriteLine(String.Format("Line {0} has a label, parsing label", lineNum), "Parser");
+                Logger288.Log(String.Format("Line {0} has a label, parsing label", lineNum), "Parser");
                 Tokenizer.GetNextToken(ref line, out token, out tokenKind);
                 if (tokenKind == Tokenizer.TokenKinds.Label_Or_Command
                     && (2 <= token.Length && token.Length <= 32))
@@ -120,7 +120,7 @@ namespace Assembler
                 interLine.Comment = token;
             }
 
-            Trace.WriteLine("Finished parsing line " + lineNum, "Parser");
+            Logger288.Log("Finished parsing line " + lineNum, "Parser");
 
             return interLine;
         }
@@ -146,7 +146,7 @@ namespace Assembler
          */
         private void ParseInstruction(ref string line, ref IntermediateLine interLine)
         {
-            Trace.WriteLine("Parsing instruction on line " + interLine.SourceLineNumber, "Parser");
+            Logger288.Log("Parsing instruction on line " + interLine.SourceLineNumber, "Parser");
 
             string token = "";
             Tokenizer.TokenKinds tokenKind = Tokenizer.TokenKinds.Empty;
@@ -211,7 +211,7 @@ namespace Assembler
                 interLine.OpOperand = "_ERROR";
             }
 
-            Trace.WriteLine("Finished parsing instruction on line " + interLine.SourceLineNumber, "Parser");
+            Logger288.Log("Finished parsing instruction on line " + interLine.SourceLineNumber, "Parser");
         }
 
         /**
@@ -233,13 +233,13 @@ namespace Assembler
          */
         private void ParseDirective(ref string line, ref IntermediateLine interLine)
         {
-            Trace.WriteLine("Parsing directive on line " + interLine.SourceLineNumber, "Parser");
+            Logger288.Log("Parsing directive on line " + interLine.SourceLineNumber, "Parser");
 
             string token = "";
             Tokenizer.TokenKinds tokenKind = Tokenizer.TokenKinds.Empty;
 
 
-            Trace.WriteLine("Parsing directive operand on line " + interLine.SourceLineNumber, "Parser");
+            Logger288.Log("Parsing directive operand on line " + interLine.SourceLineNumber, "Parser");
 
             // get the operand of the directive
             Tokenizer.GetNextToken(ref line, out token, out tokenKind);
@@ -265,7 +265,7 @@ namespace Assembler
                 interLine.DirectiveOperand = "_ERROR";
             }
 
-            Trace.WriteLine("Finished parsing directive on line " + interLine.SourceLineNumber, "Parser");
+            Logger288.Log("Finished parsing directive on line " + interLine.SourceLineNumber, "Parser");
         }
 
         /**
@@ -291,7 +291,7 @@ namespace Assembler
          */
         private void ParseLiteralOperand(string inOper, out string outOper, out string litType)
         {
-            Trace.WriteLine("Parsing literal operand " + inOper, "Parser");
+            Logger288.Log("Parsing literal operand " + inOper, "Parser");
 
             int op;
             outOper = inOper.Substring(2);
@@ -302,7 +302,7 @@ namespace Assembler
                 case 'X':
                 case 'x':
                     {
-                        Trace.WriteLine("literal operand is hex", "Parser");
+                        Logger288.Log("literal operand is hex", "Parser");
                         op = Convert.ToInt32(inOper.Substring(2), 16);
                         if (op < 0)
                         {
@@ -314,7 +314,7 @@ namespace Assembler
                 case 'B':
                 case 'b':
                     {
-                        Trace.WriteLine("literal operand is binary", "Parser");
+                        Logger288.Log("literal operand is binary", "Parser");
                         op = Convert.ToInt32(inOper.Substring(2), 2);
                         if (op < 0)
                         {
@@ -326,7 +326,7 @@ namespace Assembler
                 case 'I':
                 case 'i':
                     {
-                        Trace.WriteLine("literal operand is integer", "Parser");
+                        Logger288.Log("literal operand is integer", "Parser");
                         op = Convert.ToInt32(inOper.Substring(2));
                         if (-512 < op && op < 511)
                         {
@@ -344,13 +344,13 @@ namespace Assembler
                 case 'C':
                 case 'c':
                     {
-                        Trace.WriteLine("literal operand is character", "Parser");
+                        Logger288.Log("literal operand is character", "Parser");
                         // fix this: parse integers more properly.
                         outOper = Convert.ToString(Convert.ToInt32(((int)inOper[3]) << 2), 16).ToUpper();
                     } break;
             }
 
-            Trace.WriteLine(String.Format("Literal operand parsed as {0} {1}", litType, outOper), "Parser");
+            Logger288.Log(String.Format("Literal operand parsed as {0} {1}", litType, outOper), "Parser");
         }
 
         /**
@@ -372,13 +372,13 @@ namespace Assembler
          */
         private IntermediateLine ParseStart(string line)
         {
-            Trace.WriteLine("Parsing START directive", "Parser");
+            Logger288.Log("Parsing START directive", "Parser");
 
             IntermediateLine start = ParseLine(line, 1);
             LC = start.DirectiveOperand;
             start.ProgramCounter = LC;
 
-            Trace.WriteLine("Finished parsing START directive", "Parser");
+            Logger288.Log("Finished parsing START directive", "Parser");
 
             return start;
         }
@@ -403,7 +403,7 @@ namespace Assembler
          */
         private IntermediateLine ParseEnd(string line, short lineNum)
         {
-            Trace.WriteLine("Parsing END directive", "Parser");
+            Logger288.Log("Parsing END directive", "Parser");
             return new IntermediateLine(line, lineNum);
         }
 
@@ -422,11 +422,11 @@ namespace Assembler
          */
         private void IncrementLocationCounter()
         {
-            Trace.WriteLine("Incrementing LC from: " + LC, "Parser");
+            Logger288.Log("Incrementing LC from: " + LC, "Parser");
             int tempLC = Convert.ToInt32(LC, 16);
             tempLC++;
             LC = Convert.ToString(tempLC, 16).ToUpper();
-            Trace.WriteLine("LC incremented to: " + LC, "Parser");
+            Logger288.Log("LC incremented to: " + LC, "Parser");
         }
 
         /**
@@ -449,15 +449,15 @@ namespace Assembler
          */
         private bool ValidOperandField(string line)
         {
-            Trace.WriteLine("Checking operand for invalid syntax", "Parser");
+            Logger288.Log("Checking operand for invalid syntax", "Parser");
             string[] OperandParts = line.Split(new char[] { ',' }, 2);
             if (OperandParts.Length < 2 || OperandParts[0].Contains(" ") || OperandParts[1].StartsWith(" "))
             {
-                Trace.WriteLine("Operand syntax invalid", "Parser");
+                Logger288.Log("Operand syntax invalid", "Parser");
                 return false;
             }
 
-            Trace.WriteLine("Operand syntax valid", "Parser");
+            Logger288.Log("Operand syntax valid", "Parser");
             return true;
         }
 
@@ -488,12 +488,12 @@ namespace Assembler
             string[] sourceCode = new string[1];
             try
             {
-                Trace.WriteLine("Opening file: " + path, "Parser");
+                Logger288.Log("Opening file: " + path, "Parser");
                 sourceCode = File.ReadAllLines(path);
             }
             catch (FileNotFoundException ex)
             {
-                Trace.WriteLine("Failed to open file. Error: " + ex.Message, "Parser");
+                Logger288.Log("Failed to open file. Error: " + ex.Message, "Parser");
                 Console.WriteLine("{0}\n{1}", ex.Message, "Exiting program");
                 System.Environment.Exit(1);
             }
