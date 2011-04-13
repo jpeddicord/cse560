@@ -8,22 +8,6 @@ namespace Assembler
     class Parser
     {
         /**
-         * DOCUMENT MEEEEEE
-         */
-        public enum OperandType {
-            elabel,
-            mlabel,
-            rlabel,
-            olabel,
-            n,
-            nn,
-            nnn,
-            nmax,
-            nnnnnn,
-            none
-        }
-
-        /**
          * The parser's list of directives.
          */
         Directives directiveList;
