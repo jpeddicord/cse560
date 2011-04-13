@@ -29,11 +29,27 @@ namespace Assembler
 
         /**
          * A private constructor that fills the list with the directives.
+         * 
+         *          * @refcode N/A
+         * @errtest N/A
+         * @errmsg N/A
+         * @author Mark
+         * @creation April 8, 2011
+         * @modlog
+         *  - April 12, 2011 - Mark - Directives that are pulled from the file are now trimmed.
+         * @codestandard Mark
+         * @codestandard Andrew
          */
         private Directives()
         {
             Logger288.Log("Creating instance of Directives.", "Directives");
-            directiveList = new ArrayList(Properties.Resources.directives.Split('\n'));
+            string[] direcs = Properties.Resources.directives.Split('\n');
+            directiveList = new ArrayList();
+            
+            for (int i = 0; i < direcs.Length; i++)
+            {
+                directiveList.Add(direcs[i].Trim());
+            }
         }
 
         /**

@@ -48,7 +48,8 @@ namespace Assembler
          * @author Jacob
          * @creation April 7, 2011
          * @modlog
-         *  April 8, 2011 - Jacob - Load from Resource instead of a stream
+         *  -April  8, 2011 - Jacob - Load from Resource instead of a stream
+         *  -April 12, 2011 -  Mark - Things are now trimmed.
          * @codestandard Mark
          * @teststandard Andrew
          */
@@ -61,11 +62,11 @@ namespace Assembler
             foreach (string line in Properties.Resources.instructions.Split('\n'))
             {
                 string[] parts = line.Split(' ');
-                if (!this.instructions.ContainsKey(parts[0]))
+                if (!this.instructions.ContainsKey(parts[0].Trim()))
                 {
-                    this.instructions[parts[0]] = new Dictionary<string, string>();
+                    this.instructions[parts[0].Trim()] = new Dictionary<string, string>();
                 }
-                this.instructions[parts[0]][parts[1]] = parts[2].Trim();
+                this.instructions[parts[0].Trim()][parts[1].Trim()] = parts[2].Trim();
             }
         }
 
