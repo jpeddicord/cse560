@@ -9,14 +9,8 @@ namespace Assembler
     /**
      * Allows users to convert to and from two's complement representation.
      */
-    class BinaryHelper
+    static class BinaryHelper
     {
-        
-        public BinaryHelper()
-        {
-           // Write a message to the log to confirm the binary helper has been initialized
-           Logger288.Log("Initializing Binary Helper.", "Binary Helper");
-         }
 
         /**
          * This procedure can be used to convert to and from two's complement. When given a

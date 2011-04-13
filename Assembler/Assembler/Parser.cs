@@ -4,8 +4,25 @@ using System.Diagnostics;
 
 namespace Assembler
 {
+
     class Parser
     {
+        /**
+         * DOCUMENT MEEEEEE
+         */
+        public enum OperandType {
+            elabel,
+            mlabel,
+            rlabel,
+            olabel,
+            n,
+            nn,
+            nnn,
+            nmax,
+            nnnnnn,
+            none
+        }
+
         /**
          * The parser's list of directives.
          */
@@ -139,6 +156,7 @@ namespace Assembler
          *  - April  9, 2011 - Mark - Uses new ParseLiteralOperand format.
          *  - April  9, 2011 - Mark - Changed to use ValidOperandField.
          *  - April 10, 2011 - Mark - Handles CLRD and CLRT.
+         *  - April 12, 2011 - Jacob - Factor out operand parsing.
          * @teststandard Andrew Buelow
          * @codestandard Mark Mathis
          * 
@@ -205,6 +223,7 @@ namespace Assembler
          * @modlog
          *  - April 9, 2011 - Mark - ParseDirective properly parses directives.
          *  - April 9, 2011 - Mark - Uses new ParseLiteralOperand format.
+         *  - April 12, 2011 - Jacob - Factor out operand parsing.
          * @teststandard Andrew Buelow
          * @codestandard Mark Mathis
          * 
@@ -215,17 +234,23 @@ namespace Assembler
         {
             Logger288.Log("Parsing directive on line " + interLine.SourceLineNumber, "Parser");
 
-            // process the directive type
+            // NOP doesn't have an operand
             if (interLine.Directive == "NOP")
             {
-                // TODO: insert and "parse" a MOPER ADD,=0
+                // TODO: insert and "parse" a MOPER ADD,=0, and increment LC
+                return;
             }
-            //else if (interLine.Directive == ??? FIXME
 
             Logger288.Log("Parsing directive operand on line " + interLine.SourceLineNumber, "Parser");
 
             // get the operand of the directive
             ParseOperand(ref line, ref interLine);
+
+            // RESET directive sets the LC
+            if (interLine.Directive == "RESET")
+            {
+                //this.LC;
+            }
 
             Logger288.Log("Finished parsing directive on line " + interLine.SourceLineNumber, "Parser");
         }
