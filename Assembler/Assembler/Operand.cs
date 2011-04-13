@@ -43,5 +43,6 @@ namespace Assembler
             // TODO
             return true;
         }
+    }
 }
 
