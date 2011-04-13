@@ -85,10 +85,12 @@ namespace Assembler
 
             if (tokenKind == Tokenizer.TokenKinds.Label_Or_Command)
             {
+                // coerce into uppercase
+                token = token.ToUpper();
                 // instruction
                 if (instructionList.IsGroup(token))
                 {
-                    interLine.OpCategory = token.ToUpper();
+                    interLine.OpCategory = token;
                     ParseInstruction(ref line, ref interLine);
                     interLine.ProgramCounter = LC;
                     IncrementLocationCounter();
@@ -96,7 +98,7 @@ namespace Assembler
                 // directive
                 else if (directiveList.Contains(token))
                 {
-                    interLine.Directive = token.ToUpper();
+                    interLine.Directive = token;
                     ParseDirective(ref line, ref interLine);
                 }
                 else
@@ -166,28 +168,7 @@ namespace Assembler
                 }
 
                 // get what should be the function operand
-                Tokenizer.GetNextToken(ref line, out token, out tokenKind);
-
-                if (tokenKind == Tokenizer.TokenKinds.Label_Or_Command)
-                {
-                    interLine.OpOperand = token;
-                }
-                else if (tokenKind == Tokenizer.TokenKinds.Literal)
-                {
-                    string operand = "";
-                    string litOperand = "";
-                    ParseLiteralOperand(token, out operand, out litOperand);
-                    interLine.OpOperand = operand;
-                    interLine.OpLitOperand = litOperand;
-                }
-                else if (tokenKind == Tokenizer.TokenKinds.Number)
-                {
-                    interLine.OpOperand = Convert.ToString(int.Parse(token), 16).ToUpper();
-                }
-                else
-                {
-                    interLine.OpOperand = "_ERROR";
-                }
+                ParseOperand(ref line, ref interLine);
             }
             else if (interLine.OpCategory.ToUpper() == "CNTL")
             {
@@ -234,37 +215,68 @@ namespace Assembler
         {
             Logger288.Log("Parsing directive on line " + interLine.SourceLineNumber, "Parser");
 
-            string token = "";
-            Tokenizer.TokenKinds tokenKind = Tokenizer.TokenKinds.Empty;
-
+            // process the directive type
+            if (interLine.Directive == "NOP")
+            {
+                // TODO: insert and "parse" a MOPER ADD,=0
+            }
+            //else if (interLine.Directive == ??? FIXME
 
             Logger288.Log("Parsing directive operand on line " + interLine.SourceLineNumber, "Parser");
 
             // get the operand of the directive
+            ParseOperand(ref line, ref interLine);
+
+            Logger288.Log("Finished parsing directive on line " + interLine.SourceLineNumber, "Parser");
+        }
+
+        /**
+         * Parse an operand and fill the intermediate line with found data.
+         * XXX: DOC
+         */
+        private void ParseOperand(ref string line, ref IntermediateLine interLine)
+        {
+            // get the next token
+            string token;
+            Tokenizer.TokenKinds tokenKind;
             Tokenizer.GetNextToken(ref line, out token, out tokenKind);
 
+            string operand;
+            string litOperand = null;
+
+            // if it's a label, then just set the token directly
             if (tokenKind == Tokenizer.TokenKinds.Label_Or_Command)
             {
-                interLine.DirectiveOperand = token;
+                operand = token;
             }
+            // if it's a number, convert and store
             else if (tokenKind == Tokenizer.TokenKinds.Number)
             {
-                interLine.DirectiveOperand = Convert.ToString(int.Parse(token), 16).ToUpper();
+                operand = Convert.ToString(int.Parse(token), 16).ToUpper();
             }
+            // do further processing for literals
             else if (tokenKind == Tokenizer.TokenKinds.Literal)
             {
-                string operand = "";
-                string litOperand = "";
                 ParseLiteralOperand(token, out operand, out litOperand);
+            }
+            // anything else is invalid
+            else
+            {
+                operand = "_ERROR";
+            }
+
+            // assign the directive fields if it's a directive
+            if (interLine.Directive != null)
+            {
                 interLine.DirectiveOperand = operand;
                 interLine.DirectiveLitOperand = litOperand;
             }
+            // otherwise fill the default operands
             else
             {
-                interLine.DirectiveOperand = "_ERROR";
+                interLine.OpOperand = operand;
+                interLine.OpLitOperand = litOperand;
             }
-
-            Logger288.Log("Finished parsing directive on line " + interLine.SourceLineNumber, "Parser");
         }
 
         /**
