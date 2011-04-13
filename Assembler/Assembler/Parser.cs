@@ -79,10 +79,8 @@ namespace Assembler
                 }
             }
 
-            /**
-             * Get the next token, which will specify whether or not the line has a
-             * directive or an instruction.
-             **/
+            // Get the next token, which will specify whether or not the line has a
+            // directive or an instruction.
             Tokenizer.GetNextToken(ref line, out token, out tokenKind);
 
             if (tokenKind == Tokenizer.TokenKinds.Label_Or_Command)
@@ -90,14 +88,15 @@ namespace Assembler
                 // instruction
                 if (instructionList.IsGroup(token))
                 {
-                    interLine.OpCategory = token;
+                    interLine.OpCategory = token.ToUpper();
                     ParseInstruction(ref line, ref interLine);
                     interLine.ProgramCounter = LC;
                     IncrementLocationCounter();
                 }
+                // directive
                 else if (directiveList.Contains(token))
                 {
-                    interLine.Directive = token;
+                    interLine.Directive = token.ToUpper();
                     ParseDirective(ref line, ref interLine);
                 }
                 else
