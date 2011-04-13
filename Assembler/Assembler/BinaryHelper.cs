@@ -37,7 +37,7 @@ namespace Assembler
          * @param digits The number of digits the number is being represented by in base 2.
          * @return The number converted from or to two's complement.
          */
-        public static int ConvertNumber(int number, int digits)
+        public static int ConvertNumber(int number, int digits = 10)
         {
             /**
              * Stores the value of the converted number.

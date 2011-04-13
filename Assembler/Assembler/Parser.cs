@@ -353,7 +353,7 @@ namespace Assembler
                         {
                             if (op < 0)
                             {
-                                op = BinaryHelper.ConvertNumber(op, 10);
+                                op = BinaryHelper.ConvertNumber(op);
                             }
                             outOper = Convert.ToString(op, 16).ToUpper();
                         }
