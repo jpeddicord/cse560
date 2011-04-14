@@ -70,10 +70,10 @@ namespace Assembler
             Logger288.Log("Request for instance of Directives.", "Directives");
             if (Directives.instance == null)
             {
-                instance = new Directives();
+                Directives.instance = new Directives();
             }
 
-            return instance;
+            return Directives.instance;
         }
 
         /**

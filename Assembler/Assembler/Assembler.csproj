@@ -73,6 +73,7 @@
     <Compile Include="BinaryHelper.cs" />
     <Compile Include="DirectiveParser.cs" />
     <Compile Include="Directives.cs" />
+    <Compile Include="Errors.cs" />
     <Compile Include="IntermediateFile.cs" />
     <Compile Include="IntermediateLine.cs" />
     <Compile Include="Logger288.cs" />
