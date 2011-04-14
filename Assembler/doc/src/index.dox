@@ -5,6 +5,7 @@
 Welcome to the documentation for the Final Four Accelerated Assembler. You can browse the developer documentation by selecting Classes above, or browse through any of the following sections:
 
 - \ref user_guide
+- \ref language_spec
 - \ref test_plan
 - \ref ded
 - \ref errata
