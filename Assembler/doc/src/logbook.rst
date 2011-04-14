@@ -141,3 +141,28 @@ To do
 - Jacob - Fix up small documentation issues, and begin write-up of language specification
 - Andrew - Write up error and testing documentation
 - Mark - Look into processing directives
+
+
+April 14th 2011 - 4:00 pm
+=========================
+After some discussion about the use of BinaryHelper, it was decided that it would be easier to make it also
+handle values that would be the same whether they were in two's complement or not.  Andrew added these changes.
+It was also decided to add a function to help out the user. IsInRange was added so the user can determine if
+they are providing valid input before calling ConvertNumber.
+
+Since last meeting a lot of work has been done on the documentation.  We have a little clearer idea of what is
+to be required. So far the major additions have been a user guide and a language specification for FFA (which can
+probably be considered as part of the user guide).  Jacob and Andrew took some time to write brief descriptions and
+examples of CNTL and STACK instructions and most of the directives.  A couple directives still need to be
+documented but we want some further clarification on their purpose before doing so.  JUMP, SOPER, MOPER and Literals
+all still need documentation.
+
+The decision was made to also split Parser up.  While it is possible to keep Parser as one class, we decided that it
+would be better for organization if we had seperate classes to deal with different aspects of parsing.
+
+To do
+-----
+- Jacob - Finish up documentation for language specification besides items that require further clarification from instructor.
+- Andrew - Work on testing plan and documentation.  Find a way to present our ideas on the subject and how we accomplished it in a better format.
+- Mark - Work on a method of error catching and reporting.
+
