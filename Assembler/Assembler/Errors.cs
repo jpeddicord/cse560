@@ -32,7 +32,19 @@ namespace Assembler
         private Dictionary<Errors.Category, Dictionary<int, string>> errorList;
 
         /**
-         * Creates an object that can be used to look up errors.
+         * Creates an object that can be used to look up errors. These errors will be read in from a
+         * resource file.
+         * 
+         * @refcode N/A
+         * @errtest N/A
+         * @errmsg
+         *  - Reports errors in reading individual lines of the text file to the log. Silently skips
+         *          lines that are unreadable.
+         * @author Mark
+         * @creation April 14, 2011
+         * @modlog
+         * @codestandard Mark Mathis
+         * @teststandard Andrew Buelow
          */
         private Errors()
         {
@@ -77,14 +89,17 @@ namespace Assembler
                         }break;
                     case "ES":
                         {
+                            // this error is a serious error
                             errorList[Category.Serious][numCode] = errorMsg;
                         }break;
                     case "EW":
                         {
+                            // this error is a warning error
                             errorList[Category.Warning][numCode] = errorMsg;
                         }break;
                     default:
                         {
+                            // no category found
                             Logger288.Log(String.Format("Invalid errorCategory: {0}.  Skipping.",
                                                          errorCode[0]), "Errors");
                         }break;
@@ -96,6 +111,8 @@ namespace Assembler
 
         /**
          * Return the singleton instance of Errors.
+         * 
+         * @return the instance of this class
          * 
          * @refcode N/A
          * @errtest N/A
@@ -118,16 +135,58 @@ namespace Assembler
             return Errors.instance;
         }
 
+        /**
+         * Returns the fatal error that corresponds to the specified error code.
+         * 
+         * @return the error message specified by EF.errCode
+         * 
+         * @refcode N/A
+         * @errtest N/A
+         * @errmsg N/A
+         * @author Mark
+         * @creation April 14, 2011
+         * @modlog 
+         * @codestandard Mark Mathis
+         * @teststandard Andrew Buelow
+         */
         public string GetFatalError(int errCode)
         {
             return errorList[Category.Fatal][errCode];
         }
 
+        /**
+         * Returns the serious error that corresponds to the specified error code.
+         * 
+         * @return the error message specified by EF.errCode
+         * 
+         * @refcode N/A
+         * @errtest N/A
+         * @errmsg N/A
+         * @author Mark
+         * @creation April 14, 2011
+         * @modlog 
+         * @codestandard Mark Mathis
+         * @teststandard Andrew Buelow
+         */
         public string GetSeriousError(int errCode)
         {
             return errorList[Category.Serious][errCode];
         }
 
+        /**
+         * Returns the warning error that corresponds to the specified error code.
+         * 
+         * @return the error message specified by EF.errCode
+         * 
+         * @refcode N/A
+         * @errtest N/A
+         * @errmsg N/A
+         * @author Mark
+         * @creation April 14, 2011
+         * @modlog 
+         * @codestandard Mark Mathis
+         * @teststandard Andrew Buelow
+         */
         public string GetWarningError(int errCode)
         {
             return errorList[Category.Warning][errCode];
