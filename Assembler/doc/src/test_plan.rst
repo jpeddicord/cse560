@@ -13,7 +13,7 @@ Overall Program Testing
 
 Tests of the program functionality will be conducted by giving the program various test applicaitons to compile. The output of each run will be manually reviewed by the team, and will determine if further work is needed.
 
-This is highly dependent on `Unit Testing`, as the correctness of individual parts effects the outcome of the overall program execution.
+This is highly dependent on `Unit Testing`_, as the correctness of individual parts effects the outcome of the overall program execution.
 
 Sample test programs
 --------------------
@@ -26,7 +26,7 @@ Herp
     <code><pre>
 
 .. raw:: html
-    :file: ../../Assembler/Tests/Programs/Derp.txt
+    :file: ../../Assembler/Tests/Programs/Foo.txt
 
 .. raw:: html
     
@@ -40,7 +40,7 @@ Derp
     <code><pre>
 
 .. raw:: html
-    :file: ../../Assembler/Tests/Programs/Herp.txt
+    :file: ../../Assembler/Tests/Programs/Bar.txt
 
 .. raw:: html
     
