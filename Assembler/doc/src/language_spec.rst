@@ -122,7 +122,7 @@ Start
 Format::
 
 	Label | start | 0 - 1024
-	
+
 The start directive signifies the beginning of the program.  It must appear in the first line of the input program file.  The start directive is also used to set the starting location counter.  It must be provided a number (cannot use labels) that is within the range of memory, 0 - 1024.
 
 Example::
@@ -135,59 +135,101 @@ RESET
 Format::
 
 	Label | reset | new LC
-	
+
 Reset will alter the LC to the given value. The new LC must be larger than the LC of the reset.  For example, if the reset is called at LC 23, the new LC must be greater than 23.  The new value can be given as a number within the range of memory (0 - 1024) or a label, equated label or external reference of similar value.
 
 Example::
 
 	DATA reset 30     : called at LC 12 (hex), sets LC to 1E (30 in hex)
-	
+
 EQU
 ---
 
 Format::
 
 	Label | equ | 0 - 1024 or another equated label
-	
+
 Equate allows the user to set a label to the a value between 0 and 1024. If provided a label rather than a number, the label must have been previously equated.
 
 Example::
 
 	MUD EQU 512
 	DIRT EQU MUD
-	
+
 EQUe
 ----
 
 Format::
 
 	Label | eque | expression
-	
+
 Has the same use as ``EQU`` but allows for expressions in the operand field.  The expression can be made up of constants or previously equated symbols however the resulting computation must be int he range of 0 to 1024.  External references may not be used. Star notation may be used but must be the first item in the expression. Only one star notation per expression is allowed. Up to three operators may be used, however the operators are limited to plus (+) and minus (-).
 
 Example::
 
 	X1 EQUe 5-2+DIRT
-	
+
 ENTRY
 -----
 
+Format::
+
+	ENTRY | Label
+
+Defines a shared variable name.  This defined entry label must appear somewhere in this program and can then be used as an operand by other programs. Since this directive does not start with a label, it cannot start in column 1.
+
+Example::
+
+	 ENTRY ReturnValue
+	ReturnValue EQU 42
 
 EXTRN
 -----
 
+Format::
+
+	EXTRN | Label
+
+Declares a symbol that receives its value from another program. The extrn label defined must not appear as a label in this program, but may be used as an operand in this program.  The label must have a matching ``ENTRY`` in another program. Since this directive does not start with a label, it cannot start in column 1.
+
+Example::
+
+	 EXTRN ReturnValue
+	STACK PUSH,ReturnValue
 
 END
 ---
 
+Format::
+
+	END | Label
+	
+End signifies to the assembler that all input has been processed.  Any lines after end will generate a warning. The label should be the program name and must match the label given in the ``START`` directive. Since this directive does not start with a label, it cannot start in column 1.
+
+Example::
+
+	 END PRGRM2
 
 DAT
 ---
 
+Format::
+
+	Optional Label | DAT | Literal
+
+Creates one word of storage (16 bits) storing the value given by the literal.
+
+Example::
+
+	AB DAT X=15A9
+	CD DAT I=111
 
 ADC
 ---
 
+Format::
+
+	Optional Label | ADC | label, 0-1024, external reference, or equated label
 
 ADCE
 ----
@@ -195,4 +237,15 @@ ADCE
 
 NOP
 ---
+
+Format::
+
+	 NOP
+
+NOP can be used to waste a machine cycle without affecting anything. A NOP is accomplished by doing a SOPER ADD,0. Invalid lines found during assembly that were meant to consume memory will be replaced with NOP in order to keep the amount of memory consumed the same but still providing working code.
+
+Example::
+
+	 STACK PUSH,100
+	 NOP
 
