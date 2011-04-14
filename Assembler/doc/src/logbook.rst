@@ -124,6 +124,19 @@ going through and ensuring all of our procedures have all of these tags.
 
 To do
 -----
-- Everyone - Ensure all of the procedures have been properly documented and make changes when needed.
-           - Finish creating test fixtures for individual procedures.
-		   
+- Everyone
+ - Ensure all of the procedures have been properly documented and make changes when needed.
+ - Finish creating test fixtures for individual procedures.
+
+
+April 13th 2011 - 8:00 pm
+=========================
+We met up to discuss how to process directives for SP1, and how to properly handle errors. At the moment, errors aren't really handled at all, and what directive code that does exist is "patched in" in places where it probably shouldn't be.
+
+Looking at the results from SP1, we developed a much clearer plan for documentation. We're planning on writing out the machine specification for the users' guide (which may also be relevant for the developer's guide). We learned of what was missing from our testing documents and what to improve, as well.
+
+To do
+-----
+- Jacob - Fix up small documentation issues, and begin write-up of language specification
+- Andrew - Write up error and testing documentation
+- Mark - Look into processing directives
