@@ -258,7 +258,7 @@ namespace Assembler
             {
                 operand = token;
             }
-            // if it's a number, convert and store
+            // if it's a number, convert to hex and store
             else if (tokenKind == Tokenizer.TokenKinds.Number)
             {
                 operand = Convert.ToString(int.Parse(token), 16).ToUpper();
