@@ -1,4 +1,4 @@
-Derp 	start 2
+Foo 	start 2
 orange  soper div,3
 		jump tnull,orange  : what?!
 		cntl halt,5
@@ -6,4 +6,4 @@ orange  soper div,3
 
 ohno	cntl goto,orange
 		cntl clrd
-		end Derp
+		end Foo
