@@ -71,10 +71,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BinaryHelper.cs" />
+    <Compile Include="DirectiveParser.cs" />
     <Compile Include="Directives.cs" />
     <Compile Include="IntermediateFile.cs" />
     <Compile Include="IntermediateLine.cs" />
     <Compile Include="Logger288.cs" />
+    <Compile Include="OperandParser.cs" />
     <Compile Include="Parser.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -90,7 +92,6 @@
     <Compile Include="Tests\InstructionsTest.cs" />
     <Compile Include="SymbolTable.cs" />
     <Compile Include="Tests\SymbolTableTest.cs" />
-    <Compile Include="Operand.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">

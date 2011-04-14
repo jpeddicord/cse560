@@ -4,7 +4,9 @@ using System.Diagnostics;
 
 namespace Assembler
 {
-
+    /**
+     * Parses the source code.
+     */
     class Parser
     {
         /**
@@ -100,7 +102,7 @@ namespace Assembler
                 else if (directiveList.Contains(token))
                 {
                     interLine.Directive = token;
-                    ParseDirective(ref line, ref interLine);
+                    DirectiveParser.ParseDirective(ref line, ref interLine);
                 }
                 else
                 {
@@ -170,7 +172,7 @@ namespace Assembler
                 }
 
                 // get what should be the function operand
-                ParseOperand(ref line, ref interLine);
+                OperandParser.ParseOperand(ref line, ref interLine);
             }
             else if (interLine.OpCategory.ToUpper() == "CNTL")
             {
@@ -194,184 +196,6 @@ namespace Assembler
             }
 
             Logger288.Log("Finished parsing instruction on line " + interLine.SourceLineNumber, "Parser");
-        }
-
-        /**
-         * Parses the operation section of the line if it has an instruction.
-         * 
-         * @refcode N/A
-         * @errtest N/A
-         * @errmsg N/A
-         * @author Mark
-         * @creation April 9, 2011
-         * @modlog
-         *  - April 9, 2011 - Mark - ParseDirective properly parses directives.
-         *  - April 9, 2011 - Mark - Uses new ParseLiteralOperand format.
-         *  - April 12, 2011 - Jacob - Factor out operand parsing.
-         * @teststandard Andrew Buelow
-         * @codestandard Mark Mathis
-         * 
-         * @param line current line to parse.
-         * @param interLine the line as a single line in the intermediate file.
-         */
-        private void ParseDirective(ref string line, ref IntermediateLine interLine)
-        {
-            Logger288.Log("Parsing directive on line " + interLine.SourceLineNumber, "Parser");
-
-            // NOP doesn't have an operand
-            if (interLine.Directive == "NOP")
-            {
-                // TODO: insert and "parse" a MOPER ADD,=0, and increment LC
-                return;
-            }
-
-            Logger288.Log("Parsing directive operand on line " + interLine.SourceLineNumber, "Parser");
-
-            // get the operand of the directive
-            ParseOperand(ref line, ref interLine);
-
-            // RESET directive sets the LC
-            if (interLine.Directive == "RESET")
-            {
-                //this.LC;
-            }
-
-            Logger288.Log("Finished parsing directive on line " + interLine.SourceLineNumber, "Parser");
-        }
-
-        /**
-         * Parse an operand and fill the intermediate line with found data.
-         * XXX: DOC
-         */
-        private void ParseOperand(ref string line, ref IntermediateLine interLine)
-        {
-            // get the next token
-            string token;
-            Tokenizer.TokenKinds tokenKind;
-            Tokenizer.GetNextToken(ref line, out token, out tokenKind);
-
-            string operand;
-            string litOperand = null;
-
-            // if it's a label, then just set the token directly
-            if (tokenKind == Tokenizer.TokenKinds.Label_Or_Command)
-            {
-                operand = token;
-            }
-            // if it's a number, convert to hex and store
-            else if (tokenKind == Tokenizer.TokenKinds.Number)
-            {
-                operand = Convert.ToString(int.Parse(token), 16).ToUpper();
-            }
-            // do further processing for literals
-            else if (tokenKind == Tokenizer.TokenKinds.Literal)
-            {
-                ParseLiteralOperand(token, out operand, out litOperand);
-            }
-            // anything else is invalid
-            else
-            {
-                operand = "_ERROR";
-            }
-
-            // assign the directive fields if it's a directive
-            if (interLine.Directive != null)
-            {
-                interLine.DirectiveOperand = operand;
-                interLine.DirectiveLitOperand = litOperand;
-            }
-            // otherwise fill the default operands
-            else
-            {
-                interLine.OpOperand = operand;
-                interLine.OpLitOperand = litOperand;
-            }
-        }
-
-        /**
-         * Parses a literal operand, e.g. X=, B=, I=, C=
-         * 
-         * @refcode N/A
-         * @errtest N/A
-         * @errmsg N/A
-         * @author Mark
-         * @creation April 9, 2011
-         * @modlog
-         *  - April  9, 2011 -  Mark - Parses hex and binary literals.
-         *  - April  9, 2011 -  Mark - Parameters changed. Return type changed to void.
-         *  - April  9, 2011 -  Mark - Now parses integer literals.
-         *  - April 10, 2011 - Jacob - Parses single character in accordance with instruction limits.
-         *  - April 11, 2011 -  Mark - Checks that integer literals are in the proper range.
-         * @teststandard Andrew Buelow
-         * @codestandard Mark Mathis
-         * 
-         * @param inOper the operand to parse
-         * @param outOper the numerical operand from the literal, that is, the part after the X=
-         *                  will be in hexadecimal
-         * @param litType the type of the operand, that is, X, B, etc.
-         */
-        private void ParseLiteralOperand(string inOper, out string outOper, out string litType)
-        {
-            Logger288.Log("Parsing literal operand " + inOper, "Parser");
-
-            int op;
-            outOper = inOper.Substring(2);
-            litType = inOper.Substring(0, 2);
-
-            switch (inOper[0])
-            {
-                case 'X':
-                case 'x':
-                    {
-                        Logger288.Log("literal operand is hex", "Parser");
-                        op = Convert.ToInt32(inOper.Substring(2), 16);
-                        if (op < 0)
-                        {
-                            op = BinaryHelper.ConvertNumber(op, 10);
-                        }
-                        outOper = Convert.ToString(op, 16).ToUpper();
-                    } break;
-
-                case 'B':
-                case 'b':
-                    {
-                        Logger288.Log("literal operand is binary", "Parser");
-                        op = Convert.ToInt32(inOper.Substring(2), 2);
-                        if (op < 0)
-                        {
-                            op = BinaryHelper.ConvertNumber(op, 10);
-                        }
-                        outOper = Convert.ToString(op, 16).ToUpper();
-                    } break;
-
-                case 'I':
-                case 'i':
-                    {
-                        Logger288.Log("literal operand is integer", "Parser");
-                        op = Convert.ToInt32(inOper.Substring(2));
-                        if (-512 < op && op < 511)
-                        {
-                            if (op < 0)
-                            {
-                                op = BinaryHelper.ConvertNumber(op);
-                            }
-                            outOper = Convert.ToString(op, 16).ToUpper();
-                        }
-                        else
-                        {
-                            outOper = "_OUT OF BOUNDS";
-                        }
-                    } break;
-                case 'C':
-                case 'c':
-                    {
-                        Logger288.Log("literal operand is character", "Parser");
-                        // fix this: parse integers more properly.
-                        outOper = Convert.ToString(Convert.ToInt32(((int)inOper[3]) << 2), 16).ToUpper();
-                    } break;
-            }
-
-            Logger288.Log(String.Format("Literal operand parsed as {0} {1}", litType, outOper), "Parser");
         }
 
         /**
