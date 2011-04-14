@@ -21,6 +21,8 @@ def build():
     build_ded('../Assembler/', 'tmp/ded.rst')
     convert_rst('tmp/ded.rst', 'tmp/ded.html')
     create_dox_wrapper('tmp/ded.rst', 'tmp/ded.dox')
+    print "Running test scripts"
+    build_test_scripts('../Assembler/Tests/Programs', '../Assembler/bin/Debug/Assembler.exe', 'tmp/testscript_results.rst')
     print "Building manual"
     build_rst_dir('src', 'tmp')
     print "Running Doxygen"
@@ -73,7 +75,6 @@ def convert_rst(rst_file, out_file):
 
 def create_dox_wrapper(rst_file, out_file):
     """Create a doxygen wrapper file to embed the given file into."""
-
     # get the title of the document
     title = "Untitled Document"
     with open(rst_file) as f:
@@ -81,7 +82,6 @@ def create_dox_wrapper(rst_file, out_file):
             if not line.startswith('='):
                 title = line.strip()
                 break
-
     # write the template
     with open(out_file, 'w') as f:
         f.write("""/**
@@ -90,6 +90,30 @@ def create_dox_wrapper(rst_file, out_file):
 \\htmlinclude {base}.html
 
 */""".format(base=basename(rst_file).replace('.rst', ''), title=title))
+
+def build_test_scripts(directory, runner, out_file):
+    """Copy the test script input, run the script, and copy output to an RST source."""
+    output = []
+    for root, dirs, files in os.walk(directory):
+        for fname in files:
+            if fname.endswith('.txt'):
+                out = fname + '\n' + '`'*len(fname) + '\n\nInput\n^^^^^\n\n::\n\n'
+                # get the script source
+                with open(join(root, fname)) as f:
+                    for line in f:
+                        out += '    ' + line.rstrip() + '\n'
+                out += '\n\nOutput\n^^^^^^\n\n::\n\n'
+                # launch the test program
+                p = Popen(runner + ' ' + join(root, fname), shell=True, stdout=PIPE)
+                outdata, err = p.communicate()
+                # insert the test output
+                for line in outdata.split('\n'):
+                    out += '    ' + line.rstrip() + '\n'
+                output.append(out)
+    # write the output file
+    with open(out_file, 'w') as f:
+        f.write('\n\n'.join(output))
+
 
 def doxygen():
     """Run Doxygen."""

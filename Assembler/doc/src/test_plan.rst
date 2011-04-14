@@ -18,61 +18,7 @@ This is highly dependent on `Unit Testing`_, as the correctness of individual pa
 Sample test programs
 --------------------
 
-Herp
-````
-
-.. raw:: html
-    
-    <code><pre>
-
-.. raw:: html
-    :file: ../../Assembler/Tests/Programs/Foo.txt
-
-.. raw:: html
-    
-    </pre></code>
-
-Derp
-````
-
-.. raw:: html
-    
-    <code><pre>
-
-.. raw:: html
-    :file: ../../Assembler/Tests/Programs/Bar.txt
-
-.. raw:: html
-    
-    </pre></code>
-
-Sample
-``````
-
-.. raw:: html
-    
-    <code><pre>
-
-.. raw:: html
-    :file: ../../Assembler/Tests/Programs/Sample.txt
-
-.. raw:: html
-    
-    </pre></code>
-
-Testprgm
-````````
-
-.. raw:: html
-    
-    <code><pre>
-
-.. raw:: html
-    :file: ../../Assembler/Tests/Programs/Testprgm.txt
-
-.. raw:: html
-    
-    </pre></code>
+.. include:: ../tmp/testscript_results.rst
 
 Unit Testing
 ============
