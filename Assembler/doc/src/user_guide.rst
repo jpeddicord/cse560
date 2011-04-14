@@ -36,7 +36,7 @@ The usage of the FFA Assembler is as follows::
 
 Output will be printed to the screen in this test edition.
 
-The format of the ``source`` file is documented in the FFA machine specifications, available from your licensed distributor [1]_. Specific deviations from specification may have been made for additional functionality or semantics. For specifics, please see `Deviations`.
+The format of the ``source`` file is documented in the FFA machine `language specifications <language_spec.html>`_. Specific deviations from specification may have been made for additional functionality or semantics. For specifics, please see `Deviations`.
 
 .. [1] i.e., the CSE 560 lab specifications.
 

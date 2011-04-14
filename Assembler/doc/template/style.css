@@ -1,4 +1,5 @@
-/* The standard CSS for doxygen */
+/* The standard CSS for doxygen, modified for the FFA project */
+/* Custom styles go at the bottom of the file! */
 
 body, table, div, p, dl {
 	font-family: Lucida Grande, Verdana, Geneva, Arial, sans-serif;
@@ -798,3 +799,16 @@ dl.bug
 	border-bottom: 1px solid #5373B4;
 }
 
+/*** CUSTOM STYLES BEGIN HERE ***/
+#rst pre {
+    margin-left: 20px;
+    background-color: #eee;
+    border: 1px dashed #ddd;
+    padding: 8px;
+}
+
+#rst .note {
+    background-color: #dff;
+    border: 1px solid #9ff;
+    padding: 10px;
+}

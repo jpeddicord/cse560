@@ -125,8 +125,9 @@ going through and ensuring all of our procedures have all of these tags.
 To do
 -----
 - Everyone
- - Ensure all of the procedures have been properly documented and make changes when needed.
- - Finish creating test fixtures for individual procedures.
+ 
+  - Ensure all of the procedures have been properly documented and make changes when needed.
+  - Finish creating test fixtures for individual procedures.
 
 
 April 13th 2011 - 8:00 pm
