@@ -78,6 +78,14 @@ would push the data at FOO on to the stack. To push a value directly::
 STACK POP
 ~~~~~~~~~
 
+Pop an item off of the top of the stack. As an example, this would pop the top item off of the stack and store the value at the memory location given by BAR::
+
+	STACK POP,BAR
+
+Again, this can also be done by providing a numeric memory reference.  Using the following code would pop the first item off of the stack and store it at memory address 27::
+
+	STACK POP,27
+
 STACK TEST
 ~~~~~~~~~~
 
