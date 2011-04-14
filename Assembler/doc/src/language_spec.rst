@@ -116,4 +116,83 @@ Character
 Directives
 ==========
 
+Start
+-----
+
+Format::
+
+	Label | start | 0 - 1024
+	
+The start directive signifies the beginning of the program.  It must appear in the first line of the input program file.  The start directive is also used to set the starting location counter.  It must be provided a number (cannot use labels) that is within the range of memory, 0 - 1024.
+
+Example::
+
+	PRGRM2 start 0
+
+RESET
+-----
+
+Format::
+
+	Label | reset | new LC
+	
+Reset will alter the LC to the given value. The new LC must be larger than the LC of the reset.  For example, if the reset is called at LC 23, the new LC must be greater than 23.  The new value can be given as a number within the range of memory (0 - 1024) or a label, equated label or external reference of similar value.
+
+Example::
+
+	DATA reset 30     : called at LC 12 (hex), sets LC to 1E (30 in hex)
+	
+EQU
+---
+
+Format::
+
+	Label | equ | 0 - 1024 or another equated label
+	
+Equate allows the user to set a label to the a value between 0 and 1024. If provided a label rather than a number, the label must have been previously equated.
+
+Example::
+
+	MUD EQU 512
+	DIRT EQU MUD
+	
+EQUe
+----
+
+Format::
+
+	Label | eque | expression
+	
+Has the same use as ``EQU`` but allows for expressions in the operand field.  The expression can be made up of constants or previously equated symbols however the resulting computation must be int he range of 0 to 1024.  External references may not be used. Star notation may be used but must be the first item in the expression. Only one star notation per expression is allowed. Up to three operators may be used, however the operators are limited to plus (+) and minus (-).
+
+Example::
+
+	X1 EQUe 5-2+DIRT
+	
+ENTRY
+-----
+
+
+EXTRN
+-----
+
+
+END
+---
+
+
+DAT
+---
+
+
+ADC
+---
+
+
+ADCE
+----
+
+
+NOP
+---
 
