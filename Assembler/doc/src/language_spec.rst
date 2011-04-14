@@ -4,10 +4,13 @@ FFA Language Specification
 
 The FFA machine is a hypothetical machine that the FFA Assembler produces code for. It has a word size of 16 bits, is word-addressable, and supports 1024 words of addressable memory. It has a separate data stack and test stack. This document describes the language specification of the machine.
 
+.. contents::
+    :depth: 3
+
 Instructions
 ============
 
-Each instruction occupies 16 bits of memory, or one word, on the system. There are five main instructions, each of which can perform different functions. The details of each are described in their respective sections.
+Each instruction occupies 16 bits of memory, or one word, on the system. There are five main instructions, each of which can perform different functions. The details of each are described in their respective sections. Instruction names and functions are case-insensitive. (This does not always apply to operands, however.)
 
 CNTL
 ----
@@ -89,14 +92,102 @@ Again, this can also be done by providing a numeric memory reference.  Using the
 STACK TEST
 ~~~~~~~~~~
 
+Pop a single item off of the data stack, and compare it with the given label. Depending on the results of the test, any of the following may be pushed on to the test stack:
+
+* ``=`` - push ``0`` on the test stack
+* ``^=`` - push ``1`` on the test stack
+* ``<`` - push ``2`` on the test stack
+* ``>`` - push ``3`` on the test stack
+* ``<=`` - push ``4`` on the test stack
+* ``>=`` - push ``5`` on the test stack
+
+The results of the values pushed into the test stack are useful for branching. For more information, see the JUMP_ command. Usage example::
+
+    STACK TEST,DIRT
+
+Here, the top value of the stack would be compared with the memory referenced by DIRT. Alternatively, literals may also be used::
+
+    STACK TEST,B=010010
+
 JUMP
 ----
+
+Jump to the specified location if a given condition holds, and pop the test off of the test stack. This instruction operates on data in the test stack (with the exception of ``dnull``), so to do anything useful `STACK TEST`_ should probably be used first. The available tests are:
+
+* ``=`` - if ``0`` was on the test stack.
+* ``^=`` - if ``1`` was on the test stack.
+* ``<`` - if ``2`` was on the test stack.
+* ``>`` - if ``3`` was on the test stack.
+* ``<=`` - if ``4`` was on the test stack.
+* ``>=`` - if ``5`` was on the test stack.
+* ``tnull`` - if the test stack is empty.
+* ``dnull`` - if the data stack is empty. This is the only test that doesn't use the test stack.
 
 SOPER
 -----
 
+SOPER ADD
+~~~~~~~~~
+
+SOPER SUB
+~~~~~~~~~
+
+SOPER MUL
+~~~~~~~~~
+
+SOPER DIV
+~~~~~~~~~
+
+SOPER OR
+~~~~~~~~
+
+SOPER AND
+~~~~~~~~~
+
+SOPER READN
+~~~~~~~~~~~
+
+SOPER READC
+~~~~~~~~~~~
+
+SOPER WRITEN
+~~~~~~~~~~~~
+
+SOPER WRITEC
+~~~~~~~~~~~~
+
 MOPER
 -----
+
+MOPER ADD
+~~~~~~~~~
+
+MOPER SUB
+~~~~~~~~~
+
+MOPER MUL
+~~~~~~~~~
+
+MOPER DIV
+~~~~~~~~~
+
+MOPER OR
+~~~~~~~~
+
+MOPER AND
+~~~~~~~~~
+
+MOPER READN
+~~~~~~~~~~~
+
+MOPER READC
+~~~~~~~~~~~
+
+MOPER WRITEN
+~~~~~~~~~~~~
+
+MOPER WRITEC
+~~~~~~~~~~~~
 
 Literals
 ========
@@ -116,7 +207,9 @@ Character
 Directives
 ==========
 
-Start
+Directives are processed by the assembler and don't directly generate code. Like instructions, they are case insensitive.
+
+START
 -----
 
 Format::
@@ -156,7 +249,7 @@ Example::
 	MUD EQU 512
 	DIRT EQU MUD
 
-EQUe
+EQUE
 ----
 
 Format::
