@@ -134,6 +134,8 @@ namespace Assembler
          *  - April 10, 2011 - Andrew - Added token kind JumpCond as the jump conditions did
          *          not fit in the other token kinds.
          *  - April 10, 2011 - Andrew - Added the NOP flag "=0" to be considered a literal.
+         *  - April 14, 2011 - Andrew - Due to a change in the specifications "=0" no longer
+         *                  denotes a NOP, so this has been removed from the literals.
          * @teststandard Andrew Buelow
          * @codestandard Mark Mathis
          * 
@@ -171,12 +173,11 @@ namespace Assembler
             else if (!numeric.IsMatch(token))
             {
                 tokenKind = TokenKinds.Number;
-            } // Only looks for the four possible Literal flags or the NOP flag.  Does not check format of following chars.
+            } // Only looks for the four possible Literal flags.  Does not check format of following chars.
             else if (token.Length > 1 && (token.Substring(0, 2) == "X=" ||
                                          token.Substring(0, 2) == "B=" ||
                                          token.Substring(0, 2) == "I=" ||
-                                         token.Substring(0, 2) == "C=" ||
-                                         token == "=0"))
+                                         token.Substring(0, 2) == "C="))
             {
                 tokenKind = TokenKinds.Literal;
             } // Determines if the token is one of the six jump conditions
