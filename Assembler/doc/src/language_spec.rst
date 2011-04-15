@@ -229,28 +229,58 @@ Pops the top item off of the stack, and subtracts the data at the referenced mem
 MOPER MUL
 ~~~~~~~~~
 
+Pops off the top item off of the stack, multiplies it with the data at the referenced memory location, and pushes the result back onto the stack::
 
+    MOPER MUL,dirt
 
 MOPER DIV
 ~~~~~~~~~
 
+Pops the top item off of the stack, divides it by the data at the referenced memory location, and pushes the result back onto the stack::
+
+    MOPER DIV,foo
+
 MOPER OR
 ~~~~~~~~
+
+Pops the top item off of the stack and performs a logical ``OR`` with the data at the referenced memory location, pushing the result back onto the stack::
+
+    MOPER OR,testing
 
 MOPER AND
 ~~~~~~~~~
 
+Pops the top item off of the stack and performs a logical ``AND`` with the data at the referenced memory location, pushing the result back onto the stack::
+
+    MOPER AND,Orange
+
 MOPER READN
 ~~~~~~~~~~~
+
+Reads a single integer from the active input and stores it at the referenced memory location. In addition, it pushes the integer onto the stack::
+
+    MOPER READN,myint
 
 MOPER READC
 ~~~~~~~~~~~
 
+Reads a single character from the active input and stores it at the referenced memory location. In addition, it pushes the character onto the stack::
+
+    MOPER READC,mychar
+
 MOPER WRITEN
 ~~~~~~~~~~~~
 
+Writes the data at the referenced memory location as an integer to the active output::
+
+    MOPER WRITEN,saveint
+
 MOPER WRITEC
 ~~~~~~~~~~~~
+
+Writes the data at the referenced memory location as a character to the active output::
+
+    MOPER WRITEC,savechar
 
 Literals
 ========
