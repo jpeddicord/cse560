@@ -57,7 +57,7 @@ namespace Assembler
          * @param lineNum line number of current line
          * @return the line to be parsed as a single line in the intermediate file
          */
-        private IntermediateLine ParseLine(string line, short lineNum)
+        private IntermediateLine ParseLine(string line, short lineNum, ref SymbolTable symb)
         {
             Logger288.Log("Parsing line " + lineNum, "Parser");
             string token = "";
@@ -75,6 +75,7 @@ namespace Assembler
                     && (2 <= token.Length && token.Length <= 32))
                 {
                     interLine.Label = token;
+                    symb.AddSymbol(token, LC, Usage.ENTRY);
                 }
                 else
                 {
@@ -102,7 +103,7 @@ namespace Assembler
                 else if (directiveList.Contains(token))
                 {
                     interLine.Directive = token;
-                    DirectiveParser.ParseDirective(ref line, ref interLine);
+                    DirectiveParser.ParseDirective(ref line, ref interLine, ref symb);
                 }
                 else
                 {
@@ -157,7 +158,7 @@ namespace Assembler
             Tokenizer.TokenKinds tokenKind = Tokenizer.TokenKinds.Empty;
 
             // checks for valid operands in all functions besides CLRD and CLRT
-            if (ValidOperandField(line))
+            if (OperandParser.ValidOperandField(line))
             {
                 // get what should be the function name
                 Tokenizer.GetNextToken(ref line, out token, out tokenKind);
@@ -261,8 +262,7 @@ namespace Assembler
             symb = new SymbolTable();
 
             // first line is expected to hold the start directive
-            IntermediateLine line = ParseStart(sourceCode[0]);
-            symb.AddSymbol(line.Label, line.ProgramCounter, Usage.PRGMNAME, "");
+            IntermediateLine line = ParseLine(sourceCode[0], 1, ref symb);
 
             interSource = new IntermediateFile(line.Label);
             interSource.AddLine(line);
@@ -271,15 +271,8 @@ namespace Assembler
             for (short i = 2; i <= sourceCode.Length; i++)
             {
                 // parse a line and create an intermediate version
-                line = ParseLine(sourceCode[i - 1], i);
+                line = ParseLine(sourceCode[i - 1], i, ref symb);
                 interSource.AddLine(line);
-
-                // add to the symbol table if we need to
-                if (line.Label != null)
-                {
-                    // this doesn't work with equated symbols, yet. :(
-                    symb.AddSymbol(line.Label, line.ProgramCounter, Usage.ENTRY, "");
-                }
             }
         }
     }

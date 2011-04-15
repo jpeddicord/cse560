@@ -30,7 +30,7 @@ namespace Assembler
         /**
          * A private constructor that fills the list with the directives.
          * 
-         *          * @refcode N/A
+         * @refcode N/A
          * @errtest N/A
          * @errmsg N/A
          * @author Mark

@@ -127,7 +127,7 @@ namespace Assembler
          * @param usage Usage information for the symbol
          * @param val Optional value for the symbol
          */
-        public void AddSymbol(string rlabel, string lc, Usage usage, string val)
+        public void AddSymbol(string rlabel, string lc, Usage usage, string val = "")
         {
             Symbol sym;
             sym.rlabel = rlabel;
@@ -135,6 +135,22 @@ namespace Assembler
             sym.usage = usage;
             sym.val = val;
             this.AddSymbol(sym);
+        }
+
+        public Symbol RemoveSymbol(string rLabel)
+        {
+            Symbol value;
+            if (this.symbols.ContainsKey(rLabel))
+            {
+                value = symbols[rLabel];
+                symbols.Remove(rLabel);
+            }
+            else
+            {
+                throw new SymbolException("Symbol doesn't exist.");
+            }
+
+            return value;
         }
 
         /**

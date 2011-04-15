@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Assembler
 {
-    class DirectiveParser
+    static class DirectiveParser
     {
         /**
          * Parses the operation section of the line if it has a Directive.
@@ -26,9 +26,55 @@ namespace Assembler
          * @param line current line to parse.
          * @param interLine the line as a single line in the intermediate file.
          */
-        public static void ParseDirective(ref string line, ref IntermediateLine interLine)
+        public static void ParseDirective(ref string line, ref IntermediateLine interLine, ref SymbolTable symb)
         {
-            Logger288.Log("Parsing directive on line " + interLine.SourceLineNumber, "Parser");
+            Logger288.Log("Parsing directive on line " + interLine.SourceLineNumber, "DirectiveParser");
+
+            // This will decide which directive is in this line and how it should
+            // be handled by the parser.
+            string currentDirective = interLine.Directive.ToUpper();
+            switch (currentDirective)
+            {
+                case "START":
+                    {
+                        ParseStart(ref line, ref interLine);
+                        Symbol start = symb.RemoveSymbol(interLine.Label);
+                        start.usage = Usage.PRGMNAME;
+                        symb.AddSymbol(start);
+                    } break;
+                case "RESET":
+                    {
+                    } break;
+                case "EQU":
+                    {
+                    } break;
+                case "EQUE":
+                    {
+                    } break;
+                case "ENTRY":
+                    {
+                    } break;
+                case "EXTRN":
+                    {
+                    } break;
+                case "END":
+                    {
+                        ParseEnd(ref line, ref interLine);
+                    } break;
+                case "DAT":
+                    {
+                    } break;
+                case "ADC":
+                    {
+                    } break;
+                case "ADCE":
+                    {
+                    } break;
+                case "NOP":
+                    {
+                    } break;
+
+            }
 
             // NOP doesn't have an operand
             if (interLine.Directive == "NOP")
@@ -37,10 +83,10 @@ namespace Assembler
                 return;
             }
 
-            Logger288.Log("Parsing directive operand on line " + interLine.SourceLineNumber, "Parser");
+            Logger288.Log("Parsing directive operand on line " + interLine.SourceLineNumber, "DirectiveParser");
 
             // get the operand of the directive
-            OperandParser.ParseOperand(ref line, ref interLine);
+            //OperandParser.ParseOperand(ref line, ref interLine);
 
             // RESET directive sets the LC
             if (interLine.Directive == "RESET")
@@ -48,7 +94,7 @@ namespace Assembler
                 //this.LC;
             }
 
-            Logger288.Log("Finished parsing directive on line " + interLine.SourceLineNumber, "Parser");
+            Logger288.Log("Finished parsing directive on line " + interLine.SourceLineNumber, "DirectiveParser");
         }
 
         /**
@@ -69,16 +115,15 @@ namespace Assembler
          * @param line the line containing the start directive
          * @return the IntermediateLine of this line
          */
-        private IntermediateLine ParseStart(string line)
+        private static void ParseStart(ref string line, ref IntermediateLine interLine)
         {
-            Logger288.Log("Parsing START directive", "Parser");
+            Logger288.Log("Parsing START directive", "DirectiveParser");
 
-            Parser.LC = start.DirectiveOperand;
-            start.ProgramCounter = Parser.LC;
+            OperandParser.ParseOperand(ref line, ref interLine);
+            Parser.LC = interLine.DirectiveOperand;
+            interLine.ProgramCounter = Parser.LC;
 
-            Logger288.Log("Finished parsing START directive", "Parser");
-
-            return start;
+            Logger288.Log("Finished parsing START directive", "DirectiveParser");
         }
 
         /**
@@ -100,10 +145,12 @@ namespace Assembler
          * @param lineNum the line number of this line in the source code.
          * @return The IntermediateLine of this line
          */
-        private IntermediateLine ParseEnd(string line, short lineNum)
+        private static void ParseEnd(ref string line, ref IntermediateLine interLine)
         {
-            Logger288.Log("Parsing END directive", "Parser");
-            return new IntermediateLine(line, lineNum);
+            Logger288.Log("Parsing END directive", "DirectiveParser");
+            OperandParser.ParseOperand(ref line, ref interLine);
+
+            Logger288.Log("Finished parsing END directive.", "DirectiveParser");
         }
     }
 }

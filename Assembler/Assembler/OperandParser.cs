@@ -199,7 +199,7 @@ namespace Assembler
          * @return true if the operand is valid <br />
          *         false if the operand is invalid
          */
-        private bool ValidOperandField(string line)
+        public static bool ValidOperandField(string line)
         {
             Logger288.Log("Checking operand for invalid syntax", "Parser");
             string[] OperandParts = line.Split(new char[] { ',' }, 2);
