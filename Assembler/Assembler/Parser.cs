@@ -22,7 +22,7 @@ namespace Assembler
         /**
          * The current value of the location counter.
          */
-        string LC;
+        public static string LC;
 
         /**
          * Creates a Parser with location counter set to 0, ready to parse a single soure file.
@@ -199,60 +199,6 @@ namespace Assembler
         }
 
         /**
-         * Parses the start directive, properly assigning the operand of start as the
-         * starting location counter.
-         * 
-         * @refcode N/A
-         * @errtest N/A
-         * @errmsg N/A
-         * @author Mark
-         * @creation April 9, 2011
-         * @modlog
-         *  - April 9, 2011 - Mark - Parses the START directive, correctly setting the LC.
-         * @teststandard Andrew Buelow
-         * @codestandard Mark Mathis
-         * 
-         * @param line the line containing the start directive
-         * @return the IntermediateLine of this line
-         */
-        private IntermediateLine ParseStart(string line)
-        {
-            Logger288.Log("Parsing START directive", "Parser");
-
-            IntermediateLine start = ParseLine(line, 1);
-            LC = start.DirectiveOperand;
-            start.ProgramCounter = LC;
-
-            Logger288.Log("Finished parsing START directive", "Parser");
-
-            return start;
-        }
-
-        /**
-         * Parses the end directeive, ensuring that the end operand is the same as
-         * the start directive's rlabel.
-         * 
-         * @refcode N/A
-         * @errtest N/A
-         * @errmsg N/A
-         * @author Mark
-         * @creation April 9, 2011
-         * @modlog
-         *  - April 9, 2011 - Mark - Not sure if needed.
-         * @teststandard Andrew Buelow
-         * @codestandard Mark Mathis
-         * 
-         * @param line the line containing the end directive
-         * @param lineNum the line number of this line in the source code.
-         * @return The IntermediateLine of this line
-         */
-        private IntermediateLine ParseEnd(string line, short lineNum)
-        {
-            Logger288.Log("Parsing END directive", "Parser");
-            return new IntermediateLine(line, lineNum);
-        }
-
-        /**
          * Adds one to the location counter.
          * 
          * @refcode N/A
@@ -272,38 +218,6 @@ namespace Assembler
             tempLC++;
             LC = Convert.ToString(tempLC, 16).ToUpper();
             Logger288.Log("LC incremented to: " + LC, "Parser");
-        }
-
-        /**
-         * Checks to see if the instruction's operand field has valid syntax.
-         * 
-         * @refcode N/A
-         * @errtest N/A
-         * @errmsg N/A
-         * @author Mark
-         * @creation April 9, 2011
-         * @modlog
-         *  - April 9, 2011 - Mark - Correctly checks if the operand field has valid syntax.
-         * @teststandard Andrew Buelow
-         * @codestandard Mark Mathis
-         * 
-         * @param line the line whose instruction's operand should be checked. <br />
-         *             expected "FUNCTION,OPERAND : POSSIBLE COMMENTS"
-         * @return true if the operand is valid <br />
-         *         false if the operand is invalid
-         */
-        private bool ValidOperandField(string line)
-        {
-            Logger288.Log("Checking operand for invalid syntax", "Parser");
-            string[] OperandParts = line.Split(new char[] { ',' }, 2);
-            if (OperandParts.Length < 2 || OperandParts[0].Contains(" ") || OperandParts[1].StartsWith(" "))
-            {
-                Logger288.Log("Operand syntax invalid", "Parser");
-                return false;
-            }
-
-            Logger288.Log("Operand syntax valid", "Parser");
-            return true;
         }
 
         /**
