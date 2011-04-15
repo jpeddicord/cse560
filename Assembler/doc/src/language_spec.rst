@@ -285,17 +285,42 @@ Writes the data at the referenced memory location as a character to the active o
 Literals
 ========
 
+Literals may be used in two situations:
+
+* As an operand for the STACK_ instruction
+* To set data values with the DAT_ directive
+
+They may be specified as integers, hexadecimal values, in binary, or as characters. By default, if not specified, the assumed data type is an integer.
+
 Integer
 -------
+
+Integers, when used as literals, are specified using any of the following syntax:
+
+* ``I=123``
+* ``I=+123``
+* ``123``
+* ``I=-123``
+
+The first three items in the above list are the same value, just represented differently. The last item is simply a negative value. Note that if the ``I=`` prefix is not specified, an integer is assumed.
 
 Hexadecimal
 -----------
 
+Hexadecimal values are specified with the ``X=`` prefix, for example: ``X=1F``. There is no concept of positive or negative hex.
+
 Binary
 ------
 
+Binary values are specified with a ``B=`` prefix, as in: ``B=0101010``.
+
 Character
 ---------
+
+Character values are prefixed with a ``C=`` and surrounded by single quotes. Examples:
+
+* ``C='a'`` (for a STACK_ instruction)
+* ``C='ab'`` (DAT_ directives can hold two characters in 16 bits)
 
 Directives
 ==========
