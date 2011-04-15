@@ -5,7 +5,8 @@ FFA Language Specification
 The FFA machine is a hypothetical machine that the FFA Assembler produces code for. It has a word size of 16 bits, is word-addressable, and supports 1024 words of addressable memory. It has a separate data stack and test stack. This document describes the language specification of the machine.
 
 .. contents::
-    :depth: 3
+    :depth: 2
+    :backlinks: none
 
 Instructions
 ============
@@ -126,47 +127,109 @@ Jump to the specified location if a given condition holds, and pop the test off 
 SOPER
 -----
 
+``SOPER`` instructions act on items in the data stack, and don't interact with main program memory. Operations exist to add, subtract, multiply, divide, logical "or" & "and", and basic I/O. In the context of this instruction, ``nnn`` or "any number of items" means an integer from 0 to 255.
+
 SOPER ADD
 ~~~~~~~~~
+
+Pops any number of items off of the stack and adds them together. Pushes the result on the top of the stack::
+
+   SOPER ADD,3
+
+If the stack was [4, 6, 10], then this instruction would result in the stack being [20], since 4 + 6 + 10 = 20.
 
 SOPER SUB
 ~~~~~~~~~
 
+Pops any number of items off of the stack, subtracts them in the order they were in the stack, and pushes the result::
+
+    SOPER ADD,2
+
 SOPER MUL
 ~~~~~~~~~
+
+Pops any number of items off of the stack, multiplies them, and pushes the result::
+
+    SOPER MUL,4
 
 SOPER DIV
 ~~~~~~~~~
 
+Pops any number of items off of the stack, divides them in order, and pushes the result::
+
+    SOPER DIV,7
+
 SOPER OR
 ~~~~~~~~
+
+Pops any number of items off of the stack, performs a logical ``OR`` between them, and pushes the result::
+
+    SOPER OR,12
 
 SOPER AND
 ~~~~~~~~~
 
+Pops any number of items off of the stack, performs a logical ``AND`` between them, and pushes the result::
+
+    SOPER AND,4
+
 SOPER READN
 ~~~~~~~~~~~
+
+Reads an integer from the active input ``nnn`` number of times and pushes all of them onto the stack::
+
+    SOPER READN,25
+
+This would read 25 integers, and push them onto the stack in the order they were received.
 
 SOPER READC
 ~~~~~~~~~~~
 
+Reads ``nnn`` characters from the active input and pushes them onto the stack::
+
+    SOPER READC,210
+
 SOPER WRITEN
 ~~~~~~~~~~~~
+
+Pops ``nnn`` integers off of the stack and writes them to the active output (screen)::
+
+    SOPER WRITEN,8
+
+This would print out the top 8 items off of the stack as integers.
 
 SOPER WRITEC
 ~~~~~~~~~~~~
 
+Pops ``nnn`` characters off of the stack and writes them to the active output::
+
+    SOPER WRITEC,127
+
 MOPER
 -----
+
+``MOPER`` instructions act much like SOPER_ instructions, but act on items in memory in addition to the data stack (compared to SOPER_, which acts solely on the stack). The operand for a MOPER operation is always a label.
 
 MOPER ADD
 ~~~~~~~~~
 
+Pops the top item off of the data stack and adds it with the data at the referenced memory location. Pushes the result onto the stack::
+
+    MOPER ADD,foo
+
+If the top item on the stack was 5 and the data at ``foo`` was 20, then the stack would then have 25 as a result on top.
+
 MOPER SUB
 ~~~~~~~~~
 
+Pops the top item off of the stack, and subtracts the data at the referenced memory location from it. Pushes the result on the top of the stack::
+
+    MOPER SUB,bar
+
 MOPER MUL
 ~~~~~~~~~
+
+
 
 MOPER DIV
 ~~~~~~~~~

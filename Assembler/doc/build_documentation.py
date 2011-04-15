@@ -29,7 +29,7 @@ def build():
     doxygen()
     
     # clean up
-    rmtree('tmp')
+    #rmtree('tmp')
 
 def build_ded(directory, out_filename):
     """Process a template for DEDs."""
