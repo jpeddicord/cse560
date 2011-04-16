@@ -347,7 +347,7 @@ Format::
 
 	Label | reset | new LC
 
-Reset will alter the LC to the given value. The new LC must be larger than the LC of the reset.  For example, if the reset is called at LC 23, the new LC must be greater than 23.  The new value can be given as a number within the range of memory (0 - 1024) or a label, equated label or external reference of similar value.
+Reset will alter the LC to the given value. The new LC must be larger than the LC of the reset.  For example, if the reset is called at LC 23, the new LC must be greater than 23.  The new value can be given as a number within the range of memory (0 - 1023), or an equated label.  If using an equated label, it must be defined previously in the program. Providing a label in the operand that is defined later in the program or externally will give an error.
 
 Example::
 
