@@ -307,12 +307,12 @@ The first three items in the above list are the same value, just represented dif
 Hexadecimal
 -----------
 
-Hexadecimal values are specified with the ``X=`` prefix, for example: ``X=1F``. There is no concept of positive or negative hex.
+Hexadecimal values are specified with the ``X=`` prefix, for example: ``X=1F``. Hex numbers cannot be given a negative sign.  Negative numbers should be given in two's complement notation.
 
 Binary
 ------
 
-Binary values are specified with a ``B=`` prefix, as in: ``B=0101010``.
+Binary values are specified with a ``B=`` prefix, as in: ``B=0101010``. As with hex, binary value should be given in two's complement notation.
 
 Character
 ---------
@@ -459,4 +459,25 @@ Example::
 
 	 STACK PUSH,100
 	 NOP
+
+Other
+========
+
+Comments
+--------
+
+Comments can be used at any point on a line. A comments must begin with a colon (:) and will continue until the line ends.  All text within a comment will be ignored including possible valid code.  Code the appears on a line before a comment will still be processed.
+
+Example::
+
+	JUMP =,done :jump to the end when equal to 0
+
+Star Notation
+-------------
+
+A star (*) used in the operand field refers to the current location counter. This can be used in an expression along with numbers, as long as the resulting value is within the range of the program (0 to 1023).
+
+Example::
+
+	CNTL GOTO,*+10
 

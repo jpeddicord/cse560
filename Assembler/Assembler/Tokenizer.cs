@@ -120,7 +120,7 @@ namespace Assembler
          * that a general pattern is matched.  For example, if the token is a label, it
          * will not check that the label is shorter than the maximum label length.
          * 
-         * @refcode N/A
+         * @refcode S2.4.2.1, S2.4.2.2, S2.4.2.3, S2.4.2.4
          * @errtest 
          *          GetTokenKind was tested indirectly through GetToken.  If the correct token
          *          kind was not returned then there was an issue with this procedure.  As with
