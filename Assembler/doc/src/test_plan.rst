@@ -18,7 +18,7 @@ This is highly dependent on `Unit Testing`_, as the correctness of individual pa
 Sample test programs
 --------------------
 
-.. include:: ../tmp/testscript_results.rst
+.. include:: ../tmp/testscript_index.rst
 
 Unit Testing
 ============

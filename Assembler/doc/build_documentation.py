@@ -2,6 +2,7 @@
 # Author: Jacob Peddicord <peddicord.17@osu.edu>
 
 import os
+import re
 from os.path import join, basename
 from subprocess import call, Popen, PIPE
 from shutil import rmtree
@@ -13,7 +14,7 @@ def build():
     """Documentation builder"""
     # set up
     try:
-        os.mkdir('tmp')
+        os.makedirs('tmp/tests')
     except: pass
 
     # build
@@ -22,7 +23,10 @@ def build():
     convert_rst('tmp/ded.rst', 'tmp/ded.html')
     create_dox_wrapper('tmp/ded.rst', 'tmp/ded.dox')
     print "Running test scripts"
-    build_test_scripts('../Assembler/Tests/Programs', '../Assembler/bin/Debug/Assembler.exe', 'tmp/testscript_results.rst')
+    scripts = build_test_scripts('../Assembler/Tests/Programs', '../Assembler/bin/Debug/Assembler.exe', 'tmp/tests', 'testfile_', 'tmp/testscript_index.rst')
+    for script in scripts:
+        convert_rst(join('tmp/tests', script), join('tmp', script.replace('.rst', '.html')))
+        create_dox_wrapper(join('tmp/tests', script), join('tmp', script.replace('.rst', '.dox')))
     print "Building manual"
     build_rst_dir('src', 'tmp')
     print "Running Doxygen"
@@ -91,9 +95,14 @@ def create_dox_wrapper(rst_file, out_file):
 
 */""".format(base=basename(rst_file).replace('.rst', ''), title=title))
 
-def build_test_scripts(directory, runner, out_file):
+def camelcase_to_underscore(txt):
+    """http://stackoverflow.com/questions/1175208/"""
+    s1 = re.sub('(.)([A-Z][a-z]+)', r'\1_\2', txt)
+    return re.sub('([a-z0-9])([A-Z])', r'\1_\2', s1).lower()
+
+def build_test_scripts(directory, runner, out_dir, prefix, index_file):
     """Copy the test script input, run the script, and copy output to an RST source."""
-    output = []
+    names = []
     for root, dirs, files in os.walk(directory):
         for fname in files:
             if fname.endswith('.txt'):
@@ -109,11 +118,17 @@ def build_test_scripts(directory, runner, out_file):
                 # insert the test output
                 for line in outdata.split('\n'):
                     out += '    ' + line.rstrip() + '\n'
-                output.append(out)
-    # write the output file
-    with open(out_file, 'w') as f:
-        f.write('\n\n'.join(output))
-
+                # write the output file
+                name = fname.replace('.txt', '.rst')
+                with open(join(out_dir, prefix + name), 'w') as f:
+                    f.write(out)
+                names.append(name)
+    # generate the index file
+    with open(index_file, 'w') as f:
+        for n in names:
+            base = camelcase_to_underscore(n.replace('.rst', ''))
+            f.write("* `" + base + " <" + prefix + "_" + base + ".html>`_\n")
+    return [prefix + n for n in names]
 
 def doxygen():
     """Run Doxygen."""
