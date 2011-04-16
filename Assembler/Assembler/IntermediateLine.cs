@@ -364,7 +364,19 @@ namespace Assembler
         }
 
         /**
-         * TODO: DOCUMENT
+         * Add an error to this line.
+         *
+         * @param level the severity of the error
+         * @param msg the error message to store
+         * @refcode N/A
+         * @errtest N/A
+         * @errmsg N/A
+         * @author Jacob
+         * @creation April 15, 2011
+         * @modlog
+         *  - April 16, 2011 - Jacob - Changed to use an Error struct.
+         * @teststandard Andrew Buelow
+         * @codestandard Mark Mathis
          */
         public void AddError(Errors.Category level, string msg)
         {
@@ -375,7 +387,19 @@ namespace Assembler
         }
 
         /**
-         * TODO: DOCUMENT
+         * Get the first three errors on this line. If there are more, they
+         * are ignored.
+         *
+         * @return the first three errors associated with this line
+         * @refcode N/A
+         * @errtest N/A
+         * @errmsg N/A
+         * @author Jacob
+         * @creation April 15, 2011
+         * @modlog
+         *  - April 16, 2011 - Jacob - Changed to use an Error struct.
+         * @teststandard Andrew Buelow
+         * @codestandard Mark Mathis
          */
         public List<Errors.Error> GetThreeErrors()
         {
@@ -392,19 +416,10 @@ namespace Assembler
         }
 
         /**
-         * Displays the line of source and its individual parts. The format of this is:<br />
-         * [SourceLine]<br />
-         * Line: [SourceLineNumber]<br />
-         * LC: [ProgramCounter]<br />
-         * Label: [Label]<br />
-         * Category: [OpCategory]<br />
-         * Function: [OpFunction]<br />
-         * Operand: [OpOperand]<br />
-         * Literal Operand: [OpLitOperand]<br />
-         * Directive: [Directive]<br />
-         * Directive Operand: [DirectiveOperand]<br />
-         * Comment: [Comment]
-         * 
+         * Displays the line of source and its individual parts. Used in
+         * pretty-printing, and isn't useful for internal processing.
+         *
+         * @return the pretty-printed representation of this line
          * @refcode N/A
          * @errtest N/A
          * @errmsg N/A

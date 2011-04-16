@@ -6,7 +6,8 @@ using System.Text;
 namespace Assembler
 {
     /**
-     * TODO: DOCUMENT
+     * A singleton class that can be used to fetch the list of built-in errors
+     * and their levels and messages.
      */
     class Errors
     {
