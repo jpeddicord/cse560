@@ -125,6 +125,9 @@ namespace Assembler
                 interLine.Comment = token;
             }
 
+            // process this line
+            interLine.ProcessLine();
+
             Logger288.Log("Finished parsing line " + lineNum, "Parser");
 
             return interLine;

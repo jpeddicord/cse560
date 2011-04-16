@@ -292,18 +292,15 @@ namespace Assembler
                     // unused bit
                     code.Append("0");
                     // literal operand
-                    if (this.OpLitOperand != OperandParser.Literal.Number)
+                    if (this.OpLitOperand == OperandParser.Literal.Number)
                     {
+                        Console.WriteLine(this.OpOperand);
                         code.Append(BinaryHelper.BinaryString(this.OpOperand));
                     }
                     // otherwise pad with zeros (labels will have to be looked up later)
-                    else if (this.OpLitOperand != OperandParser.Literal.NONE)
+                    else if (this.OpLitOperand == OperandParser.Literal.NONE)
                     {
                         code.Append("0000000000");
-                    }
-                    else
-                    {
-                        // TODO: error
                     }
                 } break;
                 case "STACK": {
