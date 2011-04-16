@@ -426,37 +426,31 @@ namespace Assembler
         {
             Logger288.Log("Printing line " + this.line, "IntermediateLine");
 
-            string format = String.Join("\n    ", new string[] {
-                "{0}",
-                "Line: {1}",
-                "LC: {2}",
-                "Label: {3}",
-                "Category: {4}",
-                "Function: {5}",
-                "Partial Bytecode: {6}",
-                "Operand: {7}",
-                "Literal Operand: {8}",
-                "Directive: {9}",
-                "Directive Operand: {10}",
-                "Directive Literal Operand: {11}",
-                "Comment: {12}",
-                "  --\n\n"
-            });
-            return String.Format(format,
-                this.SourceLine,
-                this.SourceLineNumber,
-                this.ProgramCounter == null ? "N/A" : this.ProgramCounter,
-                this.Label == null ? "N/A" : this.Label,
-                this.OpCategory == null ? "N/A" : this.OpCategory,
-                this.OpFunction == null ? "N/A" : this.OpFunction,
-                this.bytecode == null ? "N/A" : this.bytecode,
-                this.OpOperand == null ? "N/A" : this.OpOperand,
-                this.OpLitOperand == OperandParser.Literal.NONE ? "N/A" : this.OpLitOperand.ToString(),
-                this.Directive == null ? "N/A" : this.Directive,
-                this.DirectiveOperand == null ? "N/A" : this.DirectiveOperand,
-                this.DirectiveLitOperand == OperandParser.Literal.NONE ? "N/A" : this.DirectiveLitOperand.ToString(),
-                this.Comment == null ? "N/A" : this.Comment
-            );
+            string output = String.Format("{0}" +
+                                          "\n\tLine: {1,-29} LC: {2}" +
+                                          "\n\tLabel: {3}" +
+                                          "\n\tPartial Bytecode: {4}",
+                this.SourceLine, this.SourceLineNumber, this.ProgramCounter, this.Label, this.Bytecode);
+            // append instruction if applicable
+            if (this.OpCategory != null)
+            {
+                output += String.Format("\n\tCategory: {0,-25} Function: {1}" +
+                                        "\n\tOperand: {2,-26} (Literal: {3})",
+                                        this.OpCategory, this.OpFunction, this.OpOperand, this.OpLitOperand);
+            }
+            // or a directive
+            else if (this.Directive != null)
+            {
+                output += String.Format("\n\tDirective: {0}" +
+                                        "\n\tDirective Operand: {1,-16} (Literal: {2})",
+                                        this.Directive, this.DirectiveOperand, this.DirectiveLitOperand);
+            }
+            // show a comment if present
+            if (this.Comment != null)
+            {
+                output += String.Format("\n\tComment: {0}", this.Comment);
+            }
+            return output + "\n";
         }
     }
 }

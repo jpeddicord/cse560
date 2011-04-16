@@ -97,7 +97,7 @@ namespace Assembler
 
             for (int i = 1; i <= allLines.Count; i++)
             {
-                output += allLines[i].ToString();
+                output += allLines[i].ToString() + "-----\n";
             }
             return output;
         }
