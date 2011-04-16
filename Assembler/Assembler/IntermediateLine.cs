@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 using System.Diagnostics;
 
 namespace Assembler
@@ -48,7 +49,7 @@ namespace Assembler
          */
         public string ProgramCounter
         {
-            get { return this.LC == null ? null : this.LC; }
+            get { return this.LC; }
             set { this.LC = value; }
         }
 
@@ -64,7 +65,7 @@ namespace Assembler
          */
         public string Label
         {
-            get { return this.lineLabel == null ? null : this.lineLabel; ; }
+            get { return this.lineLabel; }
             set { this.lineLabel = value; }
         }
 
@@ -80,8 +81,8 @@ namespace Assembler
          */
         public string OpCategory
         {
-            get { return this.category == null ? null : this.category; }
-            set { this.category = value; }
+            get { return this.category; }
+            set { this.category = value.ToUpper(); }
         }
 
 
@@ -96,29 +97,103 @@ namespace Assembler
          */
         public string OpFunction
         {
-            get { return this.function == null ? null : this.function; }
+            get { return this.function; }
             set { this.function = value; }
         }
 
         /**
          * Allows access for getting the bytecode for this line.
+         *
+         * @refcode
+         * @errtest
+         * @errmsg
+         * @author Jacob
+         * @creation April 10, 2011
+         * @modlog
+         *  - April 15, 2011 - Jacob - Converted to a property; begin generating full bytecode
+         * @codestandard Mark
+         * @teststandard Andrew
          */
-        public string Bytecode
+        public string Bytecode()
         {
-            get
+            // get the first 5 bits
+            StringBuilder code = new StringBuilder();
+            try
             {
-                try
-                {
-                    return Instructions.GetInstance().GetBytecodeString(
-                        this.category == null ? "" : this.category,
-                        this.function == null ? "" : this.function
-                    );
-                }
-                catch (InstructionException)
-                {
-                    return null;
-                }
+                code.Append(Instructions.GetInstance().GetBytecodeString(
+                    this.category == null ? "" : this.category,
+                    this.function == null ? "" : this.function
+                ));
             }
+            catch (InstructionException)
+            {
+                return null;
+            }
+
+            // from here on, everything is instruction-dependent
+            // TODO: process equated symbols? might do this earlier.
+            switch (this.category)
+            {
+                case "CNTL": {
+                    // unused bit
+                    code.Append("0");
+                    // operand
+                    if (this.OpLitOperand != null)
+                    {
+                        code.Append(BinaryHelper.BinaryString(this.OpLitOperand));
+                    }
+                    // otherwise pad with zeros (labels will have to be looked up later)
+                    else
+                    {
+                        code.Append("0000000000");
+                    }
+                } break;
+                case "STACK": {
+                    // literal operand
+                    if (this.OpLitOperand != null)
+                    {
+                        // literal flag
+                        code.Append("1");
+                        // and the value
+                        code.Append(BinaryHelper.BinaryString(this.OpLitOperand));
+                    }
+                    // label
+                    else
+                    {
+                        // non-literal (reference) bit
+                        code.Append("0");
+                        // and the reference itself, which will be filled in pass 2
+                        code.Append("0000000000");
+                    }
+                } break;
+                case "JUMP": {
+                    // unused bit
+                    code.Append("0");
+                    // reference label, filled in pass 2
+                    code.Append("0000000000");
+                } break;
+                case "SOPER": {
+                    // the write flag is only set for character operations
+                    if (this.OpOperand == "READC" || this.OpOperand == "WRITEC")
+                    {
+                        code.Append("1");
+                    }
+                    // for everything else, it's a zero
+                    else
+                    {
+                        code.Append("0");
+                    }
+                    // unused 2 bits
+                    code.Append("00");
+                    // operand
+                    code.Append(BinaryHelper.BinaryString(this.OpLitOperand));
+                } break;
+                case "MOPER": {
+    
+                } break;
+            }
+
+            return code.ToString();
         }
 
 
@@ -133,7 +208,7 @@ namespace Assembler
          */
         public string OpOperand
         {
-            get { return this.operand == null ? null : this.operand; }
+            get { return this.operand; }
             set { this.operand = value; }
         }
 
@@ -149,7 +224,7 @@ namespace Assembler
          */
         public string OpLitOperand
         {
-            get { return this.operandLit == null ? null : this.operandLit; }
+            get { return this.operandLit; }
             set { this.operandLit = value; }
         }
 
@@ -165,8 +240,8 @@ namespace Assembler
          */
         public string Directive
         {
-            get { return this.directive == null ? null : this.directive; }
-            set { this.directive = value; }
+            get { return this.directive; }
+            set { this.directive = value.ToUpper(); }
         }
 
         
@@ -181,7 +256,7 @@ namespace Assembler
          */
         public string DirectiveOperand
         {
-            get { return this.dirOperand == null ? null : this.dirOperand; }
+            get { return this.dirOperand; }
             set { this.dirOperand = value; }
         }
 
@@ -197,7 +272,7 @@ namespace Assembler
          */
         public string DirectiveLitOperand
         {
-            get { return this.dirLitOperand == null ? null : this.dirLitOperand; }
+            get { return this.dirLitOperand; }
             set { this.dirLitOperand = value; }
         }
 
@@ -213,7 +288,7 @@ namespace Assembler
          */
         public string Comment
         {
-            get { return this.comment == null ? null : this.comment; }
+            get { return this.comment; }
             set { this.comment = value; }
         }
 
@@ -295,7 +370,7 @@ namespace Assembler
                 this.Label == null ? "N/A" : this.Label,
                 this.OpCategory == null ? "N/A" : this.OpCategory,
                 this.OpFunction == null ? "N/A" : this.OpFunction,
-                this.Bytecode == null ? "N/A" : this.Bytecode,
+                this.Bytecode() == null ? "N/A" : this.Bytecode(),
                 this.OpOperand == null ? "N/A" : this.OpOperand,
                 this.OpLitOperand == null ? "N/A" : this.OpLitOperand,
                 this.Directive == null ? "N/A" : this.Directive,
