@@ -332,9 +332,9 @@ START
 
 Format::
 
-	Label | start | 0 - 1024
+	Label | start | 0 - 1023
 
-The start directive signifies the beginning of the program.  It must appear in the first line of the input program file.  The start directive is also used to set the starting location counter.  It must be provided a number (cannot use labels) that is within the range of memory, 0 - 1024.
+The start directive signifies the beginning of the program.  It must appear in the first line of the input program file.  The start directive is also used to set the starting location counter.  It must be provided a number (cannot use labels) that is within the range of memory, 0 - 1023.
 
 Example::
 
@@ -358,9 +358,9 @@ EQU
 
 Format::
 
-	Label | equ | 0 - 1024 or another equated label
+	Label | equ | 0 - 1023 or another equated label
 
-Equate allows the user to set a label to the a value between 0 and 1024. If provided a label rather than a number, the label must have been previously equated.
+Equate allows the user to set a label to the a value between 0 and 1023. If provided a label rather than a number, the label must have been previously equated.
 
 Example::
 
@@ -374,7 +374,7 @@ Format::
 
 	Label | eque | expression
 
-Has the same use as ``EQU`` but allows for expressions in the operand field.  The expression can be made up of constants or previously equated symbols however the resulting computation must be int he range of 0 to 1024.  External references may not be used. Star notation may be used but must be the first item in the expression. Only one star notation per expression is allowed. Up to three operators may be used, however the operators are limited to plus (+) and minus (-).
+Has the same use as ``EQU`` but allows for expressions in the operand field.  The expression can be made up of constants or previously equated symbols however the resulting computation must be int he range of 0 to 1023.  External references may not be used. Star notation may be used but must be the first item in the expression. Only one star notation per expression is allowed. Up to three operators may be used, however the operators are limited to plus (+) and minus (-).
 
 Example::
 
@@ -440,7 +440,7 @@ ADC
 
 Format::
 
-	Optional Label | ADC | label, 0-1024, external reference, or equated label
+	Optional Label | ADC | label, 0-1023, external reference, or equated label
 
 ADCE
 ----

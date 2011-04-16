@@ -427,6 +427,114 @@ Concerns:
 Test Number: B9
 ```````````````
 Purpose:
+    Testing conversion of that largest possible two's complement using two bits to its corresponding negative value.  This is an edge case using a different number of digits for further testing.
+Expected Results Achieved:
+    Yes
+Concerns:
+    None
+
+Test Number: B10
+````````````````
+Purpose:
+    Testing conversion of the smallest possible two's complement using two bits to its corresponding negative value. This is an edge case.
+Expected Results Achieved:
+    Yes
+Concerns:
+    None
+
+Test Number: B11
+````````````````
+Purpose:
+    Testing conversion of the largest negative number using 2 bits to its two's complement representation.  This is an edge case.
+Expected Results Achieved:
+    Yes
+Concerns:
+    None
+
+Test Number: B12
+````````````````
+Purpose:
+    Testing numbers outside of the expected range.  This should return 0 rather than some other arbitrary (and incorrect) value.
+Expected Results Achieved:
+    Yes
+Concerns:
+    None
+
+Test Number: B13
+````````````````
+Purpose:
+    Testing that providing a number below the expected range will also return 0.
+Expected Results Achieved:
+    Yes
+Concerns:
+    None
+
+Test Number: B14
+````````````````
+Purpose:
+    Testing that when given the number 0, no conversions are made.
+Expected Results Achieved:
+    Yes
+Concerns:
+    None
+
+Test Number: B15
+````````````````
+Purpose:
+    Testing a number that does not have a 1 in the most significant bit.  In otherwords, this value should be a positive number that is represented the same way regardless of its notation.
+Expected Results Achieved:
+    Yes
+Concerns:
+    None
+
+Test Number: B16
+````````````````
+Purpose:
+    Testing that a value known to be in range returns true when provided to IsInRange.
+Expected Results Achieved:
+    Yes
+Concerns:
+    None
+
+Test Number: B17
+````````````````
+Purpose:
+    Testing the largest possible value that should still be considered in range.  This is an edge case.
+Expected Results Achieved:
+    Yes
+Concerns:
+    None
+
+Test Number: B18
+````````````````
+Purpose:
+    Testing the smallest possible value that should still be considered in range.  This is an edge case.
+Expected Results Achieved:
+    Yes
+Concerns:
+    None
+
+Test Number: B19
+````````````````
+Purpose:
+    Checking just above the range of acceptable input using 10 digits. This should return false.
+Expected Results Achieved:
+    Yes
+Concerns:
+    None
+
+Test Number: B20
+````````````````
+Purpose:
+    Checking just below the range of acceptable input using 10 digits.  This should return false.
+Expected Results Achieved:
+    Yes
+Concerns:
+    None
+
+Test Number: B21
+```````````````
+Purpose:
     Testing conversion of a hexadecimal number into binary.
 Expected Results Achieved:
     Yes
