@@ -48,7 +48,7 @@ namespace Assembler
 * Parse an operand and fill the intermediate line with found data.
 * XXX: DOC
 */
-        public static void ParseOperand(ref string line, ref IntermediateLine interLine)
+        public static void ParseOperand(ref string line, ref IntermediateLine interLine, ref SymbolTable symb)
         {
             // get the next token
             string token;

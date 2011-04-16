@@ -30,6 +30,8 @@ namespace Assembler
         {
             Logger288.Log("Parsing directive on line " + interLine.SourceLineNumber, "DirectiveParser");
 
+            OperandParser.ParseOperand(ref line, ref interLine, ref symb);
+
             // This will decide which directive is in this line and how it should
             // be handled by the parser.
             string currentDirective = interLine.Directive.ToUpper();
@@ -37,14 +39,11 @@ namespace Assembler
             {
                 case "START":
                     {
-                        ParseStart(ref line, ref interLine);
-                        Symbol start = symb.RemoveSymbol(interLine.Label);
-                        start.usage = Usage.PRGMNAME;
-                        symb.AddSymbol(start);
+                        ParseStart(ref line, ref interLine, ref symb);
                     } break;
                 case "RESET":
                     {
-                        ParseReset(ref line, ref interLine);
+                        ParseReset(ref line, ref interLine, ref symb);
                     } break;
                 case "EQU":
                     {
@@ -61,7 +60,7 @@ namespace Assembler
                     } break;
                 case "END":
                     {
-                        ParseEnd(ref line, ref interLine);
+                        ParseEnd(ref line, ref interLine, ref symb);
                     } break;
                 case "DAT":
                     {
@@ -101,13 +100,17 @@ namespace Assembler
          * @teststandard Andrew Buelow
          * @codestandard Mark Mathis
          */
-        private static void ParseStart(ref string line, ref IntermediateLine interLine)
+        private static void ParseStart(ref string line, ref IntermediateLine interLine, ref SymbolTable symb)
         {
             Logger288.Log("Parsing START directive", "DirectiveParser");
 
-            OperandParser.ParseOperand(ref line, ref interLine);
+            // expecting operand to be the value of the location counter
             Parser.LC = interLine.DirectiveOperand;
-            interLine.ProgramCounter = Parser.LC;
+
+            // update the symbol in the symbol table
+            Symbol start = symb.RemoveSymbol(interLine.Label);
+            start.usage = Usage.PRGMNAME;
+            symb.AddSymbol(start);
 
             Logger288.Log("Finished parsing START directive", "DirectiveParser");
         }
@@ -131,20 +134,20 @@ namespace Assembler
          * @teststandard Andrew Buelow
          * @codestandard Mark Mathis
          */
-        private static void ParseEnd(ref string line, ref IntermediateLine interLine)
+        private static void ParseEnd(ref string line, ref IntermediateLine interLine, ref SymbolTable symb)
         {
             Logger288.Log("Parsing END directive", "DirectiveParser");
 
-            OperandParser.ParseOperand(ref line, ref interLine);
+            // check to see if the operand of the END directive matches the program name
+            
 
             Logger288.Log("Finished parsing END directive.", "DirectiveParser");
         }
 
-        private static void ParseReset(ref string line, ref IntermediateLine interLine)
+        private static void ParseReset(ref string line, ref IntermediateLine interLine, ref SymbolTable symb)
         {
             Logger288.Log("Parsing RESET directive", "DirectiveParser");
 
-            OperandParser.ParseOperand(ref line, ref interLine);
             int newLC = Convert.ToInt32(interLine.DirectiveOperand, 16);
             int curLC = Convert.ToInt32(Parser.LC, 16);
 
@@ -161,11 +164,9 @@ namespace Assembler
             Logger288.Log("Finished parsing RESET directive", "DirectiveParser");
         }
 
-        private static void ParseEqu(ref string line, ref IntermediateLine interLine)
+        private static void ParseEqu(ref string line, ref IntermediateLine interLine, ref SymbolTable symb)
         {
             Logger288.Log("Parsing EQU directive", "DirectiveParser");
-
-
 
             Logger288.Log("Finished parsing EQU directive", "DirectiveParser");
         }

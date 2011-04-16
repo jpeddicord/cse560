@@ -95,7 +95,7 @@ namespace Assembler
                 if (instructionList.IsGroup(token))
                 {
                     interLine.OpCategory = token;
-                    ParseInstruction(ref line, ref interLine);
+                    ParseInstruction(ref line, ref interLine, ref symb);
                     interLine.ProgramCounter = LC;
                     IncrementLocationCounter();
                 }
@@ -153,7 +153,7 @@ namespace Assembler
          * @param line current line to parse.
          * @param interLine the line as a single line in the intermediate file.
          */
-        private void ParseInstruction(ref string line, ref IntermediateLine interLine)
+        private void ParseInstruction(ref string line, ref IntermediateLine interLine, ref SymbolTable symb)
         {
             Logger288.Log("Parsing instruction on line " + interLine.SourceLineNumber, "Parser");
 
@@ -176,7 +176,7 @@ namespace Assembler
                 }
 
                 // get what should be the function operand
-                OperandParser.ParseOperand(ref line, ref interLine);
+                OperandParser.ParseOperand(ref line, ref interLine, ref symb);
             }
             else if (interLine.OpCategory.ToUpper() == "CNTL")
             {
