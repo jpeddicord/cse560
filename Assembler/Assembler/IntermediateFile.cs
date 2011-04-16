@@ -22,8 +22,6 @@ namespace Assembler
         /**
          * Constructs an intermediate file with the given name and no lines.
          * 
-         * @param prgmName the name of the program that will be represented by
-         *  this IntermediateFile
          * @refcode
          * @errtest
          * @errmsg

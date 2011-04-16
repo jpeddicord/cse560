@@ -9,7 +9,10 @@ namespace Assembler
     {
         /**
          * Parses the operation section of the line if it has a Directive.
-         * 
+         *
+         * @param line current line to parse
+         * @param interLine the line as a single line in the intermediate file
+         * @param symb symbol table reference
          * @refcode N/A
          * @errtest N/A
          * @errmsg N/A
@@ -22,9 +25,6 @@ namespace Assembler
          *  - April 14, 2011 -  Mark - Moved into DirectiveParser class.
          * @teststandard Andrew Buelow
          * @codestandard Mark Mathis
-         * 
-         * @param line current line to parse.
-         * @param interLine the line as a single line in the intermediate file.
          */
         public static void ParseDirective(ref string line, ref IntermediateLine interLine, ref SymbolTable symb)
         {
@@ -86,7 +86,10 @@ namespace Assembler
         /**
          * Parses the start directive, properly assigning the operand of start as the
          * starting location counter.
-         * 
+         *
+         * @param line the line containing the start directive
+         * @param interLine the intermediate line to process
+         * @return the IntermediateLine of this line
          * @refcode N/A
          * @errtest N/A
          * @errmsg N/A
@@ -97,9 +100,6 @@ namespace Assembler
          *  - April 14, 2011 - Mark - Moved into DirectiveParser class.
          * @teststandard Andrew Buelow
          * @codestandard Mark Mathis
-         * 
-         * @param line the line containing the start directive
-         * @return the IntermediateLine of this line
          */
         private static void ParseStart(ref string line, ref IntermediateLine interLine)
         {
@@ -115,7 +115,11 @@ namespace Assembler
         /**
          * Parses the end directeive, ensuring that the end operand is the same as
          * the start directive's rlabel.
-         * 
+         *
+         * @param line the line containing the end directive
+         * @param interLine the intermediate line to process
+         * @return The IntermediateLine of this line
+         *
          * @refcode N/A
          * @errtest N/A
          * @errmsg N/A
@@ -126,10 +130,6 @@ namespace Assembler
          *  - April 14, 2011 - Mark - Moved into DirectiveParser class.
          * @teststandard Andrew Buelow
          * @codestandard Mark Mathis
-         * 
-         * @param line the line containing the end directive
-         * @param lineNum the line number of this line in the source code.
-         * @return The IntermediateLine of this line
          */
         private static void ParseEnd(ref string line, ref IntermediateLine interLine)
         {

@@ -37,7 +37,11 @@ namespace Assembler
 
         /**
          * Parses a single line of source code.
-         * 
+         *
+         * @param line current line to parse
+         * @param lineNum line number of current line
+         * @param symb symbol table reference
+         * @return the line to be parsed as a single line in the intermediate file
          * @refcode N/A
          * @errtest N/A
          * @errmsg N/A
@@ -52,10 +56,6 @@ namespace Assembler
          *  - April 10, 2011 - Mark - Properly handles lines that only have a comment.
          * @teststandard Andrew Buelow
          * @codestandard Mark Mathis
-         * 
-         * @param line current line to parse
-         * @param lineNum line number of current line
-         * @return the line to be parsed as a single line in the intermediate file
          */
         private IntermediateLine ParseLine(string line, short lineNum, ref SymbolTable symb)
         {
