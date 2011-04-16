@@ -19,7 +19,7 @@ namespace Assembler
          */
         public enum TokenKinds
         {
-            Label_Or_Command, Literal, Comment, Number, Empty, Error, JumpCond
+            Label_Or_Command, Literal, Comment, Number, Empty, Error, JumpCond, Expression
         };
 
         public Tokenizer()
@@ -37,6 +37,7 @@ namespace Assembler
          * Comment - A token that starts with ':'. <br />
          * Number - Contains only numbers. <br />
          * JumpCond - One of the six jump conditions: =, ^=, &lt;, &gt;, &lt;=, and &gt;= <br />
+         * Expression - Can contain labels, numbers and operands (+ or -) and * notation.
          * Empty - The token contains no text. <br />
          * Error - Contains characters that do not belong in any of the other token kinds. <br />
          * Once the token is found it is removed from the given string along with the
@@ -56,6 +57,7 @@ namespace Assembler
          *  - April 8, 2011 - Mark - Changed Tokenizer to work with enumerated types.
          *  - April 8, 2011 - Andrew - Fixed an aray out of bounds exception that occured when
          *         tokenizer was given an empty string.
+         *  - April 16, 2011 - Andrew - Added Expression as a possible token kind.
          * @teststandard Andrew Buelow
          * @codestandard Mark Mathis
          *
@@ -136,6 +138,7 @@ namespace Assembler
          *  - April 10, 2011 - Andrew - Added the NOP flag "=0" to be considered a literal.
          *  - April 14, 2011 - Andrew - Due to a change in the specifications "=0" no longer
          *                  denotes a NOP, so this has been removed from the literals.
+         *  - April 16, 2011 - Andrew - Added Expression as a possible token kind.
          * @teststandard Andrew Buelow
          * @codestandard Mark Mathis
          * 
@@ -156,6 +159,14 @@ namespace Assembler
              */
             Regex numeric = new Regex("[^0-9]");
 
+            /**
+             * Regular expression used to determine if all characters in the token match
+             * those of an expression.  Expressions can have alphanumeric characters as
+             * well as '+', '-' and '*'. Note: '*' is not used for multiplication, it is
+             * used in start notation (see web documentation).
+             */
+            Regex expression = new Regex("[^0-9A-Za-z*+-]");
+
             // Convert to uppercase to give user flexibility.  Token is passed by value so
             // this change will not affect the token that is returned to the user.
             token = token.ToUpper();
@@ -173,6 +184,10 @@ namespace Assembler
             else if (!numeric.IsMatch(token))
             {
                 tokenKind = TokenKinds.Number;
+            } // Check if the token contains characters only found in expressions.
+            else if (!expression.IsMatch(token))
+            {
+                tokenKind = TokenKinds.Expression;
             } // Only looks for the four possible Literal flags.  Does not check format of following chars.
             else if (token.Length > 1 && (token.Substring(0, 2) == "X=" ||
                                          token.Substring(0, 2) == "B=" ||

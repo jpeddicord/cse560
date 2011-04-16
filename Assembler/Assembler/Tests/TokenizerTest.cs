@@ -214,6 +214,34 @@ namespace Assembler
             Assert.IsTrue(Token == "Go_to" && TokenKind == Tokenizer.TokenKinds.Error,
                 "Token is 'Go_to' and of kind Error.");
         }
+
+        /**
+        * [T13] Test that it can correctly tokenize a Jump condition.
+        */
+        [Test]
+        public void TokenizerJump()
+        {
+            string Line = ">=";
+            string Token;
+            Tokenizer.TokenKinds TokenKind;
+            Tokenizer.GetNextToken(ref Line, out Token, out TokenKind);
+            Assert.IsTrue(Token == ">=" && TokenKind == Tokenizer.TokenKinds.JumpCond,
+                "Token is '>=' and of kind JumpCond.");
+        }
+
+        /**
+        * [T14] Test that it can correctly tokenize an Expression.
+        */
+        [Test]
+        public void TokenizerExpression()
+        {
+            string Line = "*+MUD-Dirt";
+            string Token;
+            Tokenizer.TokenKinds TokenKind;
+            Tokenizer.GetNextToken(ref Line, out Token, out TokenKind);
+            Assert.IsTrue(Token == "*+MUD-Dirt" && TokenKind == Tokenizer.TokenKinds.Expression,
+                "Token is *+MUD-Dirt' and of kind Expression.");
+        }
     }
 }
 

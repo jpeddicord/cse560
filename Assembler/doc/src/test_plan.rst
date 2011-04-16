@@ -137,6 +137,24 @@ Expected Results Achieved:
 Concerns:
     None
 
+Test Number: T13
+````````````````
+Purpose:
+    Ensures the Tokenizer is able to correctly identify a token of kind JumpCond.
+Expected Results Achieved:
+    Yes
+Concerns:
+    None
+
+Test Number: T14
+````````````````
+Purpose:
+    Ensures the Tokenizer is able to correctly identify a token of kind Expression.
+Expected Results Achieved:
+    Yes
+Concerns:
+    Labels and numbers within the expression are not tested for correct syntax by tokenizer, must be done elsewhere in the program.
+
 
 Directive Test List
 -------------------
