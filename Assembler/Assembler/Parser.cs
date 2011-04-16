@@ -264,7 +264,7 @@ namespace Assembler
             // first line is expected to hold the start directive
             IntermediateLine line = ParseLine(sourceCode[0], 1, ref symb);
 
-            interSource = new IntermediateFile(line.Label);
+            interSource = new IntermediateFile();
             interSource.AddLine(line);
 
             // iterate the lines of the file

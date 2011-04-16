@@ -48,8 +48,8 @@ namespace Assembler
          * @author Jacob
          * @creation April 7, 2011
          * @modlog
-         *  -April  8, 2011 - Jacob - Load from Resource instead of a stream
-         *  -April 12, 2011 -  Mark - Things are now trimmed.
+         *  - April  8, 2011 - Jacob - Load from Resource instead of a stream
+         *  - April 12, 2011 -  Mark - Things are now trimmed.
          * @codestandard Mark
          * @teststandard Andrew
          */
@@ -141,7 +141,7 @@ namespace Assembler
         }
 
         /**
-         * Get a bytecode string corresponding to the proided instruction
+         * Get a bytecode string corresponding to the provided instruction
          * group and function. The returned string is guaranteed to be
          * 5 characters (bits) long.
          * 
@@ -154,7 +154,7 @@ namespace Assembler
          * @author Jacob
          * @creation April 7, 2011
          * @modlog
-         *  April 8, 2011 - Jacob - throw proper exceptions on invalid group/function pairs
+         *  - April 8, 2011 - Jacob - throw proper exceptions on invalid group/function pairs
          * @codestandard Mark
          * @teststandard Andrew
          */

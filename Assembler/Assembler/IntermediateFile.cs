@@ -20,11 +20,6 @@ namespace Assembler
         }
 
         /**
-         * Name of the program represented by this intermediate version.
-         */
-        private string prgmName;
-
-        /**
          * Constructs an intermediate file with the given name and no lines.
          * 
          * @param prgmName the name of the program that will be represented by
@@ -39,11 +34,10 @@ namespace Assembler
          * @codestandard Mark
          * @teststandard Andrew
          */
-        public IntermediateFile(string prgmName)
+        public IntermediateFile()
         {
-            Logger288.Log("Creating IntermediateFile object for " + prgmName, "IntermediateFile");
+            Logger288.Log("Creating IntermediateFile object", "IntermediateFile");
             this.allLines = new Dictionary<int, IntermediateLine>();
-            this.prgmName = prgmName;
         }
 
         /**

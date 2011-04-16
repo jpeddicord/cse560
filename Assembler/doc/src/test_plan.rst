@@ -423,3 +423,12 @@ Expected Results Achieved:
     Yes
 Concerns:
     None
+
+Test Number: B9
+```````````````
+Purpose:
+    Testing conversion of a hexadecimal number into binary.
+Expected Results Achieved:
+    Yes
+Concerns:
+    This will fail on integers that don't fit into 32 bits. However, since our machine is only 16-bit, this shouldn't be an issue.

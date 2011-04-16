@@ -137,6 +137,9 @@ namespace Assembler
             this.AddSymbol(sym);
         }
 
+        /**
+         * DOCUMENT MEEEE
+         */
         public Symbol RemoveSymbol(string rLabel)
         {
             Symbol value;

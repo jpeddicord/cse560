@@ -115,5 +115,24 @@ namespace Assembler
             // return true if within -(2^(digits - 1)) and 2^(digits)
             return ((((-1) * limit) <= number) && (number < (limit * 2)));
         }
+
+        /**
+         * Convert a hex number (represented as a string) into a string of
+         * binary digits.
+         *
+         * @param hex hex number string representation to convert
+         * @return string of '0' and '1' characters representing the binary digits
+         * @refcode N/A
+         * @errtest
+         * @errmsg None
+         * @creation April 15, 2011
+         * @modlog
+         * @teststandard Andrew
+         * @codestandard Mark
+         */
+        public static string BinaryString(string hex)
+        {
+            return Convert.ToString(Convert.ToInt32(hex, 16), 2);
+        }
     }
 }

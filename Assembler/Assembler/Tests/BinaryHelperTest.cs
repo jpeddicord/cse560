@@ -77,5 +77,14 @@ namespace Assembler
         {
             Assert.AreEqual(-1, BinaryHelper.ConvertNumber(65535, 16));
         }
+
+        /**
+         * [B9] Test converting a hex number into binary.
+         */
+        [Test]
+        public void BHCoonvertBinaryString()
+        {
+            Assert.AreEqual("10101010", BinaryHelper.BinaryString("AA"));
+        }
     }
 }
