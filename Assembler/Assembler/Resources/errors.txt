@@ -9,5 +9,6 @@ ES.04 Invalid Literal, substituted with NOP.  Literal must be in the range of -5
 ES.05 Invalid Literal, substituted with NOP.  Literal must be in the range of -32768 to 32767 for directives.
 ES.06 Memory address not in proper range, line ignored. Operand must be in the range of 0 to 1023 or an equated symbol in the range of 0 to 1023
 ES.07 Directive requires a label, line ignored.
+ES.08 Attempted to reset location counter to a previously used value. Reset ignored, keeping current location counter value.
 EW.01 Blank Line, line ignored and no message given.
 EW.02 Operand field for entry/extern is invalid, line ignored.

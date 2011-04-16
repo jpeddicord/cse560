@@ -116,7 +116,7 @@ namespace Assembler
          *                  will be in hexadecimal
          * @param litType the type of the operand, that is, X, B, etc.
          */
-        public static void ParseLiteralOperand(string inOper, out string outOper, out string litType)
+        private static void ParseLiteralOperand(string inOper, out string outOper, out string litType)
         {
             Logger288.Log("Parsing literal operand " + inOper, "Parser");
 

@@ -44,9 +44,11 @@ namespace Assembler
                     } break;
                 case "RESET":
                     {
+                        ParseReset(ref line, ref interLine);
                     } break;
                 case "EQU":
                     {
+
                     } break;
                 case "EQUE":
                     {
@@ -73,25 +75,9 @@ namespace Assembler
                 case "NOP":
                     {
                     } break;
-
-            }
-
-            // NOP doesn't have an operand
-            if (interLine.Directive == "NOP")
-            {
-                // TODO: insert and "parse" a MOPER ADD,=0, and increment LC
-                return;
-            }
-
-            Logger288.Log("Parsing directive operand on line " + interLine.SourceLineNumber, "DirectiveParser");
-
-            // get the operand of the directive
-            //OperandParser.ParseOperand(ref line, ref interLine);
-
-            // RESET directive sets the LC
-            if (interLine.Directive == "RESET")
-            {
-                //this.LC;
+                default:
+                    {
+                    } break;
             }
 
             Logger288.Log("Finished parsing directive on line " + interLine.SourceLineNumber, "DirectiveParser");
@@ -148,9 +134,40 @@ namespace Assembler
         private static void ParseEnd(ref string line, ref IntermediateLine interLine)
         {
             Logger288.Log("Parsing END directive", "DirectiveParser");
+
             OperandParser.ParseOperand(ref line, ref interLine);
 
             Logger288.Log("Finished parsing END directive.", "DirectiveParser");
+        }
+
+        private static void ParseReset(ref string line, ref IntermediateLine interLine)
+        {
+            Logger288.Log("Parsing RESET directive", "DirectiveParser");
+
+            OperandParser.ParseOperand(ref line, ref interLine);
+            int newLC = Convert.ToInt32(interLine.DirectiveOperand, 16);
+            int curLC = Convert.ToInt32(Parser.LC, 16);
+
+            if (newLC > curLC)
+            {
+                Parser.LC = interLine.DirectiveOperand;
+            }
+            else
+            {
+                // error stuff that we can't actually do yet!
+                // Error ES.08
+            }
+
+            Logger288.Log("Finished parsing RESET directive", "DirectiveParser");
+        }
+
+        private static void ParseEqu(ref string line, ref IntermediateLine interLine)
+        {
+            Logger288.Log("Parsing EQU directive", "DirectiveParser");
+
+
+
+            Logger288.Log("Finished parsing EQU directive", "DirectiveParser");
         }
     }
 }
