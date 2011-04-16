@@ -67,7 +67,6 @@ namespace Assembler
          */
         public static Directives GetInstance()
         {
-            Logger288.Log("Request for instance of Directives.", "Directives");
             if (Directives.instance == null)
             {
                 Directives.instance = new Directives();

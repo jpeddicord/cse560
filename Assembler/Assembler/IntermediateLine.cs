@@ -268,6 +268,7 @@ namespace Assembler
          */
         public void ProcessLine()
         {
+            Logger288.Log("Processing line \"" + this.source + "\"", "IntermediateLine");
             // get the first 5 bits
             StringBuilder code = new StringBuilder();
             try

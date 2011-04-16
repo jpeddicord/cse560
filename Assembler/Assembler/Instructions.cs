@@ -85,7 +85,6 @@ namespace Assembler
          */
         public static Instructions GetInstance()
         {
-            Logger288.Log("Request of instance of Instructions.", "Instructions");
             if (Instructions.instance == null)
             {
                 Instructions.instance = new Instructions();

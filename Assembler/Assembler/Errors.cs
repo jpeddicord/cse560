@@ -149,8 +149,6 @@ namespace Assembler
          */
         public static Errors GetInstance()
         {
-            Logger288.Log("Request for instance of Errors.", "Errors");
-
             if (Errors.instance == null)
             {
                 Errors.instance = new Errors();
