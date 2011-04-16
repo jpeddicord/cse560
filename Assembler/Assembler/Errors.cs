@@ -5,19 +5,39 @@ using System.Text;
 
 namespace Assembler
 {
-    
+    /**
+     * TODO: DOCUMENT
+     */
     class Errors
     {
         /**
-         * The type of error. Specifies three categories. <br />
-         * Fatal - Cannot be recovered from, causes Assembler to stop. <br />
-         * Serious - Can be recovered from, will probably lead to erratic program behavior. <br />
-         * Warning - Can be recovered from, may lead to erratic program behavior.
+         * The type of error. Specifies three categories.
+         * - Fatal - Cannot be recovered from, causes Assembler to stop.
+         * - Serious - Can be recovered from, will probably lead to erratic program behavior.
+         * - Warning - Can be recovered from, may lead to erratic program behavior.
          */
         public enum Category
         {
             Fatal, Serious, Warning
         };
+
+        /**
+         * An Error structure to hold an error severity and message.
+         */
+        public struct Error
+        {
+            public Category category;
+            public string msg;
+
+            /**
+             * String representation of this error.
+             */
+            public override string ToString()
+            {
+                return "[" + this.category.ToString() + "] " + this.msg;
+            }
+        };
+
 
         /**
          * Singleton instance of this class.
@@ -29,7 +49,7 @@ namespace Assembler
          * The errors will be accessed with a category (fatal, serious, warning)
          * and then an error code, e.g. 1, 2, or 3.
          */
-        private Dictionary<Errors.Category, Dictionary<int, string>> errorList;
+        private Dictionary<Errors.Category, Dictionary<int, Error>> errorList;
 
         /**
          * Creates an object that can be used to look up errors. These errors will be read in from a
@@ -49,12 +69,12 @@ namespace Assembler
         private Errors()
         {
             // initialize the Dictionary that holds the errors
-            errorList = new Dictionary<Category, Dictionary<int, string>>();
+            errorList = new Dictionary<Category, Dictionary<int, Error>>();
 
             // create the error categories in the Dictionary
-            errorList[Category.Fatal] = new Dictionary<int,string>();
-            errorList[Category.Serious] = new Dictionary<int,string>();
-            errorList[Category.Warning] = new Dictionary<int,string>();
+            errorList[Category.Fatal] = new Dictionary<int, Error>();
+            errorList[Category.Serious] = new Dictionary<int, Error>();
+            errorList[Category.Warning] = new Dictionary<int, Error>();
 
             foreach (string line in Properties.Resources.errors.Split('\n'))
             {
@@ -77,32 +97,36 @@ namespace Assembler
                     continue;
                 }
 
-                // actual error message will start at the 6th character in the line
-                string errorMsg = line.Substring(6);
+                // actual error message will start after a space
+                Error err;
+                err.msg = line.Substring(line.IndexOf(' ') + 1);
 
                 switch (errorCode[0].ToUpper())
                 {
                     case "EF":
                         {
                             // this error is a fatal error
-                            errorList[Category.Fatal][numCode] = errorMsg;
-                        }break;
+                            err.category = Errors.Category.Fatal;
+                            errorList[Category.Fatal][numCode] = err;
+                        } break;
                     case "ES":
                         {
                             // this error is a serious error
-                            errorList[Category.Serious][numCode] = errorMsg;
-                        }break;
+                            err.category = Errors.Category.Serious;
+                            errorList[Category.Serious][numCode] = err;
+                        } break;
                     case "EW":
                         {
                             // this error is a warning error
-                            errorList[Category.Warning][numCode] = errorMsg;
-                        }break;
+                            err.category = Errors.Category.Warning;
+                            errorList[Category.Warning][numCode] = err;
+                        } break;
                     default:
                         {
                             // no category found
                             Logger288.Log(String.Format("Invalid errorCategory: {0}.  Skipping.",
                                                          errorCode[0]), "Errors");
-                        }break;
+                        } break;
                 }
             }
 
@@ -137,7 +161,8 @@ namespace Assembler
 
         /**
          * Returns the fatal error that corresponds to the specified error code.
-         * 
+         *
+         * @param errCode error id
          * @return the error message specified by EF.errCode
          * 
          * @refcode N/A
@@ -145,18 +170,19 @@ namespace Assembler
          * @errmsg N/A
          * @author Mark
          * @creation April 14, 2011
-         * @modlog 
+         * @modlog
          * @codestandard Mark Mathis
          * @teststandard Andrew Buelow
          */
-        public string GetFatalError(int errCode)
+        public Error GetFatalError(int errCode)
         {
             return errorList[Category.Fatal][errCode];
         }
 
         /**
          * Returns the serious error that corresponds to the specified error code.
-         * 
+         *
+         * @param errCode error id
          * @return the error message specified by EF.errCode
          * 
          * @refcode N/A
@@ -168,14 +194,15 @@ namespace Assembler
          * @codestandard Mark Mathis
          * @teststandard Andrew Buelow
          */
-        public string GetSeriousError(int errCode)
+        public Error GetSeriousError(int errCode)
         {
             return errorList[Category.Serious][errCode];
         }
 
         /**
          * Returns the warning error that corresponds to the specified error code.
-         * 
+         *
+         * @param errCode error id
          * @return the error message specified by EF.errCode
          * 
          * @refcode N/A
@@ -187,7 +214,7 @@ namespace Assembler
          * @codestandard Mark Mathis
          * @teststandard Andrew Buelow
          */
-        public string GetWarningError(int errCode)
+        public Error GetWarningError(int errCode)
         {
             return errorList[Category.Warning][errCode];
         }

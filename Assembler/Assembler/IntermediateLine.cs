@@ -224,7 +224,7 @@ namespace Assembler
         /**
          * List of errors that are flagged on this line.
          */
-        private List<string> errors; // FIXME: not strings, but Error objects?
+        private List<Errors.Error> errors;
 
 
         /**
@@ -248,7 +248,7 @@ namespace Assembler
             this.comment = null;
             this.bytecode = null;
             this.arm = 'a';
-            this.errors = new List<string>();
+            this.errors = new List<Errors.Error>();
         }
 
         /**
@@ -368,18 +368,20 @@ namespace Assembler
         /**
          * TODO: DOCUMENT
          */
-        public void AddError(Errors.Category level, string err)
+        public void AddError(Errors.Category level, string msg)
         {
-            // TODO: we don't do anything with the level...
+            Errors.Error err;
+            err.category = level;
+            err.msg = msg;
             this.errors.Add(err);
         }
 
         /**
          * TODO: DOCUMENT
          */
-        public List<string> GetThreeErrors()
+        public List<Errors.Error> GetThreeErrors()
         {
-            List<string> result = new List<string>();
+            List<Errors.Error> result = new List<Errors.Error>();
             for (int i = 0; i < 3; i++)
             {
                 if (this.errors.Count == i)
