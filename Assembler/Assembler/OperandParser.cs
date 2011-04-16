@@ -5,43 +5,43 @@ namespace Assembler
     static class OperandParser
     {
         /**
-         * Document!
+         * Literal operand types.
          */
-        public enum Type {
-            elabel,
-            mlabel,
-            rlabel,
-            olabel,
-            n,
-            nn,
-            nnn,
-            nmax,
-            nnnnnn,
-            none
-        }
+        public enum Literal {
+            /**
+             * No literal present.
+             */
+            NONE,
 
-        /**
-         * Check if a directive operand fits within the given type.
-         * TODO: DOC
-         */
-        public static bool IsValidDirectiveOperand(string lit, Type type)
-        {
-            // bail early if passed in an error literal
-            if (lit == "_ERROR")
-            {
-                return false;
-            }
+            /**
+             * Unknown literal type. Indicates a parsing error.
+             */
+            UNKNOWN,
 
-            return true;
-        }
+            /**
+             * A non-prefixed number.
+             */
+            Number,
 
-        /**
-         * Check if an instruction operand fits within the given type.
-         */
-        public static bool IsValidInstructionOperand(string lit, Type type)
-        {
-            // TODO
-            return true;
+            /**
+             * I= (integer)
+             */
+            I,
+
+            /**
+             * X= (hex)
+             */
+            X,
+
+            /**
+             * B= (binary)
+             */
+            B,
+
+            /**
+             * C= (character)
+             */
+            C
         }
 
         /**
@@ -56,16 +56,18 @@ namespace Assembler
             Tokenizer.GetNextToken(ref line, out token, out tokenKind);
 
             string operand;
-            string litOperand = null;
+            Literal litOperand;
 
             // if it's a label, then just set the token directly
             if (tokenKind == Tokenizer.TokenKinds.Label_Or_Command)
             {
+                litOperand = Literal.NONE;
                 operand = token;
             }
             // if it's a number, convert to hex and store
             else if (tokenKind == Tokenizer.TokenKinds.Number)
             {
+                litOperand = Literal.Number;
                 operand = Convert.ToString(int.Parse(token), 16).ToUpper();
             }
             // do further processing for literals
@@ -76,6 +78,7 @@ namespace Assembler
             // anything else is invalid
             else
             {
+                litOperand = Literal.NONE;
                 operand = "_ERROR";
             }
 
@@ -116,20 +119,21 @@ namespace Assembler
          *                  will be in hexadecimal
          * @param litType the type of the operand, that is, X, B, etc.
          */
-        private static void ParseLiteralOperand(string inOper, out string outOper, out string litType)
+        private static void ParseLiteralOperand(string inOper, out string outOper, out Literal litType)
         {
             Logger288.Log("Parsing literal operand " + inOper, "Parser");
 
             int op;
+            inOper = inOper.ToUpper();
             outOper = inOper.Substring(2);
-            litType = inOper.Substring(0, 2);
+            litType = OperandParser.Literal.UNKNOWN;
 
             switch (inOper[0])
             {
                 case 'X':
-                case 'x':
                     {
                         Logger288.Log("literal operand is hex", "Parser");
+                        litType = Literal.X;
                         op = Convert.ToInt32(inOper.Substring(2), 16);
                         if (op < 0)
                         {
@@ -139,9 +143,9 @@ namespace Assembler
                     } break;
 
                 case 'B':
-                case 'b':
                     {
                         Logger288.Log("literal operand is binary", "Parser");
+                        litType = Literal.B;
                         op = Convert.ToInt32(inOper.Substring(2), 2);
                         if (op < 0)
                         {
@@ -151,9 +155,9 @@ namespace Assembler
                     } break;
 
                 case 'I':
-                case 'i':
                     {
                         Logger288.Log("literal operand is integer", "Parser");
+                        litType = Literal.I;
                         op = Convert.ToInt32(inOper.Substring(2));
                         if (-512 < op && op < 511)
                         {
@@ -169,9 +173,9 @@ namespace Assembler
                         }
                     } break;
                 case 'C':
-                case 'c':
                     {
                         Logger288.Log("literal operand is character", "Parser");
+                        litType = Literal.C;
                         // fix this: parse integers more properly.
                         outOper = Convert.ToString(Convert.ToInt32(((int)inOper[3]) << 2), 16).ToUpper();
                     } break;

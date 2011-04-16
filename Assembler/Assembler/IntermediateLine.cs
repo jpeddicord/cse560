@@ -122,13 +122,13 @@ namespace Assembler
         /**
          * The function's literal operand type.
          */
-        private string operandLit;
+        private OperandParser.Literal operandLit;
 
         /**
          * Allows access for getting and setting the literal operand type of the
          * function in this line of source.
          */
-        public string OpLitOperand
+        public OperandParser.Literal OpLitOperand
         {
             get { return this.operandLit; }
             set { this.operandLit = value; }
@@ -170,13 +170,13 @@ namespace Assembler
         /**
          * The directive's literal operand type.
          */
-        private string dirLitOperand;
+        private OperandParser.Literal dirLitOperand;
 
         /**
          * Allows access for getting and setting the directive literal operand
          * type in this line of source.
          */
-        public string DirectiveLitOperand
+        public OperandParser.Literal DirectiveLitOperand
         {
             get { return this.dirLitOperand; }
             set { this.dirLitOperand = value; }
@@ -241,10 +241,10 @@ namespace Assembler
             this.category = null;
             this.function = null;
             this.operand = null;
-            this.operandLit = null;
+            this.operandLit = OperandParser.Literal.NONE;
             this.directive = null;
             this.dirOperand = null;
-            this.dirLitOperand = null;
+            this.dirLitOperand = OperandParser.Literal.NONE;
             this.comment = null;
             this.bytecode = null;
             this.arm = 'a';
@@ -287,27 +287,32 @@ namespace Assembler
             switch (this.category)
             {
                 case "CNTL": {
+                    // TODO: rework the logic here, this is a little nasty.
                     // unused bit
                     code.Append("0");
-                    // operand
-                    if (this.OpLitOperand != null)
+                    // literal operand
+                    if (this.OpLitOperand != OperandParser.Literal.Number)
                     {
-                        code.Append(BinaryHelper.BinaryString(this.OpLitOperand));
+                        code.Append(BinaryHelper.BinaryString(this.OpOperand));
                     }
                     // otherwise pad with zeros (labels will have to be looked up later)
-                    else
+                    else if (this.OpLitOperand != OperandParser.Literal.NONE)
                     {
                         code.Append("0000000000");
+                    }
+                    else
+                    {
+                        // TODO: error
                     }
                 } break;
                 case "STACK": {
                     // literal operand
-                    if (this.OpLitOperand != null)
+                    if (this.OpLitOperand != OperandParser.Literal.NONE)
                     {
                         // literal flag
                         code.Append("1");
                         // and the value
-                        code.Append(BinaryHelper.BinaryString(this.OpLitOperand));
+                        code.Append(BinaryHelper.BinaryString(this.OpOperand));
                     }
                     // label
                     else
@@ -337,8 +342,8 @@ namespace Assembler
                     }
                     // unused 2 bits
                     code.Append("00");
-                    // operand
-                    code.Append(BinaryHelper.BinaryString(this.OpLitOperand));
+                    // operand (assumed literal)
+                    code.Append(BinaryHelper.BinaryString(this.OpOperand));
                 } break;
                 case "MOPER": {
                     // again, the write flag is only set for character operations
@@ -444,10 +449,10 @@ namespace Assembler
                 this.OpFunction == null ? "N/A" : this.OpFunction,
                 this.bytecode == null ? "N/A" : this.bytecode,
                 this.OpOperand == null ? "N/A" : this.OpOperand,
-                this.OpLitOperand == null ? "N/A" : this.OpLitOperand,
+                this.OpLitOperand == OperandParser.Literal.NONE ? "N/A" : this.OpLitOperand.ToString(),
                 this.Directive == null ? "N/A" : this.Directive,
                 this.DirectiveOperand == null ? "N/A" : this.DirectiveOperand,
-                this.DirectiveLitOperand == null ? "N/A" : this.DirectiveLitOperand,
+                this.DirectiveLitOperand == OperandParser.Literal.NONE ? "N/A" : this.DirectiveLitOperand.ToString(),
                 this.Comment == null ? "N/A" : this.Comment
             );
         }

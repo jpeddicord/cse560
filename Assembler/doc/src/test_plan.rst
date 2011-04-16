@@ -533,7 +533,7 @@ Concerns:
     None
 
 Test Number: B21
-```````````````
+````````````````
 Purpose:
     Testing conversion of a hexadecimal number into binary.
 Expected Results Achieved:
