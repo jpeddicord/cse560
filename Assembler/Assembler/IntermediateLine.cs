@@ -263,6 +263,7 @@ namespace Assembler
          * @modlog
          *  - April 15, 2011 - Jacob - Converted to a property; begin generating full bytecode
          *  - April 15, 2011 - Jacob - Changed to ProcessLine; we'll do more general things here
+         *  - April 16, 2011 - Jacob - Fix padding on generated instructions.
          * @codestandard Mark
          * @teststandard Andrew
          */
@@ -294,8 +295,7 @@ namespace Assembler
                     // literal operand
                     if (this.OpLitOperand == OperandParser.Literal.Number)
                     {
-                        Console.WriteLine(this.OpOperand);
-                        code.Append(BinaryHelper.BinaryString(this.OpOperand));
+                        code.Append(BinaryHelper.BinaryString(this.OpOperand).PadLeft(10, '0'));
                     }
                     // otherwise pad with zeros (labels will have to be looked up later)
                     else if (this.OpLitOperand == OperandParser.Literal.NONE)
@@ -310,7 +310,7 @@ namespace Assembler
                         // literal flag
                         code.Append("1");
                         // and the value
-                        code.Append(BinaryHelper.BinaryString(this.OpOperand));
+                        code.Append(BinaryHelper.BinaryString(this.OpOperand).PadLeft(10, '0'));
                     }
                     // label
                     else
@@ -341,7 +341,7 @@ namespace Assembler
                     // unused 2 bits
                     code.Append("00");
                     // operand (assumed literal)
-                    code.Append(BinaryHelper.BinaryString(this.OpOperand));
+                    code.Append(BinaryHelper.BinaryString(this.OpOperand).PadLeft(8, '0'));
                 } break;
                 case "MOPER": {
                     // again, the write flag is only set for character operations
