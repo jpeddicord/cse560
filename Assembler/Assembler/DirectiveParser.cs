@@ -30,7 +30,7 @@ namespace Assembler
         {
             Logger288.Log("Parsing directive on line " + interLine.SourceLineNumber, "DirectiveParser");
 
-            OperandParser.ParseOperand(ref line, ref interLine, ref symb);
+            OperandParser.ParseOperand(ref line, ref interLine, ref symb, 16);
 
             // This will decide which directive is in this line and how it should
             // be handled by the parser.

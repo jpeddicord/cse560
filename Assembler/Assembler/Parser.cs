@@ -130,7 +130,7 @@ namespace Assembler
             {
                 interLine.ProcessLine();
             }
-            
+
             Logger288.Log("Finished parsing line " + lineNum, "Parser");
 
             return interLine;
@@ -179,7 +179,7 @@ namespace Assembler
                 }
 
                 // get what should be the function operand
-                OperandParser.ParseOperand(ref line, ref interLine, ref symb);
+                OperandParser.ParseOperand(ref line, ref interLine, ref symb, 10);
             }
             else if (interLine.OpCategory.ToUpper() == "CNTL")
             {

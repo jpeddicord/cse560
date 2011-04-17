@@ -45,10 +45,10 @@ namespace Assembler
         }
 
         /**
-* Parse an operand and fill the intermediate line with found data.
-* XXX: DOC
-*/
-        public static void ParseOperand(ref string line, ref IntermediateLine interLine, ref SymbolTable symb)
+         * Parse an operand and fill the intermediate line with found data.
+         * XXX: DOC
+         */
+        public static void ParseOperand(ref string line, ref IntermediateLine interLine, ref SymbolTable symb, int bits)
         {
             // get the next token
             string token;
@@ -68,12 +68,14 @@ namespace Assembler
             else if (tokenKind == Tokenizer.TokenKinds.Number)
             {
                 litOperand = Literal.Number;
-                operand = Convert.ToString(int.Parse(token), 16).ToUpper();
+                int op = Convert.ToInt32(token);
+                op = BinaryHelper.ConvertNumber(op, bits);
+                operand = Convert.ToString(op, 16).ToUpper();
             }
             // do further processing for literals
             else if (tokenKind == Tokenizer.TokenKinds.Literal)
             {
-                ParseLiteralOperand(token, out operand, out litOperand);
+                ParseLiteralOperand(token, out operand, out litOperand, bits);
             }
             // anything else is invalid
             else
@@ -111,6 +113,7 @@ namespace Assembler
          *  - April 10, 2011 - Jacob - Parses single character in accordance with instruction limits.
          *  - April 11, 2011 -  Mark - Checks that integer literals are in the proper range.
          *  - April 14, 2011 -  Mark - Moved from Parser into OperandParser.
+         *  - April 17, 2011 - Jacob - Pass in the bit length of integers to store in hex.
          * @teststandard Andrew Buelow
          * @codestandard Mark Mathis
          * 
@@ -118,8 +121,9 @@ namespace Assembler
          * @param outOper the numerical operand from the literal, that is, the part after the X=
          *                  will be in hexadecimal
          * @param litType the type of the operand, that is, X, B, etc.
+         * @param bits the bit length to store as in hex
          */
-        private static void ParseLiteralOperand(string inOper, out string outOper, out Literal litType)
+        private static void ParseLiteralOperand(string inOper, out string outOper, out Literal litType, int bits)
         {
             Logger288.Log("Parsing literal operand " + inOper, "Parser");
 
@@ -134,12 +138,7 @@ namespace Assembler
                     {
                         Logger288.Log("literal operand is hex", "Parser");
                         litType = Literal.X;
-                        op = Convert.ToInt32(inOper.Substring(2), 16);
-                        if (op < 0)
-                        {
-                            op = BinaryHelper.ConvertNumber(op, 10);
-                        }
-                        outOper = Convert.ToString(op, 16).ToUpper();
+                        outOper = outOper.ToUpper();
                     } break;
 
                 case 'B':
@@ -147,10 +146,7 @@ namespace Assembler
                         Logger288.Log("literal operand is binary", "Parser");
                         litType = Literal.B;
                         op = Convert.ToInt32(inOper.Substring(2), 2);
-                        if (op < 0)
-                        {
-                            op = BinaryHelper.ConvertNumber(op, 10);
-                        }
+                        op = BinaryHelper.ConvertNumber(op, bits);
                         outOper = Convert.ToString(op, 16).ToUpper();
                     } break;
 
@@ -159,18 +155,8 @@ namespace Assembler
                         Logger288.Log("literal operand is integer", "Parser");
                         litType = Literal.I;
                         op = Convert.ToInt32(inOper.Substring(2));
-                        if (-512 < op && op < 511)
-                        {
-                            if (op < 0)
-                            {
-                                op = BinaryHelper.ConvertNumber(op);
-                            }
-                            outOper = Convert.ToString(op, 16).ToUpper();
-                        }
-                        else
-                        {
-                            outOper = "_OUT OF BOUNDS";
-                        }
+                        op = BinaryHelper.ConvertNumber(op, bits);
+                        outOper = Convert.ToString(op, 16).ToUpper();
                     } break;
                 case 'C':
                     {
