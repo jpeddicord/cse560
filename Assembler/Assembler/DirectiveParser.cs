@@ -139,7 +139,12 @@ namespace Assembler
             Logger288.Log("Parsing END directive", "DirectiveParser");
 
             // check to see if the operand of the END directive matches the program name
-            
+
+            if (!(symb.ContainsSymbol(interLine.DirectiveOperand) && 
+                symb.GetSymbol(interLine.DirectiveOperand).usage == Usage.PRGMNAME))
+            {
+                //error things
+            }
 
             Logger288.Log("Finished parsing END directive.", "DirectiveParser");
         }
@@ -157,7 +162,7 @@ namespace Assembler
             }
             else
             {
-                // error stuff that we can't actually do yet!
+                // error things
                 // Error ES.08
             }
 
