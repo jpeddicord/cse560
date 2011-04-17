@@ -165,7 +165,7 @@ namespace Assembler
              * well as '+', '-' and '*'. Note: '*' is not used for multiplication, it is
              * used in start notation (see web documentation).
              */
-            Regex expression = new Regex("[^0-9A-Za-z*+-]");
+            Regex expression = new Regex("[^0-9A-Za-z\\*\\+\\-]");
 
             // Convert to uppercase to give user flexibility.  Token is passed by value so
             // this change will not affect the token that is returned to the user.

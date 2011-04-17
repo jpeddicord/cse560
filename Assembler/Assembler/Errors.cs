@@ -27,6 +27,7 @@ namespace Assembler
          */
         public struct Error
         {
+            public int code;
             public Category category;
             public string msg;
 
@@ -100,6 +101,7 @@ namespace Assembler
 
                 // actual error message will start after a space
                 Error err;
+                err.code = numCode;
                 err.msg = line.Substring(line.IndexOf(' ') + 1);
 
                 switch (errorCode[0].ToUpper())

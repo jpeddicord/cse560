@@ -159,7 +159,7 @@ namespace Assembler
         /**
          * Get a single symbol by label.
          *
-         * @param rlabel Label to look up
+         * @param rlabel symbol to look up
          * @return the associated symbol
          * @refcode
          * @errtest
@@ -180,6 +180,25 @@ namespace Assembler
             {
                 throw new SymbolException("Symbol doesn't exist.");
             }
+        }
+
+        /**
+         * Return whether the symbol table contains the given symbol.
+         *
+         * @param rlabel symbol to look up
+         * @return true if it exists, false if not
+         * @refcode
+         * @errtest
+         * @errmsg
+         * @author Jacob
+         * @creation April 17, 2011
+         * @modlog
+         * @codestandard Mark
+         * @teststandard Andrew
+         */
+        public bool ContainsSymbol(string rlabel)
+        {
+            return this.symbols.ContainsKey(rlabel);
         }
 
         /**

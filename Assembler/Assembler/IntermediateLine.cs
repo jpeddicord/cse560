@@ -264,6 +264,7 @@ namespace Assembler
          *  - April 15, 2011 - Jacob - Converted to a property; begin generating full bytecode
          *  - April 15, 2011 - Jacob - Changed to ProcessLine; we'll do more general things here
          *  - April 16, 2011 - Jacob - Fix padding on generated instructions.
+         *  - April 17, 2011 - Jacob - Handle error conditions.
          * @codestandard Mark
          * @teststandard Andrew
          */
@@ -281,7 +282,9 @@ namespace Assembler
             }
             catch (InstructionException)
             {
-                return; // TODO: set a NOP
+                this.AddError(Errors.Category.Serious, 3);
+                this.NOPificate();
+                return;
             }
 
             // from here on, everything is instruction-dependent
@@ -289,9 +292,20 @@ namespace Assembler
             switch (this.category)
             {
                 case "CNTL": {
-                    // TODO: rework the logic here, this is a little nasty.
                     // unused bit
                     code.Append("0");
+                    /*/ validation
+                    if (this.function == "HALT")
+                    {
+                        if (this.OpLitOperand == OperandParser.Literal.Number)
+                        {
+                            //int val = Convert.ToInt32(this.OpLitOperand, 16);
+                            //if (val < 0 || val > 1023)
+                            {
+
+                            }
+                        }
+                    }*/
                     // literal operand
                     if (this.OpLitOperand == OperandParser.Literal.Number)
                     {
@@ -322,10 +336,20 @@ namespace Assembler
                     }
                 } break;
                 case "JUMP": {
-                    // unused bit
-                    code.Append("0");
-                    // reference label, filled in pass 2
-                    code.Append("0000000000");
+                    // ensure that JUMP is taking a label
+                    if (this.OpLitOperand == OperandParser.Literal.NONE)
+                    {
+                        // unused bit
+                        code.Append("0");
+                        // reference label, filled in pass 2
+                        code.Append("0000000000");
+                    }
+                    else
+                    {
+                        this.AddError(Errors.Category.Serious, 9);
+                        this.NOPificate();
+                        return;
+                    }
                 } break;
                 case "SOPER": {
                     // the write flag is only set for character operations
@@ -367,7 +391,7 @@ namespace Assembler
          * Add an error to this line.
          *
          * @param level the severity of the error
-         * @param msg the error message to store
+         * @param code code of the error to store
          * @refcode N/A
          * @errtest N/A
          * @errmsg N/A
@@ -375,15 +399,26 @@ namespace Assembler
          * @creation April 15, 2011
          * @modlog
          *  - April 16, 2011 - Jacob - Changed to use an Error struct.
+         *  - April 17, 2011 - Jacob - Look up an error code instead of a message.
          * @teststandard Andrew Buelow
          * @codestandard Mark Mathis
          */
-        public void AddError(Errors.Category level, string msg)
+        public void AddError(Errors.Category level, int code)
         {
             Errors.Error err;
-            err.category = level;
-            err.msg = msg;
-            this.errors.Add(err);
+            Errors inst = Errors.GetInstance();
+            if (level == Errors.Category.Warning)
+            {
+                this.errors.Add(inst.GetWarningError(code));
+            }
+            else if (level == Errors.Category.Serious)
+            {
+                this.errors.Add(inst.GetSeriousError(code));
+            }
+            else if (level == Errors.Category.Fatal)
+            {
+                this.errors.Add(inst.GetFatalError(code));
+            }
         }
 
         /**
@@ -413,6 +448,39 @@ namespace Assembler
                 result.Add(this.errors[i]);
             }
             return result;
+        }
+
+        /**
+         * Converts the current line to a NOP (SOPER ADD,0). Used when an error
+         * is throws of severity level serious or higher and the line is
+         * invalidated. The corresponding bytecode for a NOP is
+         * 1000000000000000, which is equivalent to that of a SOPER ADD,0.
+         * Labels and comments will still be preserved, but instructions and
+         * directives will not.
+         *
+         * @refcode D10
+         * @errtest
+         * @errmsg
+         * @author Jacob
+         * @creation April 17, 2011
+         * @modlog
+         * @teststandard Andrew
+         * @codestandard Mark
+         */
+        public void NOPificate()
+        {
+            Logger288.Log("Invalidating line " + this.line, "IntermediateLine");
+            this.bytecode = "1000000000000000";
+            this.category = "SOPER";
+            this.function = "ADD";
+            this.operand = "0";
+            this.operandLit = OperandParser.Literal.Number;
+            this.directive = null;
+            this.dirOperand = null;
+            this.dirLitOperand = OperandParser.Literal.NONE;
+            this.bytecode = null;
+            this.arm = 'a';
+            this.errors = new List<Errors.Error>();
         }
 
         /**
