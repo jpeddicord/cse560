@@ -211,7 +211,7 @@ namespace Assembler
             }
         }
 
-        private static void ParseEntry(ref string line, ref IntermediateLine, ref SymbolTable symb)
+        private static void ParseEntry(ref string line, ref IntermediateLine interLine, ref SymbolTable symb)
         {
 
         }
