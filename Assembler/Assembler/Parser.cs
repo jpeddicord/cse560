@@ -125,9 +125,12 @@ namespace Assembler
                 interLine.Comment = token;
             }
 
-            // process this line
-            interLine.ProcessLine();
-
+            // process this line if it's an instruction
+            if (interLine.OpCategory != null)
+            {
+                interLine.ProcessLine();
+            }
+            
             Logger288.Log("Finished parsing line " + lineNum, "Parser");
 
             return interLine;
