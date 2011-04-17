@@ -586,3 +586,42 @@ Expected Results Achieved:
 Concerns:
     None
 
+
+Errors Test List
+----------------
+
+Test Number: E1
+```````````````
+Purpose:
+	Checks that errors are correctly read in from the error file and seperated into the correct category.  This test checks that fatal errors are read in.
+Expected Results Achieved:
+	Yes
+Concerns:
+	This test relies on ToString for Errors.  If ToString is changed, this test may give a false negative.
+
+Test Number: E2
+```````````````
+Purpose:
+	Checks that errors are correctly read in from the error file and seperated into the correct category.  This test checks that serious errors are read in.
+Expected Results Achieved:
+	Yes
+Concerns:
+	This test relies on ToString for Errors.  If ToString is changed, this test may give a false negative.
+
+Test Number: E3
+```````````````
+Purpose:
+	Checks that errors are correctly read in from the error file and seperated into the correct category.  This test checks that warning errors are read in.
+Expected Results Achieved:
+	Yes
+Concerns:
+	This test relies on ToString for Errors.  If ToString is changed, this test may give a false negative.
+
+Test Number: E4
+```````````````
+Purpose:
+	Testing that every line from the errors file is read in so no error messages are missing.
+Expected Results Achieved:
+	Yes
+Concerns:
+	This test relies on ToString for Errors.  If ToString is changed, this test may give a false negative. Due to the fact that we will be adding more errors to the error file as we discover they are needed, the error in the current test may not always be the last one in the file.
