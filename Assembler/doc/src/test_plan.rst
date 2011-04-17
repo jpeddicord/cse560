@@ -558,3 +558,31 @@ Expected Results Achieved:
     Yes
 Concerns:
     This will fail on integers that don't fit into 32 bits. However, since our machine is only 16-bit, this shouldn't be an issue.
+
+Test Number: B22
+````````````````
+Purpose:
+    Test that converting hex in 5 bits (arbitrary) results in the correct 32-bit integer.
+Expected Results Achieved:
+    Yes
+Concerns:
+    None
+
+Test Number: B23
+````````````````
+Purpose:
+    Test converting a 10-bit 2's complement negative hexadecimal integer into a decimal integer works.
+Expected Results Achieved:
+    Yes
+Concerns:
+    None
+
+Test Number: B24
+````````````````
+Purpose:
+    Test that positive hex integers are still positive as decimal.
+Expected Results Achieved:
+    Yes
+Concerns:
+    None
+

@@ -134,5 +134,21 @@ namespace Assembler
         {
             return Convert.ToString(Convert.ToInt32(hex, 16), 2);
         }
+
+        /**
+         * Convert the given hex number of the specified bit length to a
+         * 32-bit integer. Useful for checking bounds or just finding the
+         * integer value of something.
+         *
+         * @param hex value to convert
+         * @param bits bit length of the hex string
+         * TODO: DOCUMENT
+         */
+        public static int HexToInt(string hex, int bits)
+        {
+            int val = Convert.ToInt32(hex, 16);
+            val = BinaryHelper.ConvertNumber(val, bits);
+            return val;
+        }
     }
 }

@@ -194,5 +194,32 @@ namespace Assembler
         {
             Assert.AreEqual("10101010", BinaryHelper.BinaryString("AA"));
         }
+
+        /**
+         * [B22] Test converting a negative 5-bit hex into an integer
+         */
+        [Test]
+        public void BHHexToInt5Bit()
+        {
+            Assert.AreEqual(-6, BinaryHelper.HexToInt("1A", 5));
+        }
+
+        /**
+         * [B23] Test converting a negative 5-bit hex into an integer
+         */
+        [Test]
+        public void BHHexToInt10Bit()
+        {
+            Assert.AreEqual(-511, BinaryHelper.HexToInt("201", 10));
+        }
+
+        /**
+         * [B24] Test converting a negative 5-bit hex into an integer
+         */
+        [Test]
+        public void BHHexToIntPositive()
+        {
+            Assert.AreEqual(511, BinaryHelper.HexToInt("1ff", 10));
+        }
     }
 }
