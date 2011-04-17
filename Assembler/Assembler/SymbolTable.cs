@@ -247,6 +247,7 @@ namespace Assembler
             string disp = "---- SYMBOL TABLE ----\n";
             foreach (string s in this.SortedSymbols())
             {
+                // TODO: make the LC print nothing if it's null
                 Symbol sym = this.symbols[s];
                 disp += String.Format("{0,10}: 0x{1,-6} {2}\n", sym.rlabel, sym.lc, sym.usage);
             }
