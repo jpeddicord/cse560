@@ -400,13 +400,18 @@ namespace Assembler
          * @modlog
          *  - April 16, 2011 - Jacob - Changed to use an Error struct.
          *  - April 17, 2011 - Jacob - Look up an error code instead of a message.
+         *  - April 17, 2011 - Andrew - Added logging to this procedure.
          * @teststandard Andrew Buelow
          * @codestandard Mark Mathis
          */
         public void AddError(Errors.Category level, int code)
         {
+            Logger288.Log("Found " + level.ToString() + " error number " + code + ". Adding to error list.", "IntermediateLine");
+
             Errors.Error err;
             Errors inst = Errors.GetInstance();
+
+            // Get the correct error based on category and add to the list of errors for this line.
             if (level == Errors.Category.Warning)
             {
                 this.errors.Add(inst.GetWarningError(code));
@@ -433,18 +438,15 @@ namespace Assembler
          * @creation April 15, 2011
          * @modlog
          *  - April 16, 2011 - Jacob - Changed to use an Error struct.
+         *  - April 17, 2011 - Andrew - Made the loop condition better defined to avoid using breaks.
          * @teststandard Andrew Buelow
          * @codestandard Mark Mathis
          */
         public List<Errors.Error> GetThreeErrors()
         {
             List<Errors.Error> result = new List<Errors.Error>();
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < Math.Min(this.errors.Count, 3); i++)
             {
-                if (this.errors.Count == i)
-                {
-                    break;
-                }
                 result.Add(this.errors[i]);
             }
             return result;
@@ -464,6 +466,8 @@ namespace Assembler
          * @author Jacob
          * @creation April 17, 2011
          * @modlog
+         *  - April 17, 2011 - Andrew - Removed the last line which also cleared the list of errors.
+         *      This caused error output to be blank even though there may have been errors present.
          * @teststandard Andrew
          * @codestandard Mark
          */
@@ -480,7 +484,6 @@ namespace Assembler
             this.dirLitOperand = OperandParser.Literal.NONE;
             this.bytecode = null;
             this.arm = 'a';
-            this.errors = new List<Errors.Error>();
         }
 
         /**
@@ -500,6 +503,7 @@ namespace Assembler
          *  - April 9, 2011 -  Mark - Added a newline to the end of the output.
          *  - April 9, 2011 - Jacob - Made the code pretty.
          *  - April 10, 2011 - Jacob - Output partial bytecode.
+         *  - April 17, 2011 - Andrew - Added errors to the output.
          * @teststandard Andrew Buelow
          * @codestandard Mark Mathis
          */
@@ -531,6 +535,19 @@ namespace Assembler
             {
                 output += String.Format("\n\tComment: {0}", this.Comment);
             }
+            // display any errors that may have been found in this line
+            List<Errors.Error> lineErrors = this.GetThreeErrors();
+
+            if (this.errors.Count > 0)
+            {
+                output += "\n\tErrors:\n";
+
+                foreach (Errors.Error i in lineErrors)
+                {
+                    output += String.Format("\t {0}\n", i.ToString());
+                }
+            }
+
             return output + "\n";
         }
     }
