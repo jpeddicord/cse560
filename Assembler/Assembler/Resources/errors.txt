@@ -1,7 +1,7 @@
 EF.01 Invalid start directive.  Assembler has been stopped.
 EF.02 First line not a valid START.  First line must be a valid START.
 EF.03 LC is now larger than 1023.  Your program must use less than 1024 words of memory.
-EF.04 Exceeding the maximum number of symbols.  You must use 50 or less labels.
+EF.04 Exceeding the maximum number of symbols.  You must use 50 or fewer labels.
 EF.05 Operand of END directive does not match program name. Assembler has been stopped.
 ES.01 Invalid function code.  The function code entered is invalid.
 ES.02 Invalid Label defined, label ignored. Labels must start with A-Z, a-z and cannot be longer than 32 characters. 0-9 can be used after the first character.
@@ -12,5 +12,6 @@ ES.06 Memory address not in proper range, line ignored. Operand must be in the r
 ES.07 Directive requires a label, line ignored.
 ES.08 Attempted to reset location counter to a previously used value. Reset ignored, keeping current location counter value.
 ES.09 Instruction requires a label; line substituted with NOP.
+ES.10 RESET directive must take a previously equated symbol or a number. Reset ignored, keeping current location counter value.
 EW.01 Blank Line, line ignored and no message given.
 EW.02 Operand field for entry/extern is invalid, line ignored.

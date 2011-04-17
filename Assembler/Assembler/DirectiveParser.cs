@@ -47,10 +47,11 @@ namespace Assembler
                     } break;
                 case "EQU":
                     {
-
+                        ParseEqu(ref line, ref interLine, ref symb);
                     } break;
                 case "EQUE":
                     {
+                        ParseEque(ref line, ref interLine, ref symb);
                     } break;
                 case "ENTRY":
                     {
@@ -110,6 +111,7 @@ namespace Assembler
             // update the symbol in the symbol table
             Symbol start = symb.RemoveSymbol(interLine.Label);
             start.usage = Usage.PRGMNAME;
+            start.lc = null;
             symb.AddSymbol(start);
 
             Logger288.Log("Finished parsing START directive", "DirectiveParser");
@@ -143,7 +145,8 @@ namespace Assembler
             if (!(symb.ContainsSymbol(interLine.DirectiveOperand) && 
                 symb.GetSymbol(interLine.DirectiveOperand).usage == Usage.PRGMNAME))
             {
-                //error things
+                // error things
+                interLine.AddError(Errors.Category.Fatal, 5);
             }
 
             Logger288.Log("Finished parsing END directive.", "DirectiveParser");
@@ -153,17 +156,28 @@ namespace Assembler
         {
             Logger288.Log("Parsing RESET directive", "DirectiveParser");
 
-            int newLC = Convert.ToInt32(interLine.DirectiveOperand, 16);
-            int curLC = Convert.ToInt32(Parser.LC, 16);
-
-            if (newLC > curLC)
+            // the operand of the RESET directive must either be an equated label
+            // or a literal number.
+            if ((symb.ContainsSymbol(interLine.DirectiveOperand) && 
+                symb.GetSymbol(interLine.DirectiveOperand).usage == Usage.EQUATED) || 
+                (interLine.DirectiveLitOperand == OperandParser.Literal.Number))
             {
-                Parser.LC = interLine.DirectiveOperand;
+                int curLC = Convert.ToInt32(Parser.LC, 16);
+                int newLC = Convert.ToInt32(interLine.DirectiveOperand, 16);
+                if (curLC < newLC)
+                {
+                    Parser.LC = interLine.DirectiveOperand;
+                }
+                else
+                {
+                    // error, attempt to use a previously used LC value
+                    interLine.AddError(Errors.Category.Serious, 8);
+                }
             }
             else
             {
-                // error things
-                // Error ES.08
+                // error invalid value
+                interLine.AddError(Errors.Category.Serious, 10);
             }
 
             Logger288.Log("Finished parsing RESET directive", "DirectiveParser");
@@ -173,7 +187,33 @@ namespace Assembler
         {
             Logger288.Log("Parsing EQU directive", "DirectiveParser");
 
+            if ((symb.ContainsSymbol(interLine.DirectiveOperand) &&
+                symb.GetSymbol(interLine.DirectiveOperand).usage == Usage.EQUATED) ||
+                (interLine.DirectiveLitOperand == OperandParser.Literal.Number))
+            {
+                symb.AddSymbol(interLine.Label, null, Usage.EQUATED, interLine.DirectiveOperand);
+            }
+            else
+            {
+
+            }
+
             Logger288.Log("Finished parsing EQU directive", "DirectiveParser");
+        }
+
+        private static void ParseEque(ref string line, ref IntermediateLine interLine, ref SymbolTable symb)
+        {
+            if ((symb.ContainsSymbol(interLine.DirectiveOperand) &&
+                symb.GetSymbol(interLine.DirectiveOperand).usage == Usage.EQUATED) ||
+                (interLine.DirectiveLitOperand == OperandParser.Literal.Number))
+            {
+                
+            }
+        }
+
+        private static void ParseEntry(ref string line, ref IntermediateLine, ref SymbolTable symb)
+        {
+
         }
     }
 }

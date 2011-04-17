@@ -19,6 +19,11 @@ namespace Assembler
             UNKNOWN,
 
             /**
+             * The operand is an expression.
+             */
+            EXPRESSION,
+
+            /**
              * A non-prefixed number.
              */
             Number,
@@ -76,6 +81,12 @@ namespace Assembler
             else if (tokenKind == Tokenizer.TokenKinds.Literal)
             {
                 ParseLiteralOperand(token, out operand, out litOperand, bits);
+            }
+            // the operand is an expression
+            else if (tokenKind == Tokenizer.TokenKinds.Expression)
+            {
+                // check that it's valid
+
             }
             // anything else is invalid
             else
