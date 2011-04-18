@@ -250,10 +250,17 @@ namespace Assembler
 
                                 if (valid == Tokenizer.TokenKinds.Label_Or_Command)
                                 {
-                                    if (symb.ContainsSymbol(opr2) &&
-                                        symb.GetSymbol(opr2).usage == Usage.EQUATED)
+                                    if (2 <= opr2.Length && opr2.Length <= 32)
                                     {
-                                        opr2 = Convert.ToInt32(symb.GetSymbol(opr2).val, 16).ToString();
+                                        if (symb.ContainsSymbol(opr2) &&
+                                            symb.GetSymbol(opr2).usage == Usage.EQUATED)
+                                        {
+                                            opr2 = Convert.ToInt32(symb.GetSymbol(opr2).val, 16).ToString();
+                                        }
+                                    }
+                                    else
+                                    {
+                                        // error:label is too long
                                     }
                                 }
                                 else if (valid == Tokenizer.TokenKinds.Number)
@@ -266,29 +273,39 @@ namespace Assembler
                                 else
                                 {
                                     //error, must be number or previously equated symbol
-                                    return;
+                                    Console.WriteLine("WAAATTTTTT");
                                 }
 
                                 Tokenizer.GetTokenKind(opr2, out valid);
 
                                 if (valid == Tokenizer.TokenKinds.Number)
                                 {
+                                    int result = -1;
                                     // if the method gets here, then it's using a number or
                                     // previously equated symbol that we can deal with
                                     switch (oprtr)
                                     {
                                         case '+':
                                             {
-                                                operand = (Convert.ToInt32(star, 16) + Convert.ToInt32(opr2)).ToString();
+                                                result = Convert.ToInt32(star, 16) + Convert.ToInt32(opr2);
                                             } break;
                                         case '-':
                                             {
-                                                operand = (Convert.ToInt32(star, 16) - Convert.ToInt32(opr2)).ToString();
+                                                result = Convert.ToInt32(star, 16) - Convert.ToInt32(opr2);
                                             } break;
                                         default:
                                             {
                                                 // error invalid operator in expression
                                             } break;
+                                    }
+
+                                    if (0 <= result && result <= 1023)
+                                    {
+                                        operand = result.ToString();
+                                    }
+                                    else
+                                    {
+                                        // error: computation out of bounds
                                     }
                                 }
                             }
