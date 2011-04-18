@@ -1,0 +1,21 @@
+Program	StArT 10
+			MOPER ADD,I=10 	: Using a literal in MOPER operand
+A			MOPER ADD,,DIrt : Invalid label, too short. Too many commas in operand
+			SOPER ADD,-1	: Invalid operand, below 0
+1adding		SOPER ADD,500	: Invalid operand, above 255. Label that starts with a number.
+			NOPER SUB,10	: Invalid instruction, should not consume memory.
+			MOPER MIV,Foo	: Invalid function, replace with NOP
+FOO			MOPER ReadN, X1	: Space in operand
+Wh@t		STACK, PUSH		: Missing operand. Label with invalid character.
+FOO			STACK, POP,X1	: Duplicate label
+FOo			CNTL CLEAR		: Label with same letters but different case
+Data		reset,MUD		: Using label that was not declared before reset
+Data2		reset,3			: Resetting to a LC before this line.
+			reset 50		: missing required label
+X1			EQU 1024		: out of range
+X2			DAT C='abc'		: too many characters stored with dat
+
+: Previous line is blank, this one is all one comment.
+end 1stProgram				: does not start in 2nd column
+			end done		: program name not the same as beginning
+			SOPER POP,X2	: Line after end of program
