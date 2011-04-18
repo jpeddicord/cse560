@@ -60,8 +60,8 @@ namespace Assembler
             Tokenizer.TokenKinds tokenKind;
             Tokenizer.GetNextToken(ref line, out token, out tokenKind);
 
-            string operand;
-            Literal litOperand;
+            string operand = null;
+            Literal litOperand = Literal.NONE;
 
             // if it's a label, then just set the token directly
             if (tokenKind == Tokenizer.TokenKinds.Label_Or_Command)
