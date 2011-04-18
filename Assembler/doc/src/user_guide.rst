@@ -36,9 +36,8 @@ The usage of the FFA Assembler is as follows::
 
 Output will be printed to the screen in this test edition.
 
-The format of the ``source`` file is documented in the FFA machine `language specifications <language_spec.html>`_. Specific deviations from specification may have been made for additional functionality or semantics. For specifics, please see `Deviations`.
+The format of the ``source`` file is documented in the FFA machine `language specifications <language_spec.html>`_. The format of the file is one instruction per line, and comments are accepted as defined in the language specification. Specific deviations from specification may have been made for additional functionality or semantics. For specifics, please see `Errata <errata.html>`_.
 
-.. [1] i.e., the CSE 560 lab specifications.
 
 Output
 ------
@@ -57,7 +56,3 @@ Errors are currently *not* printed for the following issues, since they will be 
 * Undefined label usage
 * Undefined externals (linker)
 
-Deviations
-==========
-
-At present, the FFA Assembler is in-line with the machine specifications.

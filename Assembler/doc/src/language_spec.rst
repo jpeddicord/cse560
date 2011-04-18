@@ -461,12 +461,12 @@ Example::
 	 NOP
 
 Other
-========
+=====
 
 Comments
 --------
 
-Comments can be used at any point on a line. A comments must begin with a colon (:) and will continue until the line ends.  All text within a comment will be ignored including possible valid code.  Code the appears on a line before a comment will still be processed.
+Comments can be used at any point on a line. A comment must begin with a colon (:) and will continue until the line ends.  All text within a comment will be ignored including possible valid code.  Code the appears on a line before a comment will still be processed.
 
 Example::
 
