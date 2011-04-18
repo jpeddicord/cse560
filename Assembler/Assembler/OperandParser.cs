@@ -2,6 +2,9 @@ using System;
 
 namespace Assembler
 {
+    /**
+     * Parses the operand field into usable information by the assembler.
+     */
     static class OperandParser
     {
         /**

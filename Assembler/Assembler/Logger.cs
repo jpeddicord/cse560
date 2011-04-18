@@ -4,6 +4,9 @@ using System.Diagnostics;
 
 namespace Assembler
 {
+    /**
+     * Logger used throughout the assembler to create log reports which may be used for debugging should an error occur.
+     */
     class Logger
     {
         private static bool NeedInit = true;

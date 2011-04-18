@@ -3,6 +3,11 @@ using NUnit.Framework;
 
 namespace Assembler
 {
+
+    /**
+     * List of tests designed specifically to check correct functionality of procedures in the SymbolTable class.
+     * See the test plan for more information.
+     */
     [TestFixture]
     public class SymbolTableTest
     {

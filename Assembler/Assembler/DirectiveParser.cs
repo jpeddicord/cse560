@@ -5,6 +5,9 @@ using System.Text;
 
 namespace Assembler
 {
+    /**
+     * Parses the operation section of the line if it has a directive.
+     */
     static class DirectiveParser
     {
         /**

@@ -4,6 +4,9 @@ using System.Diagnostics;
 
 namespace Assembler
 {
+    /**
+     * Drives the assembler.
+     */
     class Program
     {
         /**
