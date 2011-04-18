@@ -812,3 +812,16 @@ dl.bug
     border: 1px solid #9ff;
     padding: 10px;
 }
+
+#rst table {
+    border: 1px solid #059;
+}
+
+#rst td {
+    border: 1px solid #6be;
+}
+
+#rst th {
+    border: 1px solid #6bc;
+    background-color: #f5f5f5;
+}
