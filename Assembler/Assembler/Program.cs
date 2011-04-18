@@ -30,7 +30,7 @@ namespace Assembler
         static void Main(string[] args)
         {
             // initialize logger
-            Logger288.Log("Starting Main method of Assembler", "Main");
+            Logger.Log("Starting Main method of Assembler", "Main");
             
             // this will hold the file names.
             string[] file = null;
@@ -38,14 +38,14 @@ namespace Assembler
             // check that the arguments are of the proper number
             if (args.Length >= 1)
             {
-                Logger288.Log("Arguments are valid", "Main");
+                Logger.Log("Arguments are valid", "Main");
                 file = args;
             }
             else
             {
                 // bad. exit.
                 string error = "Expected 1 parameter, but received " + args.Length;
-                Logger288.Log(error, "Main");
+                Logger.Log(error, "Main");
                 Console.Error.WriteLine(error);
                 Console.Error.WriteLine("Program will now exit.");
                 System.Environment.Exit(1);
@@ -61,7 +61,7 @@ namespace Assembler
                 //SymbolTable symb;
                 pars.ParseSource(path, out interSource, out symb);
 
-                Logger288.Log("Printing output to screen", "Main");
+                Logger.Log("Printing output to screen", "Main");
                 Console.WriteLine(interSource);
                 Console.WriteLine(symb);
             }

@@ -82,7 +82,7 @@ namespace Assembler
          */
         public SymbolTable()
         {
-            Logger288.Log("Creating symbol table", "SymbolTable");   
+            Logger.Log("Creating symbol table", "SymbolTable");   
             this.symbols = new Dictionary<string, Symbol>();
         }
 
@@ -101,7 +101,7 @@ namespace Assembler
          */
         public void AddSymbol(Symbol symbol)
         {
-            Logger288.Log(String.Format("Adding {0} to symbol table.", symbol.rlabel), "SymbolTable");
+            Logger.Log(String.Format("Adding {0} to symbol table.", symbol.rlabel), "SymbolTable");
             if (this.symbols.ContainsKey(symbol.rlabel))
             {
                 throw new SymbolException("Duplicate symbol in table.");

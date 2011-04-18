@@ -34,7 +34,7 @@ namespace Assembler
          */
         public IntermediateFile()
         {
-            Logger288.Log("Creating IntermediateFile object", "IntermediateFile");
+            Logger.Log("Creating IntermediateFile object", "IntermediateFile");
             this.allLines = new Dictionary<int, IntermediateLine>();
         }
 

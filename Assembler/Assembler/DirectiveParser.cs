@@ -28,7 +28,7 @@ namespace Assembler
          */
         public static void ParseDirective(ref string line, ref IntermediateLine interLine, ref SymbolTable symb)
         {
-            Logger288.Log("Parsing directive on line " + interLine.SourceLineNumber, "DirectiveParser");
+            Logger.Log("Parsing directive on line " + interLine.SourceLineNumber, "DirectiveParser");
 
             OperandParser.ParseOperand(ref line, ref interLine, ref symb, 16);
 
@@ -85,7 +85,7 @@ namespace Assembler
                     } break;
             }
 
-            Logger288.Log("Finished parsing directive on line " + interLine.SourceLineNumber, "DirectiveParser");
+            Logger.Log("Finished parsing directive on line " + interLine.SourceLineNumber, "DirectiveParser");
         }       
 
         /**
@@ -108,7 +108,7 @@ namespace Assembler
          */
         private static void ParseStart(ref string line, ref IntermediateLine interLine, ref SymbolTable symb)
         {
-            Logger288.Log("Parsing START directive", "DirectiveParser");
+            Logger.Log("Parsing START directive", "DirectiveParser");
 
             // expecting operand to be the value of the location counter
             Parser.LC = interLine.DirectiveOperand;
@@ -119,7 +119,7 @@ namespace Assembler
             start.lc = null;
             symb.AddSymbol(start);
 
-            Logger288.Log("Finished parsing START directive", "DirectiveParser");
+            Logger.Log("Finished parsing START directive", "DirectiveParser");
         }
 
         /**
@@ -143,7 +143,7 @@ namespace Assembler
          */
         private static void ParseEnd(ref string line, ref IntermediateLine interLine, ref SymbolTable symb)
         {
-            Logger288.Log("Parsing END directive", "DirectiveParser");
+            Logger.Log("Parsing END directive", "DirectiveParser");
 
             // check to see if the operand of the END directive matches the program name
 
@@ -154,12 +154,12 @@ namespace Assembler
                 interLine.AddError(Errors.Category.Fatal, 5);
             }
 
-            Logger288.Log("Finished parsing END directive.", "DirectiveParser");
+            Logger.Log("Finished parsing END directive.", "DirectiveParser");
         }
 
         private static void ParseReset(ref string line, ref IntermediateLine interLine, ref SymbolTable symb)
         {
-            Logger288.Log("Parsing RESET directive", "DirectiveParser");
+            Logger.Log("Parsing RESET directive", "DirectiveParser");
 
             // the operand of the RESET directive must either be an equated label
             // or a literal number.
@@ -185,12 +185,12 @@ namespace Assembler
                 interLine.AddError(Errors.Category.Serious, 10);
             }
 
-            Logger288.Log("Finished parsing RESET directive", "DirectiveParser");
+            Logger.Log("Finished parsing RESET directive", "DirectiveParser");
         }
 
         private static void ParseEqu(ref string line, ref IntermediateLine interLine, ref SymbolTable symb)
         {
-            Logger288.Log("Parsing EQU directive", "DirectiveParser");
+            Logger.Log("Parsing EQU directive", "DirectiveParser");
 
             if (symb.ContainsSymbol(interLine.Label))
             {
@@ -229,7 +229,7 @@ namespace Assembler
                 
             }
 
-            Logger288.Log("Finished parsing EQU directive", "DirectiveParser");
+            Logger.Log("Finished parsing EQU directive", "DirectiveParser");
         }
 
         private static void ParseEque(ref string line, ref IntermediateLine interLine, ref SymbolTable symb)
@@ -244,7 +244,7 @@ namespace Assembler
 
         private static void ParseEntry(ref string line, ref IntermediateLine interLine, ref SymbolTable symb)
         {
-            Logger288.Log("Parsing ENTRY directive", "DirectiveParser");
+            Logger.Log("Parsing ENTRY directive", "DirectiveParser");
 
             
             if (symb.ContainsSymbol(interLine.DirectiveOperand))
@@ -258,12 +258,12 @@ namespace Assembler
                 symb.AddSymbol(interLine.DirectiveOperand, null, Usage.ENTRY);
             }
 
-            Logger288.Log("Finished parsing ENTRY directive", "DirectiveParser");
+            Logger.Log("Finished parsing ENTRY directive", "DirectiveParser");
         }
 
         private static void ParseExtrn(ref string line, ref IntermediateLine interLine, ref SymbolTable symb)
         {
-            Logger288.Log("Parsing EXTRN directive", "DirectiveParser");
+            Logger.Log("Parsing EXTRN directive", "DirectiveParser");
 
             if (!symb.ContainsSymbol(interLine.DirectiveOperand))
             {
@@ -274,12 +274,12 @@ namespace Assembler
                 interLine.AddError(Errors.Category.Serious, 13);
             }
 
-            Logger288.Log("Finished parsing EXTRN directive", "DirectiveParser");
+            Logger.Log("Finished parsing EXTRN directive", "DirectiveParser");
         }
 
         private static void ParseDat(ref string line, ref IntermediateLine interLine, ref SymbolTable symb)
         {
-            Logger288.Log("Parsing DAT directive", "DirectiveParser");
+            Logger.Log("Parsing DAT directive", "DirectiveParser");
 
             if (interLine.DirectiveLitOperand != OperandParser.Literal.NONE &&
                 interLine.DirectiveLitOperand != OperandParser.Literal.EXPRESSION &&
@@ -311,7 +311,7 @@ namespace Assembler
                 interLine.AddError(Errors.Category.Serious, 14);
             }
 
-            Logger288.Log("Finished parsing DAT directive", "DirectiveParser");
+            Logger.Log("Finished parsing DAT directive", "DirectiveParser");
         }
 
         private static void ParseAdc(ref string line, ref IntermediateLine interLine, ref SymbolTable symb)

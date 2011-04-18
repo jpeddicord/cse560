@@ -4,7 +4,7 @@ using System.Diagnostics;
 
 namespace Assembler
 {
-    class Logger288
+    class Logger
     {
         private static bool NeedInit = true;
         /**
@@ -50,7 +50,7 @@ namespace Assembler
             Trace.Listeners.Add(myListener);
             Trace.AutoFlush = true;
 
-            Logger288.Log(String.Format("{0} {1}\n{2}\n", "Log started at", now,
+            Logger.Log(String.Format("{0} {1}\n{2}\n", "Log started at", now,
                 "----------------------------------------------------------------"));
         }
 
@@ -60,9 +60,9 @@ namespace Assembler
         }
         public static void Log(string message, string loc)
         {
-            if (Logger288.NeedInit)
+            if (Logger.NeedInit)
             {
-                Logger288.InitLogger(DateTime.Now);
+                Logger.InitLogger(DateTime.Now);
             }
             Trace.WriteLine(message, loc);
         }

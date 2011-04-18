@@ -88,14 +88,14 @@ namespace Assembler
                 {
                     if (!int.TryParse(errorCode[1], out numCode))
                     {
-                        Logger288.Log(String.Format("Error reading error code, skipping {0}.{1}",
+                        Logger.Log(String.Format("Error reading error code, skipping {0}.{1}",
                                                     errorCode[0], errorCode[1]), "Errors");
                         continue;
                     }
                 }
                 else
                 {
-                    Logger288.Log("Improper error code format, skipping \"" + line.Substring(0,5) + "\"...", "Errors");
+                    Logger.Log("Improper error code format, skipping \"" + line.Substring(0,5) + "\"...", "Errors");
                     continue;
                 }
 
@@ -127,13 +127,13 @@ namespace Assembler
                     default:
                         {
                             // no category found
-                            Logger288.Log(String.Format("Invalid errorCategory: {0}.  Skipping.",
+                            Logger.Log(String.Format("Invalid errorCategory: {0}.  Skipping.",
                                                          errorCode[0]), "Errors");
                         } break;
                 }
             }
 
-            Logger288.Log("Finished reading error messages.", "Errors");
+            Logger.Log("Finished reading error messages.", "Errors");
         }
 
         /**

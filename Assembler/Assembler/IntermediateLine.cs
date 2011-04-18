@@ -235,7 +235,7 @@ namespace Assembler
          */
         public IntermediateLine(string source, short lineNum)
         {
-            Logger288.Log("Initializing line " + lineNum, "IntermediateLine");
+            Logger.Log("Initializing line " + lineNum, "IntermediateLine");
             this.source = source;
             this.line = lineNum.ToString();
             this.LC = null;
@@ -272,7 +272,7 @@ namespace Assembler
          */
         public void ProcessLine()
         {
-            Logger288.Log("Processing line \"" + this.source + "\"", "IntermediateLine");
+            Logger.Log("Processing line \"" + this.source + "\"", "IntermediateLine");
             // get the first 5 bits
             StringBuilder code = new StringBuilder();
             try
@@ -450,7 +450,7 @@ namespace Assembler
          */
         public void AddError(Errors.Category level, int code)
         {
-            Logger288.Log("Found " + level.ToString() + " error number " + code + ". Adding to error list.", "IntermediateLine");
+            Logger.Log("Found " + level.ToString() + " error number " + code + ". Adding to error list.", "IntermediateLine");
 
             Errors inst = Errors.GetInstance();
 
@@ -516,7 +516,7 @@ namespace Assembler
          */
         public void NOPificate()
         {
-            Logger288.Log("Invalidating line " + this.line, "IntermediateLine");
+            Logger.Log("Invalidating line " + this.line, "IntermediateLine");
             this.bytecode = "1000000000000000";
             this.category = "SOPER";
             this.function = "ADD";
@@ -552,7 +552,7 @@ namespace Assembler
          */
         public override string ToString()
         {
-            Logger288.Log("Printing line " + this.line, "IntermediateLine");
+            Logger.Log("Printing line " + this.line, "IntermediateLine");
 
             string output = String.Format("{0}" +
                                           "\n\tLine: {1,-29} LC: {2}" +

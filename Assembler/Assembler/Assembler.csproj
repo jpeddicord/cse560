@@ -76,7 +76,7 @@
     <Compile Include="Errors.cs" />
     <Compile Include="IntermediateFile.cs" />
     <Compile Include="IntermediateLine.cs" />
-    <Compile Include="Logger288.cs" />
+    <Compile Include="Logger.cs" />
     <Compile Include="OperandParser.cs" />
     <Compile Include="Parser.cs" />
     <Compile Include="Program.cs" />
@@ -140,5 +140,7 @@
   <Target Name="AfterBuild">
   </Target>
   -->
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Tests\Programs\ErrorsTest.txt" />
+  </ItemGroup>
 </Project>

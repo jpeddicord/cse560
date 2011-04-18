@@ -42,7 +42,7 @@ namespace Assembler
          */
         private Directives()
         {
-            Logger288.Log("Creating instance of Directives.", "Directives");
+            Logger.Log("Creating instance of Directives.", "Directives");
             string[] direcs = Properties.Resources.directives.Split('\n');
             directiveList = new ArrayList();
             
@@ -93,7 +93,7 @@ namespace Assembler
          */
         public bool Contains(string dir)
         {
-            Logger288.Log(String.Format("Check if {0} is valid directive.", dir), "Directives");
+            Logger.Log(String.Format("Check if {0} is valid directive.", dir), "Directives");
             return directiveList.Contains(dir.ToUpper());
         }
     }

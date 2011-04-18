@@ -55,7 +55,7 @@ namespace Assembler
          */
         private Instructions()
         {
-            Logger288.Log("Creating instance of Instructions.", "Instructions");
+            Logger.Log("Creating instance of Instructions.", "Instructions");
             this.instructions = new Dictionary<string, Dictionary<string, string>>();
             
             // fill the instruction mapping with data from the file
@@ -110,7 +110,7 @@ namespace Assembler
          */
         public bool IsInstruction(string instrGroup, string function)
         {
-            Logger288.Log(String.Format("Check if {0} is valid function in {1} category.",
+            Logger.Log(String.Format("Check if {0} is valid function in {1} category.",
                 function, instrGroup), "Instructions");
 
             return this.instructions.ContainsKey(instrGroup.ToUpper())
@@ -133,7 +133,7 @@ namespace Assembler
          */
         public bool IsGroup(string instrGroup)
         {
-            Logger288.Log(String.Format("Check if {0} is valid instruction category", 
+            Logger.Log(String.Format("Check if {0} is valid instruction category", 
                 instrGroup), "Instructions");
 
             return this.instructions.ContainsKey(instrGroup.ToUpper());

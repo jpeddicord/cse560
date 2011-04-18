@@ -29,7 +29,7 @@ namespace Assembler
          */
         public Parser()
         {
-            Logger288.Log("Creating Parser object.", "Parser");
+            Logger.Log("Creating Parser object.", "Parser");
             directiveList = Directives.GetInstance();
             instructionList = Instructions.GetInstance();
             LC = "0";
@@ -59,7 +59,7 @@ namespace Assembler
          */
         private IntermediateLine ParseLine(string line, short lineNum, ref SymbolTable symb)
         {
-            Logger288.Log("Parsing line " + lineNum, "Parser");
+            Logger.Log("Parsing line " + lineNum, "Parser");
             string token = "";
             Tokenizer.TokenKinds tokenKind = Tokenizer.TokenKinds.Empty;
 
@@ -69,7 +69,7 @@ namespace Assembler
             // check for a label at the beginning of the line
             if (line.Length > 0 && char.IsLetter(line[0]))
             {
-                Logger288.Log(String.Format("Line {0} has a label, parsing label", lineNum), "Parser");
+                Logger.Log(String.Format("Line {0} has a label, parsing label", lineNum), "Parser");
                 Tokenizer.GetNextToken(ref line, out token, out tokenKind);
                 if (tokenKind == Tokenizer.TokenKinds.Label_Or_Command
                     && (2 <= token.Length && token.Length <= 32))
@@ -143,7 +143,7 @@ namespace Assembler
                 interLine.ProcessLine();
             }
 
-            Logger288.Log("Finished parsing line " + lineNum, "Parser");
+            Logger.Log("Finished parsing line " + lineNum, "Parser");
 
             return interLine;
         }
@@ -170,7 +170,7 @@ namespace Assembler
          */
         private void ParseInstruction(ref string line, ref IntermediateLine interLine, ref SymbolTable symb)
         {
-            Logger288.Log("Parsing instruction on line " + interLine.SourceLineNumber, "Parser");
+            Logger.Log("Parsing instruction on line " + interLine.SourceLineNumber, "Parser");
 
             string token = "";
             Tokenizer.TokenKinds tokenKind = Tokenizer.TokenKinds.Empty;
@@ -214,7 +214,7 @@ namespace Assembler
                 interLine.OpOperand = "_ERROR";
             }
 
-            Logger288.Log("Finished parsing instruction on line " + interLine.SourceLineNumber, "Parser");
+            Logger.Log("Finished parsing instruction on line " + interLine.SourceLineNumber, "Parser");
         }
 
         /**
@@ -232,11 +232,11 @@ namespace Assembler
          */
         private void IncrementLocationCounter()
         {
-            Logger288.Log("Incrementing LC from: " + LC, "Parser");
+            Logger.Log("Incrementing LC from: " + LC, "Parser");
             int tempLC = Convert.ToInt32(LC, 16);
             tempLC++;
             LC = Convert.ToString(tempLC, 16).ToUpper();
-            Logger288.Log("LC incremented to: " + LC, "Parser");
+            Logger.Log("LC incremented to: " + LC, "Parser");
         }
 
         /**
@@ -266,12 +266,12 @@ namespace Assembler
             string[] sourceCode = new string[1];
             try
             {
-                Logger288.Log("Opening file: " + path, "Parser");
+                Logger.Log("Opening file: " + path, "Parser");
                 sourceCode = File.ReadAllLines(path);
             }
             catch (FileNotFoundException ex)
             {
-                Logger288.Log("Failed to open file. Error: " + ex.Message, "Parser");
+                Logger.Log("Failed to open file. Error: " + ex.Message, "Parser");
                 Console.WriteLine("{0}\n{1}", ex.Message, "Exiting program");
                 System.Environment.Exit(1);
             }

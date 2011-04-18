@@ -144,7 +144,7 @@ namespace Assembler
          */
         private static void ParseLiteralOperand(string inOper, out string outOper, out Literal litType, int bits)
         {
-            Logger288.Log("Parsing literal operand " + inOper, "Parser");
+            Logger.Log("Parsing literal operand " + inOper, "Parser");
 
             int op;
             inOper = inOper.ToUpper();
@@ -156,14 +156,14 @@ namespace Assembler
             {
                 case 'X':
                     {
-                        Logger288.Log("literal operand is hex", "Parser");
+                        Logger.Log("literal operand is hex", "Parser");
                         litType = Literal.X;
                         outOper = outOper.ToUpper();
                     } break;
 
                 case 'B':
                     {
-                        Logger288.Log("literal operand is binary", "Parser");
+                        Logger.Log("literal operand is binary", "Parser");
                         litType = Literal.B;
                         op = Convert.ToInt32(inOper.Substring(2), 2);
                         op = BinaryHelper.ConvertNumber(op, bits);
@@ -172,7 +172,7 @@ namespace Assembler
 
                 case 'I':
                     {
-                        Logger288.Log("literal operand is integer", "Parser");
+                        Logger.Log("literal operand is integer", "Parser");
                         litType = Literal.I;
                         op = Convert.ToInt32(inOper.Substring(2));
                         op = BinaryHelper.ConvertNumber(op, bits);
@@ -180,14 +180,14 @@ namespace Assembler
                     } break;
                 case 'C':
                     {
-                        Logger288.Log("literal operand is character", "Parser");
+                        Logger.Log("literal operand is character", "Parser");
                         litType = Literal.C;
                         // fix this: parse integers more properly.
                         outOper = Convert.ToString(Convert.ToInt32(((int)inOper[3]) << 2), 16).ToUpper();
                     } break;
             }
 
-            Logger288.Log(String.Format("Literal operand parsed as {0} {1}", litType, outOper), "Parser");
+            Logger.Log(String.Format("Literal operand parsed as {0} {1}", litType, outOper), "Parser");
         }
 
         /**
@@ -211,15 +211,15 @@ namespace Assembler
          */
         public static bool ValidOperandField(string line)
         {
-            Logger288.Log("Checking operand for invalid syntax", "Parser");
+            Logger.Log("Checking operand for invalid syntax", "Parser");
             string[] OperandParts = line.Split(new char[] { ',' }, 2);
             if (OperandParts.Length < 2 || OperandParts[0].Contains(" ") || OperandParts[1].StartsWith(" "))
             {
-                Logger288.Log("Operand syntax invalid", "Parser");
+                Logger.Log("Operand syntax invalid", "Parser");
                 return false;
             }
 
-            Logger288.Log("Operand syntax valid", "Parser");
+            Logger.Log("Operand syntax valid", "Parser");
             return true;
         }
 
