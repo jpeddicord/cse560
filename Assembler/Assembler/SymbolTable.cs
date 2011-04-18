@@ -250,7 +250,10 @@ namespace Assembler
             {
                 // TODO: make the LC print nothing if it's null
                 Symbol sym = this.symbols[s];
-                disp += String.Format("{0,10}: 0x{1,-6} {2}\n", sym.rlabel, sym.lc, sym.usage);
+                disp += String.Format("{0,10}: {1,-8} {2}\n",
+                                      sym.rlabel,
+                                      sym.lc != null ? String.Format("0x{0}", sym.lc) : "  ",
+                                      sym.usage);
             }
             return disp;
         }

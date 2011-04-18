@@ -150,7 +150,10 @@ namespace Assembler
 
         /**
          * Parses the operation section of the line if it has an instruction.
-         * 
+         *
+         * @param line current line to parse.
+         * @param interLine the line as a single line in the intermediate file.
+         * @param symb symbol table reference
          * @refcode N/A
          * @errtest N/A
          * @errmsg N/A
@@ -164,9 +167,6 @@ namespace Assembler
          *  - April 12, 2011 - Jacob - Factor out operand parsing.
          * @teststandard Andrew Buelow
          * @codestandard Mark Mathis
-         * 
-         * @param line current line to parse.
-         * @param interLine the line as a single line in the intermediate file.
          */
         private void ParseInstruction(ref string line, ref IntermediateLine interLine, ref SymbolTable symb)
         {

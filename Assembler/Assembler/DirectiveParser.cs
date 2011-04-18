@@ -94,6 +94,7 @@ namespace Assembler
          *
          * @param line the line containing the start directive
          * @param interLine the intermediate line to process
+         * @param symb symbol table reference
          * @return the IntermediateLine of this line
          * @refcode N/A
          * @errtest N/A
@@ -128,6 +129,7 @@ namespace Assembler
          *
          * @param line the line containing the end directive
          * @param interLine the intermediate line to process
+         * @param symb symbol table reference
          * @return The IntermediateLine of this line
          *
          * @refcode N/A
