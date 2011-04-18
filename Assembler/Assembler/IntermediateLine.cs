@@ -336,6 +336,18 @@ namespace Assembler
                             return;
                         }
                     }
+                    else if (this.function == "GOTO")
+                    {
+                        // make sure there's a label
+                        if (this.OpLitOperand != OperandParser.Literal.NONE ||
+                            this.OpOperand == "")
+                        {
+                            this.AddError(Errors.Category.Serious, 9);
+                            this.NOPificate();
+                            return;
+                        }
+                    }
+                    // actual processing!
                     // literal operand
                     if (this.OpLitOperand == OperandParser.Literal.Number)
                     {
