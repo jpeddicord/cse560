@@ -80,7 +80,7 @@ namespace Assembler
                         if (symb.GetSymbol(token).usage != Usage.ENTRY)
                         {
                             // error: cannot redefine symbol
-                            interLine.AddError(Errors.Category.Warning, 3);
+                            interLine.AddError(Errors.Category.Warning, 4);
                         }
                     }
                     else
