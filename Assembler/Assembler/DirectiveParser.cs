@@ -71,9 +71,11 @@ namespace Assembler
                     } break;
                 case "ADC":
                     {
+                       // ParseAdc(ref line, ref interLine, ref symb);
                     } break;
                 case "ADCE":
                     {
+                       // ParseAdce(ref line, ref interLine, ref symb);
                     } break;
                 case "NOP":
                     {
@@ -84,7 +86,7 @@ namespace Assembler
             }
 
             Logger288.Log("Finished parsing directive on line " + interLine.SourceLineNumber, "DirectiveParser");
-        }
+        }       
 
         /**
          * Parses the start directive, properly assigning the operand of start as the
@@ -277,8 +279,22 @@ namespace Assembler
                     interLine.Bytecode = val.PadLeft(16, '0');
                 }
             }
+            else
+            {
+                // error: invalid operand type
+                interLine.AddError(Errors.Category.Serious, 14);
+            }
 
             Logger288.Log("Finished parsing DAT directive", "DirectiveParser");
+        }
+
+        private static void ParseAdc(ref string line, ref IntermediateLine interLine, ref SymbolTable symb)
+        {
+            throw new NotImplementedException();
+        }
+        private static void ParseAdce(ref string line, ref IntermediateLine interLine, ref SymbolTable symb)
+        {
+            throw new NotImplementedException();
         }
     }
 }
