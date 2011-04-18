@@ -7,7 +7,7 @@ and testing of the overall functionality and correctness of the whole program. O
 testing: creating test cases for individual procedures as they are created to ensure our entire program
 will function as intended. Most of our team's unit testing experience has come from Java with the use
 of JUnit tests.  Due to the fact we are not using Java for this project, we were required to find an
-alternative. We chose to use 'NUnit <http://www.nunit.org/>'_ which is very similar in functionality to
+alternative. We chose to use `NUnit <http://www.nunit.org/>`_ which is very similar in functionality to
 JUnit but is compatible with C#.  Below we have a list of all of the current unit tests.  Included with
 each test is a test number, the purpose of the test, if the expected results have been acheived, concerns
 with the test (either concerns that there may be something wrong with the test, that it doesn't test

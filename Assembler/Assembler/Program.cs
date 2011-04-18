@@ -68,8 +68,8 @@ namespace Assembler
 
             string op = "*+orient";
             OperandParser.ParseExpression(ref op, OperandParser.Expressions.Operator, ref symb);
-            Console.WriteLine(Parser.LC);
-            Console.WriteLine(op);
+            //Console.WriteLine(Parser.LC);
+            //Console.WriteLine(op);
         }
     }
 }
