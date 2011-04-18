@@ -19,7 +19,45 @@ namespace Assembler
          */
         public enum TokenKinds
         {
-            Label_Or_Command, Literal, Comment, Number, Empty, Error, JumpCond, Expression
+            /**
+             * Contains only letters and numbers and begins with a letter.
+             */
+            Label_Or_Command,
+
+            /**
+             * A token that starts with "I=", "X=", "B=", "C=".
+             */
+            Literal,
+
+            /**
+             * A token that starts with ':'.
+             */
+            Comment,
+
+            /**
+             * Contains only numbers.
+             */
+            Number,
+
+            /**
+             * The token contains no text.
+             */
+            Empty,
+
+            /**
+             * Contains characters that do not belong in any of the other token kinds.
+             */
+            Error,
+
+            /**
+             * One of the six jump conditions: =, ^=, &lt;, &gt;, &lt;=, and &gt;=
+             */
+            JumpCond,
+
+            /**
+             * Can contain labels, numbers and operands (+ or -) and * notation.
+             */
+            Expression
         };
 
         public Tokenizer()
@@ -31,15 +69,7 @@ namespace Assembler
         /**
          * Returns the next token in the provided string.  The next token includes all
          * characters in the given string until the next ' ', ',', tab, or when the end of the
-         * string is reached.  TokenKind is determined based on the characters in the token. <br />
-         * Label_Or_Command - Contains only letters and numbers and begins with a letter. <br />
-         * Literal - A token that starts with "I=", "X=", "B=", "C=" or is equal to "=0" for NOP. <br />
-         * Comment - A token that starts with ':'. <br />
-         * Number - Contains only numbers. <br />
-         * JumpCond - One of the six jump conditions: =, ^=, &lt;, &gt;, &lt;=, and &gt;= <br />
-         * Expression - Can contain labels, numbers and operands (+ or -) and * notation.
-         * Empty - The token contains no text. <br />
-         * Error - Contains characters that do not belong in any of the other token kinds. <br />
+         * string is reached.  TokenKind is determined based on the characters in the token.
          * Once the token is found it is removed from the given string along with the
          * separator character.
          * 
