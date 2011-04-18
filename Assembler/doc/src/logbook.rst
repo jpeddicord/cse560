@@ -166,3 +166,25 @@ To do
 - Andrew - Work on testing plan and documentation.  Find a way to present our ideas on the subject and how we accomplished it in a better format.
 - Mark - Work on a method of error catching and reporting.
 
+April 16th 2011 - 2:00 pm
+=========================
+Documentation for language specification has been completed. We will still need to go back through it after we have finished
+more of the parser to ensure the documentation is consistent with implementation. Presentation for test cases has been improved.
+Unit tests are now seperated into tables making them much easier to read and understand.  We still need to link each test to
+the actual testing code to show how the test was performed.  Test programs have been seperated to their own pages and display
+the output given after being run.  This output is recreated each time a change has been made to the program so the output on
+the site at any time should be completely up to date.
+
+We have a good foundation for error catching at this point.  A new Errors class has been created which will store all of our
+errors.  When an error is caught while parsing, we can add the error to that line and messages will be displayed in the
+intermediate file. This will be our focus the next couple days.  We need to figure out where errors can occur and ensure they
+are being caught.  We must also create a way to end parsing if a fatal error is found.
+
+On Monday (or Tuesday at the latest) we wish to meet with a grader to share our progress and get advice on how to improve it.
+
+To do
+-----
+- Everyone - Add error catching in parsing.
+- Jacob - Cleanup documentation and update DEDs.
+- Mark - Finish parsing directives.
+- Andrew - Rewrite testing plan description. Give the user a better idea of how we have been testing our program.
