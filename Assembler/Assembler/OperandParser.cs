@@ -49,6 +49,13 @@ namespace Assembler
             C
         }
 
+        public enum Expressions
+        {
+            Operator,
+            EQUe,
+            ADCe
+        }
+
         /**
          * Parse an operand and fill the intermediate line with found data.
          * XXX: DOC

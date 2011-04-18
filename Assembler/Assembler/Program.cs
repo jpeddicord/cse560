@@ -29,6 +29,7 @@ namespace Assembler
          */
         static void Main(string[] args)
         {
+            test();
             // initialize logger
             Logger288.Log("Starting Main method of Assembler", "Main");
             
@@ -60,8 +61,33 @@ namespace Assembler
                 pars.ParseSource(path, out interSource, out symb);
 
                 Logger288.Log("Printing output to screen", "Main");
-                Console.WriteLine(interSource);
-                Console.WriteLine(symb);
+                //Console.WriteLine(interSource);
+                //Console.WriteLine(symb);
+            }
+        }
+
+        static void test()
+        {
+            string teststring = "mud+foo";
+            string token;
+            Tokenizer.TokenKinds tokenKind;
+
+            Tokenizer.GetNextToken(ref teststring, out token, out tokenKind);
+
+            Console.WriteLine(token);
+            Console.WriteLine(tokenKind);
+        }
+
+        static void ParseExpression(ref string operand, OperandParser.Expressions type)
+        {
+            if (operand != null && operand.Length > 0)
+            {
+                if (type == OperandParser.Expressions.Operator)
+                {
+
+                    char ch;
+
+                }
             }
         }
     }
