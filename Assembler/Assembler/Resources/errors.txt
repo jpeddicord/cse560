@@ -18,3 +18,4 @@ ES.12 CNTL HALT may only take an exit code of 0-1023.
 EW.01 Blank Line, line ignored and no message given.
 EW.02 Operand field for entry/extern is invalid, line ignored.
 EW.03 Instruction doesn't take an operand.
+EW.04 Attempted to define duplicate symbol, symbol ignored now. Assembly continues.

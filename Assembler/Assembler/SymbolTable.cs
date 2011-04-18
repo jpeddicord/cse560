@@ -9,6 +9,7 @@ namespace Assembler
      */
     public enum Usage
     {
+        LABEL,
         ENTRY,
         PRGMNAME,
         EXTERNAL,

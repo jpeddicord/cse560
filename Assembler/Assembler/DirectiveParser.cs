@@ -213,7 +213,21 @@ namespace Assembler
 
         private static void ParseEntry(ref string line, ref IntermediateLine interLine, ref SymbolTable symb)
         {
+            Logger288.Log("Parsing ENTRY directive", "DirectiveParser");
 
+            
+            if (symb.ContainsSymbol(interLine.DirectiveOperand))
+            {
+                Symbol tempsym = symb.RemoveSymbol(interLine.DirectiveOperand);
+                tempsym.usage = Usage.ENTRY;
+                symb.AddSymbol(tempsym);
+            }
+            else
+            {
+                symb.AddSymbol(interLine.DirectiveOperand, null, Usage.ENTRY);
+            }
+
+            Logger288.Log("Finished parsing ENTRY directive", "DirectiveParser");
         }
     }
 }

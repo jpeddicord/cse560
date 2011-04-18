@@ -75,7 +75,19 @@ namespace Assembler
                     && (2 <= token.Length && token.Length <= 32))
                 {
                     interLine.Label = token;
-                    symb.AddSymbol(token, LC, Usage.ENTRY);
+                    if (symb.ContainsSymbol(token))
+                    {
+                        if (symb.GetSymbol(token).usage != Usage.ENTRY)
+                        {
+                            // error: cannot redefine symbol
+                            interLine.AddError(Errors.Category.Warning, 3);
+                        }
+                    }
+                    else
+                    {
+                        // the symbol is not defined, define it
+                        symb.AddSymbol(token, LC, Usage.LABEL);
+                    }
                 }
                 else
                 {
