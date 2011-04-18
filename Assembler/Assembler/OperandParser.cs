@@ -7,7 +7,8 @@ namespace Assembler
         /**
          * Literal operand types.
          */
-        public enum Literal {
+        public enum Literal
+        {
             /**
              * No literal present.
              */
@@ -220,6 +221,94 @@ namespace Assembler
 
             Logger288.Log("Operand syntax valid", "Parser");
             return true;
+        }
+
+        /**
+         * 
+         */
+        public static void ParseExpression(ref string operand, OperandParser.Expressions type, ref SymbolTable symb)
+        {
+            if (operand != null && operand.Length > 0)
+            {
+                switch (type)
+                {
+                    case OperandParser.Expressions.Operator:
+                        {
+
+                            char oprtr;
+                            string opr2;
+                            string star;
+
+                            if (operand[0] == '*')
+                            {
+                                star = Parser.LC;
+                                oprtr = operand[1];
+                                opr2 = operand.Substring(2);
+
+                                Tokenizer.TokenKinds valid;
+                                Tokenizer.GetTokenKind(opr2, out valid);
+
+                                if (valid == Tokenizer.TokenKinds.Label_Or_Command)
+                                {
+                                    if (symb.ContainsSymbol(opr2) &&
+                                        symb.GetSymbol(opr2).usage == Usage.EQUATED)
+                                    {
+                                        opr2 = Convert.ToInt32(symb.GetSymbol(opr2).val, 16).ToString();
+                                    }
+                                }
+                                else if (valid == Tokenizer.TokenKinds.Number)
+                                {
+                                    if (!(0 < Convert.ToInt32(opr2) && Convert.ToInt32(opr2) < 1023))
+                                    {
+                                        // error, the number is out of bounds
+                                    }
+                                }
+                                else
+                                {
+                                    //error, must be number or previously equated symbol
+                                    return;
+                                }
+
+                                Tokenizer.GetTokenKind(opr2, out valid);
+
+                                if (valid == Tokenizer.TokenKinds.Number)
+                                {
+                                    // if the method gets here, then it's using a number or
+                                    // previously equated symbol that we can deal with
+                                    switch (oprtr)
+                                    {
+                                        case '+':
+                                            {
+                                                operand = (Convert.ToInt32(star, 16) + Convert.ToInt32(opr2)).ToString();
+                                            } break;
+                                        case '-':
+                                            {
+                                                operand = (Convert.ToInt32(star, 16) - Convert.ToInt32(opr2)).ToString();
+                                            } break;
+                                        default:
+                                            {
+                                                // error invalid operator in expression
+                                            } break;
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                //error invalid operand expression
+                            }
+                        } break;
+
+                    case Expressions.EQUe:
+                        {
+
+                        } break;
+
+                    case Expressions.ADCe:
+                        {
+
+                        } break;
+                }
+            }
         }
     }
 }

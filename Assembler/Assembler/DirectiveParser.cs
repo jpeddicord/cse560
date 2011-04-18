@@ -47,7 +47,7 @@ namespace Assembler
                     } break;
                 case "EQU":
                     {
-                       // ParseEqu(ref line, ref interLine, ref symb);
+                        ParseEqu(ref line, ref interLine, ref symb);
                     } break;
                 case "EQUE":
                     {
@@ -192,15 +192,41 @@ namespace Assembler
         {
             Logger288.Log("Parsing EQU directive", "DirectiveParser");
 
-            if ((symb.ContainsSymbol(interLine.DirectiveOperand) &&
-                symb.GetSymbol(interLine.DirectiveOperand).usage == Usage.EQUATED) ||
-                (interLine.DirectiveLitOperand == OperandParser.Literal.NUMBER))
+            if (symb.ContainsSymbol(interLine.Label))
             {
-                symb.AddSymbol(interLine.Label, null, Usage.EQUATED, interLine.DirectiveOperand);
+                Symbol equSym = symb.RemoveSymbol(interLine.Label);
+                if (interLine.DirectiveLitOperand == OperandParser.Literal.NUMBER)
+                {
+                    // check that number is in bounds
+                    int num = BinaryHelper.HexToInt(interLine.DirectiveOperand, 10);
+                    if (0 < num && num < 1023)
+                    {
+                        equSym.usage = Usage.EQUATED;
+                        equSym.val = interLine.DirectiveOperand;
+                    }
+                    else
+                    {
+                        // error: out of bounds
+                    }
+                }
+                else if (symb.ContainsSymbol(interLine.DirectiveOperand) &&
+                    equSym.usage == Usage.EQUATED)
+                {
+                    // do stuff with the symbol
+                    string symVal = symb.GetSymbol(interLine.DirectiveOperand).val;
+                    OperandParser.ParseExpression(ref symVal, OperandParser.Expressions.Operator, ref symb);
+                    equSym.usage = Usage.EQUATED;
+                    equSym.val = symVal;
+                }
+                else
+                {
+                    // error: invalid operand for equ
+                }
+                symb.AddSymbol(equSym);
             }
             else
             {
-
+                
             }
 
             Logger288.Log("Finished parsing EQU directive", "DirectiveParser");

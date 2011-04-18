@@ -29,7 +29,6 @@ namespace Assembler
          */
         static void Main(string[] args)
         {
-            test();
             // initialize logger
             Logger288.Log("Starting Main method of Assembler", "Main");
             
@@ -52,43 +51,25 @@ namespace Assembler
                 System.Environment.Exit(1);
             }
 
-            // parse each file passed in through args.  doesn't actually keep parsed output yet.
+            SymbolTable symb = new SymbolTable();
+
+            // parse each file passed in through args
             foreach (string path in file)
             {
                 Parser pars = new Parser();
                 IntermediateFile interSource;
-                SymbolTable symb;
+                //SymbolTable symb;
                 pars.ParseSource(path, out interSource, out symb);
 
                 Logger288.Log("Printing output to screen", "Main");
-                //Console.WriteLine(interSource);
-                //Console.WriteLine(symb);
+                Console.WriteLine(interSource);
+                Console.WriteLine(symb);
             }
-        }
 
-        static void test()
-        {
-            string teststring = "mud+foo";
-            string token;
-            Tokenizer.TokenKinds tokenKind;
-
-            Tokenizer.GetNextToken(ref teststring, out token, out tokenKind);
-
-            Console.WriteLine(token);
-            Console.WriteLine(tokenKind);
-        }
-
-        static void ParseExpression(ref string operand, OperandParser.Expressions type)
-        {
-            if (operand != null && operand.Length > 0)
-            {
-                if (type == OperandParser.Expressions.Operator)
-                {
-
-                    char ch;
-
-                }
-            }
+            string op = "*+orient";
+            OperandParser.ParseExpression(ref op, OperandParser.Expressions.Operator, ref symb);
+            Console.WriteLine(Parser.LC);
+            Console.WriteLine(op);
         }
     }
 }

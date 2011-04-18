@@ -175,7 +175,7 @@ namespace Assembler
          * @param token Holds the token for which the kind is to be determined.
          * @param tokenKind Used to store the token kind of the specified token.
          */
-        private static void GetTokenKind(string token, out TokenKinds tokenKind)
+        public static void GetTokenKind(string token, out TokenKinds tokenKind)
         {
             /**
              * Regular expression used to determine if all characters in the token are
