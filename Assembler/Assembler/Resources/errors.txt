@@ -5,7 +5,7 @@ EF.04 Exceeding the maximum number of symbols.  You must use 50 or fewer labels.
 EF.05 Operand of END directive does not match program name. Assembler has been stopped.
 ES.01 Invalid function code.  The function code entered is invalid.
 ES.02 Invalid Label defined, label ignored. Labels must start with A-Z, a-z and cannot be longer than 32 characters. 0-9 can be used after the first character.
-ES.03 Instruction-function combination is invalid; line substituted with a NOP.
+ES.03 Function is invalid for instruction; line substituted with a NOP.
 ES.04 Invalid Literal, substituted with NOP.  Literal must be in the range of -512 and 511 for instructions.
 ES.05 Invalid Literal, substituted with NOP.  Literal must be in the range of -32768 to 32767 for directives.
 ES.06 Memory address not in proper range, line ignored. Operand must be in the range of 0 to 1023 or an equated symbol in the range of 0 to 1023
@@ -13,5 +13,8 @@ ES.07 Directive requires a label, line ignored.
 ES.08 Attempted to reset location counter to a previously used value. Reset ignored, keeping current location counter value.
 ES.09 Instruction requires a label; line substituted with NOP.
 ES.10 RESET directive must take a previously equated symbol or a number. Reset ignored, keeping current location counter value.
+ES.11 CNTL DUMP may only take an operand of 1, 2, or 3.
+ES.12 CNTL HALT may only take an exit code of 0-1023.
 EW.01 Blank Line, line ignored and no message given.
 EW.02 Operand field for entry/extern is invalid, line ignored.
+EW.03 Instruction doesn't take an operand.

@@ -143,6 +143,7 @@ namespace Assembler
             outOper = inOper.Substring(2);
             litType = OperandParser.Literal.UNKNOWN;
 
+            // TODO: bound-check these based on the passed-in bits
             switch (inOper[0])
             {
                 case 'X':

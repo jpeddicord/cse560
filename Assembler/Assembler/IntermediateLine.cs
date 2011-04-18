@@ -294,18 +294,48 @@ namespace Assembler
                 case "CNTL": {
                     // unused bit
                     code.Append("0");
-                    /*/ validation
+                    // validation
                     if (this.function == "HALT")
                     {
                         if (this.OpLitOperand == OperandParser.Literal.Number)
                         {
-                            //int val = Convert.ToInt32(this.OpLitOperand, 16);
-                            //if (val < 0 || val > 1023)
+                            int val = BinaryHelper.HexToInt(this.OpOperand, 10);
+                            // out of bounds
+                            if (val < 0 || val > 1023)
                             {
-
+                                this.AddError(Errors.Category.Serious, 12);
+                                this.NOPificate();
+                                return;
                             }
                         }
-                    }*/
+                        // wrong literal type
+                        else
+                        {
+                            this.AddError(Errors.Category.Serious, 12);
+                            this.NOPificate();
+                            return;
+                        }
+                    }
+                    else if (this.function == "DUMP")
+                    {
+                        // not a 1, 2, or 3
+                        if (this.OpOperand != "1" && this.OpOperand != "2" && this.OpOperand != "3")
+                        {
+                            this.AddError(Errors.Category.Serious, 11);
+                            this.NOPificate();
+                            return;
+                        }
+                    }
+                    else if (this.function == "CLRD" || this.function == "CLRT")
+                    {
+                        // no operand for CLRD/CLRT
+                        if (this.OpLitOperand != OperandParser.Literal.NONE)
+                        {
+                            this.AddError(Errors.Category.Warning, 3);
+                            this.NOPificate();
+                            return;
+                        }
+                    }
                     // literal operand
                     if (this.OpLitOperand == OperandParser.Literal.Number)
                     {
@@ -408,7 +438,6 @@ namespace Assembler
         {
             Logger288.Log("Found " + level.ToString() + " error number " + code + ". Adding to error list.", "IntermediateLine");
 
-            Errors.Error err;
             Errors inst = Errors.GetInstance();
 
             // Get the correct error based on category and add to the list of errors for this line.
