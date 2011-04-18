@@ -55,6 +55,7 @@ namespace Assembler
                     } break;
                 case "ENTRY":
                     {
+                        ParseEntry(ref line, ref interLine, ref symb);
                     } break;
                 case "EXTRN":
                     {
@@ -228,6 +229,22 @@ namespace Assembler
             }
 
             Logger288.Log("Finished parsing ENTRY directive", "DirectiveParser");
+        }
+
+        private static void ParseExtrn(ref string line, ref IntermediateLine interLine, ref SymbolTable symb)
+        {
+            Logger288.Log("Parsing EXTRN directive", "DirectiveParser");
+
+            if (!symb.ContainsSymbol(interLine.DirectiveOperand))
+            {
+                symb.AddSymbol(interLine.DirectiveOperand, null, Usage.EXTERNAL);
+            }
+            else
+            {
+                interLine.AddError(Errors.Category.Serious, 13);
+            }
+
+            Logger288.Log("Finished parsing EXTRN directive", "DirectiveParser");
         }
     }
 }
