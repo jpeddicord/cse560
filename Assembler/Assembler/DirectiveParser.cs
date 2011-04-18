@@ -42,15 +42,15 @@ namespace Assembler
             {
                 case "START":
                     {
-                        ParseStart(ref line, ref interLine, ref symb);
+                        ParseStart(ref interLine, ref symb);
                     } break;
                 case "RESET":
                     {
-                        ParseReset(ref line, ref interLine, ref symb);
+                        ParseReset(ref interLine, ref symb);
                     } break;
                 case "EQU":
                     {
-                        ParseEqu(ref line, ref interLine, ref symb);
+                        ParseEqu(ref interLine, ref symb);
                     } break;
                 case "EQUE":
                     {
@@ -58,27 +58,27 @@ namespace Assembler
                     } break;
                 case "ENTRY":
                     {
-                        ParseEntry(ref line, ref interLine, ref symb);
+                        ParseEntry(ref interLine, ref symb);
                     } break;
                 case "EXTRN":
                     {
-                        ParseExtrn(ref line, ref interLine, ref symb);
+                        ParseExtrn(ref interLine, ref symb);
                     } break;
                 case "END":
                     {
-                        ParseEnd(ref line, ref interLine, ref symb);
+                        ParseEnd(ref interLine, ref symb);
                     } break;
                 case "DAT":
                     {
-                        ParseDat(ref line, ref interLine, ref symb);
+                        ParseDat(ref interLine, ref symb);
                     } break;
                 case "ADC":
                     {
-                       // ParseAdc(ref line, ref interLine, ref symb);
+                        // ParseAdc(ref interLine, ref symb);
                     } break;
                 case "ADCE":
                     {
-                       // ParseAdce(ref line, ref interLine, ref symb);
+                        // ParseAdce(ref interLine, ref symb);
                     } break;
                 case "NOP":
                     {
@@ -110,7 +110,7 @@ namespace Assembler
          * @teststandard Andrew Buelow
          * @codestandard Mark Mathis
          */
-        private static void ParseStart(ref string line, ref IntermediateLine interLine, ref SymbolTable symb)
+        private static void ParseStart(ref IntermediateLine interLine, ref SymbolTable symb)
         {
             Logger.Log("Parsing START directive", "DirectiveParser");
 
@@ -146,7 +146,7 @@ namespace Assembler
          * @teststandard Andrew Buelow
          * @codestandard Mark Mathis
          */
-        private static void ParseEnd(ref string line, ref IntermediateLine interLine, ref SymbolTable symb)
+        private static void ParseEnd(ref IntermediateLine interLine, ref SymbolTable symb)
         {
             Logger.Log("Parsing END directive", "DirectiveParser");
 
@@ -162,7 +162,7 @@ namespace Assembler
             Logger.Log("Finished parsing END directive.", "DirectiveParser");
         }
 
-        private static void ParseReset(ref string line, ref IntermediateLine interLine, ref SymbolTable symb)
+        private static void ParseReset(ref IntermediateLine interLine, ref SymbolTable symb)
         {
             Logger.Log("Parsing RESET directive", "DirectiveParser");
 
@@ -193,7 +193,7 @@ namespace Assembler
             Logger.Log("Finished parsing RESET directive", "DirectiveParser");
         }
 
-        private static void ParseEqu(ref string line, ref IntermediateLine interLine, ref SymbolTable symb)
+        private static void ParseEqu(ref IntermediateLine interLine, ref SymbolTable symb)
         {
             Logger.Log("Parsing EQU directive", "DirectiveParser");
 
@@ -247,7 +247,7 @@ namespace Assembler
             }
         }
 
-        private static void ParseEntry(ref string line, ref IntermediateLine interLine, ref SymbolTable symb)
+        private static void ParseEntry(ref IntermediateLine interLine, ref SymbolTable symb)
         {
             Logger.Log("Parsing ENTRY directive", "DirectiveParser");
 
@@ -266,7 +266,7 @@ namespace Assembler
             Logger.Log("Finished parsing ENTRY directive", "DirectiveParser");
         }
 
-        private static void ParseExtrn(ref string line, ref IntermediateLine interLine, ref SymbolTable symb)
+        private static void ParseExtrn(ref IntermediateLine interLine, ref SymbolTable symb)
         {
             Logger.Log("Parsing EXTRN directive", "DirectiveParser");
 
@@ -282,7 +282,7 @@ namespace Assembler
             Logger.Log("Finished parsing EXTRN directive", "DirectiveParser");
         }
 
-        private static void ParseDat(ref string line, ref IntermediateLine interLine, ref SymbolTable symb)
+        private static void ParseDat(ref IntermediateLine interLine, ref SymbolTable symb)
         {
             Logger.Log("Parsing DAT directive", "DirectiveParser");
 
@@ -319,11 +319,11 @@ namespace Assembler
             Logger.Log("Finished parsing DAT directive", "DirectiveParser");
         }
 
-        private static void ParseAdc(ref string line, ref IntermediateLine interLine, ref SymbolTable symb)
+        private static void ParseAdc(ref IntermediateLine interLine, ref SymbolTable symb)
         {
             throw new NotImplementedException();
         }
-        private static void ParseAdce(ref string line, ref IntermediateLine interLine, ref SymbolTable symb)
+        private static void ParseAdce(ref IntermediateLine interLine, ref SymbolTable symb)
         {
             throw new NotImplementedException();
         }

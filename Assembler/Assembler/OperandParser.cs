@@ -229,7 +229,7 @@ namespace Assembler
         /**
          * 
          */
-        public static void ParseExpression(ref string operand, OperandParser.Expressions type, ref SymbolTable symb)
+        public static void ParseExpression(ref string operand, OperandParser.Expressions type, ref SymbolTable symb, int maxOperators = 1)
         {
             if (operand != null && operand.Length > 0)
             {
@@ -329,6 +329,11 @@ namespace Assembler
                         } break;
                 }
             }
+        }
+
+        private static void ParseEquExpression()
+        {
+
         }
     }
 }

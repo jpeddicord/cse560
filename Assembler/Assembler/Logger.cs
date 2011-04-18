@@ -22,6 +22,7 @@ namespace Assembler
          *  - April  6, 2011 - Mark - Creates a log file.
          *  - April  7, 2011 - Mark - Creates Log directory if needed.
          *  - April 12, 2011 - Mark - Moved from the Program class to the Logger288 class.
+         *  - April 18, 2011 - Andrew - Changed name from Logger288 to Logger. :(
          * @teststandard Andrew Buelow
          * @codestandard Mark Mathis
          */
