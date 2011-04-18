@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -113,6 +113,9 @@
     <None Include="Tests\Programs\Bar.txt" />
     <None Include="Tests\Programs\Foo.txt" />
     <None Include="Tests\Programs\Testprgm.txt" />
+    <None Include="Tests\Programs\ALT1.txt" />
+    <None Include="Tests\Programs\ALT2.txt" />
+    <None Include="Tests\Programs\ALT3.txt" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
