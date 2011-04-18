@@ -26,7 +26,7 @@ namespace Assembler
             /**
              * A non-prefixed number.
              */
-            Number,
+            NUMBER,
 
             /**
              * I= (integer)
@@ -72,7 +72,7 @@ namespace Assembler
             // if it's a number, convert to hex and store
             else if (tokenKind == Tokenizer.TokenKinds.Number)
             {
-                litOperand = Literal.Number;
+                litOperand = Literal.NUMBER;
                 int op = Convert.ToInt32(token);
                 op = BinaryHelper.ConvertNumber(op, bits);
                 operand = Convert.ToString(op, 16).ToUpper();

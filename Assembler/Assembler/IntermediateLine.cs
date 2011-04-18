@@ -209,6 +209,7 @@ namespace Assembler
         public string Bytecode
         {
             get { return this.bytecode; }
+            set { this.bytecode = value; }
         }
 
         /**
@@ -219,6 +220,7 @@ namespace Assembler
         public char LinkerHint
         {
             get { return this.arm; }
+            set { this.arm = value; }
         }
 
         /**
@@ -297,7 +299,7 @@ namespace Assembler
                     // validation
                     if (this.function == "HALT")
                     {
-                        if (this.OpLitOperand == OperandParser.Literal.Number)
+                        if (this.OpLitOperand == OperandParser.Literal.NUMBER)
                         {
                             int val = BinaryHelper.HexToInt(this.OpOperand, 10);
                             // out of bounds
@@ -349,7 +351,7 @@ namespace Assembler
                     }
                     // actual processing!
                     // literal operand
-                    if (this.OpLitOperand == OperandParser.Literal.Number)
+                    if (this.OpLitOperand == OperandParser.Literal.NUMBER)
                     {
                         code.Append(BinaryHelper.BinaryString(this.OpOperand).PadLeft(10, '0'));
                     }
@@ -519,7 +521,7 @@ namespace Assembler
             this.category = "SOPER";
             this.function = "ADD";
             this.operand = "0";
-            this.operandLit = OperandParser.Literal.Number;
+            this.operandLit = OperandParser.Literal.NUMBER;
             this.directive = null;
             this.dirOperand = null;
             this.dirLitOperand = OperandParser.Literal.NONE;

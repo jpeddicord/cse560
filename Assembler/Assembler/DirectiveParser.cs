@@ -47,11 +47,11 @@ namespace Assembler
                     } break;
                 case "EQU":
                     {
-                        ParseEqu(ref line, ref interLine, ref symb);
+                       // ParseEqu(ref line, ref interLine, ref symb);
                     } break;
                 case "EQUE":
                     {
-                        ParseEque(ref line, ref interLine, ref symb);
+                       // ParseEque(ref line, ref interLine, ref symb);
                     } break;
                 case "ENTRY":
                     {
@@ -59,6 +59,7 @@ namespace Assembler
                     } break;
                 case "EXTRN":
                     {
+                        ParseExtrn(ref line, ref interLine, ref symb);
                     } break;
                 case "END":
                     {
@@ -66,6 +67,7 @@ namespace Assembler
                     } break;
                 case "DAT":
                     {
+                        ParseDat(ref line, ref interLine, ref symb);
                     } break;
                 case "ADC":
                     {
@@ -161,7 +163,7 @@ namespace Assembler
             // or a literal number.
             if ((symb.ContainsSymbol(interLine.DirectiveOperand) && 
                 symb.GetSymbol(interLine.DirectiveOperand).usage == Usage.EQUATED) || 
-                (interLine.DirectiveLitOperand == OperandParser.Literal.Number))
+                (interLine.DirectiveLitOperand == OperandParser.Literal.NUMBER))
             {
                 int curLC = Convert.ToInt32(Parser.LC, 16);
                 int newLC = Convert.ToInt32(interLine.DirectiveOperand, 16);
@@ -190,7 +192,7 @@ namespace Assembler
 
             if ((symb.ContainsSymbol(interLine.DirectiveOperand) &&
                 symb.GetSymbol(interLine.DirectiveOperand).usage == Usage.EQUATED) ||
-                (interLine.DirectiveLitOperand == OperandParser.Literal.Number))
+                (interLine.DirectiveLitOperand == OperandParser.Literal.NUMBER))
             {
                 symb.AddSymbol(interLine.Label, null, Usage.EQUATED, interLine.DirectiveOperand);
             }
@@ -206,7 +208,7 @@ namespace Assembler
         {
             if ((symb.ContainsSymbol(interLine.DirectiveOperand) &&
                 symb.GetSymbol(interLine.DirectiveOperand).usage == Usage.EQUATED) ||
-                (interLine.DirectiveLitOperand == OperandParser.Literal.Number))
+                (interLine.DirectiveLitOperand == OperandParser.Literal.NUMBER))
             {
                 
             }
@@ -245,6 +247,38 @@ namespace Assembler
             }
 
             Logger288.Log("Finished parsing EXTRN directive", "DirectiveParser");
+        }
+
+        private static void ParseDat(ref string line, ref IntermediateLine interLine, ref SymbolTable symb)
+        {
+            Logger288.Log("Parsing DAT directive", "DirectiveParser");
+
+            if (interLine.DirectiveLitOperand != OperandParser.Literal.NONE &&
+                interLine.DirectiveLitOperand != OperandParser.Literal.EXPRESSION &&
+                interLine.DirectiveLitOperand != OperandParser.Literal.NUMBER &&
+                interLine.DirectiveLitOperand != OperandParser.Literal.UNKNOWN)
+            {
+                if (interLine.Label != null)
+                {
+                    if (!symb.ContainsSymbol(interLine.Label))
+                    {
+                        symb.AddSymbol(interLine.Label, Parser.LC, Usage.LABEL, interLine.DirectiveOperand);
+                    }
+                }
+
+                string val = Convert.ToString(Convert.ToInt32(interLine.DirectiveOperand, 16), 2);
+
+                if (interLine.DirectiveLitOperand == OperandParser.Literal.C)
+                {
+                    interLine.Bytecode = val.PadRight(16, '0');
+                }
+                else
+                {
+                    interLine.Bytecode = val.PadLeft(16, '0');
+                }
+            }
+
+            Logger288.Log("Finished parsing DAT directive", "DirectiveParser");
         }
     }
 }
