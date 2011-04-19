@@ -81,6 +81,8 @@ This would be processed with the following command::
 
     Assembler.exe sample.txt > output
 
+Output is displayed line-by-line as an intermediate representation of the assembly. Each source line is displayed, followed by the dissected contents of the line and any errors. At the end of the file, a symbol table is printed with a lits of all defined and valid symbols in the source program. Each symbol is accompanied by its position in the program (location counter), its symbol type, and a defined value for equated symbols. If any errors were found in the given program, the total count will be displayed at the end.
+
 The ``output`` file, then, would contain::
 
    PGC  Start 0
@@ -169,7 +171,9 @@ The ``output`` file, then, would contain::
                                  PGC:          PRGMNAME
                                  RES: 0x7      LABEL 
 
+Following the format above, this output contains each individual line and details, followed by the symbol table containing 4 symbols. No errors were found.
+
 Limitations
 ===========
 
-For software limitations, please see `Errata <errata.rst>`_.
+For software limitations, please see `Errata <errata.html>`_.
