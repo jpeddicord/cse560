@@ -224,14 +224,14 @@ namespace Assembler
                         // two-character
                         if (str.Length == 2) {
                             // convert to a binary string
-                            str = Convert.ToString((int) str[0], 2) +
-                                  Convert.ToString((int) str[1], 2);
-                            // pad the right side with zeros (left-filled characters)
-                            outOper = Convert.ToString(Convert.ToInt32(str.PadRight(bits, '0'), 2), 16);
+                            str = Convert.ToString((short) str[0], 2).PadLeft(8, '0') +
+                                  Convert.ToString((short) str[1], 2).PadLeft(8, '0');
+                            outOper = Convert.ToString(Convert.ToInt32(str, 2), 16);
                         }
                         // single character
                         else if (str.Length == 1) {
-                            outOper = Convert.ToString(((int) str[0]) << 2, 16);
+                            str = Convert.ToString((short) str[0], 2).PadLeft(8, '0');
+                            outOper = Convert.ToString(Convert.ToInt32(str, 2), 16);
                         }
                         // anything else is invalid
                         else

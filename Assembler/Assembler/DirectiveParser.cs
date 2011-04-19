@@ -380,6 +380,7 @@ namespace Assembler
          * @author Mark
          * @creation April 18, 2011
          * @modlog
+         *  - April 19, 2011 - Jacob - Fixed padding on values.
          * @teststandard Andrew Buelow
          * @codestandard Mark Mathis
          */
@@ -402,14 +403,8 @@ namespace Assembler
 
                 string val = Convert.ToString(Convert.ToInt32(interLine.DirectiveOperand, 16), 2);
 
-                if (interLine.DirectiveLitOperand == OperandParser.Literal.C)
-                {
-                    interLine.Bytecode = val.PadRight(16, '0');
-                }
-                else
-                {
-                    interLine.Bytecode = val.PadLeft(16, '0');
-                }
+                // assumed to be in correct representation; always pad to the left
+                interLine.Bytecode = val.PadLeft(16, '0');
             }
             else
             {
