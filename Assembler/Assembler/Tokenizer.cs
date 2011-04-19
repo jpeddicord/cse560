@@ -88,6 +88,8 @@ namespace Assembler
          *  - April 8, 2011 - Andrew - Fixed an aray out of bounds exception that occured when
          *         tokenizer was given an empty string.
          *  - April 16, 2011 - Andrew - Added Expression as a possible token kind.
+         *  - April 18, 2011 - Andrew - Character literals would break when there was a space in the single quotes.
+         *      Now using regular expressions to ensure only correct character literals are returned.
          * @teststandard Andrew Buelow
          * @codestandard Mark Mathis
          *
@@ -117,25 +119,59 @@ namespace Assembler
                  * Holds the two pieces of the string after it has been split at the next space, comma or tab.
                  * The first piece is the next token, the other is the rest of the line.
                  */
-                string[] tokens = { "", "Empty" };
+                string[] tokens;
 
-                // Split the string at the next space, comma or tab and store the first part as the token.
-                tokens = line.Split(new char[] { ' ', ',', '\t' }, 2);
-                token = tokens[0];
-
-                // If we are at the end of a string the second item in the array will be empty so we need to
-                // set the line to be an empty string.
-                if (tokens.Length > 1)
+                if (line.ToUpper().StartsWith("C='"))
                 {
-                    line = tokens[1];
+                    Regex charLiteral = new Regex("([Cc]='.{0,2}')");
+                    Match match = charLiteral.Match(line);
+                    if (match.Success)
+                    {
+                        token = match.Groups[1].Value;
+                        tokenKind = TokenKinds.Literal;
+                    }
+                    else
+                    {
+                        // Split the string at the next space, comma or tab and store the first part as the token.
+                        tokens = line.Split(new char[] { ' ', ',', '\t' }, 2);
+                        token = tokens[0];
+
+                        // If we are at the end of a string the second item in the array will be empty so we need to
+                        // set the line to be an empty string.
+                        if (tokens.Length > 1)
+                        {
+                            line = tokens[1];
+                        }
+                        else
+                        {
+                            line = "";
+                        }
+
+                        tokenKind = TokenKinds.Error;
+                    }
+
                 }
                 else
                 {
-                    line = "";
-                }
+                    // Split the string at the next space, comma or tab and store the first part as the token.
+                    tokens = line.Split(new char[] { ' ', ',', '\t' }, 2);
+                    token = tokens[0];
 
-                // Determine the kind for this token.
-                GetTokenKind(token, out tokenKind);
+                    // If we are at the end of a string the second item in the array will be empty so we need to
+                    // set the line to be an empty string.
+                    if (tokens.Length > 1)
+                    {
+                        line = tokens[1];
+                    }
+                    else
+                    {
+                        line = "";
+                    }
+
+                    // Determine the kind for this token.
+                    GetTokenKind(token, out tokenKind);
+                }
+                    
             }
 
             //Trim spaces off the beginning of the returned line so the first character is the beginning of the next token.

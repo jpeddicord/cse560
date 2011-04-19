@@ -247,6 +247,20 @@ namespace Assembler
             Assert.IsTrue(Token == "*+MUD-Dirt" && TokenKind == Tokenizer.TokenKinds.Expression,
                 "Token is *+MUD-Dirt' and of kind Expression.");
         }
+
+        /**
+         * [T15] Test that character literals return the correct token for character literals with spaces
+         */
+        [Test]
+        public void TokenizerLiteralCharacter()
+        {
+            string Line = "c=' '' : all sorts of breaking right here";
+            string Token;
+            Tokenizer.TokenKinds TokenKind;
+            Tokenizer.GetNextToken(ref Line, out Token, out TokenKind);
+            Assert.IsTrue(Token == "c=' ''" && TokenKind == Tokenizer.TokenKinds.Literal,
+                "Token is \"c=' ''\" and of kind Literal. \"" + Token + "\"");
+        }
     }
 }
 
