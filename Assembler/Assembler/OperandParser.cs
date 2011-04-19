@@ -464,12 +464,8 @@ namespace Assembler
                     // error invalid operator
                     break;
                 }
-
                 operands.Push(op1);
-
-
             }
-
             return operands.Pop();
         }
     }

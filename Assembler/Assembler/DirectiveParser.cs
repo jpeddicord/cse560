@@ -54,7 +54,7 @@ namespace Assembler
                     } break;
                 case "EQUE":
                     {
-                        // ParseEque(ref interLine, ref symb);
+                         ParseEque(ref interLine, ref symb);
                     } break;
                 case "ENTRY":
                     {
@@ -292,12 +292,8 @@ namespace Assembler
          */
         private static void ParseEque(ref IntermediateLine interLine, ref SymbolTable symb)
         {
-            if ((symb.ContainsSymbol(interLine.DirectiveOperand) &&
-                symb.GetSymbol(interLine.DirectiveOperand).usage == Usage.EQUATED) ||
-                (interLine.DirectiveLitOperand == OperandParser.Literal.NUMBER))
-            {
-
-            }
+            string oper = interLine.DirectiveOperand;
+            OperandParser.ParseExpression(ref oper, OperandParser.Expressions.EQU, ref symb, 3);
         }
 
         /**
