@@ -23,7 +23,7 @@ free to move the folder to a location that is more easily accessible.
 `````````````````````````
 
 You will need a program written in FFA to be compiled by this application. The language
-specification is given `here <language_spec.html>`_.  We also have a few example programs `here <test_plan.html#sample-test-programs>`_. Your program
+specification is given `here <language_spec.html>`_.  We also have a few example programs in our `testing plan <test_plan.html#sample-test-programs>`_. Your program
 should be written in an ASCII text file.
 
 Inside the c560aa05.sp1.early directory you will find two other directories (Assembler and
