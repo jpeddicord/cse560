@@ -44,11 +44,13 @@ Output
 
 Pass 1 of the FFA Assembler produces intermediate code that cannot be executed. Certain references may not be defined during the first pass, and so code produced cannot be directly used. This will be implemented in the second pass of the assembler.
 
-However, the intermediate code produced can provide insight into syntactic or semantic errors, and can be used as an initial check to see if code is semi-correct. Errors will be output for:
+However, the intermediate code produced can provide insight into syntactic or semantic errors, and can be used as an initial check to see if code is semi-correct. The list of possible errors is desceribed below:
 
-* Syntax errors (fatal)
-* Undefined equated symbols
-* Misused operands
+Errors
+``````
+
+.. include:: ../tmp/errorlist.rst
+
 
 Errors are currently *not* printed for the following issues, since they will be processed in pass 2:
 

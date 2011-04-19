@@ -95,7 +95,6 @@ namespace Assembler
          * Parses the start directive, properly assigning the operand of start as the
          * starting location counter.
          *
-         * @param line the line containing the start directive
          * @param interLine the intermediate line to process
          * @param symb symbol table reference
          * @return the IntermediateLine of this line
@@ -130,10 +129,8 @@ namespace Assembler
          * Parses the end directeive, ensuring that the end operand is the same as
          * the start directive's rlabel.
          *
-         * @param line the line containing the end directive
          * @param interLine the intermediate line to process
          * @param symb symbol table reference
-         * @return The IntermediateLine of this line
          *
          * @refcode N/A
          * @errtest N/A

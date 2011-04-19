@@ -27,6 +27,8 @@ def build():
     for script in scripts:
         convert_rst(join('tmp/tests', script), join('tmp', script.replace('.rst', '.html')))
         create_dox_wrapper(join('tmp/tests', script), join('tmp', script.replace('.rst', '.dox')))
+    print "Creating error listing"
+    build_error_list('../Assembler/Resources/errors.txt', 'tmp/errorlist.rst')
     print "Building manual"
     build_rst_dir('src', 'tmp')
     print "Running Doxygen"
@@ -129,6 +131,15 @@ def build_test_scripts(directory, runner, out_dir, prefix, index_file):
             base = camelcase_to_underscore(n.replace('.rst', ''))
             f.write("* `" + base + " <" + prefix + "_" + base + ".html>`_\n")
     return [prefix + n for n in names]
+
+def build_error_list(in_file, out_file):
+    with open(in_file) as i:
+        with open(out_file, 'w') as f:
+            f.write("\n")
+            for line in i:
+                code, val = line.split(' ', 1)
+                f.write("* **" + code + "** - " + val.rstrip() + "\n")
+            f.write("\n")
 
 def doxygen():
     """Run Doxygen."""
