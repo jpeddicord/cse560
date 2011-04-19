@@ -125,6 +125,16 @@ Test case sources are available in `TokenizerTest.cs <_tokenizer_test_8cs_source
      - Ensures the Tokenizer is able to correctly identify a token of kind Expression.
      - Yes
      - Labels and numbers within the expression are not tested for correct syntax by tokenizer, must be done elsewhere in the program.
+   
+   * - T15
+     - Test that character literals return the correct token for character literals with spaces.
+     - Yes
+     - None
+
+   * - T16
+     - Ensure negative numbers are processed as numbers (not expressions).
+     - Yes
+     - This has a chance to catch malformed expressions as well, but this will be caught later in the parsing process when an invalid token is given.
 
 
 Directives Test List

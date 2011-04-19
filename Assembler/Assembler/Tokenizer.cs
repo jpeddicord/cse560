@@ -217,13 +217,13 @@ namespace Assembler
              * Regular expression used to determine if all characters in the token are
              * letters or numbers.
              */
-            Regex alphaNumeric = new Regex("[^0-9a-zA-Z]");
+            Regex alphaNumeric = new Regex(@"[^0-9a-zA-Z]");
 
             /**
              * Regular expression used to determine if all characters in the token are
              * numbers.
              */
-            Regex numeric = new Regex("[^0-9]");
+            Regex numeric = new Regex(@"^[\-\+]?\d");
 
             /**
              * Regular expression used to determine if all characters in the token match
@@ -231,7 +231,7 @@ namespace Assembler
              * well as '+', '-' and '*'. Note: '*' is not used for multiplication, it is
              * used in start notation (see web documentation).
              */
-            Regex expression = new Regex("[^0-9A-Za-z\\*\\+\\-]");
+            Regex expression = new Regex(@"[^0-9A-Za-z\*\+\-]");
 
             // Convert to uppercase to give user flexibility.  Token is passed by value so
             // this change will not affect the token that is returned to the user.
@@ -247,7 +247,7 @@ namespace Assembler
             {
                 tokenKind = TokenKinds.Label_Or_Command;
             } // Check if it is all numbers
-            else if (!numeric.IsMatch(token))
+            else if (numeric.IsMatch(token))
             {
                 tokenKind = TokenKinds.Number;
             } // Check if the token contains characters only found in expressions.

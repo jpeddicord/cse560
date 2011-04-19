@@ -261,6 +261,20 @@ namespace Assembler
             Assert.IsTrue(Token == "c=' ''" && TokenKind == Tokenizer.TokenKinds.Literal,
                 "Token is \"c=' ''\" and of kind Literal. \"" + Token + "\"");
         }
+
+        /**
+         * [T16] Ensure negative numbers are processed as numbers (not expressions).
+         */
+        [Test]
+        public void TokenizerNegativeNumber()
+        {
+            string Line = "-20";
+            string Token;
+            Tokenizer.TokenKinds TokenKind;
+            Tokenizer.GetNextToken(ref Line, out Token, out TokenKind);
+            Assert.IsTrue(Token == "-20" && TokenKind == Tokenizer.TokenKinds.Number,
+                "Negative number is a number kind");
+        }
     }
 }
 

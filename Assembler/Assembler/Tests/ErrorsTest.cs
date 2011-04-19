@@ -28,7 +28,7 @@ namespace Assembler
         public void ErrorsContainsSerious()
         {
             var err = Errors.GetInstance();
-            Assert.AreEqual("[Serious] Instruction-function combination is invalid; line substituted with a NOP.", err.GetSeriousError(3).ToString());
+            Assert.AreEqual("[Serious] Function is invalid for instruction; line substituted with a NOP.", err.GetSeriousError(3).ToString());
         }
 
         /**

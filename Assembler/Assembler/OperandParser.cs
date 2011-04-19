@@ -84,6 +84,8 @@ namespace Assembler
             Tokenizer.TokenKinds tokenKind;
             Tokenizer.GetNextToken(ref line, out token, out tokenKind);
 
+            Logger.Log("Parsing operand " + token + " of kind " + tokenKind.ToString(), "OperandParser");
+
             string operand = null;
             Literal litOperand = Literal.NONE;
 
@@ -170,7 +172,7 @@ namespace Assembler
          */
         private static void ParseLiteralOperand(string inOper, out string outOper, out Literal litType, int bits)
         {
-            Logger.Log("Parsing literal operand " + inOper, "Parser");
+            Logger.Log("Parsing literal operand " + inOper, "OperandParser");
 
             int op;
             outOper = inOper.Substring(2);

@@ -42,22 +42,16 @@ namespace Assembler
          */
         public static int ConvertNumber(int number, int digits = 10)
         {
-            /**
-             * Stores the value of the converted number.
-             */
+            // Stores the value of the converted number.
             int convertedNum = 0;
 
             // Used to enforce digit number restrictions which are a result of integer size.
             if (17 > digits && digits > 1)
             {
-                /**
-                 * Stores the point at which a number would become a negative number in two's complement.
-                 */
+                // Stores the point at which a number would become a negative number in two's complement.
                 int limit = (int)(Math.Pow(2, digits - 1));
 
-                /**
-                 * Stores -1 in two's complement with results in a binary number of size digits filled with 1's.
-                 */
+                // Stores -1 in two's complement with results in a binary number of size digits filled with 1's.
                 int filledDigits = ((int)(Math.Pow(2, digits))) - 1;
 
                 // a number that doesn't have a 1 in the most significant bit will be the same in two's complement
@@ -71,14 +65,16 @@ namespace Assembler
                     // Take the absolute value of the number and exclusive or it with the filled digits which
                     // flips all of the bits, then add one.
                     convertedNum = (Math.Abs(number) ^ filledDigits) + 1;
-                } // if within the limit for a negative two's complement, we want to convert to non-two's complement.
+                }
+                // if within the limit for a negative two's complement, we want to convert to non-two's complement.
                 else if ((limit <= number) && (number < limit * 2))
                 {
                     // subtract one from the number then exclusive or it and multiply by -1 to make it a negative number.
                     convertedNum = ((number - 1) ^ filledDigits) * -1;
                 }
             }
-    
+
+            Logger.Log("Converted " + number + " to " + convertedNum, "BinaryHelper");
             return convertedNum;
         }
 
