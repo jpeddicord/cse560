@@ -136,6 +136,7 @@ namespace Assembler
          *  - April 11, 2011 -  Mark - Checks that integer literals are in the proper range.
          *  - April 14, 2011 -  Mark - Moved from Parser into OperandParser.
          *  - April 17, 2011 - Jacob - Pass in the bit length of integers to store in hex.
+         *  - April 18, 2011 - Jacob - Fix character parsing.
          * @teststandard Andrew Buelow
          * @codestandard Mark Mathis
          * 
@@ -150,7 +151,6 @@ namespace Assembler
             Logger.Log("Parsing literal operand " + inOper, "Parser");
 
             int op;
-            inOper = inOper.ToUpper();
             outOper = inOper.Substring(2);
             litType = OperandParser.Literal.UNKNOWN;
 
@@ -158,6 +158,7 @@ namespace Assembler
             switch (inOper[0])
             {
                 case 'X':
+                case 'x':
                     {
                         Logger.Log("literal operand is hex", "Parser");
                         litType = Literal.X;
@@ -165,6 +166,7 @@ namespace Assembler
                     } break;
 
                 case 'B':
+                case 'b':
                     {
                         Logger.Log("literal operand is binary", "Parser");
                         litType = Literal.B;
@@ -174,6 +176,7 @@ namespace Assembler
                     } break;
 
                 case 'I':
+                case 'i':
                     {
                         Logger.Log("literal operand is integer", "Parser");
                         litType = Literal.I;
@@ -182,11 +185,35 @@ namespace Assembler
                         outOper = Convert.ToString(op, 16).ToUpper();
                     } break;
                 case 'C':
+                case 'c':
                     {
-                        Logger.Log("literal operand is character", "Parser");
+                        Logger.Log("literal operand is character: " + inOper, "Parser");
                         litType = Literal.C;
-                        // fix this: parse integers more properly.
-                        outOper = Convert.ToString(Convert.ToInt32(((int)inOper[3]) << 2), 16).ToUpper();
+                        string str = inOper.Substring(2);
+                        // ensure the first and last characters are quotes
+                        if (str[0] != '\'' || str[str.Length - 1] != '\'')
+                        {
+                            throw new System.ArgumentException();
+                        }
+                        // strip them
+                        str = str.Substring(1, str.Length - 2);
+                        // two-character
+                        if (str.Length == 2) {
+                            // convert to a binary string
+                            str = Convert.ToString((int) str[0], 2) +
+                                  Convert.ToString((int) str[1], 2);
+                            // pad the right side with zeros (left-filled characters)
+                            outOper = Convert.ToString(Convert.ToInt32(str.PadRight(bits, '0'), 2), 16);
+                        }
+                        // single character
+                        else if (str.Length == 1) {
+                            outOper = Convert.ToString(((int) str[0]) << 2, 16);
+                        }
+                        // anything else is invalid
+                        else
+                        {
+                            throw new System.ArgumentException();
+                        }
                     } break;
             }
 
@@ -227,7 +254,7 @@ namespace Assembler
         }
 
         /**
-         * 
+         * TODO
          */
         public static void ParseExpression(ref string operand, OperandParser.Expressions type, ref SymbolTable symb, int maxOperators = 1)
         {
