@@ -409,7 +409,14 @@ namespace Assembler
                     // ensure there is an operand of type Number
                     if (this.OpLitOperand != OperandParser.Literal.NUMBER)
                     {
-                        // FIXME: bound-check
+                        this.AddError(Errors.Category.Serious, 16);
+                        this.NOPificate();
+                        return;
+                    }
+                    // bounds-check
+                    int val = BinaryHelper.HexToInt(this.OpOperand, 8);
+                    if (val < 0 || val > 255)
+                    {
                         this.AddError(Errors.Category.Serious, 17);
                         this.NOPificate();
                         return;
