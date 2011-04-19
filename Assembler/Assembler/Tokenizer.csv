@@ -4,3 +4,4 @@ tokenKind,Tokenizer.GetNextToken,TokenKinds,local,stores the type of token
 tokens,Tokenizer.GetNextToken,string array,local,holds the pieces of the line after being split
 alphaNumeric,Tokenizer.GetTokenKind,Regex,local,checks if a string is composed only of letters and numbers
 numeric,Tokenizer.GetTokenKind,Regex,local,checks if a string is composed only of numbers
+charLiteral,Tokenizer,Regex,local,used to look for a specific formatting specified by character literals

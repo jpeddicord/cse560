@@ -188,3 +188,26 @@ To do
 - Jacob - Cleanup documentation and update DEDs.
 - Mark - Finish parsing directives.
 - Andrew - Rewrite testing plan description. Give the user a better idea of how we have been testing our program.
+
+April 19th 2011 - 5:00 pm
+=========================
+We have accomplished a lot over the past couple days and had various "mini meetings" in class and by email/online voice chat. This
+log will be more of a summary of those meetings as well as where we stand currently.
+
+Unit tests now have a link to the source file to let the user know how we are testing the components, not just what we are testing.
+The test plan has been rewritten to give a better idea of our testing approach.
+
+Documentation is still in the process of being cleaned up.  More has been added to the user guide and an entire How To section has
+been added to help users run the Assembler.  Pictures will be added to this soon.  We spoke with Al and showed him our current
+documentation and he seems to be pretty content with it.  He pointed out a few issues we have in the language specifications and
+we plan on going through that and updating it so that all of the information is valid (as far as we know).
+
+Directives will be complete shortly.  Mark is currently working on ADC and ADCE which are the last directives to be implemented.
+
+Our focus for the rest of the day will be going through the documentation and ensuring everything has been properly documented and
+running test programs to look for errors that may not have been caught yet by the assembler. Unless any serious issues pop up
+during this time, we feel like we should be finished tonight.
+
+To do
+-----
+- Everyone - Look through the documentation for possible issues and try to find errors that aren't being caught.
