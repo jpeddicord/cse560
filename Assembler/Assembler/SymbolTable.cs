@@ -128,7 +128,7 @@ namespace Assembler
          * @param usage Usage information for the symbol
          * @param val Optional value for the symbol
          */
-        public void AddSymbol(string rlabel, string lc, Usage usage, string val = "")
+        public void AddSymbol(string rlabel, string lc, Usage usage, string val = null)
         {
             Symbol sym;
             sym.rlabel = rlabel;
@@ -139,7 +139,7 @@ namespace Assembler
         }
 
         /**
-         * DOCUMENT MEEEE
+         * TODO: DOCUMENT MEEEE
          */
         public Symbol RemoveSymbol(string rLabel)
         {
@@ -248,12 +248,12 @@ namespace Assembler
             string disp = "---- SYMBOL TABLE ----\n";
             foreach (string s in this.SortedSymbols())
             {
-                // TODO: make the LC print nothing if it's null
                 Symbol sym = this.symbols[s];
-                disp += String.Format("{0,10}: {1,-8} {2}\n",
+                disp += String.Format("{0,32}: {1,-8}; {2,-8}; {3}\n",
                                       sym.rlabel,
                                       sym.lc != null ? String.Format("0x{0}", sym.lc) : "  ",
-                                      sym.usage);
+                                      sym.usage,
+                                      sym.val != null ? sym.val : "");
             }
             return disp;
         }
