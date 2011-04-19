@@ -135,6 +135,11 @@ Test case sources are available in `TokenizerTest.cs <_tokenizer_test_8cs_source
      - Ensure negative numbers are processed as numbers (not expressions).
      - Yes
      - This has a chance to catch malformed expressions as well, but this will be caught later in the parsing process when an invalid token is given.
+	 
+   * - T17
+     - Ensure positive numbers (denoted with a plus sign) are processed as numbers and not expressions.
+     - Yes
+     - This has a chance to catch malformed expressions as well, but this will be caught later in the parsing process when an invalid token is given.
 
 
 Directives Test List

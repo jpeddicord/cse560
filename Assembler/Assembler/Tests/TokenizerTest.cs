@@ -275,6 +275,20 @@ namespace Assembler
             Assert.IsTrue(Token == "-20" && TokenKind == Tokenizer.TokenKinds.Number,
                 "Negative number is a number kind");
         }
+
+        /**
+         * [T17] Ensure that positive numbers are processed as numbers and not expressions as well.
+         */
+        [Test]
+        public void TokenizerPositiveNumber()
+        {
+            string Line = "+20";
+            string Token;
+            Tokenizer.TokenKinds TokenKind;
+            Tokenizer.GetNextToken(ref Line, out Token, out TokenKind);
+            Assert.IsTrue(Token == "+20" && TokenKind == Tokenizer.TokenKinds.Number,
+                "Positive number is a number kind");
+        }
     }
 }
 
