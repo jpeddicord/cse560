@@ -14,6 +14,7 @@ Data2		reset,3			: Resetting to a LC before this line.
 			reset 50		: missing required label
 X1			EQU 1024		: out of range
 X2			DAT C='abc'		: too many characters stored with dat
+            STACK PUSH,c='  : malformed string
 
 : Previous line is blank, this one is all one comment.
 end 1stProgram				: does not start in 2nd column

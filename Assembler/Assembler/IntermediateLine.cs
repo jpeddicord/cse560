@@ -213,17 +213,6 @@ namespace Assembler
         }
 
         /**
-         * The linker hint
-         */
-        private char arm;
-
-        public char LinkerHint
-        {
-            get { return this.arm; }
-            set { this.arm = value; }
-        }
-
-        /**
          * List of errors that are flagged on this line.
          */
         private List<Errors.Error> errors;
@@ -249,7 +238,6 @@ namespace Assembler
             this.dirLitOperand = OperandParser.Literal.NONE;
             this.comment = null;
             this.bytecode = null;
-            this.arm = 'a';
             this.errors = new List<Errors.Error>();
         }
 
@@ -362,9 +350,24 @@ namespace Assembler
                     }
                 } break;
                 case "STACK": {
+                    // ensure there is an operand
+                    if (this.OpOperand.Length == 0)
+                    {
+                        this.AddError(Errors.Category.Serious, 16);
+                        this.NOPificate();
+                        return;
+                    }
                     // literal operand
                     if (this.OpLitOperand != OperandParser.Literal.NONE)
                     {
+                        // bounds-check
+                        int val = BinaryHelper.HexToInt(this.OpOperand, 10);
+                        if (val < -512 || val > 511)
+                        {
+                            this.AddError(Errors.Category.Serious, 4);
+                            this.NOPificate();
+                            return;
+                        }
                         // literal flag
                         code.Append("1");
                         // and the value
@@ -526,7 +529,6 @@ namespace Assembler
             this.dirOperand = null;
             this.dirLitOperand = OperandParser.Literal.NONE;
             this.bytecode = null;
-            this.arm = 'a';
         }
 
         /**
