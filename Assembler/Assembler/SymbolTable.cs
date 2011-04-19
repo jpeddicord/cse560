@@ -232,6 +232,7 @@ namespace Assembler
          *  - rlabel
          *  - location counter
          *  - usage
+         *  - value
          *
          * @return pretty-printed string of the table
          * @refcode
@@ -240,6 +241,8 @@ namespace Assembler
          * @author Jacob
          * @creation April 9, 2011
          * @modlog
+         *  - April 18, 2011 - Jacob - Fix display of missing LC
+         *  - April 19, 2011 - Jacob - Display value if available
          * @codestandard Mark
          * @teststandard Andrew
          */
