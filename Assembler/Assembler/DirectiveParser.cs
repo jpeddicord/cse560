@@ -314,6 +314,7 @@ namespace Assembler
             {
                 // error: invalid operand type
                 interLine.AddError(Errors.Category.Serious, 14);
+                interLine.NOPificate();
             }
 
             Logger.Log("Finished parsing DAT directive", "DirectiveParser");

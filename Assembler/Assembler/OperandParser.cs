@@ -62,7 +62,20 @@ namespace Assembler
 
         /**
          * Parse an operand and fill the intermediate line with found data.
-         * XXX: DOC
+         *
+         * @param line the line (string) to parse
+         * @param interLine the intermediate line object to fill
+         * @param symb symbol table reference
+         * @param bits number of bits to pad to, if applicable
+         * @refcode
+         * @errtest
+         * @errmsg
+         * @author Mark
+         * @creation April 10, 2011
+         * @modlog
+         *  - April 18, 2011 - Jacob - Catch exceptions on parsing issues.
+         * @teststandard Andrew Buelow
+         * @codestandard Mark Mathis
          */
         public static void ParseOperand(ref string line, ref IntermediateLine interLine, ref SymbolTable symb, int bits)
         {
@@ -74,36 +87,45 @@ namespace Assembler
             string operand = null;
             Literal litOperand = Literal.NONE;
 
-            // if it's a label, then just set the token directly
-            if (tokenKind == Tokenizer.TokenKinds.Label_Or_Command)
-            {
-                litOperand = Literal.NONE;
-                operand = token;
+            try {
+                // if it's a label, then just set the token directly
+                if (tokenKind == Tokenizer.TokenKinds.Label_Or_Command)
+                {
+                    litOperand = Literal.NONE;
+                    operand = token;
+                }
+                // if it's a number, convert to hex and store
+                else if (tokenKind == Tokenizer.TokenKinds.Number)
+                {
+                    litOperand = Literal.NUMBER;
+                    int op = Convert.ToInt32(token);
+                    op = BinaryHelper.ConvertNumber(op, bits);
+                    operand = Convert.ToString(op, 16).ToUpper();
+                }
+                // do further processing for literals
+                else if (tokenKind == Tokenizer.TokenKinds.Literal)
+                {
+                    ParseLiteralOperand(token, out operand, out litOperand, bits);
+                }
+                // the operand is an expression
+                else if (tokenKind == Tokenizer.TokenKinds.Expression)
+                {
+                    // check that it's valid
+    
+                }
+                // anything else is invalid
+                else
+                {
+                    litOperand = Literal.NONE;
+                    operand = "_ERROR";
+                    interLine.AddError(Errors.Category.Serious, 15);
+                }
             }
-            // if it's a number, convert to hex and store
-            else if (tokenKind == Tokenizer.TokenKinds.Number)
-            {
-                litOperand = Literal.NUMBER;
-                int op = Convert.ToInt32(token);
-                op = BinaryHelper.ConvertNumber(op, bits);
-                operand = Convert.ToString(op, 16).ToUpper();
-            }
-            // do further processing for literals
-            else if (tokenKind == Tokenizer.TokenKinds.Literal)
-            {
-                ParseLiteralOperand(token, out operand, out litOperand, bits);
-            }
-            // the operand is an expression
-            else if (tokenKind == Tokenizer.TokenKinds.Expression)
-            {
-                // check that it's valid
-
-            }
-            // anything else is invalid
-            else
+            catch (Exception)
             {
                 litOperand = Literal.NONE;
                 operand = "_ERROR";
+                interLine.AddError(Errors.Category.Serious, 15);
             }
 
             // assign the directive fields if it's a directive
@@ -122,7 +144,12 @@ namespace Assembler
 
         /**
          * Parses a literal operand, e.g. X=, B=, I=, C=
-         * 
+         *
+         * @param inOper the operand to parse
+         * @param outOper the numerical operand from the literal, that is, the part after the X=
+         *                  will be in hexadecimal
+         * @param litType the type of the operand, that is, X, B, etc.
+         * @param bits the bit length to store as in hex
          * @refcode N/A
          * @errtest N/A
          * @errmsg N/A
@@ -139,12 +166,6 @@ namespace Assembler
          *  - April 18, 2011 - Jacob - Fix character parsing.
          * @teststandard Andrew Buelow
          * @codestandard Mark Mathis
-         * 
-         * @param inOper the operand to parse
-         * @param outOper the numerical operand from the literal, that is, the part after the X=
-         *                  will be in hexadecimal
-         * @param litType the type of the operand, that is, X, B, etc.
-         * @param bits the bit length to store as in hex
          */
         private static void ParseLiteralOperand(string inOper, out string outOper, out Literal litType, int bits)
         {
