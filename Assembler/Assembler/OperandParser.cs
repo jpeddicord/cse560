@@ -1,4 +1,7 @@
 using System;
+using System.Collections.Generic;
+using System.Collections;
+using System.Linq;
 
 namespace Assembler
 {
@@ -281,7 +284,7 @@ namespace Assembler
          * TODO
          */
         public static void ParseExpression(ref string operand, OperandParser.Expressions type, ref SymbolTable symb, int maxOperators = 1)
-        {
+            {
             if (operand != null && operand.Length > 0)
             {
                 // if the expression is just a star, take care of it and return
@@ -291,13 +294,24 @@ namespace Assembler
                     return;
                 }
 
+                char[] validOperators = { '+', '-' };
                 // if there are too many operators, give an error
-                string[] validOperators = operand.Split(new char[] { '+', '-' });
+                List<string> operands = operand.Split(validOperators).ToList();
 
                 if (validOperators.Length - 1 > maxOperators)
                 {
                     // error, too many operators
                     return;
+                }
+
+                List<char> operators = new List<char>();
+
+                int pos = operand.IndexOfAny(validOperators, 0);
+
+                while (pos != -1)
+                {
+                    operators.Add(operand[pos]);
+                    pos = operand.IndexOfAny(validOperators, pos + 1);
                 }
 
                 // it can't always be that easy
@@ -388,7 +402,37 @@ namespace Assembler
 
                     case Expressions.EQU:
                         {
+                            for (int i = 0; i < operands.Count; i++)
+                            {
+                                string label = operands[i];
 
+                                if (label == "*")
+                                {
+                                    if (i == 0)
+                                    {
+                                        operands[i] = Parser.LC;
+                                    }
+                                    else
+                                    {
+                                        // error, star must be first operand
+                                    }
+                                }
+                                else if (symb.ContainsSymbol(label))
+                                {
+                                    Symbol operSym = symb.GetSymbol(label);
+
+                                    if (operSym.usage == Usage.EQUATED)
+                                    {
+                                        operands[i] = operSym.val;
+                                    }
+                                    else if (operSym.usage == Usage.LABEL)
+                                    {
+                                        operands[i] = operSym.lc;
+                                    }
+                                }
+                            }
+
+                           operand = EvaluateExpression(new Stack<string>(operands), new Stack<char>(operators));
                         } break;
 
                     case Expressions.ADC:
@@ -399,9 +443,34 @@ namespace Assembler
             }
         }
 
-        private static void ParseEquExpression()
+        static string EvaluateExpression(Stack<string> operands, Stack<char> operators)
         {
+            while (operators.Count > 0)
+            {
+                string op1 = operands.Pop();
+                string op2 = operands.Pop();
+                char op = operators.Pop();
 
+                if (op == '+')
+                {
+                    op1 = (int.Parse(op1) + int.Parse(op2)).ToString();
+                }
+                else if (op == '-')
+                {
+                    op1 = (int.Parse(op1) - int.Parse(op2)).ToString();
+                }
+                else
+                {
+                    // error invalid operator
+                    break;
+                }
+
+                operands.Push(op1);
+
+
+            }
+
+            return operands.Pop();
         }
     }
 }
