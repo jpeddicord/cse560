@@ -383,6 +383,13 @@ namespace Assembler
                     }
                 } break;
                 case "JUMP": {
+                    // ensure there is an operand
+                    if (this.OpOperand.Length == 0)
+                    {
+                        this.AddError(Errors.Category.Serious, 16);
+                        this.NOPificate();
+                        return;
+                    }
                     // ensure that JUMP is taking a label
                     if (this.OpLitOperand == OperandParser.Literal.NONE)
                     {
@@ -399,6 +406,13 @@ namespace Assembler
                     }
                 } break;
                 case "SOPER": {
+                    // ensure there is an operand of type Number
+                    if (this.OpLitOperand != OperandParser.Literal.NUMBER)
+                    {
+                        this.AddError(Errors.Category.Serious, 17);
+                        this.NOPificate();
+                        return;
+                    }
                     // the write flag is only set for character operations
                     if (this.OpOperand == "READC" || this.OpOperand == "WRITEC")
                     {
@@ -415,18 +429,35 @@ namespace Assembler
                     code.Append(BinaryHelper.BinaryString(this.OpOperand).PadLeft(8, '0'));
                 } break;
                 case "MOPER": {
-                    // again, the write flag is only set for character operations
-                    if (this.OpOperand == "READC" || this.OpOperand == "WRITEC")
+                    // ensure there is an operand
+                    if (this.OpOperand.Length == 0)
                     {
-                        code.Append("1");
+                        this.AddError(Errors.Category.Serious, 16);
+                        this.NOPificate();
+                        return;
                     }
-                    // for everything else, it's a zero
+                    // ensure that MOPER is taking a label
+                    if (this.OpLitOperand == OperandParser.Literal.NONE)
+                        // again, the write flag is only set for character operations
+                        if (this.OpOperand == "READC" || this.OpOperand == "WRITEC")
+                        {
+                            code.Append("1");
+                        }
+                        // for everything else, it's a zero
+                        else
+                        {
+                            code.Append("0");
+                        }
+                        // reference label, filled pass 2
+                        code.Append("0000000000");
+                    }
+                    // otherwise, it's invalid
                     else
                     {
-                        code.Append("0");
+                        this.AddError(Errors.Category.Serious, 9);
+                        this.NOPificate();
+                        return;
                     }
-                    // reference label, filled pass 2
-                    code.Append("0000000000");
                 } break;
             }
 
