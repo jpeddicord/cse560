@@ -455,6 +455,8 @@ namespace Assembler
         {
             Logger.Log("Found " + level.ToString() + " error number " + code + ". Adding to error list.", "IntermediateLine");
 
+            Parser.TotalErrors++;
+            
             Errors inst = Errors.GetInstance();
 
             // Get the correct error based on category and add to the list of errors for this line.

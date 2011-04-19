@@ -61,18 +61,20 @@ namespace Assembler
             {
                 Parser pars = new Parser();
                 IntermediateFile interSource;
-                //SymbolTable symb;
                 pars.ParseSource(path, out interSource, out symb);
 
-                Logger.Log("Printing output to screen", "Main");
+                // print output
                 Console.WriteLine(interSource);
                 Console.WriteLine(symb);
-            }
 
-            string op = "*+orient";
-            OperandParser.ParseExpression(ref op, OperandParser.Expressions.Operator, ref symb);
-            //Console.WriteLine(Parser.LC);
-            //Console.WriteLine(op);
+                // check for errors
+                if (Parser.TotalErrors > 0)
+                {
+                    Console.WriteLine(String.Format(
+                        "Your program had {0} errors. Please check the output above.",
+                        Parser.TotalErrors));
+                }
+            }
         }
     }
 }

@@ -25,6 +25,15 @@ namespace Assembler
         public static string LC;
 
         /**
+         * The total count of errors in this program.
+         */
+        private static int totalErrors = 0;
+        public static int TotalErrors {
+            get { return Parser.totalErrors; }
+            set { Parser.totalErrors = value; }
+        }
+
+        /**
          * Creates a Parser with location counter set to 0, ready to parse a single soure file.
          */
         public Parser()
