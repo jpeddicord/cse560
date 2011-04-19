@@ -8,6 +8,11 @@ The FFA machine is a hypothetical machine that the FFA Assembler produces code f
     :depth: 2
     :backlinks: none
 
+File Format
+===========
+
+A source file for the FFA Assembler should consist of text (ASCII) instructions, one per line. There is no set line limit, however keep in mind that there is a limit of 1024 words. So, a source file may consist of **at most** 1024 instructions and data-storage directives combined.
+
 Instructions
 ============
 
@@ -358,9 +363,9 @@ EQU
 
 Format::
 
-	Label | equ | 0 - 1023 or another equated label
+	Label | equ | 0 - 1023, another equated label, or star notation
 
-Equate allows the user to set a label to the a value between 0 and 1023. If provided a label rather than a number, the label must have been previously equated.
+Equate allows the user to set a label to the a value between 0 and 1023. If provided a label rather than a number, the label must have been previously equated. Accepts star notation (as do instructions) but is limited to equated symbols that have been previously defined in the source.
 
 Example::
 
@@ -374,7 +379,7 @@ Format::
 
 	Label | eque | expression
 
-Has the same use as ``EQU`` but allows for expressions in the operand field.  The expression can be made up of constants or previously equated symbols however the resulting computation must be int he range of 0 to 1023.  External references may not be used. Star notation may be used but must be the first item in the expression. Only one star notation per expression is allowed. Up to three operators may be used, however the operators are limited to plus (+) and minus (-).
+Like EQU_, but accepts up to 3 operations (4 operands) in an expression. Again, star notation is accepted.
 
 Example::
 
@@ -440,11 +445,23 @@ ADC
 
 Format::
 
-	Optional Label | ADC | label, 0-1023, external reference, or equated label
+	Optional Label | ADC | label, 0-1023, equated label, or star notation
+
+Defines an address constant. A word of storage is reserved, and is set to the address of the given label, numeric constant, or equated symbol. Accepts star notation, as long as the resulting evaluated expression is within the range of 0-1023. Example::
+
+    test ADC *+3
 
 ADCE
 ----
 
+Format::
+
+    Optional Label | ADCE | expression
+
+Like ADC_, but allows up to 3 operations (4 operands). The expression must evaluate to a value in the range of 0-1023. Example::
+
+    foo    DAT C='ab'
+    orange ADC 5+foo+3
 
 NOP
 ---
