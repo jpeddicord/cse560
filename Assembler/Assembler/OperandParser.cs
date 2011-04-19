@@ -56,8 +56,8 @@ namespace Assembler
         public enum Expressions
         {
             Operator,
-            EQUe,
-            ADCe
+            EQU,
+            ADC
         }
 
         /**
@@ -111,7 +111,8 @@ namespace Assembler
                 else if (tokenKind == Tokenizer.TokenKinds.Expression)
                 {
                     // check that it's valid
-    
+                    operand = token;
+                    litOperand = Literal.EXPRESSION;
                 }
                 // anything else is invalid
                 else
@@ -281,6 +282,23 @@ namespace Assembler
         {
             if (operand != null && operand.Length > 0)
             {
+                // if the expression is just a star, take care of it and return
+                if (operand.Length == 1 && operand[0] == '*')
+                {
+                    operand = Parser.LC; ;
+                    return;
+                }
+
+                // if there are too many operators, give an error
+                string[] validOperators = operand.Split(new char[] { '+', '-' });
+
+                if (validOperators.Length - 1 > maxOperators)
+                {
+                    // error, too many operators
+                    return;
+                }
+
+                // it can't always be that easy
                 switch (type)
                 {
                     case OperandParser.Expressions.Operator:
@@ -366,12 +384,12 @@ namespace Assembler
                             }
                         } break;
 
-                    case Expressions.EQUe:
+                    case Expressions.EQU:
                         {
 
                         } break;
 
-                    case Expressions.ADCe:
+                    case Expressions.ADC:
                         {
 
                         } break;

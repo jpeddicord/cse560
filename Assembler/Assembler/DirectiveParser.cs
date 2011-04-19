@@ -54,7 +54,7 @@ namespace Assembler
                     } break;
                 case "EQUE":
                     {
-                       // ParseEque(ref line, ref interLine, ref symb);
+                        // ParseEque(ref interLine, ref symb);
                     } break;
                 case "ENTRY":
                     {
@@ -89,7 +89,7 @@ namespace Assembler
             }
 
             Logger.Log("Finished parsing directive on line " + interLine.SourceLineNumber, "DirectiveParser");
-        }       
+        }
 
         /**
          * Parses the start directive, properly assigning the operand of start as the
@@ -97,7 +97,7 @@ namespace Assembler
          *
          * @param interLine the intermediate line to process
          * @param symb symbol table reference
-         * @return the IntermediateLine of this line
+         *
          * @refcode N/A
          * @errtest N/A
          * @errmsg N/A
@@ -126,7 +126,7 @@ namespace Assembler
         }
 
         /**
-         * Parses the end directeive, ensuring that the end operand is the same as
+         * Parses the end directive, ensuring that the end operand is the same as
          * the start directive's rlabel.
          *
          * @param interLine the intermediate line to process
@@ -149,7 +149,7 @@ namespace Assembler
 
             // check to see if the operand of the END directive matches the program name
 
-            if (!(symb.ContainsSymbol(interLine.DirectiveOperand) && 
+            if (!(symb.ContainsSymbol(interLine.DirectiveOperand) &&
                 symb.GetSymbol(interLine.DirectiveOperand).usage == Usage.PRGMNAME))
             {
                 // error things
@@ -159,14 +159,30 @@ namespace Assembler
             Logger.Log("Finished parsing END directive.", "DirectiveParser");
         }
 
+		/**
+         * Parses the reset directive, ensuring that the reset operand is a number
+         * that is higher than any previously or currently used location counter.
+         *
+         * @param interLine the intermediate line to process
+         * @param symb symbol table reference
+         * 
+         * @refcode N/A
+         * @errtest N/A
+         * @errmsg N/A
+         * @author Mark
+         * @creation April 15, 2011
+         * @modlog
+         * @teststandard Andrew Buelow
+         * @codestandard Mark Mathis
+         */
         private static void ParseReset(ref IntermediateLine interLine, ref SymbolTable symb)
         {
             Logger.Log("Parsing RESET directive", "DirectiveParser");
 
             // the operand of the RESET directive must either be an equated label
             // or a literal number.
-            if ((symb.ContainsSymbol(interLine.DirectiveOperand) && 
-                symb.GetSymbol(interLine.DirectiveOperand).usage == Usage.EQUATED) || 
+            if ((symb.ContainsSymbol(interLine.DirectiveOperand) &&
+                symb.GetSymbol(interLine.DirectiveOperand).usage == Usage.EQUATED) ||
                 (interLine.DirectiveLitOperand == OperandParser.Literal.NUMBER))
             {
                 int curLC = Convert.ToInt32(Parser.LC, 16);
@@ -190,6 +206,22 @@ namespace Assembler
             Logger.Log("Finished parsing RESET directive", "DirectiveParser");
         }
 
+        /**
+         * Parses the equ directive, ensuring that the operand is a valid value for an
+         * equated symbol.
+         *
+         * @param interLine the intermediate line to process
+         * @param symb symbol table reference
+         * 
+         * @refcode N/A
+         * @errtest N/A
+         * @errmsg N/A
+         * @author Mark
+         * @creation April 15, 2011
+         * @modlog
+         * @teststandard Andrew Buelow
+         * @codestandard Mark Mathis
+         */
         private static void ParseEqu(ref IntermediateLine interLine, ref SymbolTable symb)
         {
             Logger.Log("Parsing EQU directive", "DirectiveParser");
@@ -197,6 +229,7 @@ namespace Assembler
             if (symb.ContainsSymbol(interLine.Label))
             {
                 Symbol equSym = symb.RemoveSymbol(interLine.Label);
+                equSym.lc = null;
                 if (interLine.DirectiveLitOperand == OperandParser.Literal.NUMBER)
                 {
                     // check that number is in bounds
@@ -212,13 +245,20 @@ namespace Assembler
                     }
                 }
                 else if (symb.ContainsSymbol(interLine.DirectiveOperand) &&
-                    equSym.usage == Usage.EQUATED)
+                    symb.GetSymbol(interLine.DirectiveOperand).usage == Usage.EQUATED)
                 {
                     // do stuff with the symbol
                     string symVal = symb.GetSymbol(interLine.DirectiveOperand).val;
                     OperandParser.ParseExpression(ref symVal, OperandParser.Expressions.Operator, ref symb);
                     equSym.usage = Usage.EQUATED;
                     equSym.val = symVal;
+                }
+                else if (interLine.DirectiveLitOperand == OperandParser.Literal.EXPRESSION)
+                {
+                    string oper = interLine.DirectiveOperand;
+                    OperandParser.ParseExpression(ref oper, OperandParser.Expressions.EQU, ref symb);
+                    equSym.usage = Usage.EQUATED;
+                    equSym.val = oper;
                 }
                 else
                 {
@@ -228,28 +268,61 @@ namespace Assembler
             }
             else
             {
-                
+
             }
 
             Logger.Log("Finished parsing EQU directive", "DirectiveParser");
         }
 
-        private static void ParseEque(ref string line, ref IntermediateLine interLine, ref SymbolTable symb)
+        /**
+         * Parses the eque directive, ensuring that the operand is a valid value for an
+         * equated symbol using extended expressions.
+         *
+         * @param interLine the intermediate line to process
+         * @param symb symbol table reference
+         * 
+         * @refcode N/A
+         * @errtest N/A
+         * @errmsg N/A
+         * @author Mark
+         * @creation April 17, 2011
+         * @modlog
+         * @teststandard Andrew Buelow
+         * @codestandard Mark Mathis
+         */
+        private static void ParseEque(ref IntermediateLine interLine, ref SymbolTable symb)
         {
             if ((symb.ContainsSymbol(interLine.DirectiveOperand) &&
                 symb.GetSymbol(interLine.DirectiveOperand).usage == Usage.EQUATED) ||
                 (interLine.DirectiveLitOperand == OperandParser.Literal.NUMBER))
             {
-                
+
             }
         }
 
+        /**
+         * Parses the entry directive, ensuring that the operand is a valid value
+         * for an equated symbol using extended expressions.
+         *
+         * @param interLine the intermediate line to process
+         * @param symb symbol table reference
+         * 
+         * @refcode N/A
+         * @errtest N/A
+         * @errmsg N/A
+         * @author Mark
+         * @creation April 17, 2011
+         * @modlog
+         * @teststandard Andrew Buelow
+         * @codestandard Mark Mathis
+         */
         private static void ParseEntry(ref IntermediateLine interLine, ref SymbolTable symb)
         {
             Logger.Log("Parsing ENTRY directive", "DirectiveParser");
 
-            
-            if (symb.ContainsSymbol(interLine.DirectiveOperand))
+
+            if (symb.ContainsSymbol(interLine.DirectiveOperand) &&
+                symb.GetSymbol(interLine.DirectiveOperand).usage != Usage.EQUATED)
             {
                 Symbol tempsym = symb.RemoveSymbol(interLine.DirectiveOperand);
                 tempsym.usage = Usage.ENTRY;
@@ -263,6 +336,21 @@ namespace Assembler
             Logger.Log("Finished parsing ENTRY directive", "DirectiveParser");
         }
 
+        /**
+         * Parses the extrn directive, ensuring that operand is correct.
+         *
+         * @param interLine the intermediate line to process
+         * @param symb symbol table reference
+         * 
+         * @refcode N/A
+         * @errtest N/A
+         * @errmsg N/A
+         * @author Mark
+         * @creation April 17, 2011
+         * @modlog
+         * @teststandard Andrew Buelow
+         * @codestandard Mark Mathis
+         */
         private static void ParseExtrn(ref IntermediateLine interLine, ref SymbolTable symb)
         {
             Logger.Log("Parsing EXTRN directive", "DirectiveParser");
@@ -279,6 +367,22 @@ namespace Assembler
             Logger.Log("Finished parsing EXTRN directive", "DirectiveParser");
         }
 
+        /**
+         * Parses the dat directive, ensuring that the operand has proper syntax
+         * and is correctly assigned to the current word of memory.
+         *
+         * @param interLine the intermediate line to process
+         * @param symb symbol table reference
+         * 
+         * @refcode N/A
+         * @errtest N/A
+         * @errmsg N/A
+         * @author Mark
+         * @creation April 18, 2011
+         * @modlog
+         * @teststandard Andrew Buelow
+         * @codestandard Mark Mathis
+         */
         private static void ParseDat(ref IntermediateLine interLine, ref SymbolTable symb)
         {
             Logger.Log("Parsing DAT directive", "DirectiveParser");
@@ -317,10 +421,43 @@ namespace Assembler
             Logger.Log("Finished parsing DAT directive", "DirectiveParser");
         }
 
+        /**
+         * Parses the adc directive, ensuring that the operand has proper
+         * syntax and type.
+         *
+         * @param interLine the intermediate line to process
+         * @param symb symbol table reference
+         * 
+         * @refcode N/A
+         * @errtest N/A
+         * @errmsg N/A
+         * @author Mark
+         * @creation April 18, 2011
+         * @modlog
+         * @teststandard Andrew Buelow
+         * @codestandard Mark Mathis
+         */
         private static void ParseAdc(ref IntermediateLine interLine, ref SymbolTable symb)
         {
             throw new NotImplementedException();
         }
+
+        /**
+         * Parses the adce directive, ensuring that the operand has proper
+         * syntax and type.
+         *
+         * @param interLine the intermediate line to process
+         * @param symb symbol table reference
+         * 
+         * @refcode N/A
+         * @errtest N/A
+         * @errmsg N/A
+         * @author Mark
+         * @creation April 18, 2011
+         * @modlog
+         * @teststandard Andrew Buelow
+         * @codestandard Mark Mathis
+         */
         private static void ParseAdce(ref IntermediateLine interLine, ref SymbolTable symb)
         {
             throw new NotImplementedException();
