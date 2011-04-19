@@ -207,15 +207,12 @@ namespace Assembler
                 // token should be either CLRD or CLRT
                 Tokenizer.GetNextToken(ref line, out token, out tokenKind);
 
-                if (token.ToUpper().Equals("CLRD") || token.ToUpper().Equals("CLRT"))
+                if (token.ToUpper() != "CLRD" && token.ToUpper() != "CLRT")
                 {
-                    interLine.OpFunction = token;
-                }
-                else
-                {
-                    interLine.OpFunction = "_ERROR";
                     interLine.OpOperand = "_ERROR";
                 }
+
+                interLine.OpFunction = token;
             }
             else
             {
