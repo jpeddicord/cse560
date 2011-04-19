@@ -409,6 +409,7 @@ namespace Assembler
                     // ensure there is an operand of type Number
                     if (this.OpLitOperand != OperandParser.Literal.NUMBER)
                     {
+                        // FIXME: bound-check
                         this.AddError(Errors.Category.Serious, 17);
                         this.NOPificate();
                         return;
@@ -438,6 +439,7 @@ namespace Assembler
                     }
                     // ensure that MOPER is taking a label
                     if (this.OpLitOperand == OperandParser.Literal.NONE)
+                    {
                         // again, the write flag is only set for character operations
                         if (this.OpOperand == "READC" || this.OpOperand == "WRITEC")
                         {
