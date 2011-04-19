@@ -76,31 +76,41 @@ namespace Assembler
             IntermediateLine interLine = new IntermediateLine(line, lineNum);
 
             // check for a label at the beginning of the line
-            if (line.Length > 0 && char.IsLetter(line[0]))
+            if (line.Trim().Length > 0)
             {
-                Logger.Log(String.Format("Line {0} has a label, parsing label", lineNum), "Parser");
-                Tokenizer.GetNextToken(ref line, out token, out tokenKind);
-                if (tokenKind == Tokenizer.TokenKinds.Label_Or_Command
-                    && (2 <= token.Length && token.Length <= 32))
+                if (char.IsLetter(line[0]))
                 {
-                    interLine.Label = token;
-                    if (symb.ContainsSymbol(token))
+                    Logger.Log(String.Format("Line {0} has a label, parsing label", lineNum), "Parser");
+                    Tokenizer.GetNextToken(ref line, out token, out tokenKind);
+                    if (tokenKind == Tokenizer.TokenKinds.Label_Or_Command
+                        && (2 <= token.Length && token.Length <= 32))
                     {
-                        if (symb.GetSymbol(token).usage != Usage.ENTRY)
+                        interLine.Label = token;
+                        if (symb.ContainsSymbol(token))
                         {
-                            // error: cannot redefine symbol
-                            interLine.AddError(Errors.Category.Warning, 4);
+                            if (symb.GetSymbol(token).usage != Usage.ENTRY)
+                            {
+                                // error: cannot redefine symbol
+                                interLine.AddError(Errors.Category.Warning, 4);
+                            }
+                        }
+                        else
+                        {
+                            // the symbol is not defined, define it
+                            symb.AddSymbol(token, LC, Usage.LABEL);
                         }
                     }
                     else
                     {
-                        // the symbol is not defined, define it
-                        symb.AddSymbol(token, LC, Usage.LABEL);
+                        interLine.Label = "_ERROR";
+                        interLine.AddError(Errors.Category.Serious, 2);
                     }
                 }
-                else
+                else if (!char.IsWhiteSpace(line[0]) && line[0] != ':')
                 {
+                    // invalid label start
                     interLine.Label = "_ERROR";
+                    interLine.AddError(Errors.Category.Serious, 2);
                 }
             }
 
@@ -128,13 +138,20 @@ namespace Assembler
                 }
                 else
                 {
+                    // bad category, but don't NOP
                     interLine.OpCategory = "_ERROR";
+                    interLine.AddError(Errors.Category.Serious, 1);
+                    return interLine;
                 }
             }
             else if (tokenKind == Tokenizer.TokenKinds.Comment)
             {
                 interLine.Comment = token;
                 return interLine;
+            }
+            else
+            {
+
             }
 
             // If there's anything else, get it. If there's anything there,
