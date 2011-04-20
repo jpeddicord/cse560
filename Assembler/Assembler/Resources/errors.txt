@@ -4,7 +4,6 @@ EF.03 LC is now larger than 1023.  Your program must use less than 1024 words of
 EF.04 Exceeding the maximum number of symbols.  You must use 50 or fewer labels.
 EF.05 Operand of END directive does not match program name. Assembler has been stopped.
 EF.06 START directive operand must be valid number from 0 to 1023. Assembler stopped.
-EF.07 dfasdfas
 ES.01 Unknown keyword in line; skipping to next line.
 ES.02 Invalid Label defined, label ignored. Labels must start with A-Z, a-z and must be between 2 and 32 characters. 0-9 can be used after the first character.
 ES.03 Function is invalid for instruction; line substituted with a NOP.
