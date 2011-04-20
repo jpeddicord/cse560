@@ -414,7 +414,7 @@ namespace Assembler
                         return;
                     }
                     // bounds-check
-                    int val = BinaryHelper.HexToInt(this.OpOperand, 8);
+                    int val = BinaryHelper.HexToInt(this.OpOperand, 10);
                     if (val < 0 || val > 255)
                     {
                         this.AddError(Errors.Category.Serious, 17);

@@ -178,7 +178,7 @@ namespace Assembler
          * @param errCode error id
          * @return the error message specified by EF.errCode
          * 
-         * @refcode N/A
+         * @refcode EF
          * @errtest
          *  The type of error returned
          * @errmsg
@@ -200,7 +200,7 @@ namespace Assembler
          * @param errCode error id
          * @return the error message specified by EF.errCode
          * 
-         * @refcode N/A
+         * @refcode ES
          * @errtest
          *  The type of error returned
          * @errmsg
@@ -222,7 +222,7 @@ namespace Assembler
          * @param errCode error id
          * @return the error message specified by EF.errCode
          * 
-         * @refcode N/A
+         * @refcode EW
          * @errtest
          *  The type of error returned
          * @errmsg

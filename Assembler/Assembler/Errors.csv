@@ -1,0 +1,5 @@
+instance,Errors,Errors,static,singleton instance of Errors
+errorList,Errors,Nested dictionary of category-integer-error,member,error storage
+errorCode,Errors constructor,string[],local,split error code for processing
+numCode,Errors constructor,int,local,numeric error code
+err,Errors constructor,Error,local,Error object to be added
