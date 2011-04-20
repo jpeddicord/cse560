@@ -321,17 +321,19 @@ namespace Assembler
                     success = false;
                 }
 
-                int finval = Convert.ToInt32(equSym.val,16);
-                if (!(0 <= finval && finval <= 1023))
-                {
-                    // the final value of the equ is out of bounds
-                    Logger.Log("ERROR: EW.22 encountered", "DirectiveParser");
-                    interLine.AddError(Errors.Category.Serious, 22);
-                    success = false;
-                }
-
                 if (success)
                 {
+                    // this needs to be checked here in case ParseExpression
+                    // finds an error
+                    int finval = Convert.ToInt32(equSym.val, 16);
+                    if (!(0 <= finval && finval <= 1023))
+                    {
+                        // the final value of the equ is out of bounds
+                        Logger.Log("ERROR: EW.22 encountered", "DirectiveParser");
+                        interLine.AddError(Errors.Category.Serious, 22);
+                        success = false;
+                    }
+
                     symb.AddSymbol(equSym);
                 }
             }

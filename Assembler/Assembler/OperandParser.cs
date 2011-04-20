@@ -58,7 +58,7 @@ namespace Assembler
 
         public enum Expressions
         {
-            Operator,
+            Operand,
             EQU,
             ADC
         }
@@ -336,7 +336,7 @@ namespace Assembler
                 // it can't always be that easy
                 switch (type)
                 {
-                    case OperandParser.Expressions.Operator:
+                    case OperandParser.Expressions.Operand:
                         {
 
                             char oprtr;
