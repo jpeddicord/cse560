@@ -43,7 +43,7 @@ Examples: ``CNTL CLRD``, ``CNTL CLRT``
    * - Opcode 2 bits
      - Function 3 bits
      - Literal Flag 1 bit
-	 - Memory address 10 bits
+     - Memory address 10 bits
 
 Examples: ``STACK PUSH``, ``STACK POP``, ``STACK TEST``
 
@@ -56,7 +56,7 @@ Examples: ``STACK PUSH``, ``STACK POP``, ``STACK TEST``
    * - Opcode 2 bits
      - Function 3 bits
      - Unused 1 bit
-	 - Memory address 10 bits
+     - Memory address 10 bits
 
 Examples: ``JUMP`` functions
 
@@ -69,8 +69,8 @@ Examples: ``JUMP`` functions
    * - Opcode 2 bits
      - Function 3 bits
      - Read/Write flag 1 bit
-	 - Unused 2 bits
-	 - Number 8 bits
+     - Unused 2 bits
+     - Number 8 bits
 
 Examples: ``SOPER`` functions
 
@@ -83,7 +83,7 @@ Examples: ``SOPER`` functions
    * - Opcode 2 bits
      - Function 3 bits
      - Read/Write flag 1 bit
-	 - Memory address 10 bits
+     - Memory address 10 bits
 
 Examples: ``MOPER`` functions
 
