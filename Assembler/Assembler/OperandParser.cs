@@ -300,11 +300,18 @@ namespace Assembler
 
                 char[] validOperators = { '+', '-' };
                 // if there are too many operators, give an error
-                List<string> operands = operand.Split(validOperators).ToList();
+                List<string> operands = operand.Split(validOperators, StringSplitOptions.RemoveEmptyEntries).ToList();
 
                 if (operands.Count - 1 > maxOperators)
                 {
                     // error, too many operators
+                    interLine.AddError(Errors.Category.Serious, 22);
+                    return false;
+                }
+                else if (operands.Count - 1 <= 0)
+                {
+                    // error, no operators
+                    interLine.AddError(Errors.Category.Serious, 23);
                     return false;
                 }
 
@@ -316,6 +323,14 @@ namespace Assembler
                 {
                     operators.Add(operand[pos]);
                     pos = operand.IndexOfAny(validOperators, pos + 1);
+                }
+
+                // check that we have the correct number of operands
+                if (operators.Count != operands.Count - 1)
+                {
+                    // wrong number of operators
+                    interLine.AddError(Errors.Category.Serious, 24);
+                    return false;
                 }
 
                 // it can't always be that easy
@@ -414,6 +429,9 @@ namespace Assembler
                             for (int i = 0; i < operands.Count; i++)
                             {
                                 string label = operands[i];
+                                Tokenizer.TokenKinds tokenkind;
+
+                                Tokenizer.GetTokenKind(label, out tokenkind);
 
                                 if (label == "*")
                                 {
@@ -446,6 +464,11 @@ namespace Assembler
                                         // error, can only use equated symbols or local references
                                         return false;
                                     }
+                                }
+                                else if (tokenkind == Tokenizer.TokenKinds.Number)
+                                {
+                                    // this needs to be caught, so the next else doesn't get
+                                    // tripped. but there's nothing to do here.
                                 }
                                 else
                                 {
