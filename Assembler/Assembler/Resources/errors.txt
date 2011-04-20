@@ -23,17 +23,23 @@ ES.15 Literal could not be parsed.
 ES.16 Operand is missing from instruction. Line replaced with NOP.
 ES.17 SOPER operands must be from 0-255. Line replaced with NOP.
 ES.18 Unexpected token encountered while processing line. Skipping to next line.
-ES.19 Star must be used once and be the first operand in the expression. Line ignored. Assembly continues.
+ES.19 If star is used, it must be used once and be the first operand in the expression. Line ignored. Assembly continues.
 ES.20 Symbol must be defined before it can be used. Line skipped, Assembly continues.
 ES.21 Invalid operand for EQU/EQUe. Line ignored, assembly continues.
 ES.22 Too many operators in expression. Ignoring line, assembly continues.
 ES.23 Expressions require at least one operator. Ignoring line, assembly continues.
 ES.24 Mismatched operators in expression. Ignoring line, assembly continues.
-ES.25 Reset directive requires a label, line ignored, location counter unchanged. ssembly continues.
-ES.26 Operand for EQU directive must be in the range 0 to 1023. Line ignored, ssembly continues.
-ES.27 EQU/EQUe expressions can only evaluate to a value of 0 - 1023. Line ignored, ssembly continues.
+ES.25 Reset directive requires a label, line ignored, location counter unchanged. assembly continues.
+ES.26 Operand for EQU directive must be in the range 0 to 1023. Line ignored, assembly continues.
+ES.27 Expression can only evaluate to a value of 0 to 1023. Line ignored, assembly continues.
+ES.28 Expression can only evaluate to a value of -32768 to 32767. Line ignored, assembly continues.
+ES.29 Operand Expression can only contain numbers and previously equated symbols. Line ignored, assembly continues.
+ES.30 Expressions can only use + and - operators. Line ignored, assembly continues.
+ES.31 Operand expressions must start with a star. Line ignored, assembly continues.
+ES.32 EQU/EQUe expressions can only use symbols that are local references or previously equated symbols. Line ignored, assembly continues.
 EW.01 Blank Line, line ignored and no message given.
 EW.02 Operand field for entry/extern is invalid, line ignored.
 EW.03 Instruction doesn't take an operand; operand ignored.
 EW.04 Attempted to define duplicate symbol, symbol ignored now. Assembly continues.
 EW.05 Directive had a label when none was expected. Ignoring label. Assembly continues.
+EW.06 Invalid input after the operand. Input after operand is ignored. Assembly continues.

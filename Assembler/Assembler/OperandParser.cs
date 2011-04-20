@@ -281,7 +281,30 @@ namespace Assembler
         }
 
         /**
-         * TODO
+         * Reads an expression and evaluates it as much as it can. If the parsing is
+         * successful, the operand variable is replaced with the most fully parsed 
+         * version of the expression possible.  If the expression cannot be parsed due
+         * to an error in the expression, thie function returns false and an error is
+         * added to the passed in IntermediateLine parameter.
+         * 
+         * @refcode EX1, EX2, EX3
+         * @errtest N/A
+         * @errmsg N/A
+         * @author Mark Mathis
+         * @creation April 18, 2011
+         * @modlog
+         *  - April 18, 2011 - Mark - Parses operand expressions (EX1).
+         * @teststandard Andrew Buelow
+         * @codestandard Mark Mathis
+         * 
+         * @param operand the expression to parse, will contain the outgoing value of the expression
+         * @param type the type of expression to be parsed
+         * @param interLine the intermediate line containing this expression
+         * @param symb the symbol table for this source code file
+         * @param maxOperators the maximum number of operators allowed in this type of expression
+         * 
+         * @return true if the expression is successfully parsed and evaluated.
+         *         false if an error is found.
          */
         public static bool ParseExpression(ref string operand,
                                            OperandParser.Expressions type,
@@ -328,7 +351,7 @@ namespace Assembler
                 // check that we have the correct number of operands
                 if (operators.Count != operands.Count - 1)
                 {
-                    // wrong number of operators
+                    // error, wrong number of operators
                     interLine.AddError(Errors.Category.Serious, 24);
                     return false;
                 }
@@ -365,20 +388,26 @@ namespace Assembler
                                     else
                                     {
                                         // error:label is too long
+                                        Logger.Log("ERROR: ES.2 encountered", "OperandParser");
+                                        interLine.AddError(Errors.Category.Serious, 2);
                                         return false;
                                     }
                                 }
                                 else if (valid == Tokenizer.TokenKinds.Number)
                                 {
-                                    if (!(0 < Convert.ToInt32(opr2) && Convert.ToInt32(opr2) < 1023))
+                                    if (!(0 <= Convert.ToInt32(opr2) && Convert.ToInt32(opr2) <= 1023))
                                     {
                                         // error, the number is out of bounds
+                                        Logger.Log("ERROR: ES.28 encountered", "OperandParser");
+                                        interLine.AddError(Errors.Category.Serious, 27);
                                         return false;
                                     }
                                 }
                                 else
                                 {
                                     //error, must be number or previously equated symbol
+                                    Logger.Log("ERROR: ES.29 encountered", "OperandParser");
+                                    interLine.AddError(Errors.Category.Serious, 27);
                                     return false;
                                 }
 
@@ -402,8 +431,10 @@ namespace Assembler
                                         default:
                                             {
                                                 // error invalid operator in expression
+                                                Logger.Log("ERROR: ES.30 encountered", "OperandParser");
+                                                interLine.AddError(Errors.Category.Serious, 30);
                                                 return false;
-                                            } break;
+                                            }
                                     }
 
                                     if (0 <= result && result <= 1023)
@@ -413,6 +444,8 @@ namespace Assembler
                                     else
                                     {
                                         // error: computation out of bounds
+                                        Logger.Log("ERROR: ES.27 encountered", "OperandParser");
+                                        interLine.AddError(Errors.Category.Serious, 27);
                                         return false;
                                     }
                                 }
@@ -420,6 +453,8 @@ namespace Assembler
                             else
                             {
                                 //error invalid operand expression
+                                Logger.Log("ERROR: ES.31 encountered", "OperandParser");
+                                interLine.AddError(Errors.Category.Serious, 31);
                                 return false;
                             }
                         } break;
@@ -462,6 +497,8 @@ namespace Assembler
                                     else
                                     {
                                         // error, can only use equated symbols or local references
+                                        Logger.Log("ERROR: ES.32 encountered", "OperandParser");
+                                        interLine.AddError(Errors.Category.Serious, 32);
                                         return false;
                                     }
                                 }
@@ -473,6 +510,7 @@ namespace Assembler
                                 else
                                 {
                                     // undefined symbol
+                                    Logger.Log("ERROR: ES.20 encountered", "OperandParser");
                                     interLine.AddError(Errors.Category.Serious, 20);
                                     return false;
                                 }
@@ -483,14 +521,15 @@ namespace Assembler
 
                             string possibleOperand = EvaluateExpression(new Stack<string>(operands), new Stack<char>(operators));
 
-                            if (0 <= BinaryHelper.HexToInt(possibleOperand, 10) &&
-                                     BinaryHelper.HexToInt(possibleOperand, 10) <= 1023)
+                            if (0 <= int.Parse(possibleOperand) && int.Parse(possibleOperand) <= 1023)
                             {
-                                operand = possibleOperand;
+                                operand = Convert.ToString(int.Parse(possibleOperand), 16);
                             }
                             else
                             {
                                 // error, calculation must be within the range of 0 to 1023
+                                Logger.Log("ERROR: ES.27 encountered", "OperandParser");
+                                interLine.AddError(Errors.Category.Serious, 27);
                                 return false;
                             }
                         } break;
@@ -510,6 +549,8 @@ namespace Assembler
                                     else
                                     {
                                         // error, star must be first operand
+                                        Logger.Log("ERROR: ES.19 encountered", "OperandParser");
+                                        interLine.AddError(Errors.Category.Serious, 19);
                                         return false;
                                     }
                                 }
@@ -589,7 +630,7 @@ namespace Assembler
                 }
                 operands.Push(op1);
             }
-            return Convert.ToString(int.Parse(operands.Pop()),16);
+            return operands.Pop().ToString();
         }
     }
 }

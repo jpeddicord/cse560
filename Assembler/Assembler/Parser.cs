@@ -165,6 +165,12 @@ namespace Assembler
             {
                 interLine.Comment = token;
             }
+            else if (tokenKind != Tokenizer.TokenKinds.Empty)
+            {
+                // error: invalid input after the operand
+                Logger.Log("ERROR: EW.6 encountered", "Parser");
+                interLine.AddError(Errors.Category.Warning, 6);
+            }
 
             // process this line if it's an instruction
             if (interLine.OpCategory != null)
