@@ -56,10 +56,24 @@ namespace Assembler
             C
         }
 
+        /**
+         * The possible types of expressions based on how they are being used.
+         */
         public enum Expressions
         {
+            /**
+             * Can be used in instructions.
+             */
             Operand,
+
+            /**
+             * Can be used in the EQU/EQUe directive.
+             */
             EQU,
+
+            /**
+             * Can be used in the ADC/ADCe directive.
+             */
             ADC
         }
 
@@ -72,8 +86,8 @@ namespace Assembler
          * @param bits number of bits to pad to, if applicable
          * @refcode
          * @errtest
-         * @errmsg
-         * @author Mark
+         * @errmsg ES.15
+         * @author Mark Mathis
          * @creation April 10, 2011
          * @modlog
          *  - April 18, 2011 - Jacob - Catch exceptions on parsing issues.
@@ -181,7 +195,6 @@ namespace Assembler
             outOper = inOper.Substring(2);
             litType = OperandParser.Literal.UNKNOWN;
 
-            // TODO: bound-check these based on the passed-in bits
             switch (inOper[0])
             {
                 case 'X':
@@ -289,11 +302,14 @@ namespace Assembler
          * 
          * @refcode EX1, EX2, EX3
          * @errtest N/A
-         * @errmsg N/A
+         * @errmsg ES.2, ES.19, ES.20, ES.22, ES.23, ES.24, ES.27, ES.30, ES.31, ES.32, ES.33
          * @author Mark Mathis
          * @creation April 18, 2011
          * @modlog
          *  - April 18, 2011 - Mark - Parses operand expressions (EX1).
+         *  - April 19, 2011 - Mark - Parses EQU expressions (EX2).
+         *  - April 19, 2011 - Mark - Parses ADC expressions (EX3).
+         *  - April 19, 2011 - Mark - Errors are caught and reported in all expressions.
          * @teststandard Andrew Buelow
          * @codestandard Mark Mathis
          * 
@@ -566,7 +582,9 @@ namespace Assembler
                                     {
                                         // error: symbols can only be external, local reference
                                         // in ADC/ADCe expressions
-                                        Logger.Log("ERROR: ES.2 encountered", "OperandParser");
+                                        Logger.Log("ERROR: ES.33 encountered", "OperandParser");
+                                        interLine.AddError(Errors.Category.Serious, 33);
+                                        return false;
                                     }
                                 }
                             }
@@ -609,6 +627,27 @@ namespace Assembler
             return true;
             }
 
+        /**
+         * Does basic math between two stacks, one with operands and one with operators.
+         * Allows arbitrarily long strings of expressions to be evaluated.
+         * To compute 5+4-8, the stacks would be passed in like so: < /br>
+         * operands: 5 4 8 < /br>
+         * operators: + -
+         * 
+         * @refcode N/A
+         * @errtest N/A
+         * @errmsg N/A
+         * @author Mark Mathis
+         * @creation April 19, 2011
+         * @modlog
+         * @teststandard Andrew Buelow
+         * @codestandard Mark Mathis
+         * 
+         * @param operands a stack with the leftmost operand at the top of the stack
+         * @param operators a stack with the leftmost operator at the top of the stack
+         * 
+         * @return returns the string version of the evaluated expression.
+         */
         static string EvaluateExpression(Stack<string> operands, Stack<char> operators)
         {
             while (operators.Count > 0)
