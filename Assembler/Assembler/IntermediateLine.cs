@@ -283,6 +283,7 @@ namespace Assembler
 
             // fetch equated symbols
             if (this.OpLitOperand == OperandParser.Literal.NONE &&
+                this.OpOperand != null &&
                 symb.ContainsSymbol(this.OpOperand) &&
                 symb.GetSymbol(this.OpOperand).usage == Usage.EQUATED)
             {
@@ -300,7 +301,6 @@ namespace Assembler
                 // invalid expression :(
                 if (!success)
                 {
-
                     this.NOPificate();
                     return;
                 }

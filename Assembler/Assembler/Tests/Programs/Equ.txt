@@ -3,8 +3,8 @@ apple  equ 12
 orange equ apple   : should be 12
        nop         : LC 0
        nop         : LC 1
-bacon  equ *+1     : should be 2
-lime   equ *+apple : should be 13
+bacon  equ *+1     : should be 3
+lime   equ *+apple : should be 15
        stack push,*+1  : push the data on the next line
-       dat apple
+       dat C=':)'
        end prg
