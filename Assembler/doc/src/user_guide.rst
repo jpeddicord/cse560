@@ -93,12 +93,12 @@ The ``output`` file, then, would contain::
         Directive Operand: 0                (Literal: NUMBER)
     -----
          STACK PUSH,AB    :place AB on stack  0  2005   r		
-        Line: 2                             LC: 0			  |
-        Label:								  |	Each line is displayed followed by a summary of how the parser
-        Partial Bytecode: 0010100000000000				  |	decomposed the line. Partial bytecode will be created from the
-        Category: STACK                     Function: PUSH		  | information it is able to gather in pass 1. If any errors are
-        Operand: AB                         (Literal: NONE)		  | found, they will be displayed at the end of the block with an
-        Comment: :place AB on stack  0  2005   r			  | error reference number and description.
+        Line: 2                             LC: 0			 
+        Label:								| Each line is displayed followed by a summary of how the parser
+        Partial Bytecode: 0010100000000000				| decomposed the line. Partial bytecode will be created from the
+        Category: STACK                     Function: PUSH		| information it is able to gather in pass 1. If any errors are
+        Operand: AB                         (Literal: NONE)		| found, they will be displayed at the end of the block with an
+        Comment: :place AB on stack  0  2005   r			| error reference number and description.
     -----														
          STACK PUSH,CD    :place CD on stack  1  2006   r
         Line: 3                             LC: 1
@@ -166,10 +166,10 @@ The ``output`` file, then, would contain::
     -----
 
     ---- SYMBOL TABLE ----										
-                                  AB: 0x5      LABEL			  | The symbol table will be sorted and displayed at
-                                  CD: 0x6      LABEL			  | the bottom of the report. This contains the symbol name
-                                 PGC:          PRGMNAME	 		  | followed by the location counter, then the usage of the
-                                 RES: 0x7      LABEL 			  | symbol and last the string value if it is an equated symbol.
+                                  AB: 0x5      LABEL			| The symbol table will be sorted and displayed at
+                                  CD: 0x6      LABEL			| the bottom of the report. This contains the symbol name
+                                 PGC:          PRGMNAME	 		| followed by the location counter, then the usage of the
+                                 RES: 0x7      LABEL 			| symbol and last the string value if it is an equated symbol.
 																
 
 Following the format above, this output contains each individual line and details, followed by the symbol table containing 4 symbols. No errors were found.
