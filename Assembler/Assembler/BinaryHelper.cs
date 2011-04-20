@@ -37,6 +37,7 @@ namespace Assembler
          * @creation April 10, 2011
          * @modlog
          *  - April 14, 2011 - Andrew - Altered so that it will also accept values between 0 and 2^(digits - 1) which will simply give back the same number.
+         *  - April 20, 2011 - Jacob  - Changed to a 32-bit restriction instead of 16.
          * @teststandard Andrew Buelow
          * @codestandard Mark Mathis
          */
@@ -46,7 +47,7 @@ namespace Assembler
             int convertedNum = 0;
 
             // Used to enforce digit number restrictions which are a result of integer size.
-            if (17 > digits && digits > 1)
+            if (32 >= digits && digits > 1)
             {
                 // Stores the point at which a number would become a negative number in two's complement.
                 int limit = (int)(Math.Pow(2, digits - 1));

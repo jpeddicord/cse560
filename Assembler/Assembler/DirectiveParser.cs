@@ -16,10 +16,12 @@ namespace Assembler
          * @param line current line to parse
          * @param interLine the line as a single line in the intermediate file
          * @param symb symbol table reference
-         * @refcode N/A
-         * @errtest N/A
-         * @errmsg N/A
-         * @author Mark
+         * @refcode DS2
+         * @errtest
+         *  N/A
+         * @errmsg
+         *  N/A
+         * @author Mark Mathis
          * @creation April 9, 2011
          * @modlog
          *  - April  9, 2011 -  Mark - ParseDirective properly parses directives.
@@ -102,10 +104,12 @@ namespace Assembler
          * @param interLine the intermediate line to process
          * @param symb symbol table reference
          *
-         * @refcode N/A
-         * @errtest N/A
-         * @errmsg N/A
-         * @author Mark
+         * @refcode D1
+         * @errtest
+         *  N/A
+         * @errmsg
+         *  N/A
+         * @author Mark Mathis
          * @creation April 9, 2011
          * @modlog
          *  - April  9, 2011 - Mark - Parses the START directive, correctly setting the LC.
@@ -167,10 +171,12 @@ namespace Assembler
          * @param interLine the intermediate line to process
          * @param symb symbol table reference
          *
-         * @refcode N/A
-         * @errtest N/A
-         * @errmsg N/A
-         * @author Mark
+         * @refcode D7
+         * @errtest
+         *  N/A
+         * @errmsg
+         *  N/A
+         * @author Mark Mathis
          * @creation April 9, 2011
          * @modlog
          *  - April  9, 2011 - Mark - Not sure if needed.
@@ -208,10 +214,12 @@ namespace Assembler
          * @param interLine the intermediate line to process
          * @param symb symbol table reference
          * 
-         * @refcode N/A
-         * @errtest N/A
-         * @errmsg N/A
-         * @author Mark
+         * @refcode D2
+         * @errtest
+         *  N/A
+         * @errmsg
+         *  N/A
+         * @author Mark Mathis
          * @creation April 15, 2011
          * @modlog
          * @teststandard Andrew Buelow
@@ -262,11 +270,14 @@ namespace Assembler
          *
          * @param interLine the intermediate line to process
          * @param symb symbol table reference
+         * @param maxOp maximum number of operations to process
          * 
-         * @refcode N/A
-         * @errtest N/A
-         * @errmsg N/A
-         * @author Mark
+         * @refcode D3
+         * @errtest
+         *  N/A
+         * @errmsg
+         *  N/A
+         * @author Mark Mathis
          * @creation April 15, 2011
          * @modlog
          * @teststandard Andrew Buelow
@@ -348,10 +359,12 @@ namespace Assembler
          * @param interLine the intermediate line to process
          * @param symb symbol table reference
          * 
-         * @refcode N/A
-         * @errtest N/A
-         * @errmsg N/A
-         * @author Mark
+         * @refcode D4
+         * @errtest
+         *  N/A
+         * @errmsg
+         *  N/A
+         * @author Mark Mathis
          * @creation April 17, 2011
          * @modlog
          * @teststandard Andrew Buelow
@@ -369,10 +382,12 @@ namespace Assembler
          * @param interLine the intermediate line to process
          * @param symb symbol table reference
          * 
-         * @refcode N/A
-         * @errtest N/A
-         * @errmsg N/A
-         * @author Mark
+         * @refcode D5
+         * @errtest
+         *  N/A
+         * @errmsg
+         *  N/A
+         * @author Mark Mathis
          * @creation April 17, 2011
          * @modlog
          * @teststandard Andrew Buelow
@@ -410,10 +425,12 @@ namespace Assembler
          * @param interLine the intermediate line to process
          * @param symb symbol table reference
          * 
-         * @refcode N/A
-         * @errtest N/A
-         * @errmsg N/A
-         * @author Mark
+         * @refcode D6
+         * @errtest
+         *  N/A
+         * @errmsg
+         *  N/A
+         * @author Mark Mathis
          * @creation April 17, 2011
          * @modlog
          * @teststandard Andrew Buelow
@@ -444,10 +461,12 @@ namespace Assembler
          * @param interLine the intermediate line to process
          * @param symb symbol table reference
          * 
-         * @refcode N/A
-         * @errtest N/A
-         * @errmsg N/A
-         * @author Mark
+         * @refcode D8
+         * @errtest
+         *  N/A
+         * @errmsg
+         *  N/A
+         * @author Mark Mathis
          * @creation April 18, 2011
          * @modlog
          *  - April 19, 2011 - Jacob - Fixed padding on values.
@@ -504,11 +523,14 @@ namespace Assembler
          *
          * @param interLine the intermediate line to process
          * @param symb symbol table reference
+         * @param maxOp maximum number of operations to process
          * 
-         * @refcode N/A
-         * @errtest N/A
-         * @errmsg N/A
-         * @author Mark
+         * @refcode D8
+         * @errtest
+         *  N/A
+         * @errmsg
+         *  N/A
+         * @author Mark Mathis
          * @creation April 18, 2011
          * @modlog
          * @teststandard Andrew Buelow
@@ -544,10 +566,12 @@ namespace Assembler
          * @param interLine the intermediate line to process
          * @param symb symbol table reference
          * 
-         * @refcode N/A
-         * @errtest N/A
-         * @errmsg N/A
-         * @author Mark
+         * @refcode D9
+         * @errtest
+         *  N/A
+         * @errmsg
+         *  N/A
+         * @author Mark Mathis
          * @creation April 18, 2011
          * @modlog
          * @teststandard Andrew Buelow
