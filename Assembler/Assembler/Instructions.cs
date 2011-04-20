@@ -15,7 +15,7 @@ namespace Assembler
     }
 
     /**
-     * Contains instructions and their opcodes. Documentation needs to be written.
+     * Contains instructions and their opcodes.
      */
     public class Instructions
     {
@@ -45,7 +45,7 @@ namespace Assembler
          *  Invalid file formats
          * @errmsg
          *  Runtime errors about invalid indexes
-         * @author Jacob
+         * @author Jacob Peddicord
          * @creation April 7, 2011
          * @modlog
          *  - April  8, 2011 - Jacob - Load from Resource instead of a stream
@@ -74,14 +74,17 @@ namespace Assembler
          * Get the singleton instance of Instructions.
          *
          * @return the Instructions instance
+         *
          * @refcode N/A
          * @errtest
+         *  N/A
          * @errmsg
-         * @author Jacob
+         *  N/A
+         * @author Jacob Peddicord
          * @creation April 8, 2011
          * @modlog
-         * @codestandard Mark
-         * @teststandard Andrew
+         * @codestandard Mark Mathis
+         * @teststandard Andrew Buelow
          */
         public static Instructions GetInstance()
         {
@@ -99,14 +102,17 @@ namespace Assembler
          * @param instrGroup instruction group to check
          * @param function function name in group to check
          * @return whether the function is valid in the given group
-         * @refcode
+         *
+         * @refcode OP
          * @errtest
+         *  Various cases of instruction/group combinations
          * @errmsg
-         * @author Jacob
+         *  None
+         * @author Jacob Peddicord
          * @creation April 9, 2011
          * @modlog
-         * @codestandard Mark
-         * @teststandard Andrew
+         * @codestandard Mark Mathis
+         * @teststandard Andrew Buelow
          */
         public bool IsInstruction(string instrGroup, string function)
         {
@@ -118,18 +124,21 @@ namespace Assembler
         }
 
         /**
-         * Check to see if an instruction group exists
+         * Check to see if an instruction group exists.
          *
          * @param instrGroup instruction group to check
          * @return whether the group exists
-         * @refcode
+         *
+         * @refcode OP
          * @errtest
+         *  Different instruction groups
          * @errmsg
-         * @author Jacob
+         *  None
+         * @author Jacob Peddicord
          * @creation April 9, 2011
          * @modlog
-         * @codestandard Mark
-         * @teststandard Andrew
+         * @codestandard Mark Mathis
+         * @teststandard Andrew Buelow
          */
         public bool IsGroup(string instrGroup)
         {
@@ -147,15 +156,18 @@ namespace Assembler
          * @param instrGroup Instruction group of function
          * @param function Function of group to get bytecode for
          * @return string of five '0' and '1' characters
-         * @refcode
+         *
+         * @refcode OP
          * @errtest
+         *  Bytecode of several operations
          * @errmsg
-         * @author Jacob
+         *  None
+         * @author Jacob Peddicord
          * @creation April 7, 2011
          * @modlog
          *  - April 8, 2011 - Jacob - throw proper exceptions on invalid group/function pairs
-         * @codestandard Mark
-         * @teststandard Andrew
+         * @codestandard Mark Mathis
+         * @teststandard Andrew Buelow
          */
         public string GetBytecodeString(string instrGroup, string function)
         {

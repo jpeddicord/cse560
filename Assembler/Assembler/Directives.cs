@@ -89,7 +89,7 @@ namespace Assembler
          *  Directives can be found regardless of the case they are in.
          *  Only returns true for directives that are in the source file.
          * @errmsg
-         *  N/A
+         *  None
          * @author Mark Mathis
          * @creation April 8, 2011
          * @modlog

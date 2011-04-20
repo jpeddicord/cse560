@@ -1,6 +1,2 @@
-"instance","Instructions","Instructions object","member","stores a singleton instance of Instructions"
-"instructions","Instructions","Nested dictionary of string-string","member","instruction to bitcode map"
-"line","Instructions constructor","string","local","current line being processed"
-"parts","Instructions constructor","string array","local","current line split by spaces"
-"instrGroup","Instructions.GetBytecodeString","string","parameter","instruction group as a string"
-"function","Instructions.GetBytecodeString","string","parameter","function name"
+instance,Instructions,Instructions object,static,stores a singleton instance of Instructions
+instructions,Instructions,Nested dictionary of string-string,member,instruction to bitcode map
