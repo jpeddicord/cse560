@@ -165,12 +165,6 @@ namespace Assembler
             {
                 interLine.Comment = token;
             }
-            else
-            {
-                // garbage data
-                interLine.AddError(Errors.Category.Serious, 18);
-                return interLine;
-            }
 
             // process this line if it's an instruction
             if (interLine.OpCategory != null)
