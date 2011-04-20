@@ -302,20 +302,27 @@ namespace Assembler
                 System.Environment.Exit(1);
             }
 
-
+            interSource = new IntermediateFile();
             symb = new SymbolTable();
 
             // first line is expected to hold the start directive
             IntermediateLine line = ParseLine(sourceCode[0], 1, ref symb);
-
-            interSource = new IntermediateFile();
             interSource.AddLine(line);
+            if (line.Directive.ToUpper() != "START")
+            {
+                // file must start with a valid start directive
+                line.AddError(Errors.Category.Fatal, 2);
+                return;
+            }
+            else if (HasFatalError(line))
+            {
+                return;
+            }
+
 
             // iterate the lines of the file
             for (short i = 2; i <= sourceCode.Length; i++)
             {
-                bool hasFatal = false;
-
                 // parse a line and create an intermediate version
                 line = ParseLine(sourceCode[i - 1], i, ref symb);
 
@@ -330,21 +337,46 @@ namespace Assembler
                 interSource.AddLine(line);
 
                 // check for fatal errors
-                List<Errors.Error> errors = line.GetThreeErrors();
-
-                foreach (Errors.Error e in errors)
-                {
-                    if (e.category == Errors.Category.Fatal)
-                    {
-                        hasFatal = true;
-                        break;
-                    }
-                }
-                if (hasFatal)
+                if (HasFatalError(line))
                 {
                     break;
                 }
             }
+        }
+
+        /**
+         * Checks the specified IntermediateLine to see if it has a fatal error.
+         * This is used to determine whether or not the assembly should continue
+         * after a line has been parsed.
+         * 
+         * @refcode N/A
+         * @errtest N/A
+         * @errmsg N/A
+         * @author Mark
+         * @creation April 19, 2011
+         * @modlog
+         * @teststandard Andrew Buelow
+         * @codestandard Mark Mathis
+         * 
+         * @param line the line to check for a fatal error
+         * 
+         * @return true if the indicated line has a fatal error, false otherwise
+         */
+        private bool HasFatalError(IntermediateLine line)
+        {
+            // check for fatal errors
+            List<Errors.Error> errors = line.GetThreeErrors();
+            bool hasFatal = false;
+
+            foreach (Errors.Error e in errors)
+            {
+                if (e.category == Errors.Category.Fatal)
+                {
+                    hasFatal = true;
+                    break;
+                }
+            }
+            return hasFatal;
         }
     }
 }

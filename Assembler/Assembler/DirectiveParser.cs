@@ -132,7 +132,13 @@ namespace Assembler
                 }
                 else
                 {
-                    // the operand could not be parsed as a number
+                    /*
+                     * The operand could not be parsed as a number.
+                     * This is here as well as below just in case the 
+                     * Tokenizer has a hiccough and says that something
+                     * that is not a number is a number.
+                     */
+                    Logger.Log("ERROR: EF.06 encountered", "DirectiveParser");
                     interLine.AddError(Errors.Category.Fatal, 6);
                     return;
                 }
@@ -145,6 +151,8 @@ namespace Assembler
             }
             else
             {
+                // the operand could not be parsed as a number
+                Logger.Log("ERROR: EF.06 encountered", "DirectiveParser");
                 interLine.AddError(Errors.Category.Fatal, 6);
                 return;
             }
@@ -173,6 +181,13 @@ namespace Assembler
         private static void ParseEnd(ref IntermediateLine interLine, ref SymbolTable symb)
         {
             Logger.Log("Parsing END directive", "DirectiveParser");
+            
+            // check to see if this line has a label
+            if (interLine.Label != null)
+            {
+                // the end directive should not have a label
+                interLine.AddError(Errors.Category.Warning, 5);
+            }
 
             // check to see if the operand of the END directive matches the program name
 
@@ -278,6 +293,9 @@ namespace Assembler
                     else
                     {
                         // error: out of bounds
+                        Logger.Log("ERROR: ES.26 encountered", "DirectiveParser");
+                        interLine.AddError(Errors.Category.Serious, 26);
+                        success = false;
                     }
                 }
                 else if (symb.ContainsSymbol(interLine.DirectiveOperand) &&
@@ -298,9 +316,20 @@ namespace Assembler
                 else
                 {
                     // error: invalid operand for equ
-                    success = false;
+                    Logger.Log("ERROR: EW.21 encountered", "DirectiveParser");
                     interLine.AddError(Errors.Category.Serious, 21);
+                    success = false;
                 }
+
+                int finval = Convert.ToInt32(equSym.val,16);
+                if (!(0 <= finval && finval <= 1023))
+                {
+                    // the final value of the equ is out of bounds
+                    Logger.Log("ERROR: EW.22 encountered", "DirectiveParser");
+                    interLine.AddError(Errors.Category.Serious, 22);
+                    success = false;
+                }
+
                 if (success)
                 {
                     symb.AddSymbol(equSym);
@@ -351,7 +380,13 @@ namespace Assembler
         {
             Logger.Log("Parsing ENTRY directive", "DirectiveParser");
 
-
+            // check for a label
+            if (interLine.Label != null)
+            {
+                // entry doesn't expect a label
+                Logger.Log("ERROR: EW.05 encountered", "DirectiveParser");
+                interLine.AddError(Errors.Category.Warning, 5);
+            }
             if (symb.ContainsSymbol(interLine.DirectiveOperand) &&
                 symb.GetSymbol(interLine.DirectiveOperand).usage != Usage.EQUATED)
             {
@@ -392,6 +427,8 @@ namespace Assembler
             }
             else
             {
+                // cannot used variables defined in this program
+                Logger.Log("ERROR: ES.13 encountered", "DirectiveParser");
                 interLine.AddError(Errors.Category.Serious, 13);
             }
 
@@ -443,16 +480,18 @@ namespace Assembler
 
                 // assumed to be in correct representation; always pad to the left
                 interLine.Bytecode = val.PadLeft(16, '0');
-
-                interLine.ProgramCounter = Parser.LC;
-                Parser.IncrementLocationCounter();
             }
             else
             {
                 // error: invalid operand type
+                Logger.Log("ERROR: ES.14 encountered", "DirectiveParser");
                 interLine.AddError(Errors.Category.Serious, 14);
                 interLine.NOPificate();
             }
+
+            // this should need to happen no matter what
+            interLine.ProgramCounter = Parser.LC;
+            Parser.IncrementLocationCounter();
 
             Logger.Log("Finished parsing DAT directive", "DirectiveParser");
         }

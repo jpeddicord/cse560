@@ -18,7 +18,7 @@ ES.10 RESET directive must take a previously equated symbol or a number. Reset i
 ES.11 CNTL DUMP may only take an operand of 1, 2, or 3.
 ES.12 CNTL HALT may only take an exit code of 0-1023.
 ES.13 External variables must be defined outside of this program.
-ES.14 Dat directive must have a literal operand, i.e. I=, B=. Line replaced with NOP.
+ES.14 Dat directive must have a literal operand, i.e. I=, B=. Line replaced with NOP. Assembly continues.
 ES.15 Literal could not be parsed.
 ES.16 Operand is missing from instruction. Line replaced with NOP.
 ES.17 SOPER operands must be from 0-255. Line replaced with NOP.
@@ -29,7 +29,9 @@ ES.21 Invalid operand for EQU/EQUe. Line ignored, assembly continues.
 ES.22 Too many operators in expression. Ignoring line, assembly continues.
 ES.23 Expressions require at least one operator. Ignoring line, assembly continues.
 ES.24 Mismatched operators in expression. Ignoring line, assembly continues.
-ES.25 Reset directive requires a label, line ignored, location counter unchanged. Assembly continues.
+ES.25 Reset directive requires a label, line ignored, location counter unchanged. ssembly continues.
+ES.26 Operand for EQU directive must be in the range 0 to 1023. Line ignored, ssembly continues.
+ES.27 EQU/EQUe expressions can only evaluate to a value of 0 - 1023. Line ignored, ssembly continues.
 EW.01 Blank Line, line ignored and no message given.
 EW.02 Operand field for entry/extern is invalid, line ignored.
 EW.03 Instruction doesn't take an operand; operand ignored.
