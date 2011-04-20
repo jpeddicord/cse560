@@ -30,15 +30,17 @@ namespace Assembler
         /**
          * A private constructor that fills the list with the directives.
          * 
-         * @refcode N/A
-         * @errtest N/A
-         * @errmsg N/A
-         * @author Mark
+         * @refcode D1 - D10
+         * @errtest
+         *  All directives are properly pulled out of the source text file.
+         * @errmsg
+         *  None
+         * @author Mark Mathis
          * @creation April 8, 2011
          * @modlog
          *  - April 12, 2011 - Mark - Directives that are pulled from the file are now trimmed.
-         * @codestandard Mark
-         * @codestandard Andrew
+         * @codestandard Mark Mathis
+         * @codestandard Andrew Buelow
          */
         private Directives()
         {
@@ -57,13 +59,14 @@ namespace Assembler
          * 
          * @refcode N/A
          * @errtest 
-         *          All directives are properly pulled out of the source text file.
-         * @errmsg N/A
-         * @author Mark
+         *  N/A
+         * @errmsg
+         *  N/A
+         * @author Mark Mathis
          * @creation April 8, 2011
          * @modlog
-         * @codestandard Mark
-         * @codestandard Andrew
+         * @codestandard Mark Mathis
+         * @codestandard Andrew Buelow
          */
         public static Directives GetInstance()
         {
@@ -77,19 +80,21 @@ namespace Assembler
 
         /**
          * Returns true if dir is contained in the list of directives. False, otherwise.
-         * 
-         * @refcode N/A
+         *
+         * @param dir The directive to check for.
+         * @return true if dir is a directive, false otherwise
+         *
+         * @refcode D1 - D10
          * @errtest 
-         *          Directives can be found regardless of the case they are in.  Only returns true for directives that are in the source file.
-         * @errmsg N/A
-         * @author Mark
+         *  Directives can be found regardless of the case they are in.
+         *  Only returns true for directives that are in the source file.
+         * @errmsg
+         *  N/A
+         * @author Mark Mathis
          * @creation April 8, 2011
          * @modlog
-         * @codestandard Mark
-         * @codestandard Andrew
-         * @param dir The directive to check for.
-         * @return true if dir is a directive <br />
-         *         false if dir is not a directive
+         * @codestandard Mark Mathis
+         * @codestandard Andrew Buelow
          */
         public bool Contains(string dir)
         {

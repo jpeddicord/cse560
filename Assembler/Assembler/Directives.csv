@@ -1,2 +1,2 @@
-"instance","Directives","Directives","member","The only instance of this class allowed."
-"directiveList","Directives","ArrayList","member","Holds the list of directives available."
+instance,Directives,Directives,static,The only instance of this class allowed.
+directiveList,Directives,ArrayList,static,Holds the list of directives available.
