@@ -130,7 +130,7 @@ namespace Assembler
                         tokenKind = TokenKinds.Literal;
 
                         // remove the token from the line
-                        line = line.Substring((token.Length - 1));
+                        line = line.Substring(token.Length);
                     }
                     else
                     {
