@@ -4,8 +4,9 @@ How to run the Assembler
 1) Moving the files
 ```````````````````
 
-If you are running this program from a CD your files should already be unzipped.  For
-convenience you may want to move your files off of the CD and on to your computer. Insert
+If you are running this program from a CD your files should already be unzipped.  You will need to
+move your files off of the CD and on to your computer.  Running it from the CD will cause issues
+when the application attempts to write a log file to the disc. Insert
 your CD and open it so you are able to view all files on the CD. You should see two items:
 
 * A folder named c560aa05.sp1.ontime - This contains all of the content for our project including source files and documentation.

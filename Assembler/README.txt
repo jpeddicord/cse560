@@ -12,7 +12,7 @@ Please see the How To online or in doc/html/index.html for more information.
 Getting Started
 ---------------
 
-To get started, you may want to copy files from this disc or archive to a local folder.
+To get started, you should copy files from this disc or archive to a local folder.
 For information, please see the full Getting Started guide in doc/html/index.html or online
 at files.codechunk.net/560-doc/html.
 
@@ -22,24 +22,24 @@ Contents
 This disc contains:
 
 * the executable for the FFA Assembler as well as all C# (.cs) files required to build it.
-		Assembler/Assembler.exe and Assembler/Assembler
+		Assembler.exe and Assembler/
 
 * resource files used by the application (primarily to read in instructions, directives and
 errors).
-		Assembler/Assembler/Resources/
+		Assembler/Resources/
 
 * log folder to hold log files generated during runtime.
-		Assembler/Assembler/bin/Debug/Log/
+		Assembler/bin/Debug/Log/
 
 * CSV files used to generate DED or online documentation.
-		Assembler/Assembler/
+		Assembler/
 
 * documentation including a link to the online documentation, all html files, and the
 sources used to generate it.
-		Assembler/doc/
+		doc/
 
 * C# files containing NUnit test cases and test programs used.
-		Assembler/Assembler/Tests/ and Assembler/Assembler/Tests/Programs
+		Assembler/Tests/ and Assembler/Tests/Programs
 
 Credits
 -------
