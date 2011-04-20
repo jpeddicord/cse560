@@ -84,7 +84,7 @@ namespace Assembler
          * @param interLine the intermediate line object to fill
          * @param symb symbol table reference
          * @param bits number of bits to pad to, if applicable
-         * @refcode
+         * @refcode S2.4
          * @errtest
          * @errmsg ES.15
          * @author Mark Mathis
@@ -170,7 +170,7 @@ namespace Assembler
          *                  will be in hexadecimal
          * @param litType the type of the operand, that is, X, B, etc.
          * @param bits the bit length to store as in hex
-         * @refcode N/A
+         * @refcode S2.4.2
          * @errtest N/A
          * @errmsg N/A
          * @author Mark
@@ -263,7 +263,7 @@ namespace Assembler
         /**
          * Checks to see if the instruction's operand field has valid syntax.
          * 
-         * @refcode N/A
+         * @refcode S2.4.0
          * @errtest N/A
          * @errmsg N/A
          * @author Mark

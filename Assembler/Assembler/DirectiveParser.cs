@@ -28,6 +28,7 @@ namespace Assembler
          *  - April  9, 2011 -  Mark - Uses new ParseLiteralOperand format.
          *  - April 12, 2011 - Jacob - Factor out operand parsing.
          *  - April 14, 2011 -  Mark - Moved into DirectiveParser class.
+         *  - April 15, 2011 -  Mark - Factored out all parsing into separate methods.
          * @teststandard Andrew Buelow
          * @codestandard Mark Mathis
          */
@@ -107,13 +108,14 @@ namespace Assembler
          * @refcode D1
          * @errtest
          *  N/A
-         * @errmsg
-         *  N/A
+         * @errmsg EF.06
          * @author Mark Mathis
          * @creation April 9, 2011
          * @modlog
          *  - April  9, 2011 - Mark - Parses the START directive, correctly setting the LC.
          *  - April 14, 2011 - Mark - Moved into DirectiveParser class.
+         *  - April 17, 2011 - Mark - Catches errors in the start directive.
+         *  - April 19, 2011 - Mark - Reports errors.
          * @teststandard Andrew Buelow
          * @codestandard Mark Mathis
          */
@@ -174,13 +176,14 @@ namespace Assembler
          * @refcode D7
          * @errtest
          *  N/A
-         * @errmsg
-         *  N/A
+         * @errmsg EF.05, EW.05
          * @author Mark Mathis
          * @creation April 9, 2011
          * @modlog
          *  - April  9, 2011 - Mark - Not sure if needed.
          *  - April 14, 2011 - Mark - Moved into DirectiveParser class.
+         *  - April 17, 2011 - Mark - Actually checks that the operand is correct.
+         *  - April 19, 2011 - Mark - Reports errors.
          * @teststandard Andrew Buelow
          * @codestandard Mark Mathis
          */
@@ -217,11 +220,12 @@ namespace Assembler
          * @refcode D2
          * @errtest
          *  N/A
-         * @errmsg
-         *  N/A
+         * @errmsg ES.08, ES.10, ES.25
          * @author Mark Mathis
          * @creation April 15, 2011
          * @modlog
+         * - April 17, 2011 - Mark - Changes the location counter to the operand value.
+         * - April 17, 2011 - Mark - Checks that the operand value is valid.
          * @teststandard Andrew Buelow
          * @codestandard Mark Mathis
          */
@@ -246,18 +250,21 @@ namespace Assembler
                     else
                     {
                         // error, attempt to use a previously used LC value
+                        Logger.Log("ERROR: ES.08 encountered.", "DirectiveParser");
                         interLine.AddError(Errors.Category.Serious, 8);
                     }
                 }
                 else
                 {
                     // error invalid value
+                    Logger.Log("ERROR: ES.10 encountered.", "DirectiveParser");
                     interLine.AddError(Errors.Category.Serious, 10);
                 }
             }
             else
             {
                 // error, label is required for reset directive
+                Logger.Log("ERROR: ES.25 encountered.", "DirectiveParser");
                 interLine.AddError(Errors.Category.Serious,25);
             }
 
@@ -275,8 +282,7 @@ namespace Assembler
          * @refcode D3
          * @errtest
          *  N/A
-         * @errmsg
-         *  N/A
+         * @errmsg ES.21, ES.22, ES.26
          * @author Mark Mathis
          * @creation April 15, 2011
          * @modlog
@@ -372,6 +378,8 @@ namespace Assembler
          */
         private static void ParseEque(ref IntermediateLine interLine, ref SymbolTable symb)
         {
+            // The expressions will be exactly the same for EQUe as
+            // it will for EQU, EQUe can just have longer expressions
             ParseEqu(ref interLine, ref symb, 3);
         }
 
@@ -385,8 +393,7 @@ namespace Assembler
          * @refcode D5
          * @errtest
          *  N/A
-         * @errmsg
-         *  N/A
+         * @errmsg EW.05
          * @author Mark Mathis
          * @creation April 17, 2011
          * @modlog
@@ -428,8 +435,7 @@ namespace Assembler
          * @refcode D6
          * @errtest
          *  N/A
-         * @errmsg
-         *  N/A
+         * @errmsg ES.13, EW.05
          * @author Mark Mathis
          * @creation April 17, 2011
          * @modlog
@@ -439,6 +445,14 @@ namespace Assembler
         private static void ParseExtrn(ref IntermediateLine interLine, ref SymbolTable symb)
         {
             Logger.Log("Parsing EXTRN directive", "DirectiveParser");
+
+            //check for label
+            if (interLine.Label != null)
+            {
+                // extrn doesn't expect a label
+                Logger.Log("ERROR: EW.05 encountered", "DirectiveParser");
+                interLine.AddError(Errors.Category.Warning, 5);
+            }
 
             if (!symb.ContainsSymbol(interLine.DirectiveOperand))
             {
@@ -450,6 +464,7 @@ namespace Assembler
                 Logger.Log("ERROR: ES.13 encountered", "DirectiveParser");
                 interLine.AddError(Errors.Category.Serious, 13);
             }
+
 
             Logger.Log("Finished parsing EXTRN directive", "DirectiveParser");
         }
@@ -464,8 +479,7 @@ namespace Assembler
          * @refcode D8
          * @errtest
          *  N/A
-         * @errmsg
-         *  N/A
+         * @errmsg ES.14
          * @author Mark Mathis
          * @creation April 18, 2011
          * @modlog
