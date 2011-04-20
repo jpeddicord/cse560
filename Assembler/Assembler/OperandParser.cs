@@ -558,13 +558,15 @@ namespace Assembler
                                 {
                                     Symbol operSym = symb.GetSymbol(label);
 
-                                    if (operSym.usage == Usage.EQUATED)
-                                    {
-                                        operands[i] = Convert.ToInt32(operSym.val, 16).ToString();
-                                    }
-                                    else if (operSym.usage == Usage.LABEL)
+                                    if (operSym.usage == Usage.LABEL)
                                     {
                                         operands[i] = Convert.ToInt32(operSym.lc, 16).ToString();
+                                    }
+                                    else if (operSym.usage != Usage.EXTERNAL)
+                                    {
+                                        // error: symbols can only be external, local reference
+                                        // in ADC/ADCe expressions
+                                        Logger.Log("ERROR: ES.2 encountered", "OperandParser");
                                     }
                                 }
                             }

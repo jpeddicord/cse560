@@ -37,6 +37,7 @@ ES.29 Operand Expression can only contain numbers and previously equated symbols
 ES.30 Expressions can only use + and - operators. Line ignored, assembly continues.
 ES.31 Operand expressions must start with a star. Line ignored, assembly continues.
 ES.32 EQU/EQUe expressions can only use symbols that are local references or previously equated symbols. Line ignored, assembly continues.
+ES.33 ADC/ADCe expressions can only use symbols that are local references or external references.
 EW.01 Blank Line, line ignored and no message given.
 EW.02 Operand field for entry/extern is invalid, line ignored.
 EW.03 Instruction doesn't take an operand; operand ignored.
