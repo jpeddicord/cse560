@@ -33,6 +33,7 @@ namespace Assembler
         {
             Logger.Log("Parsing directive on line " + interLine.SourceLineNumber, "DirectiveParser");
 
+            if (interLine.Directive.ToUpper() != "NOP")
             OperandParser.ParseOperand(ref line, ref interLine, ref symb, 16);
 
             // This will decide which directive is in this line and how it should
@@ -83,6 +84,7 @@ namespace Assembler
                 case "NOP":
                     {
                         interLine.NOPificate();
+                        interLine.ProgramCounter = Parser.LC;
                         Parser.IncrementLocationCounter();
                     } break;
                 default:
@@ -118,25 +120,34 @@ namespace Assembler
             // expecting operand to be the value of the location counter
             // check to see if operand is valid start value
             int startLC;
-            string startOper = BinaryHelper.HexToInt(interLine.DirectiveOperand,10).ToString();
-            if (int.TryParse(startOper, out startLC))
+            if (interLine.DirectiveLitOperand == OperandParser.Literal.NUMBER)
             {
-                if (0 <= startLC && startLC <= 1023)
+                string startOper = BinaryHelper.HexToInt(interLine.DirectiveOperand, 32).ToString();
+                if (int.TryParse(startOper, out startLC))
                 {
-                    Parser.LC = interLine.DirectiveOperand;
+                    if (0 <= startLC && startLC <= 1023)
+                    {
+                        Parser.LC = interLine.DirectiveOperand;
+                    }
                 }
+                else
+                {
+                    // the operand could not be parsed as a number
+                    interLine.AddError(Errors.Category.Fatal, 6);
+                    return;
+                }
+
+                // update the symbol in the symbol table
+                Symbol start = symb.RemoveSymbol(interLine.Label);
+                start.usage = Usage.PRGMNAME;
+                start.lc = null;
+                symb.AddSymbol(start);
             }
             else
             {
-                // the operand could not be parsed as a number
                 interLine.AddError(Errors.Category.Fatal, 6);
+                return;
             }
-
-            // update the symbol in the symbol table
-            Symbol start = symb.RemoveSymbol(interLine.Label);
-            start.usage = Usage.PRGMNAME;
-            start.lc = null;
-            symb.AddSymbol(start);
 
             Logger.Log("Finished parsing START directive", "DirectiveParser");
         }
@@ -195,28 +206,36 @@ namespace Assembler
         {
             Logger.Log("Parsing RESET directive", "DirectiveParser");
 
-            // the operand of the RESET directive must either be an equated label
-            // or a literal number.
-            if ((symb.ContainsSymbol(interLine.DirectiveOperand) &&
-                symb.GetSymbol(interLine.DirectiveOperand).usage == Usage.EQUATED) ||
-                (interLine.DirectiveLitOperand == OperandParser.Literal.NUMBER))
+            if (interLine.Label != null)
             {
-                int curLC = Convert.ToInt32(Parser.LC, 16);
-                int newLC = Convert.ToInt32(interLine.DirectiveOperand, 16);
-                if (curLC < newLC)
+                // the operand of the RESET directive must either be an equated label
+                // or a literal number.
+                if ((symb.ContainsSymbol(interLine.DirectiveOperand) &&
+                    symb.GetSymbol(interLine.DirectiveOperand).usage == Usage.EQUATED) ||
+                    (interLine.DirectiveLitOperand == OperandParser.Literal.NUMBER))
                 {
-                    Parser.LC = interLine.DirectiveOperand;
+                    int curLC = Convert.ToInt32(Parser.LC, 16);
+                    int newLC = Convert.ToInt32(interLine.DirectiveOperand, 16);
+                    if (curLC < newLC)
+                    {
+                        Parser.LC = interLine.DirectiveOperand;
+                    }
+                    else
+                    {
+                        // error, attempt to use a previously used LC value
+                        interLine.AddError(Errors.Category.Serious, 8);
+                    }
                 }
                 else
                 {
-                    // error, attempt to use a previously used LC value
-                    interLine.AddError(Errors.Category.Serious, 8);
+                    // error invalid value
+                    interLine.AddError(Errors.Category.Serious, 10);
                 }
             }
             else
             {
-                // error invalid value
-                interLine.AddError(Errors.Category.Serious, 10);
+                // error, label is required for reset directive
+                interLine.AddError(Errors.Category.Serious,25);
             }
 
             Logger.Log("Finished parsing RESET directive", "DirectiveParser");
@@ -265,11 +284,8 @@ namespace Assembler
                     symb.GetSymbol(interLine.DirectiveOperand).usage == Usage.EQUATED)
                 {
                     // do stuff with the symbol
-                    string symVal = symb.GetSymbol(interLine.DirectiveOperand).val;
-                    success = OperandParser.ParseExpression(ref symVal, OperandParser.Expressions.Operator, 
-                                                  ref interLine, ref symb);
                     equSym.usage = Usage.EQUATED;
-                    equSym.val = symVal;
+                    equSym.val = symb.GetSymbol(interLine.DirectiveOperand).val;
                 }
                 else if (interLine.DirectiveLitOperand == OperandParser.Literal.EXPRESSION)
                 {
@@ -428,6 +444,7 @@ namespace Assembler
                 // assumed to be in correct representation; always pad to the left
                 interLine.Bytecode = val.PadLeft(16, '0');
 
+                interLine.ProgramCounter = Parser.LC;
                 Parser.IncrementLocationCounter();
             }
             else
@@ -475,6 +492,7 @@ namespace Assembler
                 symb.AddSymbol(adcSym);
             }
 
+            interLine.ProgramCounter = Parser.LC;
             Parser.IncrementLocationCounter();
         }
 

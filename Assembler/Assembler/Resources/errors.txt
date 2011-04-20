@@ -29,6 +29,7 @@ ES.21 Invalid operand for EQU/EQUe. Line ignored, assembly continues.
 ES.22 Too many operators in expression. Ignoring line, assembly continues.
 ES.23 Expressions require at least one operator. Ignoring line, assembly continues.
 ES.24 Mismatched operators in expression. Ignoring line, assembly continues.
+ES.25 Reset directive requires a label, line ignored, location counter unchanged. Assembly continues.
 EW.01 Blank Line, line ignored and no message given.
 EW.02 Operand field for entry/extern is invalid, line ignored.
 EW.03 Instruction doesn't take an operand; operand ignored.

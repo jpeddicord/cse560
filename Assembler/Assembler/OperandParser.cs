@@ -379,7 +379,7 @@ namespace Assembler
                                 else
                                 {
                                     //error, must be number or previously equated symbol
-                                    Console.WriteLine("WAAATTTTTT");
+                                    return false;
                                 }
 
                                 Tokenizer.GetTokenKind(opr2, out valid);
