@@ -12,8 +12,8 @@ token,Parser.ParseDirective,string,local,holds the token values returned by the 
 tokenKind,Parser.ParseDirective,Tokenizer.TokenKinds,local,holds the token kind values returned by the Tokenizer
 operand,Parser.ParseDirective,string,local,passed to the ParseLiteralOperand method to be filled with the value of the literal operand in this line
 op,Parser.ParseLiteralOperand,int,local,stores the operand as an int while being converted
-outOper,Parser.ParseLiteralOperand,string,parameter,the numerical part of the literal operand, which will be set in this operation
-litType,Parser.ParseLiteralOperand,string,parameter,the type of the literal operand, which will be set in this operation.
+outOper,Parser.ParseLiteralOperand,string,parameter,"the numerical part of the literal operand, which will be set in this operation"
+litType,Parser.ParseLiteralOperand,string,parameter,"the type of the literal operand, which will be set in this operation."
 litOperand,Parser.ParseDirective,string,local,passed to the ParseLiteralOperand method to be filled with the type of the literal operand in this line
 start,Parser.ParseStart,IntermediateLine,local,the IntermediateLine that will hold the line with the START directive
 sourceCode,Parser.ParseSource,string[],local,holds the lines of source code from the input file.
