@@ -112,7 +112,7 @@ namespace Assembler
                 // actual error message will start after a space
                 Error err;
                 err.code = numCode;
-                err.msg = line.Substring(line.IndexOf(' ') + 1);
+                err.msg = line.Substring(line.IndexOf(' ') + 1).Trim();
 
                 switch (errorCode[0].ToUpper())
                 {
