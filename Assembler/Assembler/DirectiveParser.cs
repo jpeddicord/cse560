@@ -523,7 +523,7 @@ namespace Assembler
          *
          * @param interLine the intermediate line to process
          * @param symb symbol table reference
-         * @param maxOp maximum number of operations to process
+         * @param maxOper maximum number of operations to process
          * 
          * @refcode D8
          * @errtest

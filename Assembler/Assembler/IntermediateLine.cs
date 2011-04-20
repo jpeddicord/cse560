@@ -318,7 +318,7 @@ namespace Assembler
                     {
                         if (this.OpLitOperand == OperandParser.Literal.NUMBER)
                         {
-                            int val = BinaryHelper.HexToInt(this.OpOperand, 10);
+                            int val = BinaryHelper.HexToInt(this.OpOperand, 32);
                             // out of bounds
                             if (val < 0 || val > 1023)
                             {
@@ -390,8 +390,8 @@ namespace Assembler
                     if (this.OpLitOperand != OperandParser.Literal.NONE)
                     {
                         // bounds-check
-                        int val = BinaryHelper.HexToInt(this.OpOperand, 10);
-                        if (val < -512 || val > 511)
+                        int val = BinaryHelper.HexToInt(this.OpOperand, 32);
+                        if (val < 0 || val > 1023) // actually (val < -512 || val > 511) in 10 bits
                         {
                             this.AddError(Errors.Category.Serious, 4);
                             this.NOPificate();
@@ -443,7 +443,7 @@ namespace Assembler
                         return;
                     }
                     // bounds-check
-                    int val = BinaryHelper.HexToInt(this.OpOperand, 10);
+                    int val = BinaryHelper.HexToInt(this.OpOperand, 32);
                     if (val < 0 || val > 255)
                     {
                         this.AddError(Errors.Category.Serious, 17);
