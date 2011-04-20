@@ -451,7 +451,7 @@ namespace Assembler
                     // ensure there is an operand of type Number
                     if (this.OpLitOperand != OperandParser.Literal.NUMBER)
                     {
-                        this.AddError(Errors.Category.Serious, 16);
+                        this.AddError(Errors.Category.Serious, 17);
                         this.NOPificate();
                         return;
                     }
