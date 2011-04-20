@@ -10,13 +10,18 @@ namespace Assembler
     class Logger
     {
         private static bool NeedInit = true;
+
         /**
          * Initializes the Logger, making a Log directory if needed.
-         * 
+         *
+         * @param now the current time to initalize the logger to
+         *
          * @refcode N/A
-         * @errtest N/A
-         * @errmsg N/A
-         * @author Mark
+         * @errtest
+         *  N/A
+         * @errmsg
+         *  N/A
+         * @author Mark Mathis
          * @creation April 6, 2011
          * @modlog
          *  - April  6, 2011 - Mark - Creates a log file.
@@ -58,10 +63,44 @@ namespace Assembler
                 "----------------------------------------------------------------"));
         }
 
+        /**
+         * Log a message.
+         *
+         * @param message the message to log
+         *
+         * @refcode N/A
+         * @errtest
+         *  N/A
+         * @errmsg
+         *  N/A
+         * @author Mark Mathis
+         * @creation April 6, 2011
+         * @modlog
+         * @teststandard Andrew Buelow
+         * @codestandard Mark Mathis
+         */
         public static void Log(string message)
         {
             Trace.WriteLine(message);
         }
+
+        /**
+         * Log a message on a specific module.
+         *
+         * @param message the message to log
+         * @param loc module name or context logging in
+         *
+         * @refcode N/A
+         * @errtest
+         *  N/A
+         * @errmsg
+         *  N/A
+         * @author Mark Mathis
+         * @creation April 6, 2011
+         * @modlog
+         * @teststandard Andrew Buelow
+         * @codestandard Mark Mathis
+         */
         public static void Log(string message, string loc)
         {
             if (Logger.NeedInit)
