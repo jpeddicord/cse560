@@ -223,7 +223,7 @@ namespace Assembler
              * Regular expression used to determine if all characters in the token are
              * numbers.
              */
-            Regex numeric = new Regex(@"^[\-\+]?\d");
+            Regex numeric = new Regex(@"^[\-\+]?\d+$");
 
             /**
              * Regular expression used to determine if all characters in the token match
