@@ -427,6 +427,19 @@ namespace Assembler
                         // reference label, filled in pass 2
                         code.Append("0000000000");
                     }
+                    // or a number
+                    else if (this.OpLitOperand == OperandParser.Literal.NUMBER)
+                    {
+                        int val = BinaryHelper.HexToInt(this.OpOperand, 32);
+                        if (val < 0 || val > 1023)
+                        {
+                            this.AddError(Errors.Category.Serious, 12);
+                            this.NOPificate();
+                            return;
+                        }
+                        code.Append("0");
+                        code.Append(BinaryHelper.BinaryString(this.OpOperand).PadLeft(10, '0'));
+                    }
                     else
                     {
                         this.AddError(Errors.Category.Serious, 9);
@@ -488,6 +501,19 @@ namespace Assembler
                         }
                         // reference label, filled pass 2
                         code.Append("0000000000");
+                    }
+                    // or a number
+                    else if (this.OpLitOperand == OperandParser.Literal.NUMBER)
+                    {
+                        int val = BinaryHelper.HexToInt(this.OpOperand, 32);
+                        if (val < 0 || val > 1023)
+                        {
+                            this.AddError(Errors.Category.Serious, 4);
+                            this.NOPificate();
+                            return;
+                        }
+                        code.Append("0");
+                        code.Append(BinaryHelper.BinaryString(this.OpOperand).PadLeft(10, '0'));
                     }
                     // otherwise, it's invalid
                     else
