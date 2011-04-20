@@ -22,23 +22,23 @@ namespace Assembler
          * in two's complement.  Any other values given will return 0.  Requires that the number
          * of digits is less than 17 and greater than 1, any other number of digits will
          * cause the procedure to return 0.
-         * 
-         * @refcode N/A
-         * @errtest 
-         *          Tested using a mix of digits and converting from and to two's complement.
-         * @errmsg N/A
-         * @author Andrew
-         * @creation April 10, 2011
-         * @modlog
-         *         - April 14, 2011 - Andrew - Altered so that it will also accept values between
-         *         0 and 2^(digits - 1) which will simply give back the same number.
-         * @teststandard Andrew Buelow
-         * @codestandard Mark Mathis
          *
          * @param number The integer to be converted to or from two's complement.
          * @param digits The number of digits the number is being represented by in base 2. This is an
          *               optional parameter that will be 10 if not given a value.
          * @return The number converted from or to two's complement.
+         *
+         * @refcode N/A
+         * @errtest 
+         *  Tested using a mix of digits and converting from and to two's complement.
+         * @errmsg
+         *  N/A
+         * @author Andrew Buelow
+         * @creation April 10, 2011
+         * @modlog
+         *  - April 14, 2011 - Andrew - Altered so that it will also accept values between 0 and 2^(digits - 1) which will simply give back the same number.
+         * @teststandard Andrew Buelow
+         * @codestandard Mark Mathis
          */
         public static int ConvertNumber(int number, int digits = 10)
         {
@@ -85,27 +85,26 @@ namespace Assembler
          * than or equal to the two's complement representation of -1 (2^(digits) - 1).  The number of
          * digits must also meet the requirements of ConvertNumber in that it is larger than 1 but
          * smaller than 17. This will return false if it falls outside of this range.
-         * 
-         * @refcode N/A
-         * @errtest 
-         *          Tested edge cases and various values with a couple different digits.
-         * @errmsg N/A
-         * @author Andrew
-         * @creation April 14, 2011
-         * @modlog
-         * @teststandard Andrew Buelow
-         * @codestandard Mark Mathis
          *
          * @param number The integer to be converted to or from two's complement.
          * @param digits The number of digits the number is being represented by in base 2. This is an
          *               optional parameter that will be 10 if not given a value.
          * @return True if the number and digits are within their respective specified ranges.
+         *
+         * @refcode N/A
+         * @errtest 
+         *          Tested edge cases and various values with a couple different digits.
+         * @errmsg
+         *  N/A
+         * @author Andrew Buelow
+         * @creation April 14, 2011
+         * @modlog
+         * @teststandard Andrew Buelow
+         * @codestandard Mark Mathis
          */
         public static bool IsInRange(int number, int digits = 10)
         {
-            /**
-             * Stores the point at which a number would become a negative number in two's complement.
-             */
+            // Stores the point at which a number would become a negative number in two's complement.
             int limit = (int)(Math.Pow(2, digits - 1));
 
             // return true if within -(2^(digits - 1)) and 2^(digits)
@@ -118,13 +117,17 @@ namespace Assembler
          *
          * @param hex hex number string representation to convert
          * @return string of '0' and '1' characters representing the binary digits
+         *
          * @refcode N/A
          * @errtest
-         * @errmsg None
+         *  Conversions of various binary values.
+         * @errmsg
+         *  None
+         * @author Jacob Peddicord
          * @creation April 15, 2011
          * @modlog
-         * @teststandard Andrew
-         * @codestandard Mark
+         * @teststandard Andrew Buelow
+         * @codestandard Mark Mathis
          */
         public static string BinaryString(string hex)
         {
@@ -138,7 +141,17 @@ namespace Assembler
          *
          * @param hex value to convert
          * @param bits bit length of the hex string
-         * TODO: DOCUMENT
+         *
+         * @refcode N/A
+         * @errtest
+         *  Tested positive and negative number conversions in different bit sizes.
+         * @errmsg
+         *  None
+         * @author Jacob Peddicord
+         * @creation April 18, 2011
+         * @modlog
+         * @teststandard Andrew Buelow
+         * @codestandard Mark Mathis
          */
         public static int HexToInt(string hex, int bits)
         {
