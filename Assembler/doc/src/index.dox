@@ -6,6 +6,7 @@ Welcome to the documentation for the Final Four Accelerated Assembler. You can b
 
 - \ref how_to
 - \ref user_guide
+- \ref machine_description
 - \ref language_spec
 - \ref test_plan
 - \ref ded

@@ -2,7 +2,7 @@
 FFA Language Specification
 ==========================
 
-The FFA machine is a hypothetical machine that the FFA Assembler produces code for. It has a word size of 16 bits, is word-addressable, and supports 1024 words of addressable memory. It has a separate data stack and test stack. This document describes the language specification of the machine.
+The FFA machine is a hypothetical machine that the FFA Assembler produces code for. It has a word size of 16 bits, is word-addressable, and supports 1024 words of addressable memory (from memory address 0 to 1023). It has a separate data stack and test stack.  Data stack is limited to 256 entries (words) and is used to hold user data that has been pushed onto it. The test stack is limited to 5 entries and holds results from the ``TEST`` operation. This document describes the language specification of the machine.
 
 .. contents::
     :depth: 2
