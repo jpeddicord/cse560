@@ -251,7 +251,7 @@ namespace Assembler
          * @errtest
          *  N/A
          * @errmsg
-         *  N/A
+         *  ES.3, ES.4, ES.9, ES.11, ES.12, ES.16, EW.3
          * @author Jacob Peddicord
          * @creation April 10, 2011
          * @modlog

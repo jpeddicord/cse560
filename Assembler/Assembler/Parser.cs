@@ -36,6 +36,17 @@ namespace Assembler
 
         /**
          * Creates a Parser with location counter set to 0, ready to parse a single soure file.
+         *
+         * @refcode N/A
+         * @errtest
+         *  N/A
+         * @errmsg
+         *  N/A
+         * @author Mark Mathis
+         * @creation April 8, 2011
+         * @modlog
+         * @teststandard Andrew Buelow
+         * @codestandard Mark Mathis
          */
         public Parser()
         {
@@ -52,10 +63,13 @@ namespace Assembler
          * @param lineNum line number of current line
          * @param symb symbol table reference
          * @return the line to be parsed as a single line in the intermediate file
+         *
          * @refcode N/A
-         * @errtest N/A
-         * @errmsg N/A
-         * @author Mark
+         * @errtest
+         *  N/A
+         * @errmsg
+         *  N/A
+         * @author Mark Mathis
          * @creation April 8, 2011
          * @modlog
          *  - April  9, 2011 - Mark - ParseLine parses lines with instructions.
@@ -189,10 +203,13 @@ namespace Assembler
          * @param line current line to parse.
          * @param interLine the line as a single line in the intermediate file.
          * @param symb symbol table reference
+         *
          * @refcode N/A
-         * @errtest N/A
-         * @errmsg N/A
-         * @author Mark
+         * @errtest
+         *  N/A
+         * @errmsg
+         *  N/A
+         * @author Mark Mathis
          * @creation April 9, 2011
          * @modlog
          *  - April  9, 2011 - Mark - ParseInstruction properly parses instructions.
@@ -253,9 +270,11 @@ namespace Assembler
          * Adds one to the location counter.
          * 
          * @refcode N/A
-         * @errtest N/A
-         * @errmsg N/A
-         * @author Mark
+         * @errtest
+         *  N/A
+         * @errmsg
+         *  N/A
+         * @author Mark Mathis
          * @creation April 9, 2011
          * @modlog
          *  - April 9, 2011 - Mark - Correctly increments the location counter by 1.
@@ -273,11 +292,17 @@ namespace Assembler
 
         /**
          * Parses an entire source code file.
-         * 
+         *
+         * @param path the path of the source file to parse.
+         * @param interSource resultant intermediate file from this source
+         * @param symb resultant symbol table from this source
+         *
          * @refcode N/A
-         * @errtest N/A
-         * @errmsg N/A
-         * @author Mark
+         * @errtest
+         *  N/A
+         * @errmsg
+         *  N/A
+         * @author Mark Mathis
          * @creation April 8, 2011
          * @modlog
          *  - April 9, 2011 -  Mark - Parses entire source code file from a string.
@@ -288,10 +313,6 @@ namespace Assembler
          *      is now void.
          * @teststandard Andrew Buelow
          * @codestandard Mark Mathis
-         * 
-         * @param path the path of the source file to parse.
-         * @param interSource resultant intermediate file from this source
-         * @param symb resultant symbol table from this source
          */
         public void ParseSource(string path, out IntermediateFile interSource, out SymbolTable symb)
         {
@@ -354,19 +375,20 @@ namespace Assembler
          * Checks the specified IntermediateLine to see if it has a fatal error.
          * This is used to determine whether or not the assembly should continue
          * after a line has been parsed.
-         * 
+         *
+         * @param line the line to check for a fatal error
+         * @return true if the indicated line has a fatal error, false otherwise
+         *
          * @refcode N/A
-         * @errtest N/A
-         * @errmsg N/A
-         * @author Mark
+         * @errtest
+         *  N/A
+         * @errmsg
+         *  N/A
+         * @author Mark Mathis
          * @creation April 19, 2011
          * @modlog
          * @teststandard Andrew Buelow
          * @codestandard Mark Mathis
-         * 
-         * @param line the line to check for a fatal error
-         * 
-         * @return true if the indicated line has a fatal error, false otherwise
          */
         private bool HasFatalError(IntermediateLine line)
         {
