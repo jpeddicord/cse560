@@ -11,12 +11,15 @@ namespace Assembler
     {
         /**
          * Drives the Assembler.
-         * 
+         *
+         * @param args program runtime arguments
+         *
          * @refcode N/A
-         * @errtest N/A
+         * @errtest
+         *  Differing program arguments.
          * @errmsg
          *  - Incorrect number of arguments.
-         *      - Expected 1 parameter, but received [actual args.Length]
+         *  - Expected 1 parameter, but received [actual args.Length]
          * @author Mark
          * @creation April 5, 2011
          * @modlog
