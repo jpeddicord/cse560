@@ -12,14 +12,25 @@ namespace Assembler
     class Errors
     {
         /**
-         * The type of error. Specifies three categories.
-         * - Fatal - Cannot be recovered from, causes Assembler to stop.
-         * - Serious - Can be recovered from, will probably lead to erratic program behavior.
-         * - Warning - Can be recovered from, may lead to erratic program behavior.
+         * The severity of the error.
          */
         public enum Category
         {
-            Fatal, Serious, Warning
+            /**
+             * Cannot be recovered from, causes Assembler to stop.
+             */
+            Fatal,
+
+            /**
+             * Can be recovered from, will probably lead to erratic program behavior.
+             * Afflicted lines may be replaced with NOPs.
+             */
+            Serious,
+
+             /**
+              * Can be recovered from, may lead to erratic program behavior.
+              */
+            Warning
         };
 
         /**
@@ -40,7 +51,6 @@ namespace Assembler
             }
         };
 
-
         /**
          * Singleton instance of this class.
          */
@@ -54,15 +64,15 @@ namespace Assembler
         private Dictionary<Errors.Category, Dictionary<int, Error>> errorList;
 
         /**
-         * Creates an object that can be used to look up errors. These errors will be read in from a
-         * resource file.
+         * Creates an object that can be used to look up errors. These errors
+         * will be read in from a resource file.
          * 
-         * @refcode N/A
-         * @errtest N/A
+         * @refcode ES, EF, EW
+         * @errtest
+         *  Loading and types of errors
          * @errmsg
-         *  - Reports errors in reading individual lines of the text file to the log. Silently skips
-         *          lines that are unreadable.
-         * @author Mark
+         *  Reports errors in reading individual lines of the text file to the log. Silently skips lines that are unreadable.
+         * @author Mark Mathis
          * @creation April 14, 2011
          * @modlog
          * @codestandard Mark Mathis
@@ -128,7 +138,7 @@ namespace Assembler
                         {
                             // no category found
                             Logger.Log(String.Format("Invalid errorCategory: {0}.  Skipping.",
-                                                         errorCode[0]), "Errors");
+                                                     errorCode[0]), "Errors");
                         } break;
                 }
             }
@@ -142,11 +152,13 @@ namespace Assembler
          * @return the instance of this class
          * 
          * @refcode N/A
-         * @errtest N/A
-         * @errmsg N/A
-         * @author Mark
+         * @errtest
+         *  N/A
+         * @errmsg
+         *  N/A
+         * @author Mark Mathis
          * @creation April 14, 2011
-         * @modlog 
+         * @modlog
          * @codestandard Mark Mathis
          * @teststandard Andrew Buelow
          */
@@ -167,9 +179,11 @@ namespace Assembler
          * @return the error message specified by EF.errCode
          * 
          * @refcode N/A
-         * @errtest N/A
-         * @errmsg N/A
-         * @author Mark
+         * @errtest
+         *  The type of error returned
+         * @errmsg
+         *  None
+         * @author Mark Mathis
          * @creation April 14, 2011
          * @modlog
          * @codestandard Mark Mathis
@@ -187,9 +201,11 @@ namespace Assembler
          * @return the error message specified by EF.errCode
          * 
          * @refcode N/A
-         * @errtest N/A
-         * @errmsg N/A
-         * @author Mark
+         * @errtest
+         *  The type of error returned
+         * @errmsg
+         *  None
+         * @author Mark Mathis
          * @creation April 14, 2011
          * @modlog 
          * @codestandard Mark Mathis
@@ -207,9 +223,11 @@ namespace Assembler
          * @return the error message specified by EF.errCode
          * 
          * @refcode N/A
-         * @errtest N/A
-         * @errmsg N/A
-         * @author Mark
+         * @errtest
+         *  The type of error returned
+         * @errmsg
+         *  None
+         * @author Mark Mathis
          * @creation April 14, 2011
          * @modlog 
          * @codestandard Mark Mathis
