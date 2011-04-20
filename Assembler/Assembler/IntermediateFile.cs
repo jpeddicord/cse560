@@ -24,15 +24,17 @@ namespace Assembler
         /**
          * Constructs an intermediate file with the given name and no lines.
          * 
-         * @refcode
+         * @refcode N/A
          * @errtest
+         *  N/A
          * @errmsg
-         * @author Mark
+         *  N/A
+         * @author Mark Mathis
          * @creation April 9, 2011
          * @modlog
          *  - April 10, 2011 - Mark - Add logging
-         * @codestandard Mark
-         * @teststandard Andrew
+         * @codestandard Mark Mathis
+         * @teststandard Andrew Buelow
          */
         public IntermediateFile()
         {
@@ -44,14 +46,17 @@ namespace Assembler
          * Adds the indicated IntermediateLine to the file.
          * 
          * @param line the InterediateLine file to add
-         * @refcode
+         *
+         * @refcode N/A
          * @errtest
+         *  N/A
          * @errmsg
-         * @author Mark
+         *  N/A
+         * @author Mark Mathis
          * @creation April 9, 2011
          * @modlog
-         * @codestandard Mark
-         * @teststandard Andrew
+         * @codestandard Mark Mathis
+         * @teststandard Andrew Buelow
          */
         public void AddLine(IntermediateLine line)
         {
@@ -63,14 +68,17 @@ namespace Assembler
          * 
          * @param lineNumber the line number of the desired line
          * @return the lineNumberth line in the file
-         * @refcode
+         *
+         * @refcode N/A
          * @errtest
+         *  N/A
          * @errmsg
-         * @author Mark
+         *  N/A
+         * @author Mark Mathis
          * @creation April 9, 2011
          * @modlog
-         * @codestandard Mark
-         * @teststandard Andrew
+         * @codestandard Mark Mathis
+         * @teststandard Andrew Buelow
          */
         public IntermediateLine Line(int lineNumber)
         {
@@ -82,14 +90,17 @@ namespace Assembler
          * 
          * @return the file formatted for the screen.  The format for this is as specified in
          *         IntermediateLine for each line in this file seperated by newlines.
-         * @refcode
+         *
+         * @refcode N/A
          * @errtest
+         *  N/A
          * @errmsg
-         * @author Mark
+         *  N/A
+         * @author Mark Mathis
          * @creation April 9, 2011
          * @modlog
-         * @codestandard Mark
-         * @teststandard Andrew
+         * @codestandard Mark Mathis
+         * @teststandard Andrew Buelow
          */
         public override string ToString()
         {
