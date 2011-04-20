@@ -397,7 +397,7 @@ Defines a shared variable name.  This defined entry label must appear somewhere 
 Example::
 
 	 ENTRY ReturnValue
-	ReturnValue EQU 42
+	ReturnValue DAT X=FF
 
 EXTRN
 -----
@@ -406,7 +406,7 @@ Format::
 
 	EXTRN | Label
 
-Declares a symbol that receives its value from another program. The extrn label defined must not appear as a label in this program, but may be used as an operand in this program.  The label must have a matching ``ENTRY`` in another program. Since this directive does not start with a label, it cannot start in column 1.
+Declares a symbol that receives its value from another program. The extrn label defined must not appear as a label in this program.  The label must have a matching ``ENTRY`` in another program. Since this directive does not start with a label, it cannot start in column 1.
 
 Example::
 
@@ -498,3 +498,7 @@ Example::
 
 	CNTL GOTO,*+10
 
+Expressions
+-----------
+
+Expressions can be used as an operand in any of the instructions or directives where an equated label or number is also accepted. Expressions are usually limited to one operator except in the case of EQUe and ADCe where up to three operators are allowed.  Operators are limited to plus (+) and minus (-). Expressions can be created using star notation (which must appear only once and at the beginning of the expression if used), numbers and labels. If given an equated label, the label will be replaced with its value. If given a regular label, it will be substituted with the location counter of that label. Negative numbers are not allowed in the expression as this would be considered an additional operator and will be considered bad expression syntax.  For example do not write 8+-4, instead use 8-4.
