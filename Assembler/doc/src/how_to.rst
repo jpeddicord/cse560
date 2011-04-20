@@ -19,7 +19,17 @@ If you have the zip file already on your computer, you will first need to unzip 
 computer's default unzipper or another unzipping application.  Once the files are unzipped feel
 free to move the folder to a location that is more easily accessible.
 
-2) Creating a source file
+2) Ensuring it will run
+```````````````````````
+
+In order to run the Asembler it is required that the Microsoft .NET Framework 4 or Mono is installed on your machine
+depending on the operating system you use.
+
+* In Windows : If you do not already have the Microsoft .NET Framework or if it isn't up to date you will need to download and install the newest version.  Microsoft .NET Framework 4 and be found `on microsoft's website <http://www.microsoft.com/downloads/en/details.aspx?FamilyID=9cfb2d51-5ff4-4491-b0e5-b386f32c0992&displaylang=en#QuickDetails>`_.
+* In Mac : The .NET Framework will not work in Mac so you will need Mono which is an open source implementation for compatibility with Microsoft.NET. You can download and install mono `from here <http://www.mono-project.com/Main_Page>`_.
+* In Linux : Linux users should be fine as mono is usually included with most distributions of Linux.
+
+3) Creating a source file
 `````````````````````````
 
 You will need a program written in FFA to be compiled by this application. The language
@@ -30,7 +40,7 @@ Inside the c560aa05.sp1.early directory you will find two other directories (Ass
 Programs) as well as the executable for Assembler. Either move or copy your FFA program into
 the Programs folder.
 
-3) Opening the Terminal
+4) Opening the Terminal
 ```````````````````````
 
 The Assembler is going to be run from a command line.  You will need to open a command
@@ -57,7 +67,7 @@ You can also display all of the contents in your current directory to help you n
 
 Once you are in the c560aa05.sp1.early folder you can run the Assembler.
 
-4) Running the Assembler
+5) Running the Assembler
 ````````````````````````
 
 Run the Assembler using the command::
