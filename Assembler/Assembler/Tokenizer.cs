@@ -128,6 +128,9 @@ namespace Assembler
                     {
                         token = match.Groups[1].Value;
                         tokenKind = TokenKinds.Literal;
+
+                        // remove the token from the line
+                        line = line.Substring((token.Length - 1));
                     }
                     else
                     {
