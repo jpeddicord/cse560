@@ -2,6 +2,8 @@ line,Tokenizer.GetNextToken,string,local,used by the tokenizer to get the next t
 token,Tokenizer.GetNextToken,string,local,stores the next token in the line of code
 tokenKind,Tokenizer.GetNextToken,TokenKinds,local,stores the type of token
 tokens,Tokenizer.GetNextToken,string array,local,holds the pieces of the line after being split
+charLiteral,Tokenizer.GetNextToken,Regex,local,used to look for a specific formatting specified by character literals
+match,Tokenizer.GetNextToken,Match,local,used to check for matches on a literal
 alphaNumeric,Tokenizer.GetTokenKind,Regex,local,checks if a string is composed only of letters and numbers
 numeric,Tokenizer.GetTokenKind,Regex,local,checks if a string is composed only of numbers
-charLiteral,Tokenizer,Regex,local,used to look for a specific formatting specified by character literals
+expression,Tokenizer.GetTokenKind,Regex,local,regular expression to check for an expression

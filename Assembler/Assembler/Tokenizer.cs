@@ -72,13 +72,18 @@ namespace Assembler
          * string is reached.  TokenKind is determined based on the characters in the token.
          * Once the token is found it is removed from the given string along with the
          * separator character.
-         * 
+         *
+         * @param line The line of code from which to find the next token.
+         * @param token Used to store the value of the next token.
+         * @param tokenKind Used to store the token kind of the next token.
+         *
          * @refcode N/A
          * @errtest 
-         *          Tokenizer was tested using strings that were empty, contained extra whitespace,
-         *          and mixed case letters.  For a full list of tests please look at the testing plan.
-         * @errmsg N/A
-         * @author Andrew
+         *  Tokenizer was tested using strings that were empty, contained extra whitespace,
+         *  and mixed case letters.  For a full list of tests please look at the testing plan.
+         * @errmsg
+         *  None
+         * @author Andrew Buelow
          * @creation April 6, 2011
          * @modlog 
          *  - April 7, 2011 - Andrew - Tokenizer now returns a token kind.
@@ -92,10 +97,6 @@ namespace Assembler
          *      Now using regular expressions to ensure only correct character literals are returned.
          * @teststandard Andrew Buelow
          * @codestandard Mark Mathis
-         *
-         * @param line The line of code from which to find the next token.
-         * @param token Used to store the value of the next token.
-         * @param tokenKind Used to store the token kind of the next token.
          */
         public static void GetNextToken(ref string line, out string token, out TokenKinds tokenKind)
         {
@@ -115,10 +116,8 @@ namespace Assembler
             }
             else
             {
-                /**
-                 * Holds the two pieces of the string after it has been split at the next space, comma or tab.
-                 * The first piece is the next token, the other is the rest of the line.
-                 */
+                // Holds the two pieces of the string after it has been split at the next space, comma or tab.
+                // The first piece is the next token, the other is the rest of the line.
                 string[] tokens;
 
                 if (line.ToUpper().StartsWith("C='"))
@@ -174,7 +173,7 @@ namespace Assembler
                     
             }
 
-            //Trim spaces off the beginning of the returned line so the first character is the beginning of the next token.
+            // Trim spaces off the beginning of the returned line so the first character is the beginning of the next token.
             line = line.TrimStart();
 
             // Write to the log after the token has been successfully retrieved.
@@ -187,14 +186,18 @@ namespace Assembler
          * a comment.  This procedure does not check that all restrictions are met, only
          * that a general pattern is matched.  For example, if the token is a label, it
          * will not check that the label is shorter than the maximum label length.
-         * 
+         *
+         * @param token Holds the token for which the kind is to be determined.
+         * @param tokenKind Used to store the token kind of the specified token.
+         *
          * @refcode S2.4.2.1, S2.4.2.2, S2.4.2.3, S2.4.2.4
          * @errtest 
-         *          GetTokenKind was tested indirectly through GetToken.  If the correct token
-         *          kind was not returned then there was an issue with this procedure.  As with
-         *          GetToken, please see the testing plan for a full list of tests performed.
-         * @errmsg N/A
-         * @author Andrew
+         *  GetTokenKind was tested indirectly through GetToken.  If the correct token
+         *  kind was not returned then there was an issue with this procedure.  As with
+         *  GetToken, please see the testing plan for a full list of tests performed.
+         * @errmsg
+         *  None
+         * @author Andrew Buelow
          * @creation April 7, 2011
          * @modlog 
          *  - April 8, 2011 - Mark - Changed Tokenizer to work with enumerated types.
@@ -209,30 +212,21 @@ namespace Assembler
          *   catch numbers as well.
          * @teststandard Andrew Buelow
          * @codestandard Mark Mathis
-         * 
-         * @param token Holds the token for which the kind is to be determined.
-         * @param tokenKind Used to store the token kind of the specified token.
          */
         public static void GetTokenKind(string token, out TokenKinds tokenKind)
         {
-            /**
-             * Regular expression used to determine if all characters in the token are
-             * letters or numbers.
-             */
+            /* Regular expression used to determine if all characters in the token are
+             * letters or numbers. */
             Regex alphaNumeric = new Regex(@"[^0-9a-zA-Z]");
 
-            /**
-             * Regular expression used to determine if all characters in the token are
-             * numbers.
-             */
+            /* Regular expression used to determine if all characters in the token are
+             * numbers. */
             Regex numeric = new Regex(@"^[\-\+]?\d+$");
 
-            /**
-             * Regular expression used to determine if all characters in the token match
+            /* Regular expression used to determine if all characters in the token match
              * those of an expression.  Expressions can have alphanumeric characters as
              * well as '+', '-' and '*'. Note: '*' is not used for multiplication, it is
-             * used in start notation (see web documentation).
-             */
+             * used in start notation (see web documentation). */
             Regex expression = new Regex(@"[^0-9A-Za-z\*\+\-]");
 
             // Convert to uppercase to give user flexibility.  Token is passed by value so
@@ -244,32 +238,38 @@ namespace Assembler
             if (token == "")
             {
                 tokenKind = TokenKinds.Empty;
-            } // Can only be a label or command if it begins with a letter and is all letters or numbers.
+            }
+            // Can only be a label or command if it begins with a letter and is all letters or numbers.
             else if (!alphaNumeric.IsMatch(token) && Char.IsLetter(token[0]))
             {
                 tokenKind = TokenKinds.Label_Or_Command;
-            } // Check if it is all numbers
+            }
+            // Check if it is all numbers
             else if (numeric.IsMatch(token))
             {
                 tokenKind = TokenKinds.Number;
-            } // Check if the token contains characters only found in expressions.
+            }
+            // Check if the token contains characters only found in expressions.
             else if (!expression.IsMatch(token))
             {
                 tokenKind = TokenKinds.Expression;
-            } // Only looks for the four possible Literal flags.  Does not check format of following chars.
+            }
+            // Only looks for the four possible Literal flags.  Does not check format of following chars.
             else if (token.Length > 1 && (token.Substring(0, 2) == "X=" ||
                                          token.Substring(0, 2) == "B=" ||
                                          token.Substring(0, 2) == "I=" ||
                                          token.Substring(0, 2) == "C="))
             {
                 tokenKind = TokenKinds.Literal;
-            } // Determines if the token is one of the six jump conditions
+            }
+            // Determines if the token is one of the six jump conditions
             else if (token == "=" || token == "^=" || token == "<" ||
                      token == ">" || token == "<=" || token == ">=")
             {
                 tokenKind = TokenKinds.JumpCond;
             }
-            else // If no other pattern is matched something is wrong in the token and we give an error.
+            // If no other pattern is matched something is wrong in the token and we give an error.
+            else
             {
                 tokenKind = TokenKinds.Error;
             }
