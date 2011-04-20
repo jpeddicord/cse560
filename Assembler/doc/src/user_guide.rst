@@ -52,6 +52,13 @@ However, the intermediate code produced can provide insight into syntactic or se
 
 Errors
 ``````
+The following is a list of all errors currently caught by the Assembler.  There are three kinds of errors.
+
+* Fatal - denoted by EF.xx - Cannot be recovered from. Causes the Assembler to stop.
+* Serious - denoted by ES.xx - Can be recovered from but will likely cause erratic program behavior. Lines with serious errors are usually replaced with NOP or ignored completely.
+* Warning - denoted by EW.xx - Can be recovered from but may lead to erratic program behavior.
+
+Each error will give a brief description of what the issue is and what will be done by the assembler.
 
 .. include:: ../tmp/errorlist.rst
 

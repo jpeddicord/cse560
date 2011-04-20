@@ -8,7 +8,7 @@ If you are running this program from a CD your files should already be unzipped.
 convenience you may want to move your files off of the CD and on to your computer. Insert
 your CD and open it so you are able to view all files on the CD. You should see two items:
 
-* A folder named c560aa05.sp1.early - This contains all of the content for our project including source files and documentation.
+* A folder named c560aa05.sp1.ontime - This contains all of the content for our project including source files and documentation.
 * A README.txt - This README will give you a better understanding of the contents of the project. It is no neccessary to correctly run the Assembler but may still prove to be useful.
 
 Move the folder off the CD either by clicking on it and dragging or copying then
@@ -36,7 +36,7 @@ You will need a program written in FFA to be compiled by this application. The l
 specification is given `here <language_spec.html>`_.  We also have a few example programs in our `testing plan <test_plan.html#sample-test-programs>`_. Your program
 should be written in an ASCII text file.
 
-Inside the c560aa05.sp1.early directory you will find two other directories (Assembler and
+Inside the c560aa05.sp1.ontime directory you will find two other directories (Assembler and
 Programs) as well as the executable for Assembler. Either move or copy your FFA program into
 the Programs folder.
 
@@ -50,12 +50,12 @@ prompt.
 * In Unix : Open the terminal from your launcher or by going to Applications > Accessories > Terminal.
 * In Mac: Launch Applications or Finder then locate Terminal.
 
-Now navigate to the c560aa05.sp1.early folder located on your computer through the terminal.
+Now navigate to the c560aa05.sp1.ontime folder located on your computer through the terminal.
 By typing "cd <dir>" without the quotes and by replacing <dir> with the directory you want,
 you can move into a new directory.  For example, if you are currently in /MyHome/ and you
-want to move to /MyHome/Programs/c560aa05.sp1.early you can type::
+want to move to /MyHome/Programs/c560aa05.sp1.ontime you can type::
 
-	cd Programs/c560aa05.sp1.early/
+	cd Programs/c560aa05.sp1.ontime/
 
 and hit enter.  To move back a directory you can type "cd .." without the quotes. This will
 move you to the directory directly above you.
@@ -65,7 +65,7 @@ You can also display all of the contents in your current directory to help you n
 * Windows: Use the command "dir".
 * Unix/Mac: Use the command "ls".
 
-Once you are in the c560aa05.sp1.early folder you can run the Assembler.
+Once you are in the c560aa05.sp1.ontime folder you can run the Assembler.
 
 5) Running the Assembler
 ````````````````````````

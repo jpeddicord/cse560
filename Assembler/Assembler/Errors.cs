@@ -47,7 +47,7 @@ namespace Assembler
              */
             public override string ToString()
             {
-                return "[" + this.category.ToString() + "] " + this.msg;
+                return "[" + this.category.ToString() + "][" + this.code + "] " + this.msg;
             }
         };
 

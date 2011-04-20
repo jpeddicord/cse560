@@ -18,7 +18,7 @@ namespace Assembler
         public void ErrorsContainsFatal()
         {
             var err = Errors.GetInstance();
-            Assert.AreEqual("[Fatal] Invalid start directive.  Assembler has been stopped.", err.GetFatalError(1).ToString());
+            Assert.AreEqual("[Fatal][1] Invalid start directive.  Assembler has been stopped.", err.GetFatalError(1).ToString());
         }
 
         /**
@@ -28,7 +28,7 @@ namespace Assembler
         public void ErrorsContainsSerious()
         {
             var err = Errors.GetInstance();
-            Assert.AreEqual("[Serious] Function is invalid for instruction; line substituted with a NOP.", err.GetSeriousError(3).ToString());
+            Assert.AreEqual("[Serious][3] Function is invalid for instruction; line substituted with a NOP.", err.GetSeriousError(3).ToString());
         }
 
         /**
@@ -38,7 +38,7 @@ namespace Assembler
         public void ErrorsContainsWarning()
         {
             var err = Errors.GetInstance();
-            Assert.AreEqual("[Warning] Blank Line, line ignored and no message given.", err.GetWarningError(1).ToString());
+            Assert.AreEqual("[Warning][1] Blank Line, line ignored and no message given.", err.GetWarningError(1).ToString());
         }
 
         /**
@@ -48,7 +48,7 @@ namespace Assembler
         public void ErrorsContainsLast()
         {
             var err = Errors.GetInstance();
-            Assert.AreEqual("[Warning] Operand field for entry/extern is invalid, line ignored.", err.GetWarningError(2).ToString());
+            Assert.AreEqual("[Warning][6] Invalid input after the operand. Input after operand is ignored. Assembly continues.", err.GetWarningError(6).ToString());
         }
     }
 }
