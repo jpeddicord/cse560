@@ -101,11 +101,8 @@ STACK TEST
 Pop a single item off of the data stack, and compare it with the given label. Depending on the results of the test, any of the following may be pushed on to the test stack:
 
 * ``=`` - push ``0`` on the test stack
-* ``^=`` - push ``1`` on the test stack
-* ``<`` - push ``2`` on the test stack
-* ``>`` - push ``3`` on the test stack
-* ``<=`` - push ``4`` on the test stack
-* ``>=`` - push ``5`` on the test stack
+* ``<`` - push ``1`` on the test stack
+* ``>`` - push ``2`` on the test stack
 
 The results of the values pushed into the test stack are useful for branching. For more information, see the JUMP_ command. Usage example::
 
@@ -121,11 +118,11 @@ JUMP
 Jump to the specified location if a given condition holds, and pop the test off of the test stack. This instruction operates on data in the test stack (with the exception of ``dnull``), so to do anything useful `STACK TEST`_ should probably be used first. The available tests are:
 
 * ``=`` - if ``0`` was on the test stack.
-* ``^=`` - if ``1`` was on the test stack.
-* ``<`` - if ``2`` was on the test stack.
-* ``>`` - if ``3`` was on the test stack.
-* ``<=`` - if ``4`` was on the test stack.
-* ``>=`` - if ``5`` was on the test stack.
+* ``^=`` - if ``1`` or ``2`` was on the test stack.
+* ``<`` - if ``1`` was on the test stack.
+* ``>`` - if ``2`` was on the test stack.
+* ``<=`` - if ``0`` or ``1`` was on the test stack.
+* ``>=`` - if ``0`` or ``2`` was on the test stack.
 * ``tnull`` - if the test stack is empty.
 * ``dnull`` - if the data stack is empty. This is the only test that doesn't use the test stack.
 
@@ -461,7 +458,7 @@ Format::
 Like ADC_, but allows up to 3 operations (4 operands). The expression must evaluate to a value in the range of 0-1023. Example::
 
     foo    DAT C='ab'
-    orange ADC 5+foo+3
+    orange ADCe 5+foo+3
 
 NOP
 ---

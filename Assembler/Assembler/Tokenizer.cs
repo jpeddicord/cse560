@@ -205,6 +205,8 @@ namespace Assembler
          *  - April 14, 2011 - Andrew - Due to a change in the specifications "=0" no longer
          *                  denotes a NOP, so this has been removed from the literals.
          *  - April 16, 2011 - Andrew - Added Expression as a possible token kind.
+         *  - April 19, 2011 - Jacob - Redid the regular expression for numbers so it didn't
+         *   catch numbers as well.
          * @teststandard Andrew Buelow
          * @codestandard Mark Mathis
          * 
