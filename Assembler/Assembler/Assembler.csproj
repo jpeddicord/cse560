@@ -117,6 +117,7 @@
     <None Include="Tests\Programs\Alt2.txt" />
     <None Include="Tests\Programs\Alt3.txt" />
     <None Include="Tests\Programs\EndLoc.txt" />
+    <None Include="Tests\Programs\Equ.txt" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
