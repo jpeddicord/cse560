@@ -13,7 +13,7 @@ namespace Assembler
         ENTRY,
         PRGMNAME,
         EXTERNAL,
-        EQUATED
+        EQUATED,
     }
 
     /**

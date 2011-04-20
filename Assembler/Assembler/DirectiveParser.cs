@@ -74,14 +74,16 @@ namespace Assembler
                     } break;
                 case "ADC":
                     {
-                        // ParseAdc(ref interLine, ref symb);
+                        ParseAdc(ref interLine, ref symb);
                     } break;
                 case "ADCE":
                     {
-                        // ParseAdce(ref interLine, ref symb);
+                        ParseAdce(ref interLine, ref symb);
                     } break;
                 case "NOP":
                     {
+                        interLine.NOPificate();
+                        Parser.IncrementLocationCounter();
                     } break;
                 default:
                     {
@@ -114,7 +116,21 @@ namespace Assembler
             Logger.Log("Parsing START directive", "DirectiveParser");
 
             // expecting operand to be the value of the location counter
-            Parser.LC = interLine.DirectiveOperand;
+            // check to see if operand is valid start value
+            int startLC;
+            string startOper = BinaryHelper.HexToInt(interLine.DirectiveOperand,10).ToString();
+            if (int.TryParse(startOper, out startLC))
+            {
+                if (0 <= startLC && startLC <= 1023)
+                {
+                    Parser.LC = interLine.DirectiveOperand;
+                }
+            }
+            else
+            {
+                // the operand could not be parsed as a number
+                interLine.AddError(Errors.Category.Fatal, 6);
+            }
 
             // update the symbol in the symbol table
             Symbol start = symb.RemoveSymbol(interLine.Label);
@@ -222,9 +238,10 @@ namespace Assembler
          * @teststandard Andrew Buelow
          * @codestandard Mark Mathis
          */
-        private static void ParseEqu(ref IntermediateLine interLine, ref SymbolTable symb)
+        private static void ParseEqu(ref IntermediateLine interLine, ref SymbolTable symb, int maxOp = 1)
         {
             Logger.Log("Parsing EQU directive", "DirectiveParser");
+            bool success = true;
 
             if (symb.ContainsSymbol(interLine.Label))
             {
@@ -249,26 +266,29 @@ namespace Assembler
                 {
                     // do stuff with the symbol
                     string symVal = symb.GetSymbol(interLine.DirectiveOperand).val;
-                    OperandParser.ParseExpression(ref symVal, OperandParser.Expressions.Operator, ref symb);
+                    success = OperandParser.ParseExpression(ref symVal, OperandParser.Expressions.Operator, 
+                                                  ref interLine, ref symb);
                     equSym.usage = Usage.EQUATED;
                     equSym.val = symVal;
                 }
                 else if (interLine.DirectiveLitOperand == OperandParser.Literal.EXPRESSION)
                 {
                     string oper = interLine.DirectiveOperand;
-                    OperandParser.ParseExpression(ref oper, OperandParser.Expressions.EQU, ref symb);
+                    success = OperandParser.ParseExpression(ref oper, OperandParser.Expressions.EQU, 
+                                                  ref interLine, ref symb, maxOp);
                     equSym.usage = Usage.EQUATED;
                     equSym.val = oper;
                 }
                 else
                 {
                     // error: invalid operand for equ
+                    success = false;
+                    interLine.AddError(Errors.Category.Serious, 21);
                 }
-                symb.AddSymbol(equSym);
-            }
-            else
-            {
-
+                if (success)
+                {
+                    symb.AddSymbol(equSym);
+                }
             }
 
             Logger.Log("Finished parsing EQU directive", "DirectiveParser");
@@ -292,8 +312,7 @@ namespace Assembler
          */
         private static void ParseEque(ref IntermediateLine interLine, ref SymbolTable symb)
         {
-            string oper = interLine.DirectiveOperand;
-            OperandParser.ParseExpression(ref oper, OperandParser.Expressions.EQU, ref symb, 3);
+            ParseEqu(ref interLine, ref symb, 3);
         }
 
         /**
@@ -395,12 +414,21 @@ namespace Assembler
                     {
                         symb.AddSymbol(interLine.Label, Parser.LC, Usage.LABEL, interLine.DirectiveOperand);
                     }
+                    else
+                    {
+                        Symbol datSym = symb.RemoveSymbol(interLine.Label);
+                        datSym.lc = Parser.LC;
+                        datSym.val = interLine.DirectiveOperand;
+                        symb.AddSymbol(datSym);
+                    }
                 }
 
                 string val = Convert.ToString(Convert.ToInt32(interLine.DirectiveOperand, 16), 2);
 
                 // assumed to be in correct representation; always pad to the left
                 interLine.Bytecode = val.PadLeft(16, '0');
+
+                Parser.IncrementLocationCounter();
             }
             else
             {
@@ -428,9 +456,26 @@ namespace Assembler
          * @teststandard Andrew Buelow
          * @codestandard Mark Mathis
          */
-        private static void ParseAdc(ref IntermediateLine interLine, ref SymbolTable symb)
+        private static void ParseAdc(ref IntermediateLine interLine, ref SymbolTable symb, int maxOper = 1)
         {
-            throw new NotImplementedException();
+            if (interLine.Label == null)
+            {
+                string operand = interLine.DirectiveOperand;
+                OperandParser.ParseExpression(ref operand, OperandParser.Expressions.ADC,
+                                              ref interLine, ref symb, maxOper);
+                interLine.DirectiveOperand = operand;
+            }
+            else if (symb.ContainsSymbol(interLine.Label))
+            {
+                Symbol adcSym = symb.RemoveSymbol(interLine.Label);
+                string operand = interLine.DirectiveOperand;
+                OperandParser.ParseExpression(ref operand, OperandParser.Expressions.ADC,
+                                              ref interLine, ref symb, maxOper);
+                adcSym.val = operand;
+                symb.AddSymbol(adcSym);
+            }
+
+            Parser.IncrementLocationCounter();
         }
 
         /**
@@ -451,7 +496,7 @@ namespace Assembler
          */
         private static void ParseAdce(ref IntermediateLine interLine, ref SymbolTable symb)
         {
-            throw new NotImplementedException();
+            ParseAdc(ref interLine, ref symb, 3);
         }
     }
 }

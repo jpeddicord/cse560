@@ -283,25 +283,29 @@ namespace Assembler
         /**
          * TODO
          */
-        public static void ParseExpression(ref string operand, OperandParser.Expressions type, ref SymbolTable symb, int maxOperators = 1)
-            {
+        public static bool ParseExpression(ref string operand,
+                                           OperandParser.Expressions type,
+                                           ref IntermediateLine interLine,
+                                           ref SymbolTable symb,
+                                           int maxOperators = 1)
+        {
             if (operand != null && operand.Length > 0)
             {
                 // if the expression is just a star, take care of it and return
                 if (operand.Length == 1 && operand[0] == '*')
                 {
                     operand = Parser.LC; ;
-                    return;
+                    return true;
                 }
 
                 char[] validOperators = { '+', '-' };
                 // if there are too many operators, give an error
                 List<string> operands = operand.Split(validOperators).ToList();
 
-                if (validOperators.Length - 1 > maxOperators)
+                if (operands.Count - 1 > maxOperators)
                 {
                     // error, too many operators
-                    return;
+                    return false;
                 }
 
                 List<char> operators = new List<char>();
@@ -346,6 +350,7 @@ namespace Assembler
                                     else
                                     {
                                         // error:label is too long
+                                        return false;
                                     }
                                 }
                                 else if (valid == Tokenizer.TokenKinds.Number)
@@ -353,6 +358,7 @@ namespace Assembler
                                     if (!(0 < Convert.ToInt32(opr2) && Convert.ToInt32(opr2) < 1023))
                                     {
                                         // error, the number is out of bounds
+                                        return false;
                                     }
                                 }
                                 else
@@ -381,6 +387,7 @@ namespace Assembler
                                         default:
                                             {
                                                 // error invalid operator in expression
+                                                return false;
                                             } break;
                                     }
 
@@ -391,12 +398,14 @@ namespace Assembler
                                     else
                                     {
                                         // error: computation out of bounds
+                                        return false;
                                     }
                                 }
                             }
                             else
                             {
                                 //error invalid operand expression
+                                return false;
                             }
                         } break;
 
@@ -410,11 +419,14 @@ namespace Assembler
                                 {
                                     if (i == 0)
                                     {
-                                        operands[i] = Parser.LC;
+                                        operands[i] = Convert.ToInt32(Parser.LC, 16).ToString();
                                     }
                                     else
                                     {
                                         // error, star must be first operand
+                                        Logger.Log("ERROR: invalid star notation in expression.", "OperandParser");
+                                        interLine.AddError(Errors.Category.Serious, 19);
+                                        return false;
                                     }
                                 }
                                 else if (symb.ContainsSymbol(label))
@@ -423,25 +435,113 @@ namespace Assembler
 
                                     if (operSym.usage == Usage.EQUATED)
                                     {
-                                        operands[i] = operSym.val;
+                                        operands[i] = Convert.ToInt32(operSym.val, 16).ToString();
                                     }
                                     else if (operSym.usage == Usage.LABEL)
                                     {
-                                        operands[i] = operSym.lc;
+                                        operands[i] = Convert.ToInt32(operSym.lc, 16).ToString();
                                     }
+                                    else
+                                    {
+                                        // error, can only use equated symbols or local references
+                                        return false;
+                                    }
+                                }
+                                else
+                                {
+                                    // undefined symbol
+                                    interLine.AddError(Errors.Category.Serious, 20);
+                                    return false;
                                 }
                             }
 
-                           operand = EvaluateExpression(new Stack<string>(operands), new Stack<char>(operators));
+                            operands.Reverse();
+                            operators.Reverse();
+
+                            string possibleOperand = EvaluateExpression(new Stack<string>(operands), new Stack<char>(operators));
+
+                            if (0 <= BinaryHelper.HexToInt(possibleOperand, 10) &&
+                                     BinaryHelper.HexToInt(possibleOperand, 10) <= 1023)
+                            {
+                                operand = possibleOperand;
+                            }
+                            else
+                            {
+                                // error, calculation must be within the range of 0 to 1023
+                                return false;
+                            }
                         } break;
 
                     case Expressions.ADC:
                         {
+                            for (int i = 0; i < operands.Count; i++)
+                            {
+                                string label = operands[i];
 
-                        } break;
+                                if (label == "*")
+                                {
+                                    if (i == 0)
+                                    {
+                                        operands[i] = Convert.ToInt32(Parser.LC, 16).ToString();
+                                    }
+                                    else
+                                    {
+                                        // error, star must be first operand
+                                        return false;
+                                    }
+                                }
+                                else if (symb.ContainsSymbol(label))
+                                {
+                                    Symbol operSym = symb.GetSymbol(label);
+
+                                    if (operSym.usage == Usage.EQUATED)
+                                    {
+                                        operands[i] = Convert.ToInt32(operSym.val, 16).ToString();
+                                    }
+                                    else if (operSym.usage == Usage.LABEL)
+                                    {
+                                        operands[i] = Convert.ToInt32(operSym.lc, 16).ToString();
+                                    }
+                                }
+                            }
+
+                            bool allNumbers = true;
+
+                            foreach (string op in operands)
+                            {
+                                Tokenizer.TokenKinds tokenKind;
+
+                                Tokenizer.GetTokenKind(op, out tokenKind);
+
+                                if (tokenKind == Tokenizer.TokenKinds.Number)
+                                {
+                                    allNumbers = allNumbers && true;
+                                }
+                                else
+                                {
+                                    allNumbers = false;
+                                }
+                            }
+
+                            if (allNumbers)
+                            {
+                                operands.Reverse();
+                                operators.Reverse();
+                                operand = EvaluateExpression(new Stack<string>(operands), new Stack<char>(operators));
+                            }
+                            else
+                            {
+                                operand = operands[0];
+                                for (int i = 0; i + 1 < operands.Count; i++)
+                                {
+                                    operand += operators[i] + operands[i + 1];
+                                }
+                            }
+                            } break;
+                        }
                 }
+            return true;
             }
-        }
 
         static string EvaluateExpression(Stack<string> operands, Stack<char> operators)
         {
@@ -466,7 +566,7 @@ namespace Assembler
                 }
                 operands.Push(op1);
             }
-            return operands.Pop();
+            return Convert.ToString(int.Parse(operands.Pop()),16);
         }
     }
 }
