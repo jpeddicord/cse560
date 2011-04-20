@@ -140,6 +140,11 @@ Test case sources are available in `TokenizerTest.cs <_tokenizer_test_8cs_source
      - Ensure positive numbers (denoted with a plus sign) are processed as numbers and not expressions.
      - Yes
      - This has a chance to catch malformed expressions as well, but this will be caught later in the parsing process when an invalid token is given.
+	 
+   * - T18
+     - Test that an expression will not be considered a number when it only has digits and operands that can be part of a number as well (such as -25 compared to 2-5).
+	 - No
+	 - This test did not pass on the first run. The regular expression used to match numbers was matching with expressions as well. The regular expression was reworked so that it no longer catches numbers as expressions.
 
 
 Directives Test List

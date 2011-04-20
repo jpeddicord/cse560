@@ -289,6 +289,20 @@ namespace Assembler
             Assert.IsTrue(Token == "+20" && TokenKind == Tokenizer.TokenKinds.Number,
                 "Positive number is a number kind");
         }
+
+        /**
+         * [T18] Test that an expression will not be considered a number when it only contains numbers and an operand
+         */
+        [Test]
+        public void TokenizerExpressionNotNumber()
+        {
+            string Line = "50-2";
+            string Token;
+            Tokenizer.TokenKinds TokenKind;
+            Tokenizer.GetNextToken(ref Line, out Token, out TokenKind);
+            Assert.IsTrue(Token == "50-2" && TokenKind == Tokenizer.TokenKinds.Expression,
+                "Token is '50-2' and of kind expression.");
+        }
     }
 }
 
