@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Diagnostics;
+using System.Collections.Generic;
 
 namespace Assembler
 {
@@ -151,7 +152,9 @@ namespace Assembler
             }
             else
             {
-
+                // garbage data
+                interLine.AddError(Errors.Category.Serious, 18);
+                return interLine;
             }
 
             // If there's anything else, get it. If there's anything there,
@@ -161,6 +164,12 @@ namespace Assembler
             if (tokenKind == Tokenizer.TokenKinds.Comment)
             {
                 interLine.Comment = token;
+            }
+            else
+            {
+                // garbage data
+                interLine.AddError(Errors.Category.Serious, 18);
+                return interLine;
             }
 
             // process this line if it's an instruction
@@ -253,7 +262,7 @@ namespace Assembler
          * @teststandard Andrew Buelow
          * @codestandard Mark Mathis
          */
-        private void IncrementLocationCounter()
+        public static void IncrementLocationCounter()
         {
             Logger.Log("Incrementing LC from: " + LC, "Parser");
             int tempLC = Convert.ToInt32(LC, 16);
@@ -311,9 +320,36 @@ namespace Assembler
             // iterate the lines of the file
             for (short i = 2; i <= sourceCode.Length; i++)
             {
+                bool hasFatal = false;
+
                 // parse a line and create an intermediate version
                 line = ParseLine(sourceCode[i - 1], i, ref symb);
+
+                // check the LC. at this point, the line will have incremented
+                // already, so check if it's 1024 instead of 1023.
+                if (Convert.ToInt32(Parser.LC, 16) > 1024)
+                {
+                    line.AddError(Errors.Category.Fatal, 3);
+                }
+
+                // add to source
                 interSource.AddLine(line);
+
+                // check for fatal errors
+                List<Errors.Error> errors = line.GetThreeErrors();
+
+                foreach (Errors.Error e in errors)
+                {
+                    if (e.category == Errors.Category.Fatal)
+                    {
+                        hasFatal = true;
+                        break;
+                    }
+                }
+                if (hasFatal)
+                {
+                    break;
+                }
             }
         }
     }
