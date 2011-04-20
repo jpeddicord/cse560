@@ -9,10 +9,29 @@ namespace Assembler
      */
     public enum Usage
     {
+        /**
+         * A label on a line.
+         */
         LABEL,
+
+        /**
+         * An exported entry symbol.
+         */
         ENTRY,
+
+        /**
+         * The program name.
+         */
         PRGMNAME,
+
+        /**
+         * An externally-located symbol.
+         */
         EXTERNAL,
+
+        /**
+         * An equated symbol.
+         */
         EQUATED,
     }
 
@@ -69,16 +88,16 @@ namespace Assembler
         /**
          * Create a new symbol table. It is initially empty.
          *
-         * @refcode
+         * @refcode S2
          * @errtest
          *  See the test plan for SymbolTable for information.
          * @errmsg
          *  None known.
-         * @author Jacob
+         * @author Jacob Peddicord
          * @creation April 9, 2011
          * @modlog
-         * @codestandard Mark
-         * @teststandard Andrew
+         * @codestandard Mark Mathis
+         * @teststandard Andrew Buelow
          */
         public SymbolTable()
         {
@@ -90,14 +109,17 @@ namespace Assembler
          * Add a symbol to the symbol table. Takes a single Symbol object.
          *
          * @param symbol Symbol object to add to the table
-         * @refcode
+         *
+         * @refcode S2
          * @errtest
+         *  Adding of various symbol types
          * @errmsg
-         * @author Jacob
+         *  None
+         * @author Jacob Peddicord
          * @creation April 9, 2011
          * @modlog
-         * @codestandard Mark
-         * @teststandard Andrew
+         * @codestandard Mark Mathis
+         * @teststandard Andrew Buelow
          */
         public void AddSymbol(Symbol symbol)
         {
@@ -113,20 +135,21 @@ namespace Assembler
          * Add a symbol to the symbol table. Constructs a Symbol based on the
          * input parameters, and adds it to the table.
          *
-         * @refcode
-         * @errtest
-         * @errmsg
-         * @author Jacob
-         * @creation April 9, 2011
-         * @modlog
-         * @codestandard Mark
-         * @teststandard Andrew
-         * 
-         * 
          * @param rlabel Label for the constructed symbol
          * @param lc Location counter for the symbol
          * @param usage Usage information for the symbol
          * @param val Optional value for the symbol
+         *
+         * @refcode S2
+         * @errtest
+         *  Adding of various symbols
+         * @errmsg
+         *  None
+         * @author Jacob Peddicord
+         * @creation April 9, 2011
+         * @modlog
+         * @codestandard Mark Mathis
+         * @teststandard Andrew Buelow
          */
         public void AddSymbol(string rlabel, string lc, Usage usage, string val = null)
         {
@@ -139,7 +162,21 @@ namespace Assembler
         }
 
         /**
-         * TODO: DOCUMENT MEEEE
+         * Remove a symbol from the table, returning it.
+         *
+         * @param rLabel symbol to remove by label
+         * @return the removed symbol
+         *
+         * @refcode S2
+         * @errtest
+         *  Removing of a symbol
+         * @errmsg
+         *  None
+         * @author Mark Mathis
+         * @creation April 19, 2011
+         * @modlog
+         * @codestandard Mark Mathis
+         * @teststandard Andrew Buelow
          */
         public Symbol RemoveSymbol(string rLabel)
         {
@@ -162,14 +199,17 @@ namespace Assembler
          *
          * @param rlabel symbol to look up
          * @return the associated symbol
-         * @refcode
+         *
+         * @refcode S2
          * @errtest
+         *  Checking the values of added symbols
          * @errmsg
-         * @author Jacob
+         *  None
+         * @author Jacob Peddicord
          * @creation April 9, 2011
          * @modlog
-         * @codestandard Mark
-         * @teststandard Andrew
+         * @codestandard Mark Mathis
+         * @teststandard Andrew Buelow
          */
         public Symbol GetSymbol(string rlabel)
         {
@@ -188,14 +228,17 @@ namespace Assembler
          *
          * @param rlabel symbol to look up
          * @return true if it exists, false if not
-         * @refcode
+         *
+         * @refcode S2
          * @errtest
+         *  Checking if symbols exist
          * @errmsg
-         * @author Jacob
+         *  None
+         * @author Jacob Peddicord
          * @creation April 17, 2011
          * @modlog
-         * @codestandard Mark
-         * @teststandard Andrew
+         * @codestandard Mark Mathis
+         * @teststandard Andrew Buelow
          */
         public bool ContainsSymbol(string rlabel)
         {
@@ -206,15 +249,17 @@ namespace Assembler
          * Get a list of symbols in the table, sorted by label.
          *
          * @return sorted list of symbol labels
-         * @refcode
+         *
+         * @refcode S2
          * @errtest
          *  Tested sorting of symbols
          * @errmsg
-         * @author Jacob
+         *  None
+         * @author Jacob Peddicord
          * @creation April 9, 2011
          * @modlog
-         * @codestandard Mark
-         * @teststandard Andrew
+         * @codestandard Mark Mathis
+         * @teststandard Andrew Buelow
          */
         public List<string> SortedSymbols()
         {
@@ -235,16 +280,19 @@ namespace Assembler
          *  - value
          *
          * @return pretty-printed string of the table
-         * @refcode
+         *
+         * @refcode S2
          * @errtest
+         *  Display of output in sample test scripts
          * @errmsg
-         * @author Jacob
+         *  None
+         * @author Jacob Peddicord
          * @creation April 9, 2011
          * @modlog
          *  - April 18, 2011 - Jacob - Fix display of missing LC
          *  - April 19, 2011 - Jacob - Display value if available
-         * @codestandard Mark
-         * @teststandard Andrew
+         * @codestandard Mark Mathis
+         * @teststandard Andrew Buelow
          */
         public override string ToString()
         {
