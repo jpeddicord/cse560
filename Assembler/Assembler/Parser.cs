@@ -169,7 +169,7 @@ namespace Assembler
             // process this line if it's an instruction
             if (interLine.OpCategory != null)
             {
-                interLine.ProcessLine();
+                interLine.ProcessLine(ref symb);
             }
 
             Logger.Log("Finished parsing line " + lineNum, "Parser");

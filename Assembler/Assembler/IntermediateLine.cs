@@ -245,20 +245,24 @@ namespace Assembler
          * Process a line, generating partial bytecode and appropriate flags.
          * Errors may be set on lines (and NOP'd) as they occur.
          *
-         * @refcode
+         * @param symb symbol table reference
+         *
+         * @refcode OP
          * @errtest
+         *  N/A
          * @errmsg
-         * @author Jacob
+         *  N/A
+         * @author Jacob Peddicord
          * @creation April 10, 2011
          * @modlog
          *  - April 15, 2011 - Jacob - Converted to a property; begin generating full bytecode
          *  - April 15, 2011 - Jacob - Changed to ProcessLine; we'll do more general things here
          *  - April 16, 2011 - Jacob - Fix padding on generated instructions.
          *  - April 17, 2011 - Jacob - Handle error conditions.
-         * @codestandard Mark
-         * @teststandard Andrew
+         * @codestandard Mark Mathis
+         * @teststandard Andrew Buelow
          */
-        public void ProcessLine()
+        public void ProcessLine(ref SymbolTable symb)
         {
             Logger.Log("Processing line \"" + this.source + "\"", "IntermediateLine");
             // get the first 5 bits
@@ -277,8 +281,33 @@ namespace Assembler
                 return;
             }
 
+            // fetch equated symbols
+            if (this.OpLitOperand == OperandParser.Literal.NONE &&
+                symb.ContainsSymbol(this.OpOperand) &&
+                symb.GetSymbol(this.OpOperand).usage == Usage.EQUATED)
+            {
+                Logger.Log("Evaluating equated symbol " + this.OpOperand, "IntermediateLine");
+                this.OpOperand = symb.GetSymbol(this.OpOperand).val;
+            }
+            // evaluate expressions
+            else if (this.OpLitOperand == OperandParser.Literal.EXPRESSION)
+            {
+                Logger.Log("Evaluating expression " + this.OpOperand, "IntermediateLine");
+                string op = this.OpOperand;
+                bool success = OperandParser.ParseExpression(ref op,
+                                                   OperandParser.Expressions.Operand,
+                                                   this, ref symb);
+                // invalid expression :(
+                if (!success)
+                {
+
+                    this.NOPificate();
+                    return;
+                }
+                this.OpOperand = op;
+            }
+
             // from here on, everything is instruction-dependent
-            // TODO: process equated symbols? might do this earlier.
             switch (this.category)
             {
                 case "CNTL": {

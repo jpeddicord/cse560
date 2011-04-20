@@ -309,7 +309,7 @@ namespace Assembler
                 {
                     string oper = interLine.DirectiveOperand;
                     success = OperandParser.ParseExpression(ref oper, OperandParser.Expressions.EQU, 
-                                                  ref interLine, ref symb, maxOp);
+                                                  interLine, ref symb, maxOp);
                     equSym.usage = Usage.EQUATED;
                     equSym.val = oper;
                 }
@@ -520,7 +520,7 @@ namespace Assembler
             {
                 string operand = interLine.DirectiveOperand;
                 OperandParser.ParseExpression(ref operand, OperandParser.Expressions.ADC,
-                                              ref interLine, ref symb, maxOper);
+                                              interLine, ref symb, maxOper);
                 interLine.DirectiveOperand = operand;
             }
             else if (symb.ContainsSymbol(interLine.Label))
@@ -528,7 +528,7 @@ namespace Assembler
                 Symbol adcSym = symb.RemoveSymbol(interLine.Label);
                 string operand = interLine.DirectiveOperand;
                 OperandParser.ParseExpression(ref operand, OperandParser.Expressions.ADC,
-                                              ref interLine, ref symb, maxOper);
+                                              interLine, ref symb, maxOper);
                 adcSym.val = operand;
                 symb.AddSymbol(adcSym);
             }

@@ -24,7 +24,7 @@ ES.16 Operand is missing from instruction. Line replaced with NOP.
 ES.17 SOPER operands must be from 0-255. Line replaced with NOP.
 ES.18 Unexpected token encountered while processing line. Skipping to next line.
 ES.19 Star must be used once and be the first operand in the expression. Line ignored. Assembly continues.
-ES.20 Symbol must be defined before it can be used in equ directive. Line skipped, Assembly continues.
+ES.20 Symbol must be defined before it can be used. Line skipped, Assembly continues.
 ES.21 Invalid operand for EQU/EQUe. Line ignored, assembly continues.
 ES.22 Too many operators in expression. Ignoring line, assembly continues.
 ES.23 Expressions require at least one operator. Ignoring line, assembly continues.

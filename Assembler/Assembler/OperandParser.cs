@@ -285,7 +285,7 @@ namespace Assembler
          */
         public static bool ParseExpression(ref string operand,
                                            OperandParser.Expressions type,
-                                           ref IntermediateLine interLine,
+                                           IntermediateLine interLine,
                                            ref SymbolTable symb,
                                            int maxOperators = 1)
         {
