@@ -484,6 +484,9 @@ namespace Assembler
          * @creation April 18, 2011
          * @modlog
          *  - April 19, 2011 - Jacob - Fixed padding on values.
+         *  - April 24, 2011 -  Mark - Commented out the part that put the value of the dat
+         *                              into the symbol table until that can be made clearer
+         *                              by Al.
          * @teststandard Andrew Buelow
          * @codestandard Mark Mathis
          */
@@ -500,13 +503,13 @@ namespace Assembler
                 {
                     if (!symb.ContainsSymbol(interLine.Label))
                     {
-                        symb.AddSymbol(interLine.Label, Parser.LC, Usage.LABEL, interLine.DirectiveOperand);
+                        symb.AddSymbol(interLine.Label, Parser.LC, Usage.LABEL); //,interLine.DirectiveOperand);
                     }
                     else
                     {
                         Symbol datSym = symb.RemoveSymbol(interLine.Label);
                         datSym.lc = Parser.LC;
-                        datSym.val = interLine.DirectiveOperand;
+                        //datSym.val = interLine.DirectiveOperand;
                         symb.AddSymbol(datSym);
                     }
                 }
