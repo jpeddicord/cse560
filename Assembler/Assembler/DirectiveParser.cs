@@ -555,16 +555,30 @@ namespace Assembler
             if (interLine.Label == null)
             {
                 string operand = interLine.DirectiveOperand;
-                OperandParser.ParseExpression(ref operand, OperandParser.Expressions.ADC,
-                                              interLine, ref symb, maxOper);
+                if (interLine.DirectiveLitOperand == OperandParser.Literal.EXPRESSION)
+                {
+                    OperandParser.ParseExpression(ref operand, OperandParser.Expressions.ADC,
+                                                  interLine, ref symb, maxOper);
+                }
+                else if (interLine.DirectiveLitOperand == OperandParser.Literal.NUMBER)
+                {
+                    operand = Convert.ToString(Convert.ToInt32(interLine.DirectiveOperand), 16);
+                }
                 interLine.DirectiveOperand = operand;
             }
             else if (symb.ContainsSymbol(interLine.Label))
             {
                 Symbol adcSym = symb.RemoveSymbol(interLine.Label);
                 string operand = interLine.DirectiveOperand;
-                OperandParser.ParseExpression(ref operand, OperandParser.Expressions.ADC,
-                                              interLine, ref symb, maxOper);
+                if (interLine.DirectiveLitOperand == OperandParser.Literal.EXPRESSION)
+                {
+                    OperandParser.ParseExpression(ref operand, OperandParser.Expressions.ADC,
+                                                  interLine, ref symb, maxOper);
+                }
+                else if (interLine.DirectiveLitOperand == OperandParser.Literal.NUMBER)
+                {
+                    operand = Convert.ToString(Convert.ToInt32(interLine.DirectiveOperand), 16);
+                }
                 adcSym.val = operand;
                 symb.AddSymbol(adcSym);
             }
