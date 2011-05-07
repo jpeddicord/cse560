@@ -6,7 +6,7 @@ namespace Assembler
     /**
      * Used to hold all of the intermediate lines generated from a source text.
      */
-    class IntermediateFile
+    public class IntermediateFile
     {
         /**
          * The dictionary that holds all intermediate lines of this source file.

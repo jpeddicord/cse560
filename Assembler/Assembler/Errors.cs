@@ -9,7 +9,7 @@ namespace Assembler
      * A singleton class that can be used to fetch the list of built-in errors
      * and their levels and messages.
      */
-    class Errors
+    public class Errors
     {
         /**
          * The severity of the error.

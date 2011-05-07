@@ -9,7 +9,7 @@ namespace Assembler
      * The value of each line of the source code when it has been converted into the
      * intermediate values between pass 1 and pass 2.
      */
-    class IntermediateLine
+    public class IntermediateLine
     {
         /**
          * The full source line.

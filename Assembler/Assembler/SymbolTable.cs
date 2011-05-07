@@ -86,6 +86,11 @@ namespace Assembler
         private Dictionary<string, Symbol> symbols;
 
         /**
+         * The extracted program name. Useful, since we only have one.
+         */
+        public string ProgramName { get; private set; }
+
+        /**
          * Create a new symbol table. It is initially empty.
          *
          * @refcode S2
@@ -118,6 +123,7 @@ namespace Assembler
          * @author Jacob Peddicord
          * @creation April 9, 2011
          * @modlog
+         *  - May 7, 2011 - Jacob - Store the program name in a more accessible location.
          * @codestandard Mark Mathis
          * @teststandard Andrew Buelow
          */
@@ -129,6 +135,12 @@ namespace Assembler
                 throw new SymbolException("Duplicate symbol in table.");
             }
             this.symbols[symbol.rlabel] = symbol;
+
+            // store the program name if given
+            if (symbol.usage == Usage.PRGMNAME)
+            {
+                this.ProgramName = symbol.rlabel;
+            }
         }
 
         /**

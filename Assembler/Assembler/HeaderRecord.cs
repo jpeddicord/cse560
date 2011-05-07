@@ -34,7 +34,7 @@ namespace Assembler
         }
 
         public string VersionInfo {
-            get { return null; } // TODO
+            get { return "9001"; } // TODO
         }
 
         private string totalRecords;
