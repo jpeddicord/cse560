@@ -7,8 +7,18 @@ namespace Assembler
     /**
      * Drives the assembler.
      */
-    class Program
+    public class Program
     {
+        /**
+         * Output usage information.
+         */
+        public static void Usage()
+        {
+            Console.WriteLine("FFA Assembler");
+            Console.WriteLine("Usage:\t\tAssembler source [output]");
+            Console.WriteLine("If no output file is given standard output will be used.");
+        }
+
         /**
          * Drives the Assembler.
          *
@@ -19,7 +29,7 @@ namespace Assembler
          *  Differing program arguments.
          * @errmsg
          *  - Incorrect number of arguments.
-         *  - Expected 1 parameter, but received [actual args.Length]
+         *  - Usage information
          * @author Mark
          * @creation April 5, 2011
          * @modlog
@@ -30,54 +40,60 @@ namespace Assembler
          *  - April  9, 2011 - Mark - Uses an IntermediateFile object.
          *  - April  9, 2011 - Mark - Catches problem with improper number of arguments.
          *  - April 10, 2011 - Mark - Uses a SymbolTable object.
+         *  - May    8, 2011 - Jacob - Only process one file.
          * @teststandard Andrew Buelow
          * @codestandard Mark Mathis
          */
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
-            // initialize logger
-            Logger.Log("Starting Main method of Assembler", "Main");
-            
-            // this will hold the file names.
-            string[] file = null;
+            string infile = null;
+            string outfile = null;
 
-            // check that the arguments are of the proper number
-            if (args.Length >= 1)
+            // single arg given, output to stdout
+            if (args.Length == 1)
             {
-                Logger.Log("Arguments are valid", "Main");
-                file = args;
+                infile = args[0];
             }
+            // two args given, read in the first and output to the second
+            else if (args.Length == 2)
+            {
+                infile = args[0];
+                outfile = args[1];
+            }
+            // invalid; print usage
             else
             {
-                // bad. exit.
-                string error = "Expected 1 parameter, but received " + args.Length;
-                Logger.Log(error, "Main");
-                Console.Error.WriteLine(error);
-                Console.Error.WriteLine("Program will now exit.");
+                Usage();
                 System.Environment.Exit(1);
             }
 
+            // pass 1
+            Logger.Log("Starting up", "Main");
             SymbolTable symb = new SymbolTable();
+            Parser pars = new Parser();
+            IntermediateFile interSource;
+            pars.ParseSource(infile, out interSource, out symb);
 
-            // parse each file passed in through args
-            foreach (string path in file)
+            // print output (TODO: REMOVE THIS)
+            Console.WriteLine(interSource);
+            Console.WriteLine(symb);
+
+            // check for errors
+            if (Parser.TotalErrors > 0)
             {
-                Parser pars = new Parser();
-                IntermediateFile interSource;
-                pars.ParseSource(path, out interSource, out symb);
-
-                // print output
-                Console.WriteLine(interSource);
-                Console.WriteLine(symb);
-
-                // check for errors
-                if (Parser.TotalErrors > 0)
-                {
-                    Console.WriteLine(String.Format(
-                        "Your program had {0} errors. Please check the output above.",
-                        Parser.TotalErrors));
-                }
+                Console.WriteLine(String.Format(
+                    "Your program had {0} errors. Please check the output above.",
+                    Parser.TotalErrors));
+                System.Environment.Exit(2);
             }
+
+            // pass 2
+            Logger.Log("Starting pass 2", "Main");
+            ObjectFile obj = new ObjectFile(ref interSource, ref symb);
+            obj.Render(outfile);
+
+            // TODO: assembly report
+            //
         }
     }
 }
