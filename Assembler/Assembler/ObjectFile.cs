@@ -17,19 +17,16 @@ namespace Assembler
 
         private SymbolTable symb;
 
-        public ObjectFile(IntermediateFile input, SymbolTable symb)
+        public ObjectFile(ref IntermediateFile input, ref SymbolTable symb)
         {
             this.input = input;
             this.symb = symb;
-
-            // extract the program name
-
         }
 
         /**
          * Add a linking record to this object file.
          */
-        public void AddLinkingRecord(LinkingRecord record)
+        private void AddRecord(LinkingRecord record)
         {
             this.linkingRecords.Add(record);
         }
@@ -37,7 +34,7 @@ namespace Assembler
         /**
          * Add a text record to this object file.
          */
-        public void AddLinkingRecord(TextRecord record)
+        private void AddRecord(TextRecord record)
         {
             this.textRecords.Add(record);
         }
@@ -45,9 +42,48 @@ namespace Assembler
         /**
          * Add a modification record to this object file.
          */
-        public void AddLinkingRecord(ModificationRecord record)
+        private void AddRecord(ModificationRecord record)
         {
             this.modificationRecords.Add(record);
+        }
+
+        /**
+         * Scan the symbol table for ENTRY symbols and create linking records
+         * for them.
+         */
+        private void GenerateLinkingRecords()
+        {
+            // iterate the symbol table
+            foreach (string symbName in this.symb.SortedSymbols())
+            {
+                // we only care about ENTRY symbols
+                Symbol symb = this.symb.GetSymbol(symbName);
+                if (symb.usage == Usage.ENTRY)
+                {
+                    // generate a linking record
+                    var record = new LinkingRecord(this.symb.ProgramName);
+                    record.EntryName = symb.rlabel;
+                    record.ProgramLocation = symb.lc;
+                    this.AddRecord(record);
+                }
+            }
+        }
+
+        /**
+         * Scan and the source (pass 2) and generate text and modification
+         * records as apporpriate.
+         */
+        private void GenerateSourceRecords()
+        {
+            foreach (IntermediateLine line in this.input)
+            {
+                // only scan lines that will actually be in the output
+                if (line.ProgramCounter == null)
+                {
+                    continue;
+                }
+                // TODO: magic
+            }
         }
 
         /**
@@ -56,10 +92,24 @@ namespace Assembler
          */
         public void Render(string filename)
         {
+            // generate records
+            this.GenerateLinkingRecords();
+            this.GenerateSourceRecords();
+
+            // write out the file
             var file = new StreamWriter(filename);
 
-            var header = new HeaderRecord("FIXME");
-            // TODO: fill out header
+            // generate and write the header record
+            var header = new HeaderRecord(this.symb.ProgramName);
+            header.LoadAddress = "0"; // FIXME: this isn't right.
+            header.ModuleLength = "0"; // FIXME
+            header.ExecutionStart = this.symb.GetSymbol(this.symb.ProgramName).lc;
+            header.TotalLinking = Convert.ToString(this.linkingRecords.Count, 16);
+            header.TotalText = Convert.ToString(this.textRecords.Count, 16);
+            header.TotalModification = Convert.ToString(this.modificationRecords.Count, 16);
+            header.TotalRecords = Convert.ToString(this.linkingRecords.Count +
+                                                   this.textRecords.Count +
+                                                   this.modificationRecords.Count, 16);
             file.WriteLine(header);
 
             // write linking records
@@ -80,9 +130,8 @@ namespace Assembler
                 file.WriteLine(record);
             }
 
-            var end = new EndRecord("FIXME");
+            var end = new EndRecord(this.symb.ProgramName);
             file.WriteLine(end);
-
         }
     }
 }
