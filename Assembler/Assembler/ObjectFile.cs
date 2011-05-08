@@ -133,6 +133,8 @@ namespace Assembler
             // write the end record
             var end = new EndRecord(this.symb.ProgramName);
             file.WriteLine(end);
+
+            file.Close();
         }
     }
 }

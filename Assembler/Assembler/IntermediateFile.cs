@@ -118,7 +118,7 @@ namespace Assembler
          */
         public System.Collections.IEnumerator GetEnumerator ()
         {
-            for (int i = 0; i < this.TotalLines; i++)
+            for (int i = 1; i <= this.TotalLines; i++)
             {
                 yield return this.allLines[i];
             }
