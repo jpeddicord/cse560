@@ -6,7 +6,7 @@ namespace Assembler
     /**
      * Used to hold all of the intermediate lines generated from a source text.
      */
-    class IntermediateFile
+    public class IntermediateFile : System.Collections.IEnumerable
     {
         /**
          * The dictionary that holds all intermediate lines of this source file.
@@ -82,7 +82,7 @@ namespace Assembler
          */
         public IntermediateLine Line(int lineNumber)
         {
-            return allLines[lineNumber];
+            return this.allLines[lineNumber];
         }
 
         /**
@@ -111,6 +111,17 @@ namespace Assembler
                 output += allLines[i].ToString() + "-----\n";
             }
             return output;
+        }
+
+        /**
+         * Support iterating this file line by line.
+         */
+        public System.Collections.IEnumerator GetEnumerator ()
+        {
+            for (int i = 1; i <= this.TotalLines; i++)
+            {
+                yield return this.allLines[i];
+            }
         }
     }
 }

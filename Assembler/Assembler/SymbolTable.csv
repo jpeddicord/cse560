@@ -1,3 +1,4 @@
 symbols,SymbolTable,Dictionary of string-Symbol,member,stores the symbols in table
+ProgramName,SymbolTable,string,member,stores the global program name
 keys,SymbolTable.SortedSymbols,List of string,local,contains the table's sorted keys
 disp,SymbolTable.ToString,string,local,string printout of the table
