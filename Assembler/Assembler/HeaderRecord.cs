@@ -30,11 +30,20 @@ namespace Assembler
         }
 
         public string AssemblyDate {
-            get { return null; } // TODO
+            get
+            {
+                DateTime assTime = DateTime.Now;
+                return String.Format("{0:D4}{1:D3},{2:D2}:{3:D2}:{4:D2}",
+                                     assTime.Year,
+                                     assTime.DayOfYear,
+                                     assTime.Hour,
+                                     assTime.Minute,
+                                     assTime.Second);
+            }
         }
 
         public string VersionInfo {
-            get { return "9001"; } // TODO
+            get { return "9001"; }
         }
 
         private string totalRecords;
