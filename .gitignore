@@ -4,6 +4,7 @@
 *.pidb
 *.swp
 *.resources
+*.obj
 bin/
 obj/
 test-results/
