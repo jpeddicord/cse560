@@ -82,7 +82,28 @@ namespace Assembler
                 {
                     continue;
                 }
-                // TODO: magic
+
+                // will store the final hex code
+                string hex = "0000";
+
+                // do we have an instruction using a label?
+                if (line.OpCategory != null && line.OpLitOperand == OperandParser.Literal.NONE)
+                {
+                    // get the symbol that is being referenced
+                    // FIXME: this will crash on an unresolved symbol
+                    Symbol symb = this.symb.GetSymbol(line.OpOperand);
+                    // get the binary encoding padded to 10 bits
+                    string bin = BinaryHelper.BinaryString(symb.lc).PadLeft(10, '0');
+                    // prefix it with the original instruction bytecode
+                    bin = line.Bytecode.Substring(0, 6) + bin;
+                    hex = "0000"; // TODO
+                }
+
+                TextRecord rec = new TextRecord(this.symb.ProgramName);
+                rec.ProgramLocation = line.ProgramCounter;
+                rec.HexCode = hex;
+                rec.StatusFlag = "A"; // TODO
+                rec.Adjustments = "0"; // TODO
             }
         }
 
