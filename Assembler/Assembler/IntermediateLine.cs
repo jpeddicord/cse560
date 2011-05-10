@@ -289,6 +289,7 @@ namespace Assembler
             {
                 Logger.Log("Evaluating equated symbol " + this.OpOperand, "IntermediateLine");
                 this.OpOperand = symb.GetSymbol(this.OpOperand).val;
+                // TODO: re-calculate the type of the literal
             }
             // evaluate expressions
             else if (this.OpLitOperand == OperandParser.Literal.EXPRESSION)
@@ -305,6 +306,8 @@ namespace Assembler
                     return;
                 }
                 this.OpOperand = op;
+
+                // TODO: re-set OpLitOperand to a number
             }
 
             // from here on, everything is instruction-dependent

@@ -83,27 +83,74 @@ namespace Assembler
                     continue;
                 }
 
-                // will store the final hex code
-                string hex = "0000";
-
-                // do we have an instruction using a label?
-                if (line.OpCategory != null && line.OpLitOperand == OperandParser.Literal.NONE)
-                {
-                    // get the symbol that is being referenced
-                    // FIXME: this will crash on an unresolved symbol
-                    Symbol symb = this.symb.GetSymbol(line.OpOperand);
-                    // get the binary encoding padded to 10 bits
-                    string bin = BinaryHelper.BinaryString(symb.lc).PadLeft(10, '0');
-                    // prefix it with the original instruction bytecode
-                    bin = line.Bytecode.Substring(0, 6) + bin;
-                    hex = "0000"; // TODO
-                }
-
+                // create the text record
                 TextRecord rec = new TextRecord(this.symb.ProgramName);
                 rec.ProgramLocation = line.ProgramCounter;
-                rec.HexCode = hex;
-                rec.StatusFlag = "A"; // TODO
-                rec.Adjustments = "0"; // TODO
+                string bin = line.Bytecode;
+
+                // do we have an instruction?
+                if (line.OpCategory != null)
+                {
+                    // and a label? (FIXME: this will also catch previously-equated operands)
+                    if (line.OpLitOperand == OperandParser.Literal.NONE)
+                    {
+                        // get the symbol that is being referenced
+                        if (this.symb.ContainsSymbol(line.OpOperand))
+                        {
+                            Symbol symb = this.symb.GetSymbol(line.OpOperand);
+                            // external labels are processed in the linker
+                            if (symb.usage == Usage.EXTERNAL) {
+                                rec.StatusFlag = "M";
+                                rec.Adjustments = "1";
+                                // TODO: create a modify record here
+                            }
+                            // otherwise we can resolve the symbol
+                            else
+                            {
+                                // get the binary encoding padded to 10 bits
+                                bin = BinaryHelper.BinaryString(symb.lc).PadLeft(10, '0');
+                                // prefix it with the original instruction bytecode
+                                bin = line.Bytecode.Substring(0, 6) + bin;
+                                // relocatable label
+                                rec.StatusFlag = "R";
+                                rec.Adjustments = "0";
+                            }
+                        }
+                        // error, otherwise
+                        else
+                        {
+                            // TODO
+                            throw new NotImplementedException("ERROR");
+                        }
+                    }
+                    // otherwise... TODO
+                    else
+                    {
+
+                    }
+                }
+                // or a DAT directive?
+                else if (line.Directive == "DAT")
+                {
+                    // DAT fields shouldn't need to be modified
+                    rec.StatusFlag = "A";
+                    rec.Adjustments = "0";
+                }
+                // or an ADC directive?
+                else if (line.Directive == "ADC")
+                {
+
+                }
+                // anything else with a LC shouldn't be here...
+                else
+                {
+                    // this code *should* be unreachable
+                    throw new NotImplementedException();
+                }
+
+                // convert bytecode to hex and add the record
+                rec.HexCode = Convert.ToString(Convert.ToInt32(bin, 2), 16).ToUpper();
+                this.AddRecord(rec);
             }
         }
 
