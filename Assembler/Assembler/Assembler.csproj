@@ -101,6 +101,7 @@
     <Compile Include="TextRecord.cs" />
     <Compile Include="ModificationRecord.cs" />
     <Compile Include="EndRecord.cs" />
+    <Compile Include="AssemblyReport.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">

@@ -100,9 +100,15 @@ namespace Assembler
                             Symbol symb = this.symb.GetSymbol(line.OpOperand);
                             // external labels are processed in the linker
                             if (symb.usage == Usage.EXTERNAL) {
+                                // create a modification record
+                                ModificationRecord mod = new ModificationRecord(this.symb.ProgramName);
+                                mod.ProgramLocation = line.ProgramCounter;
+                                mod.Word = Convert.ToString(Convert.ToInt32(line.Bytecode, 2), 16).ToUpper();
+                                mod.AddAdjustment(true, symb.rlabel);
+                                this.AddRecord(mod);
+                                // set the status to 1 modify
                                 rec.StatusFlag = "M";
                                 rec.Adjustments = "1";
-                                // TODO: create a modify record here
                             }
                             // otherwise we can resolve the symbol
                             else
@@ -123,10 +129,12 @@ namespace Assembler
                             throw new NotImplementedException("ERROR");
                         }
                     }
-                    // otherwise... TODO
-                    else
+                    // otherwise if it is (was) an expression
+                    else if (line.OpLitOperand == OperandParser.Literal.EXPRESSION)
                     {
-
+                        // then is is relocatable
+                        rec.StatusFlag = "R";
+                        rec.Adjustments = "0";
                     }
                 }
                 // or a DAT directive?
@@ -139,7 +147,12 @@ namespace Assembler
                 // or an ADC directive?
                 else if (line.Directive == "ADC")
                 {
-
+                    // TODO TODO TODO
+                }
+                // perhaps ADCe? (this might be merged with ADC above)
+                else if (line.Directive == "ADCE")
+                {
+                    // TODO TODO TODO
                 }
                 // anything else with a LC shouldn't be here...
                 else

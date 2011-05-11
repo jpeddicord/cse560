@@ -306,8 +306,6 @@ namespace Assembler
                     return;
                 }
                 this.OpOperand = op;
-
-                // TODO: re-set OpLitOperand to a number
             }
 
             // from here on, everything is instruction-dependent

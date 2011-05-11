@@ -32,9 +32,15 @@ namespace Assembler
             set { this.word = value; }
         }
 
+        /**
+         * Add an adjustment to this record.
+         */
         public void AddAdjustment(bool positive, string label)
         {
-            // TODO
+            Adjustment adj;
+            adj.positive = positive;
+            adj.label = label;
+            this.adjustments.Add(adj);
         }
 
         public override string ToString ()
