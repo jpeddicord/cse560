@@ -20,12 +20,12 @@ namespace Assembler
         private string programLocation;
         public string ProgramLocation {
             get { return this.programLocation; }
-            set { this.programLocation = value; }
+            set { this.programLocation = value.PadLeft(4, '0'); }
         }
 
         public override string ToString()
         {
-            return string.Format("L:{0}:{1}:{2}",
+            return String.Format("L:{0}:{1}:{2}",
                     this.EntryName,
                     this.ProgramLocation,
                     this.programName

@@ -14,13 +14,13 @@ namespace Assembler
         private string programLocation;
         public string ProgramLocation {
             get { return this.programLocation; }
-            set { this.programLocation = value; }
+            set { this.programLocation = value.PadLeft(4, '0'); }
         }
 
         private string hexCode;
         public string HexCode {
             get { return this.hexCode; }
-            set { this.hexCode = value; }
+            set { this.hexCode = value.PadLeft(4, '0'); }
         }
 
         private string statusFlag;

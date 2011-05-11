@@ -23,7 +23,7 @@ namespace Assembler
         private string programLocation;
         public string ProgramLocation {
             get { return this.programLocation; }
-            set { this.programLocation = value; }
+            set { this.programLocation = value.PadLeft(4, '0'); }
         }
 
         private string word;
@@ -48,9 +48,9 @@ namespace Assembler
             string adjstr = "";
             foreach (Adjustment adj in this.adjustments)
             {
-                adjstr += (adj.positive ? "+" : "-") + ":" + adj.label;
+                adjstr += (adj.positive ? "+" : "-") + ":" + adj.label + ":";
             }
-            return String.Format(
+            return String.Format("M:{0}:{1}:{2}{3}",
                     this.ProgramLocation,
                     this.Word,
                     adjstr,

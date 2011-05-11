@@ -136,6 +136,12 @@ namespace Assembler
                         rec.StatusFlag = "R";
                         rec.Adjustments = "0";
                     }
+                    // otherwise, it was a literal
+                    else
+                    {
+                        rec.StatusFlag = "A";
+                        rec.Adjustments = "0";
+                    }
                 }
                 // or a DAT directive?
                 else if (line.Directive == "DAT")
@@ -184,7 +190,7 @@ namespace Assembler
             var header = new HeaderRecord(this.symb.ProgramName);
             header.LoadAddress = "0"; // FIXME: this isn't right.
             header.ModuleLength = "0"; // FIXME
-            header.ExecutionStart = this.symb.GetSymbol(this.symb.ProgramName).lc;
+            header.ExecutionStart = "0"; // FIXME
             header.TotalLinking = Convert.ToString(this.linkingRecords.Count, 16);
             header.TotalText = Convert.ToString(this.textRecords.Count, 16);
             header.TotalModification = Convert.ToString(this.modificationRecords.Count, 16);

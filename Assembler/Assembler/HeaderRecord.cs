@@ -14,19 +14,19 @@ namespace Assembler
         private string loadAddress;
         public string LoadAddress {
             get { return this.loadAddress; }
-            set { this.loadAddress = value; }
+            set { this.loadAddress = value.PadLeft(4, '0'); }
         }
 
         private string moduleLength;
         public string ModuleLength {
             get { return this.moduleLength; }
-            set { this.moduleLength = value; }
+            set { this.moduleLength = value.PadLeft(4, '0'); }
         }
 
         private string executionStart;
         public string ExecutionStart {
             get { return this.executionStart; }
-            set { this.executionStart = value; }
+            set { this.executionStart = value.PadLeft(4, '0'); }
         }
 
         public string AssemblyDate {
@@ -49,26 +49,26 @@ namespace Assembler
         private string totalRecords;
         public string TotalRecords {
             get { return this.totalRecords; }
-            set { this.totalRecords = value; }
+            set { this.totalRecords = value.PadLeft(4, '0'); }
         }
 
         private string totalLinking;
         public string TotalLinking {
             get { return this.totalLinking; }
-            set { this.totalLinking = value; }
+            set { this.totalLinking = value.PadLeft(4, '0'); }
         }
 
 
         private string totalText;
         public string TotalText {
             get { return this.totalText; }
-            set { this.totalText = value; }
+            set { this.totalText = value.PadLeft(4, '0'); }
         }
 
         private string totalModification;
         public string TotalModification {
             get { return this.totalModification; }
-            set { this.totalModification = value; }
+            set { this.totalModification = value.PadLeft(4, '0'); }
         }
 
         /**
