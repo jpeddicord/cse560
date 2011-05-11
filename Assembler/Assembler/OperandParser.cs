@@ -521,7 +521,7 @@ namespace Assembler
                                 else if (tokenkind == Tokenizer.TokenKinds.Number)
                                 {
                                     // this needs to be caught, so the next else doesn't get
-                                    // tripped. but there's nothing to do here.
+                                    // tripped. but there's nothing to do herp.
                                 }
                                 else
                                 {
