@@ -60,7 +60,7 @@ namespace Assembler
          */
         public void AddLine(IntermediateLine line)
         {
-            this.allLines.Add(int.Parse(line.SourceLineNumber), line);
+            this.allLines.Add(line.SourceLineNumber, line);
         }
 
         /**

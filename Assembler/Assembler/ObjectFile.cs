@@ -17,10 +17,13 @@ namespace Assembler
 
         private SymbolTable symb;
 
-        public ObjectFile(ref IntermediateFile input, ref SymbolTable symb)
+        private AssemblyReport report;
+
+        public ObjectFile(ref IntermediateFile input, ref SymbolTable symb, ref AssemblyReport report)
         {
             this.input = input;
             this.symb = symb;
+            this.report = report;
         }
 
         /**
@@ -86,6 +89,8 @@ namespace Assembler
                 // create the text record
                 TextRecord rec = new TextRecord(this.symb.ProgramName);
                 rec.ProgramLocation = line.ProgramCounter;
+                rec.StatusFlag = 'A';
+                rec.Adjustments = "0";
                 string bin = line.Bytecode;
 
                 // do we have an instruction?
@@ -107,7 +112,7 @@ namespace Assembler
                                 mod.AddAdjustment(true, symb.rlabel);
                                 this.AddRecord(mod);
                                 // set the status to 1 modify
-                                rec.StatusFlag = "M";
+                                rec.StatusFlag = 'M';
                                 rec.Adjustments = "1";
                             }
                             // otherwise we can resolve the symbol
@@ -118,7 +123,7 @@ namespace Assembler
                                 // prefix it with the original instruction bytecode
                                 bin = line.Bytecode.Substring(0, 6) + bin;
                                 // relocatable label
-                                rec.StatusFlag = "R";
+                                rec.StatusFlag = 'R';
                                 rec.Adjustments = "0";
                             }
                         }
@@ -126,20 +131,20 @@ namespace Assembler
                         else
                         {
                             // TODO
-                            throw new NotImplementedException("ERROR");
+                            //throw new NotImplementedException("ERROR");
                         }
                     }
                     // otherwise if it is (was) an expression
                     else if (line.OpLitOperand == OperandParser.Literal.EXPRESSION)
                     {
                         // then is is relocatable
-                        rec.StatusFlag = "R";
+                        rec.StatusFlag = 'R';
                         rec.Adjustments = "0";
                     }
                     // otherwise, it was a literal
                     else
                     {
-                        rec.StatusFlag = "A";
+                        rec.StatusFlag = 'A';
                         rec.Adjustments = "0";
                     }
                 }
@@ -147,7 +152,7 @@ namespace Assembler
                 else if (line.Directive == "DAT")
                 {
                     // DAT fields shouldn't need to be modified
-                    rec.StatusFlag = "A";
+                    rec.StatusFlag = 'A';
                     rec.Adjustments = "0";
                 }
                 // or an ADC directive?
@@ -170,6 +175,10 @@ namespace Assembler
                 // convert bytecode to hex and add the record
                 rec.HexCode = Convert.ToString(Convert.ToInt32(bin, 2), 16).ToUpper();
                 this.AddRecord(rec);
+
+                // add a line to the assembly report
+                this.report.Add(line.ProgramCounter, rec.HexCode, rec.StatusFlag,
+                        line.SourceLineNumber, line.SourceLine);
             }
         }
 

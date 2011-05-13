@@ -23,8 +23,8 @@ namespace Assembler
             set { this.hexCode = value.PadLeft(4, '0'); }
         }
 
-        private string statusFlag;
-        public string StatusFlag {
+        private char statusFlag;
+        public char StatusFlag {
             get { return this.statusFlag; }
             set { this.statusFlag = value; }
         }

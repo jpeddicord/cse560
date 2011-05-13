@@ -28,12 +28,12 @@ namespace Assembler
         /**
          * The line number of this line of source.
          */
-        private string line;
+        private short line;
 
         /**
          * Allows access for getting the line number of this source line.
          */
-        public string SourceLineNumber
+        public short SourceLineNumber
         {
             get { return this.line; }
         }
@@ -226,7 +226,7 @@ namespace Assembler
         {
             Logger.Log("Initializing line " + lineNum, "IntermediateLine");
             this.source = source;
-            this.line = lineNum.ToString();
+            this.line = lineNum;
             this.LC = null;
             this.lineLabel = null;
             this.category = null;

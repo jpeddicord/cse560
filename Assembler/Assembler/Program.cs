@@ -85,16 +85,16 @@ namespace Assembler
                 Console.WriteLine(String.Format(
                     "Your program had {0} errors. Please check the output above.",
                     Parser.TotalErrors));
-                System.Environment.Exit(2);
             }
 
             // pass 2
             Logger.Log("Starting pass 2", "Main");
-            ObjectFile obj = new ObjectFile(ref interSource, ref symb);
+            AssemblyReport report = new AssemblyReport();
+            ObjectFile obj = new ObjectFile(ref interSource, ref symb, ref report);
             obj.Render(outfile);
 
-            // TODO: assembly report
-            //
+            // print out assembly report
+            Console.WriteLine(report);
         }
     }
 }
