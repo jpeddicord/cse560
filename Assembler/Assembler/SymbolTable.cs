@@ -249,12 +249,16 @@ namespace Assembler
          * @author Jacob Peddicord
          * @creation April 17, 2011
          * @modlog
+         *  - May 13, 2011 - Mark - Now returns false if rlabel is null.
          * @codestandard Mark Mathis
          * @teststandard Andrew Buelow
          */
         public bool ContainsSymbol(string rlabel)
         {
-            return this.symbols.ContainsKey(rlabel);
+            if (rlabel != null)
+                return this.symbols.ContainsKey(rlabel);
+            else
+                return false;
         }
 
         /**
@@ -270,6 +274,7 @@ namespace Assembler
          * @author Jacob Peddicord
          * @creation April 9, 2011
          * @modlog
+         * 
          * @codestandard Mark Mathis
          * @teststandard Andrew Buelow
          */
