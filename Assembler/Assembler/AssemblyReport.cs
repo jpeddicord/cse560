@@ -34,7 +34,7 @@ namespace Assembler
          */
         public override string ToString()
         {
-            string str = "LOC   OBJCODE   FLAG   LINE   SOURCE";
+            string str = "LOC   OBJCODE   FLAG   LINE   SOURCE\n";
             foreach (ReportItem item in this.items)
             {
                 str += String.Format("{0,-6}{1,-10}{2,-7}{3,-7}{4}\n",

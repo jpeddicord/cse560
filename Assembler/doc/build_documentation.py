@@ -108,7 +108,8 @@ def build_test_scripts(directory, runner, out_dir, prefix, index_file):
     for root, dirs, files in os.walk(directory):
         for fname in files:
             if fname.endswith('.txt'):
-                out = fname + '\n' + '`'*len(fname) + '\n\nInput\n^^^^^\n\n::\n\n'
+                out = fname + '\n' + '`'*len(fname) + '\n\n.. contents::'
+                out += '\n\nInput\n^^^^^\n\n::\n\n'
                 # get the script source
                 with open(join(root, fname)) as f:
                     for line in f:
