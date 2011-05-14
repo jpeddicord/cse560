@@ -4,10 +4,7 @@ User's Guide
 
 Thank for evaluating the test edition of the Final Four Accelerated Assembler. Here you will find usage notes, build instructions, and general documentation about the assembler.
 
-This test edition only processes a single pass over input files, and does not generate executable code. A future release will process a second pass.
-
 .. contents::
-    :depth: 1
 
 Language Reference
 ==================
@@ -37,7 +34,7 @@ Usage
 
 The usage of the FFA Assembler is as follows::
 
-    Assembler <source>
+    Assembler <source> [output]
 
 Output will be printed to the screen in this test edition.
 
@@ -86,102 +83,33 @@ An example source file, ``sample.txt``, could contain::
 
 This would be processed with the following command::
 
-    Assembler.exe sample.txt > output
+    Assembler.exe sample.txt output.obj
 
-Output is displayed line-by-line as an intermediate representation of the assembly. Each source line is displayed, followed by the dissected contents of the line and any errors. At the end of the file, a symbol table is printed with a lits of all defined and valid symbols in the source program. Each symbol is accompanied by its position in the program (location counter), its symbol type, and a defined value for equated symbols. If any errors were found in the given program, the total count will be displayed at the end.
+An assembly report will be printed to the screen, containing, for each line:
 
-The ``output`` file, then, would contain::
+* Location counter
+* Object Code
+* Linker flag
+* Source line number
+* Original source line
 
-   PGC  Start 0
-        Line: 1                             LC:
-        Label: PGC
-        Partial Bytecode:
-        Directive: START
-        Directive Operand: 0                (Literal: NUMBER)
-    -----
-         STACK PUSH,AB    :place AB on stack  0  2005   r		
-        Line: 2                             LC: 0			 
-        Label:								| Each line is displayed followed by a summary of how the parser
-        Partial Bytecode: 0010100000000000				| decomposed the line. Partial bytecode will be created from the
-        Category: STACK                     Function: PUSH		| information it is able to gather in pass 1. If any errors are
-        Operand: AB                         (Literal: NONE)		| found, they will be displayed at the end of the block with an
-        Comment: :place AB on stack  0  2005   r			| error reference number and description.
-    -----														
-         STACK PUSH,CD    :place CD on stack  1  2006   r
-        Line: 3                             LC: 1
-        Label:
-        Partial Bytecode: 0010100000000000
-        Category: STACK                     Function: PUSH
-        Operand: CD                         (Literal: NONE)
-        Comment: :place CD on stack  1  2006   r
-    -----
-         SOPER WRITEN,2    :print out top      2  3C02   a  0111 1100 0000 0010
-        Line: 4                             LC: 2
-        Label:
-        Partial Bytecode: 1011100000000010
-        Category: SOPER                     Function: WRITEN
-        Operand: 2                          (Literal: NUMBER)
-        Comment: :print out top      2  3C02   a  0111 1100 0000 0010
-    -----
-         MOPER WRITEN,RES  :output RES         3  FC07   r  1111 1100 0000 0111
-        Line: 5                             LC: 3
-        Label:
-        Partial Bytecode: 1111100000000000
-        Category: MOPER                     Function: WRITEN
-        Operand: RES                        (Literal: NONE)
-        Comment: :output RES         3  FC07   r  1111 1100 0000 0111
-    -----
-         CNTL  HALT,0     :halt program       4  0000   a
-        Line: 6                             LC: 4
-        Label:
-        Partial Bytecode: 0000000000000000
-        Category: CNTL                      Function: HALT
-        Operand: 0                          (Literal: NUMBER)
-        Comment: :halt program       4  0000   a
-    -----
-    AB   CNTL  HALT,10    :halt program       5  000A   a
-        Line: 7                             LC: 5
-        Label: AB
-        Partial Bytecode: 0000000000001010
-        Category: CNTL                      Function: HALT
-        Operand: A                          (Literal: NUMBER)
-        Comment: :halt program       5  000A   a
-    -----
-    CD   CNTL  HALT,110   :halt program       6  006E   a
-        Line: 8                             LC: 6
-        Label: CD
-        Partial Bytecode: 0000000001101110
-        Category: CNTL                      Function: HALT
-        Operand: 6E                         (Literal: NUMBER)
-        Comment: :halt program       6  006E   a
-    -----
-    RES  CNTL  HALT,0     :halt program       7  0000   a
-        Line: 9                             LC: 7
-        Label: RES
-        Partial Bytecode: 0000000000000000
-        Category: CNTL                      Function: HALT
-        Operand: 0                          (Literal: NUMBER)
-        Comment: :halt program       7  0000   a
-    -----
-         END   PGC        :end of program
-        Line: 10                            LC:
-        Label:
-        Partial Bytecode:
-        Directive: END
-        Directive Operand: PGC              (Literal: NONE)
-        Comment: :end of program
-    -----
+At the end of the output, the symbol table will be printed, containing a list of all found symbols in the source file, along with their locations and types.
 
-    ---- SYMBOL TABLE ----										
-                                  AB: 0x5      LABEL			| The symbol table will be sorted and displayed at
-                                  CD: 0x6      LABEL			| the bottom of the report. This contains the symbol name
-                                 PGC:          PRGMNAME	 		| followed by the location counter, then the usage of the
-                                 RES: 0x7      LABEL 			| symbol and last the string value if it is an equated symbol.
-																
+In addition, an object file will be output to ``output.obj``, which follows the specification format. TODO: link.
+
+Output
+``````
+The assembly report and symbol table for the above input is::
+
+   HERP HERP FILL THIS IN
+
+The ``output.obj`` file for the above example would contain::
+
+   XXX XXX XXX UPDATE THIS																
 
 Following the format above, this output contains each individual line and details, followed by the symbol table containing 4 symbols. No errors were found.
 
 Limitations
 ===========
 
-For software limitations, please see `Errata <errata.html>`_.
+This assembler does not have any known limitations. Programs assembled and source input files are only limited by the capabilities of the host operating system. However, keep in mind requirements in the target machine specification and language, such as the limit of 1024 words per program (after linking).
