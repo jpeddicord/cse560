@@ -1,0 +1,14 @@
+ALT06 Start 1000
+E1   EQU *
+E2   EQU *+100
+E3   EQU *-10
+E4   EQUe 10+20+30+40
+CD   dat b=1000
+RES  dat i=-32768
+AB   Dat i=32767
+A1   adc 100
+A2   adce *+100
+A3  adce *-10
+A4  adce 10+20+30+40
+A5  ADCe AB+A1
+   End ALT06
