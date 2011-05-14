@@ -213,6 +213,11 @@ namespace Assembler
         }
 
         /**
+         * The original equated label if used
+         */
+        public string Equated { get; private set; }
+
+        /**
          * List of errors that are flagged on this line.
          */
         private List<Errors.Error> errors;
@@ -238,6 +243,7 @@ namespace Assembler
             this.dirLitOperand = OperandParser.Literal.NONE;
             this.comment = null;
             this.bytecode = null;
+            this.Equated = null;
             this.errors = new List<Errors.Error>();
         }
 
@@ -289,28 +295,8 @@ namespace Assembler
             {
                 Logger.Log("Evaluating equated symbol " + this.OpOperand, "IntermediateLine");
                 this.OpOperand = symb.GetSymbol(this.OpOperand).val;
-                // TODO: change the literal type? maybe.
+                this.Equated = this.OpOperand;
             }
-
-            // evaluate expressions
-            /* FIXME FIXME FIXME: We're removing this and going to process
-             * expressions in pass two.
-            else if (this.OpLitOperand == OperandParser.Literal.EXPRESSION)
-            {
-                Logger.Log("Evaluating expression " + this.OpOperand, "IntermediateLine");
-                string op = this.OpOperand;
-                bool success = OperandParser.ParseExpression(ref op,
-                                                   OperandParser.Expressions.Operand,
-                                                   this, ref symb);
-                // invalid expression :(
-                if (!success)
-                {
-                    this.NOPificate();
-                    return;
-                }
-                this.OpOperand = op;
-            }
-            FIXME FIXME FIXME */
 
             // from here on, everything is instruction-dependent
             switch (this.category)
@@ -652,6 +638,7 @@ namespace Assembler
             this.directive = null;
             this.dirOperand = null;
             this.dirLitOperand = OperandParser.Literal.NONE;
+            this.Equated = null;
         }
 
         /**

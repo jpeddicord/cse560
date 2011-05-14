@@ -59,7 +59,7 @@ namespace Assembler
         private string programLocation;
         public string ProgramLocation {
             get { return this.programLocation; }
-            set { this.programLocation = value.PadLeft(4, '0'); }
+            set { this.programLocation = value.PadLeft(4, '0').ToUpper(); }
         }
 
         /**

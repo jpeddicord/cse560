@@ -99,8 +99,23 @@ namespace Assembler
                 // do we have an instruction?
                 if (line.OpCategory != null)
                 {
-                    // and a label? (FIXME: this will also catch previously-equated operands)
-                    if (line.OpLitOperand == OperandParser.Literal.NONE)
+                    // equated symbols may need to be relocated
+                    if (line.Equated != null)
+                    {
+                        Symbol symb = this.symb.GetSymbol(line.Equated);
+                        ModificationRecord mod = new ModificationRecord(this.symb.ProgramName);
+                        mod.ProgramLocation = line.ProgramCounter;
+                        mod.Word = Convert.ToString(Convert.ToInt32(line.Bytecode, 2), 16);
+                        for (int i = 0; i < symb.relocations; i++)
+                        {
+                            mod.AddAdjustment(true, this.symb.ProgramName);
+                        }
+                        this.AddRecord(mod);
+                        rec.StatusFlag = 'M';
+                        rec.Adjustments = Convert.ToString(symb.relocations, 16);
+                    }
+                    // or a plain label
+                    else if (line.OpLitOperand == OperandParser.Literal.NONE)
                     {
                         // get the symbol that is being referenced
                         if (this.symb.ContainsSymbol(line.OpOperand))
@@ -111,7 +126,7 @@ namespace Assembler
                                 // create a modification record
                                 ModificationRecord mod = new ModificationRecord(this.symb.ProgramName);
                                 mod.ProgramLocation = line.ProgramCounter;
-                                mod.Word = Convert.ToString(Convert.ToInt32(line.Bytecode, 2), 16).ToUpper();
+                                mod.Word = Convert.ToString(Convert.ToInt32(line.Bytecode, 2), 16);
                                 mod.AddAdjustment(true, symb.rlabel);
                                 this.AddRecord(mod);
                                 // set the status to 1 modify
