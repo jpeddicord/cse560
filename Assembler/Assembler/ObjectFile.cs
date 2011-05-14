@@ -80,12 +80,21 @@ namespace Assembler
         {
             foreach (IntermediateLine line in this.input)
             {
-                // only scan lines that will actually be in the output
+                // skip lines that won't be in the object file
                 if (line.ProgramCounter == null)
                 {
-                    // list of errors
-                    List<Errors.Error> errors = line.GetThreeErrors();
+                    // special case: RESET directive should generate a linking record
+                    if (line.Directive == "RESET")
+                    {
+                        var record = new LinkingRecord(this.symb.ProgramName);
+                        record.EntryName = line.Label;
+                        // set the location to the target of the RESET
+                        record.ProgramLocation = line.DirectiveOperand;
+                        this.AddRecord(record);
+                    }
 
+                    // store the rest in the report
+                    List<Errors.Error> errors = line.GetThreeErrors();
                     this.report.Add(null, null, ' ',
                         line.SourceLineNumber, line.SourceLine, errors);
                     continue;
@@ -144,14 +153,14 @@ namespace Assembler
                                 bin = line.Bytecode.Substring(0, 6) + bin;
                                 // relocatable label
                                 rec.StatusFlag = 'R';
-                                rec.Adjustments = "0";
                             }
                         }
                         // error, otherwise
                         else
                         {
-                            // TODO
-                            //throw new NotImplementedException("ERROR");
+                            line.AddError(Errors.Category.Serious, 34);
+                            line.NOPificate();
+                            bin = line.Bytecode;
                         }
                     }
                     // otherwise if it is (was) an expression
@@ -181,11 +190,18 @@ namespace Assembler
                         mod.ProgramLocation = line.ProgramCounter;
                         this.AddRecord(mod);
                     }
+                    // special case: numeric values with GOTO, JUMP, MOPER
+                    else if (line.OpLitOperand == OperandParser.Literal.NUMBER &&
+                             (line.OpFunction == "GOTO" ||
+                              line.OpCategory == "JUMP" ||
+                              line.OpCategory == "MOPER"))
+                    {
+                        rec.StatusFlag = 'R';
+                    }
                     // otherwise, it was a literal
                     else
                     {
                         rec.StatusFlag = 'A';
-                        rec.Adjustments = "0";
                     }
                 }
                 // or a DAT directive?
@@ -193,7 +209,6 @@ namespace Assembler
                 {
                     // DAT fields shouldn't need to be modified
                     rec.StatusFlag = 'A';
-                    rec.Adjustments = "0";
                 }
                 // or an ADC directive?
                 else if (line.Directive == "ADC" || line.Directive == "ADCE")
