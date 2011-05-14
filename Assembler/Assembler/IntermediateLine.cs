@@ -289,9 +289,12 @@ namespace Assembler
             {
                 Logger.Log("Evaluating equated symbol " + this.OpOperand, "IntermediateLine");
                 this.OpOperand = symb.GetSymbol(this.OpOperand).val;
-                // TODO: re-calculate the type of the literal
+                // TODO: change the literal type? maybe.
             }
+
             // evaluate expressions
+            /* FIXME FIXME FIXME: We're removing this and going to process
+             * expressions in pass two.
             else if (this.OpLitOperand == OperandParser.Literal.EXPRESSION)
             {
                 Logger.Log("Evaluating expression " + this.OpOperand, "IntermediateLine");
@@ -307,6 +310,7 @@ namespace Assembler
                 }
                 this.OpOperand = op;
             }
+            FIXME FIXME FIXME */
 
             // from here on, everything is instruction-dependent
             switch (this.category)
@@ -317,6 +321,7 @@ namespace Assembler
                     // validation
                     if (this.function == "HALT")
                     {
+                        // we want a number
                         if (this.OpLitOperand == OperandParser.Literal.NUMBER)
                         {
                             int val = BinaryHelper.HexToInt(this.OpOperand, 32);
@@ -328,7 +333,7 @@ namespace Assembler
                                 return;
                             }
                         }
-                        // wrong literal type
+                        // wrong operand type
                         else
                         {
                             this.AddError(Errors.Category.Serious, 12);
@@ -349,7 +354,7 @@ namespace Assembler
                     else if (this.function == "CLRD" || this.function == "CLRT")
                     {
                         // no operand for CLRD/CLRT
-                        if (this.OpLitOperand != OperandParser.Literal.NONE)
+                        if (this.OpOperand != "")
                         {
                             this.AddError(Errors.Category.Warning, 3);
                             this.NOPificate();
@@ -358,8 +363,9 @@ namespace Assembler
                     }
                     else if (this.function == "GOTO")
                     {
-                        // make sure there's a label
-                        if (this.OpLitOperand != OperandParser.Literal.NONE ||
+                        // make sure there's a label or expression
+                        if ((this.OpLitOperand != OperandParser.Literal.EXPRESSION &&
+                            this.OpLitOperand != OperandParser.Literal.NONE) ||
                             this.OpOperand == "")
                         {
                             this.AddError(Errors.Category.Serious, 9);
@@ -368,13 +374,13 @@ namespace Assembler
                         }
                     }
                     // actual processing!
-                    // literal operand
+                    // numeric operand
                     if (this.OpLitOperand == OperandParser.Literal.NUMBER)
                     {
                         code.Append(BinaryHelper.BinaryString(this.OpOperand).PadLeft(10, '0'));
                     }
-                    // otherwise pad with zeros (labels will have to be looked up later)
-                    else if (this.OpLitOperand == OperandParser.Literal.NONE)
+                    // otherwise pad with zeros (labels & expressions in pass 2)
+                    else
                     {
                         code.Append("0000000000");
                     }
@@ -388,7 +394,8 @@ namespace Assembler
                         return;
                     }
                     // literal operand
-                    if (this.OpLitOperand != OperandParser.Literal.NONE)
+                    if (this.OpLitOperand != OperandParser.Literal.NONE &&
+                        this.OpLitOperand != OperandParser.Literal.EXPRESSION)
                     {
                         // bounds-check
                         int val = BinaryHelper.HexToInt(this.OpOperand, 32);
@@ -402,6 +409,13 @@ namespace Assembler
                         code.Append("1");
                         // and the value
                         code.Append(BinaryHelper.BinaryString(this.OpOperand).PadLeft(10, '0'));
+                    }
+                    // expression
+                    else if (this.OpLitOperand == OperandParser.Literal.EXPRESSION)
+                    {
+                        // we'll have literal data once the expression is evaluated.
+                        code.Append("1");
+                        code.Append("0000000000");
                     }
                     // label
                     else
@@ -441,6 +455,13 @@ namespace Assembler
                         code.Append("0");
                         code.Append(BinaryHelper.BinaryString(this.OpOperand).PadLeft(10, '0'));
                     }
+                    // or an expression (processed later)
+                    else if (this.OpLitOperand == OperandParser.Literal.EXPRESSION)
+                    {
+                        code.Append("0");
+                        code.Append("0000000000");
+                    }
+                    // otherwise, error
                     else
                     {
                         this.AddError(Errors.Category.Serious, 9);
@@ -487,19 +508,19 @@ namespace Assembler
                         this.NOPificate();
                         return;
                     }
+                    // the write flag is only set for character operations
+                    if (this.OpOperand == "READC" || this.OpOperand == "WRITEC")
+                    {
+                        code.Append("1");
+                    }
+                    // for everything else, it's a zero
+                    else
+                    {
+                        code.Append("0");
+                    }
                     // ensure that MOPER is taking a label
                     if (this.OpLitOperand == OperandParser.Literal.NONE)
                     {
-                        // again, the write flag is only set for character operations
-                        if (this.OpOperand == "READC" || this.OpOperand == "WRITEC")
-                        {
-                            code.Append("1");
-                        }
-                        // for everything else, it's a zero
-                        else
-                        {
-                            code.Append("0");
-                        }
                         // reference label, filled pass 2
                         code.Append("0000000000");
                     }
@@ -515,6 +536,11 @@ namespace Assembler
                         }
                         code.Append("0");
                         code.Append(BinaryHelper.BinaryString(this.OpOperand).PadLeft(10, '0'));
+                    }
+                    // or an expression (pass 2)
+                    else if (this.OpLitOperand == OperandParser.Literal.EXPRESSION)
+                    {
+                        code.Append("0000000000");
                     }
                     // otherwise, it's invalid
                     else
