@@ -12,7 +12,7 @@ ES.05 Invalid Literal, substituted with NOP.  Literal must be in the range of -3
 ES.06 Memory address not in proper range, line ignored. Operand must be in the range of 0 to 1023 or an equated symbol in the range of 0 to 1023
 ES.07 Directive requires a label, line ignored.
 ES.08 Attempted to reset location counter to a previously used value. Reset ignored, keeping current location counter value.
-ES.09 Instruction requires a label; line substituted with NOP.
+ES.09 Instruction requires a label in operand; line substituted with NOP.
 ES.10 RESET directive must take a previously equated symbol or a number. Reset ignored, keeping current location counter value.
 ES.11 CNTL DUMP may only take an operand of 1, 2, or 3.
 ES.12 May only take an exit code of 0-1023.

@@ -164,7 +164,7 @@ namespace Assembler
                 interLine.Comment = token;
                 return interLine;
             }
-            else
+            else if (tokenKind != Tokenizer.TokenKinds.Empty)
             {
                 // garbage data
                 interLine.AddError(Errors.Category.Serious, 18);
