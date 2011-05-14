@@ -11,6 +11,7 @@ namespace Assembler
             public char flag;
             public int line;
             public string source;
+            public List<string> errors;
         };
 
         private List<ReportItem> items = new List<ReportItem>();
@@ -18,7 +19,7 @@ namespace Assembler
         /**
          * Add an item to the assembly report.
          */
-        public void Add(string lc, string objCode, char flag, int line, string source)
+        public void Add(string lc, string objCode, char flag, int line, string source, List<string> errors = null)
         {
             ReportItem item;
             item.lc = lc;
@@ -26,6 +27,7 @@ namespace Assembler
             item.flag = flag;
             item.line = line;
             item.source = source;
+            item.errors = errors;
             this.items.Add(item);
         }
 
@@ -44,6 +46,13 @@ namespace Assembler
                         item.line,
                         item.source
                 );
+                if (item.errors != null)
+                {
+                    foreach (string err in item.errors)
+                    {
+                        str += String.Format(" --- ERROR: {0}\n", err);
+                    }
+                }
             }
             return str;
         }
