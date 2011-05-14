@@ -265,9 +265,9 @@ namespace Assembler
 
             // generate and write the header record
             var header = new HeaderRecord(this.symb.ProgramName);
-            header.LoadAddress = "0"; // FIXME: this isn't right.
+            header.LoadAddress = input.Line(1).DirectiveOperand;
             header.ModuleLength = input.ModuleLength;
-            header.ExecutionStart = "0"; // FIXME
+            header.ExecutionStart = header.LoadAddress;
             header.TotalLinking = Convert.ToString(this.linkingRecords.Count, 16);
             header.TotalText = Convert.ToString(this.textRecords.Count, 16);
             header.TotalModification = Convert.ToString(this.modificationRecords.Count, 16);
