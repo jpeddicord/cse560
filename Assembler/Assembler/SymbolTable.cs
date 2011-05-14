@@ -130,6 +130,7 @@ namespace Assembler
          * @creation April 9, 2011
          * @modlog
          *  - May 7, 2011 - Jacob - Store the program name in a more accessible location.
+         *  - May 13, 2011 - Jacob - Coerce val & lc into uppercase
          * @codestandard Mark Mathis
          * @teststandard Andrew Buelow
          */
@@ -144,8 +145,14 @@ namespace Assembler
             }
 
             // coerce into uppercase
-            symbol.lc = symbol.lc.ToUpper();
-            symbol.val = symbol.val.ToUpper();
+            if (symbol.lc != null)
+            {
+                symbol.lc = symbol.lc.ToUpper();
+            }
+            if (symbol.val != null)
+            {
+                symbol.val = symbol.val.ToUpper();
+            }
 
             //store it
             this.symbols[symbol.rlabel] = symbol;
@@ -165,7 +172,7 @@ namespace Assembler
          * @param lc Location counter for the symbol
          * @param usage Usage information for the symbol
          * @param val Optional value for the symbol
-         * @param
+         * @param relocations Number of relocations needed if this equated symbol is used
          *
          * @refcode S2
          * @errtest
@@ -175,6 +182,7 @@ namespace Assembler
          * @author Jacob Peddicord
          * @creation April 9, 2011
          * @modlog
+         *  - May 13, 2011 - Jacob - Added relocations
          * @codestandard Mark Mathis
          * @teststandard Andrew Buelow
          */
@@ -185,7 +193,7 @@ namespace Assembler
             sym.lc = lc;
             sym.usage = usage;
             sym.val = val;
-            sym.relocations = 0;
+            sym.relocations = relocations;
             this.AddSymbol(sym);
         }
 

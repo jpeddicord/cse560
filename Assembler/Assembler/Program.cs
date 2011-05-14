@@ -75,6 +75,10 @@ namespace Assembler
             IntermediateFile interSource;
             pars.ParseSource(infile, out interSource, out symb);
 
+#if DEBUG
+            Console.WriteLine(interSource);
+#endif
+
             // TODO: check for fatal errors and abort
 
             // pass 2

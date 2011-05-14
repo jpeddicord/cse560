@@ -23,7 +23,7 @@ def build():
     convert_rst('tmp/ded.rst', 'tmp/ded.html')
     create_dox_wrapper('tmp/ded.rst', 'tmp/ded.dox')
     print "Running test scripts"
-    scripts = build_test_scripts('../Assembler/Tests/Programs', '../Assembler/bin/Debug/Assembler.exe', 'tmp/tests', 'testfile_', 'tmp/testscript_index.rst')
+    scripts = build_test_scripts('../Assembler/Tests/Programs', '../Assembler/bin/Release/Assembler.exe', 'tmp/tests', 'testfile_', 'tmp/testscript_index.rst')
     for script in scripts:
         convert_rst(join('tmp/tests', script), join('tmp', script.replace('.rst', '.html')))
         create_dox_wrapper(join('tmp/tests', script), join('tmp', script.replace('.rst', '.dox')))
