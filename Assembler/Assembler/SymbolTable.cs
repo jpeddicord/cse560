@@ -70,6 +70,12 @@ namespace Assembler
          * symbols.
          */
         public string val;
+
+        /**
+         * For equated symbols, the number of relocations that are required
+         * if this symbol is used.
+         */
+        public int relocations;
     }
 
     /**
@@ -130,10 +136,18 @@ namespace Assembler
         public void AddSymbol(Symbol symbol)
         {
             Logger.Log(String.Format("Adding {0} to symbol table.", symbol.rlabel), "SymbolTable");
+
+            // check for existence
             if (this.symbols.ContainsKey(symbol.rlabel))
             {
                 throw new SymbolException("Duplicate symbol in table.");
             }
+
+            // coerce into uppercase
+            symbol.lc = symbol.lc.ToUpper();
+            symbol.val = symbol.val.ToUpper();
+
+            //store it
             this.symbols[symbol.rlabel] = symbol;
 
             // store the program name if given
@@ -151,6 +165,7 @@ namespace Assembler
          * @param lc Location counter for the symbol
          * @param usage Usage information for the symbol
          * @param val Optional value for the symbol
+         * @param
          *
          * @refcode S2
          * @errtest
@@ -163,13 +178,14 @@ namespace Assembler
          * @codestandard Mark Mathis
          * @teststandard Andrew Buelow
          */
-        public void AddSymbol(string rlabel, string lc, Usage usage, string val = null)
+        public void AddSymbol(string rlabel, string lc, Usage usage, string val = null, int relocations = 0)
         {
             Symbol sym;
             sym.rlabel = rlabel;
             sym.lc = lc;
             sym.usage = usage;
             sym.val = val;
+            sym.relocations = 0;
             this.AddSymbol(sym);
         }
 
