@@ -341,7 +341,9 @@ namespace Assembler
                 // if the expression is just a star, take care of it and return
                 if (operand.Length == 1 && operand[0] == '*')
                 {
-                    operand = Parser.LC; ;
+                    modifications++;
+                    rec.AddAdjustment(true, symb.ProgramName);
+                    operand = interLine.ProgramCounter;
                     return true;
                 }
 
