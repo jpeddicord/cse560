@@ -109,6 +109,12 @@ def build_test_scripts(directory, runner, out_dir, prefix, index_file):
         for fname in files:
             if fname.endswith('.txt'):
                 out = fname + '\n' + '`'*len(fname) + '\n\n.. contents::'
+                # get the info file
+                try:
+                    with open(join(root, fname.replace('.txt', '.info'))) as f:
+                        out += '\n\n' + f.read()
+                except:
+                    pass
                 out += '\n\nInput\n^^^^^\n\n::\n\n'
                 # get the script source
                 with open(join(root, fname)) as f:
@@ -121,6 +127,14 @@ def build_test_scripts(directory, runner, out_dir, prefix, index_file):
                 # insert the test output
                 for line in outdata.split('\n'):
                     out += '    ' + line.rstrip() + '\n'
+                # get the object file
+                try:
+                    with open(join(root, fname + '.obj')) as f:
+                        out += '\n\nObject File\n^^^^^^^^^^^\n\n::\n\n'
+                        for line in f:
+                            out += '    ' + line.rstrip() + '\n'
+                except:
+                    pass
                 # write the output file
                 name = fname.replace('.txt', '.rst')
                 with open(join(out_dir, prefix + name), 'w') as f:
