@@ -196,15 +196,29 @@ namespace Assembler
                     rec.Adjustments = "0";
                 }
                 // or an ADC directive?
-                else if (line.Directive == "ADC")
+                else if (line.Directive == "ADC" || line.Directive == "ADCE")
                 {
-                    // TODO TODO TODO
+                    ModificationRecord mod = new ModificationRecord(symb.ProgramName);
+                    string expr = line.DirectiveOperand;
+                    int rel;
+                    int maxOp = 1;
+                    if (line.Directive.EndsWith("E"))
+                    {
+                        maxOp = 3;
+                    }
+                    OperandParser.ParseExpression(ref expr, OperandParser.Expressions.ADC, line,
+                                                  ref symb, mod, out rel, maxOp);
+                    bin = Convert.ToString(Convert.ToInt32(expr, 16), 2).PadLeft(16, '0');
+                    if (mod.Adjustments > 0)
+                    {
+                        rec.StatusFlag = 'M';
+                        rec.Adjustments = Convert.ToString(mod.Adjustments, 16);
+                        mod.Word = Convert.ToString(Convert.ToInt32(bin, 2), 16);
+                        mod.ProgramLocation = line.ProgramCounter;
+                        this.AddRecord(mod);
+                    }
                 }
-                // perhaps ADCe? (this might be merged with ADC above)
-                else if (line.Directive == "ADCE")
-                {
-                    // TODO TODO TODO
-                }
+
                 // anything else with a LC shouldn't be here...
                 else
                 {
