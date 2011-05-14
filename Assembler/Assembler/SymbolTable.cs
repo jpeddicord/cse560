@@ -341,11 +341,17 @@ namespace Assembler
             foreach (string s in this.SortedSymbols())
             {
                 Symbol sym = this.symbols[s];
-                disp += String.Format("{0,32}: {1,-8} {2,-8} {3}\n",
+                disp += String.Format("{0,32}: {1,-8} {2,-8} {3,-8} {4}\n",
                                       sym.rlabel,
                                       sym.lc != null ? String.Format("0x{0}", sym.lc) : "  ",
                                       sym.usage,
-                                      sym.val != null ? sym.val : "");
+                                      sym.val != null ? sym.val : "",
+#if DEBUG
+                                      String.Format("{0} relocations", sym.relocations)
+#else
+                                      ""
+#endif
+                );
             }
             return disp;
         }

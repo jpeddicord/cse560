@@ -161,4 +161,5 @@ def doxygen():
     Popen("doxygen", shell=True, stdout=PIPE).communicate()
 
 if __name__ == "__main__":
+    print "Warning: Ensure that the Release build is up-to-date!"
     build()

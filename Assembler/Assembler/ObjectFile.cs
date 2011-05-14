@@ -80,9 +80,14 @@ namespace Assembler
         {
             foreach (IntermediateLine line in this.input)
             {
+                // list of errors
+                List<Errors.Error> errors = line.GetThreeErrors();
+
                 // only scan lines that will actually be in the output
                 if (line.ProgramCounter == null)
                 {
+                    this.report.Add(null, null, ' ',
+                        line.SourceLineNumber, line.SourceLine, errors);
                     continue;
                 }
 
@@ -92,9 +97,6 @@ namespace Assembler
                 rec.StatusFlag = 'A';
                 rec.Adjustments = "0";
                 string bin = line.Bytecode;
-
-                // list of errors
-                List<Errors.Error> errors = line.GetThreeErrors();
 
                 // do we have an instruction?
                 if (line.OpCategory != null)
