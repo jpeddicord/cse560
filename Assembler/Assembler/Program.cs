@@ -75,17 +75,7 @@ namespace Assembler
             IntermediateFile interSource;
             pars.ParseSource(infile, out interSource, out symb);
 
-            // print output (TODO: REMOVE THIS)
-            Console.WriteLine(interSource);
-            Console.WriteLine(symb);
-
-            // check for errors
-            if (Parser.TotalErrors > 0)
-            {
-                Console.WriteLine(String.Format(
-                    "Your program had {0} errors. Please check the output above.",
-                    Parser.TotalErrors));
-            }
+            // TODO: check for fatal errors and abort
 
             // pass 2
             Logger.Log("Starting pass 2", "Main");
@@ -95,6 +85,8 @@ namespace Assembler
 
             // print out assembly report
             Console.WriteLine(report);
+            // and symbol table
+            Console.WriteLine(symb);
         }
     }
 }

@@ -93,6 +93,9 @@ namespace Assembler
                 rec.Adjustments = "0";
                 string bin = line.Bytecode;
 
+                // list of errors
+                List<Errors.Error> errors = line.GetThreeErrors();
+
                 // do we have an instruction?
                 if (line.OpCategory != null)
                 {
@@ -178,7 +181,7 @@ namespace Assembler
 
                 // add a line to the assembly report
                 this.report.Add(line.ProgramCounter, rec.HexCode, rec.StatusFlag,
-                        line.SourceLineNumber, line.SourceLine);
+                        line.SourceLineNumber, line.SourceLine, errors);
             }
         }
 
