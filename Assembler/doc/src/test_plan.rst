@@ -38,8 +38,15 @@ Sample test programs
 Unit Testing
 ============
 
-Unit testing will use the NUnit testing framework. Each component will have several tests associated to throughly test the functionality and correctnes of the result.
+Unit testing will use the NUnit testing framework. Each component will have several tests associated to throughly test the functionality and correctness of the result.
 
+Below are tables for all of the unit tests currently available for the Assembler. Above each table is a link which will bring you to the code for the unit tests.
+This will let you see exactly how we are accomplishing the test. In each table there are rows with test numbers. These test numbers begin with an abbreviation
+(usually the first letter or two) of the class or component that is being tested and is followed by a number starting with 1 and increasing based on the number
+of tests for each class. These test numbers are also located just before the unit test that implements it in the code. The test number is then followed by a short
+description of the purpose. We then say if the expected results were achieved or not. If they were not then we will provide a description of why it didn't work,
+and how the issue was fixed. If our original fix still doesn't work, any further modifications to get the test to run properly will also be noted in the
+concerns column. There may also be concerns even if the expected results were achieved.
 
 Tokenizer Test List
 -------------------
