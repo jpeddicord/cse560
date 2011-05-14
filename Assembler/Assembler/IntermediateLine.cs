@@ -520,7 +520,6 @@ namespace Assembler
                             this.NOPificate();
                             return;
                         }
-                        code.Append("0");
                         code.Append(BinaryHelper.BinaryString(this.OpOperand).PadLeft(10, '0'));
                     }
                     // or an expression (pass 2)
