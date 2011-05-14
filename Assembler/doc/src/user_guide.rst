@@ -2,7 +2,7 @@
 User's Guide
 ============
 
-Thank for evaluating the test edition of the Final Four Accelerated Assembler. Here you will find usage notes, build instructions, and general documentation about the assembler.
+Thank for evaluating the test edition of the Final Four Accelerated Assembler. Here you will find usage notes, build instructions, and general documentation about the assembler. A more detailed description of how to get the Assembler up and running can be found in our `How To <how_to.html>`_ section.
 
 .. contents::
 
