@@ -325,8 +325,10 @@ namespace Assembler
                 else if (interLine.DirectiveLitOperand == OperandParser.Literal.EXPRESSION)
                 {
                     string oper = interLine.DirectiveOperand;
+                    int modifications;
                     success = OperandParser.ParseExpression(ref oper, OperandParser.Expressions.EQU, 
-                                                  interLine, ref symb, maxOp);
+                                                  interLine, ref symb, new ModificationRecord("junk"),
+                                                  out modifications, maxOp);
                     equSym.usage = Usage.EQUATED;
                     equSym.val = oper;
                 }
@@ -553,39 +555,8 @@ namespace Assembler
          * @teststandard Andrew Buelow
          * @codestandard Mark Mathis
          */
-        private static void ParseAdc(ref IntermediateLine interLine, ref SymbolTable symb, int maxOper = 1)
+        private static void ParseAdc(ref IntermediateLine interLine, ref SymbolTable symb)
         {
-            if (interLine.Label == null)
-            {
-                string operand = interLine.DirectiveOperand;
-                if (interLine.DirectiveLitOperand == OperandParser.Literal.EXPRESSION)
-                {
-                    OperandParser.ParseExpression(ref operand, OperandParser.Expressions.ADC,
-                                                  interLine, ref symb, maxOper);
-                }
-                else if (interLine.DirectiveLitOperand == OperandParser.Literal.NUMBER)
-                {
-                    operand = Convert.ToString(Convert.ToInt32(interLine.DirectiveOperand), 16);
-                }
-                interLine.DirectiveOperand = operand;
-            }
-            else if (symb.ContainsSymbol(interLine.Label))
-            {
-                Symbol adcSym = symb.RemoveSymbol(interLine.Label);
-                string operand = interLine.DirectiveOperand;
-                if (interLine.DirectiveLitOperand == OperandParser.Literal.EXPRESSION)
-                {
-                    OperandParser.ParseExpression(ref operand, OperandParser.Expressions.ADC,
-                                                  interLine, ref symb, maxOper);
-                }
-                else if (interLine.DirectiveLitOperand == OperandParser.Literal.NUMBER)
-                {
-                    operand = Convert.ToString(Convert.ToInt32(interLine.DirectiveOperand), 16);
-                }
-                adcSym.val = operand;
-                symb.AddSymbol(adcSym);
-            }
-
             interLine.ProgramCounter = Parser.LC;
             Parser.IncrementLocationCounter();
         }
@@ -610,7 +581,7 @@ namespace Assembler
          */
         private static void ParseAdce(ref IntermediateLine interLine, ref SymbolTable symb)
         {
-            ParseAdc(ref interLine, ref symb, 3);
+            ParseAdc(ref interLine, ref symb);
         }
     }
 }

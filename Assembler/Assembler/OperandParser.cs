@@ -310,6 +310,8 @@ namespace Assembler
          *  - April 19, 2011 - Mark - Parses EQU expressions (EX2).
          *  - April 19, 2011 - Mark - Parses ADC expressions (EX3).
          *  - April 19, 2011 - Mark - Errors are caught and reported in all expressions.
+         *  - May 13, 2011 - Mark - Added rec and modifications parameters.
+         *  - May 14, 2011 - Mark - Now keeps track of adjustments required for pass 2.
          * @teststandard Andrew Buelow
          * @codestandard Mark Mathis
          * 
@@ -317,6 +319,9 @@ namespace Assembler
          * @param type the type of expression to be parsed
          * @param interLine the intermediate line containing this expression
          * @param symb the symbol table for this source code file
+         * @param rec the modification record for keeping track of adjustments in instruction expressions
+         *        and ADC/ADCe expressions
+         * @param modifications the number of adjustments needed for a EQU/EQUe expression
          * @param maxOperators the maximum number of operators allowed in this type of expression
          * 
          * @return true if the expression is successfully parsed and evaluated.
@@ -326,8 +331,11 @@ namespace Assembler
                                            OperandParser.Expressions type,
                                            IntermediateLine interLine,
                                            ref SymbolTable symb,
+                                           ModificationRecord rec,
+                                           out int modifications,
                                            int maxOperators = 1)
         {
+            modifications = 0;
             if (operand != null && operand.Length > 0)
             {
                 // if the expression is just a star, take care of it and return
@@ -387,6 +395,7 @@ namespace Assembler
                                 star = Parser.LC;
                                 oprtr = operand[1];
                                 opr2 = operand.Substring(2);
+                                rec.AddAdjustment(true, symb.ProgramName);
 
                                 Tokenizer.TokenKinds valid;
                                 Tokenizer.GetTokenKind(opr2, out valid);
@@ -395,10 +404,17 @@ namespace Assembler
                                 {
                                     if (2 <= opr2.Length && opr2.Length <= 32)
                                     {
-                                        if (symb.ContainsSymbol(opr2) &&
-                                            symb.GetSymbol(opr2).usage == Usage.EQUATED)
+                                        if (symb.ContainsSymbol(opr2))
                                         {
-                                            opr2 = Convert.ToInt32(symb.GetSymbol(opr2).val, 16).ToString();
+                                            if (symb.GetSymbol(opr2).usage == Usage.EQUATED)
+                                            {
+                                                opr2 = Convert.ToInt32(symb.GetSymbol(opr2).val, 16).ToString();
+                                            }
+                                            else if (symb.GetSymbol(opr2).usage == Usage.LABEL)
+                                            {
+                                                opr2 = Convert.ToInt32(symb.GetSymbol(opr2).lc, 16).ToString();
+                                                rec.AddAdjustment(oprtr == '+', symb.ProgramName);
+                                            }
                                         }
                                     }
                                     else
@@ -433,7 +449,7 @@ namespace Assembler
                                 {
                                     int result = -1;
                                     // if the method gets here, then it's using a number or
-                                    // previously equated symbol that we can deal with
+                                    // symbol we can deal with
                                     switch (oprtr)
                                     {
                                         case '+':
@@ -489,6 +505,7 @@ namespace Assembler
                                     if (i == 0)
                                     {
                                         operands[i] = Convert.ToInt32(Parser.LC, 16).ToString();
+                                        modifications++;
                                     }
                                     else
                                     {
@@ -505,10 +522,12 @@ namespace Assembler
                                     if (operSym.usage == Usage.EQUATED)
                                     {
                                         operands[i] = Convert.ToInt32(operSym.val, 16).ToString();
+                                        modifications += operSym.relocations;
                                     }
                                     else if (operSym.usage == Usage.LABEL)
                                     {
                                         operands[i] = Convert.ToInt32(operSym.lc, 16).ToString();
+                                        modifications++;
                                     }
                                     else
                                     {
@@ -561,6 +580,7 @@ namespace Assembler
                                     if (i == 0)
                                     {
                                         operands[i] = Convert.ToInt32(Parser.LC, 16).ToString();
+                                        rec.AddAdjustment(true, symb.ProgramName);
                                     }
                                     else
                                     {
@@ -577,8 +597,27 @@ namespace Assembler
                                     if (operSym.usage == Usage.LABEL)
                                     {
                                         operands[i] = Convert.ToInt32(operSym.lc, 16).ToString();
+                                        if (i > 0)
+                                        {
+                                            rec.AddAdjustment(operators[i - 1] == '+', symb.ProgramName);
+                                        }
+                                        else
+                                        {
+                                            rec.AddAdjustment(true, symb.ProgramName);
+                                        }
                                     }
-                                    else if (operSym.usage != Usage.EXTERNAL)
+                                    else if (operSym.usage == Usage.EXTERNAL)
+                                    {
+                                        if (i > 0)
+                                        {
+                                            rec.AddAdjustment(operators[i - 1] == '+', operSym.rlabel);
+                                        }
+                                        else
+                                        {
+                                            rec.AddAdjustment(true, operSym.rlabel);
+                                        }
+                                    }
+                                    else
                                     {
                                         // error: symbols can only be external, local reference
                                         // in ADC/ADCe expressions
