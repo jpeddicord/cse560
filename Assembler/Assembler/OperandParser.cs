@@ -609,6 +609,7 @@ namespace Assembler
                                     }
                                     else if (operSym.usage == Usage.EXTERNAL)
                                     {
+                                        operands[i] = "0";
                                         if (i > 0)
                                         {
                                             rec.AddAdjustment(operators[i - 1] == '+', operSym.rlabel);
