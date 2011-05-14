@@ -156,9 +156,18 @@ namespace Assembler
                     else if (line.OpLitOperand == OperandParser.Literal.EXPRESSION)
                     {
                         // then is is relocatable
+                        
+                        // get the expression to be evaluated
                         string expr = line.OpOperand;
+
+                        // create the modification record, this will have at least one
+                        // adjustment because these expressions are required to have a *
                         ModificationRecord mod = new ModificationRecord(symb.ProgramName);
+
+                        // this is a garbage variable
                         int rel;
+
+                        // evaluate the expression
                         OperandParser.ParseExpression(ref expr, OperandParser.Expressions.Operand, 
                                                       line, ref symb, mod, out rel);
                         rec.StatusFlag = 'M';
@@ -227,7 +236,7 @@ namespace Assembler
             // generate and write the header record
             var header = new HeaderRecord(this.symb.ProgramName);
             header.LoadAddress = "0"; // FIXME: this isn't right.
-            header.ModuleLength = "0"; // FIXME
+            header.ModuleLength = input.ModuleLength;
             header.ExecutionStart = "0"; // FIXME
             header.TotalLinking = Convert.ToString(this.linkingRecords.Count, 16);
             header.TotalText = Convert.ToString(this.textRecords.Count, 16);
