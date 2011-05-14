@@ -116,16 +116,6 @@
     <None Include="Resources\directives.txt" />
     <None Include="Resources\errors.txt" />
     <None Include="Resources\instructions.txt" />
-    <None Include="Tests\Programs\Sample.txt" />
-    <None Include="Tests\Programs\Bar.txt" />
-    <None Include="Tests\Programs\Foo.txt" />
-    <None Include="Tests\Programs\Testprgm.txt" />
-    <None Include="Tests\Programs\Alt1.txt" />
-    <None Include="Tests\Programs\Alt2.txt" />
-    <None Include="Tests\Programs\Alt3.txt" />
-    <None Include="Tests\Programs\EndLoc.txt" />
-    <None Include="Tests\Programs\Equ.txt" />
-    <None Include="Tests\Programs\Midterm.txt" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
@@ -153,7 +143,4 @@
   <Target Name="AfterBuild">
   </Target>
   -->
-  <ItemGroup>
-    <Content Include="Tests\Programs\ErrorsTest.txt" />
-  </ItemGroup>
 </Project>
