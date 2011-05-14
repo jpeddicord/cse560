@@ -800,6 +800,10 @@ dl.bug
 }
 
 /*** CUSTOM STYLES BEGIN HERE ***/
+#rst {
+    margin-left: 120px;
+}
+
 #rst pre {
     margin-left: 20px;
     background-color: #eee;
@@ -824,4 +828,15 @@ dl.bug
 #rst th {
     border: 1px solid #6bc;
     background-color: #f5f5f5;
+}
+
+#sidebar {
+    position: fixed;
+    padding: 8px;
+    border: 1px solid #aaa;
+    background-color: #ddd;
+}
+
+#sidebar ul {
+    padding-left: 20px;
 }
