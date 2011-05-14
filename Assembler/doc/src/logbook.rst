@@ -211,3 +211,33 @@ during this time, we feel like we should be finished tonight.
 To do
 -----
 - Everyone - Look through the documentation for possible issues and try to find errors that aren't being caught.
+
+April 27th 2011 - 7:00 pm
+=========================
+Our group took a week break from working on the project after SP1 was finished. Today we got our grade back for it, and while not
+bad we aren't entirely pleased. While the program itself is in good condition we need to polish up or documentation quite a bit as
+this is where we lost all of our points. Most of this was lost in the user guide and organization of our documentation so we 
+plan to spend some more time in this area.  We want to get our SP1 up to the level expected before really getting into the features
+required by SP2.
+
+To do
+-----
+- Andrew - Work on the user guide. Ensure that it is more detailed by providing pictures, more examples, and better descriptions of how to run the program if the executable is not available.
+- Jacob - Work on documentation organization such as adding top of page and back links and perhaps resturcturing some stuff to make it easier to find.
+- Mark - Create table descriptions.  Even though these are rather self explanatory, users may need all the help they can get.
+
+May 3rd 2011 - 5:00 pm
+======================
+Documentation is looking better at this point.  Some reorganization was done to make it easier on the user and to accomodate new
+documentation we will be creating for SP2. We've realized we will need to redo the organization again once we have to deal with
+SP3 and SP4 as well as these are entirely different from the Assembler and will need their own sections.  Back and top links have
+been made to assist users in navigating the documentation with less scrolling. The user guide has been updated with more detail and
+pictures, however this wil need to be updated again after the creation of SP2 to explain to the user the object file and new
+Assembly report that will be created. The tables have also been updated with descriptions. We've has some discussion about getting SP2
+working and as of now don't expect it to be too difficult. Because we did so much in pass 1, we should have a majority of hex code
+calculated and really just need to deal with adc/adce and labels that were used before they were declared and of course output
+all of the info in the correct format.
+
+To do
+-----
+- Andrew - Create descriptions for each of the test cases to give a better idea of what we are testing.
