@@ -294,8 +294,8 @@ namespace Assembler
                 symb.GetSymbol(this.OpOperand).usage == Usage.EQUATED)
             {
                 Logger.Log("Evaluating equated symbol " + this.OpOperand, "IntermediateLine");
-                this.OpOperand = symb.GetSymbol(this.OpOperand).val;
                 this.Equated = this.OpOperand;
+                this.OpOperand = symb.GetSymbol(this.OpOperand).val;
             }
 
             // from here on, everything is instruction-dependent
