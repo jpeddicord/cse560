@@ -1,0 +1,3 @@
+programName, LinkingRecord, string, member, the stored program name for the record 
+entryName, LinkingRecord, string, member, name of the entry to be exported
+programLocation, LinkingRecord, string, member, location of this entry

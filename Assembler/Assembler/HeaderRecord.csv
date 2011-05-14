@@ -1,0 +1,10 @@
+programName, HeaderRecord, string, member, the stored program name for the record 
+loadAddress, HeaderRecord, string, member, the stored assembly loading address in hex
+moduleLength, HeaderRecord, string, member, the stored length of this module in hex
+executionStart, HeaderRecord, string, member, the start execution in hex
+AssemblyDate, HeaderRecord, string, member, the generated date/time of assembly
+VersionInfo, HeaderRecord, string, member, the assembler version in the record
+totalRecords, HeaderRecord, string, member, total records in this module in hex
+totalLinking, HeaderRecord, string, member, total linking records in this module in hex
+totalText, HeaderRecord, string, member, total text records in this module in hex
+totalModification, HeaderRecord, string, member, total modification records in this module in hex
