@@ -392,7 +392,7 @@ namespace Assembler
 
                             if (operand[0] == '*')
                             {
-                                star = Parser.LC;
+                                star = interLine.ProgramCounter;
                                 oprtr = operand[1];
                                 opr2 = operand.Substring(2);
                                 rec.AddAdjustment(true, symb.ProgramName);
@@ -471,7 +471,7 @@ namespace Assembler
 
                                     if (0 <= result && result <= 1023)
                                     {
-                                        operand = result.ToString();
+                                        operand = Convert.ToString(result,16);
                                     }
                                     else
                                     {
@@ -541,6 +541,7 @@ namespace Assembler
                                 {
                                     // this needs to be caught, so the next else doesn't get
                                     // tripped. but there's nothing to do herp.
+                                    // I will tell you stories of my people.
                                 }
                                 else
                                 {

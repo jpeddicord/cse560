@@ -156,8 +156,19 @@ namespace Assembler
                     else if (line.OpLitOperand == OperandParser.Literal.EXPRESSION)
                     {
                         // then is is relocatable
-                        rec.StatusFlag = 'R';
-                        rec.Adjustments = "0";
+                        string expr = line.OpOperand;
+                        ModificationRecord mod = new ModificationRecord(symb.ProgramName);
+                        int rel;
+                        OperandParser.ParseExpression(ref expr, OperandParser.Expressions.Operand, 
+                                                      line, ref symb, mod, out rel);
+                        rec.StatusFlag = 'M';
+                        rec.Adjustments = Convert.ToString(mod.Adjustments, 16);
+                        int bytecode = Convert.ToInt32(bin, 2);
+                        bytecode += Convert.ToInt32(expr, 16);
+                        bin = Convert.ToString(bytecode, 2);
+                        mod.Word = Convert.ToString(bytecode, 16);
+                        mod.ProgramLocation = line.ProgramCounter;
+                        this.AddRecord(mod);
                     }
                     // otherwise, it was a literal
                     else

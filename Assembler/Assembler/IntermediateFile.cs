@@ -23,7 +23,7 @@ namespace Assembler
         }
 
         /**
-         * The length of this module. (Final LC - Start LC) + 1.  Will only be set one time.
+         * The length of this module. (Final LC - Start LC) + 1.
          */
         private string length;
 
@@ -35,12 +35,27 @@ namespace Assembler
             get { return length; }
         }
 
+        /**
+         * Calculates the ModuleLength using the start directive's operand and the current
+         * LC value according to the Parser.
+         * 
+         * @refcode N/A
+         * @errtest
+         *  N/A
+         * @errmsg
+         *  N/A
+         * @author Mark Mathis
+         * @creation May 14, 2011
+         * @modlog
+         * @codestandard Mark Mathis
+         * @teststandard Andrew Buelow
+         */
         public void CalculateModuleLength()
         {
-                int startLoc = Convert.ToInt32(allLines[1].DirectiveOperand, 16);
-                int endLoc = Convert.ToInt32(Parser.LC, 16) - 1;
-                int len = endLoc - startLoc + 1;
-                length = Convert.ToString(len, 16).ToUpper();
+            int startLoc = Convert.ToInt32(allLines[1].DirectiveOperand, 16);
+            int endLoc = Convert.ToInt32(Parser.LC, 16) - 1;
+            int len = endLoc - startLoc + 1;
+            length = Convert.ToString(len, 16).ToUpper();
         }
 
         /**
