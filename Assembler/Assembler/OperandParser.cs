@@ -355,11 +355,13 @@ namespace Assembler
                     interLine.AddError(Errors.Category.Serious, 22);
                     return false;
                 }
-                else if (operands.Count - 1 <= 0)
+
+                // check for absolute ADC/ADCe
+                bool absolute = false;
+                if (operand[0] == '+' && type == Expressions.ADC)
                 {
-                    // error, no operators
-                    interLine.AddError(Errors.Category.Serious, 23);
-                    return false;
+                    absolute = true;
+                    operand = operand.Substring(1);
                 }
 
                 List<char> operators = new List<char>();
@@ -572,6 +574,7 @@ namespace Assembler
 
                     case Expressions.ADC:
                         {
+                            modifications = 1;
                             for (int i = 0; i < operands.Count; i++)
                             {
                                 string label = operands[i];
@@ -580,8 +583,9 @@ namespace Assembler
                                 {
                                     if (i == 0)
                                     {
-                                        operands[i] = Convert.ToInt32(Parser.LC, 16).ToString();
+                                        operands[i] = Convert.ToInt32(interLine.ProgramCounter,16).ToString();
                                         rec.AddAdjustment(true, symb.ProgramName);
+                                        modifications++;
                                     }
                                     else
                                     {
@@ -598,6 +602,7 @@ namespace Assembler
                                     if (operSym.usage == Usage.LABEL)
                                     {
                                         operands[i] = Convert.ToInt32(operSym.lc, 16).ToString();
+                                        modifications++;
                                         if (i > 0)
                                         {
                                             rec.AddAdjustment(operators[i - 1] == '+', symb.ProgramName);
@@ -610,6 +615,7 @@ namespace Assembler
                                     else if (operSym.usage == Usage.EXTERNAL)
                                     {
                                         operands[i] = "0";
+                                        modifications++;
                                         if (i > 0)
                                         {
                                             rec.AddAdjustment(operators[i - 1] == '+', operSym.rlabel);
@@ -653,6 +659,7 @@ namespace Assembler
                                 operands.Reverse();
                                 operators.Reverse();
                                 operand = EvaluateExpression(new Stack<string>(operands), new Stack<char>(operators));
+                                operand = Convert.ToString(Convert.ToInt32(operand), 16);
                             }
                             else
                             {
@@ -662,6 +669,8 @@ namespace Assembler
                                     operand += operators[i] + operands[i + 1];
                                 }
                             }
+                            if (absolute)
+                                modifications = 0;
                             } break;
                         }
                 }

@@ -80,12 +80,12 @@ namespace Assembler
         {
             foreach (IntermediateLine line in this.input)
             {
-                // list of errors
-                List<Errors.Error> errors = line.GetThreeErrors();
-
                 // only scan lines that will actually be in the output
                 if (line.ProgramCounter == null)
                 {
+                    // list of errors
+                    List<Errors.Error> errors = line.GetThreeErrors();
+
                     this.report.Add(null, null, ' ',
                         line.SourceLineNumber, line.SourceLine, errors);
                     continue;
@@ -199,17 +199,28 @@ namespace Assembler
                 else if (line.Directive == "ADC" || line.Directive == "ADCE")
                 {
                     ModificationRecord mod = new ModificationRecord(symb.ProgramName);
+                    mod.AddAdjustment(true, symb.ProgramName);
+                    bool worked = true;
                     string expr = line.DirectiveOperand;
-                    int rel;
+                    int rel = 0;
                     int maxOp = 1;
                     if (line.Directive.EndsWith("E"))
                     {
                         maxOp = 3;
                     }
-                    OperandParser.ParseExpression(ref expr, OperandParser.Expressions.ADC, line,
-                                                  ref symb, mod, out rel, maxOp);
-                    bin = Convert.ToString(Convert.ToInt32(expr, 16), 2).PadLeft(16, '0');
-                    if (mod.Adjustments > 0)
+                    if (line.DirectiveLitOperand == OperandParser.Literal.EXPRESSION)
+                    {
+                        worked = OperandParser.ParseExpression(ref expr, OperandParser.Expressions.ADC, line,
+                                                      ref symb, mod, out rel, maxOp);
+                        if (worked)
+                            bin = Convert.ToString(Convert.ToInt32(expr, 16), 2).PadLeft(16, '0');
+                    }
+                    else if (line.DirectiveLitOperand == OperandParser.Literal.NUMBER)
+                    {
+                        rel = 1;
+                        bin = Convert.ToString(Convert.ToInt32(expr, 16), 2);
+                    }
+                    if (mod.Adjustments > 0 && rel > 0 && worked)
                     {
                         rec.StatusFlag = 'M';
                         rec.Adjustments = Convert.ToString(mod.Adjustments, 16);
@@ -230,9 +241,12 @@ namespace Assembler
                 rec.HexCode = Convert.ToString(Convert.ToInt32(bin, 2), 16).ToUpper();
                 this.AddRecord(rec);
 
+                // list of errors
+                List<Errors.Error> errorlist = line.GetThreeErrors();
+
                 // add a line to the assembly report
                 this.report.Add(line.ProgramCounter, rec.HexCode, rec.StatusFlag,
-                        line.SourceLineNumber, line.SourceLine, errors);
+                        line.SourceLineNumber, line.SourceLine, errorlist);
             }
         }
 
