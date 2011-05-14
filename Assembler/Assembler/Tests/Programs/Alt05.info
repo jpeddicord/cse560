@@ -1,0 +1,8 @@
+Fifth program given to us during grading of SP1. This program has multiple errors which should be caught by the Assembler.
+
+Errors that should be caught:
+- Line 2 - Reset directive must have an rlabel at the beginning of the line.
+- Line 5 - Missing comma between Category and Operand.
+- Line 6 - Given invalid operand.
+- Line 7 - Too many commas between category and operand.
+- Line 13 - Halt given a label instead of a number.

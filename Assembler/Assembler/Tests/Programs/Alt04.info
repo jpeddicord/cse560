@@ -1,0 +1,1 @@
+Fourth program given to us to test during real time grading of SP1. This program gives some good tests for CNTL and JUMP, however it should give errors for the second half of the SOPER commands as these are being given labels and a SOPER instruction can only use numbers from 0 to 255 in the operand.
