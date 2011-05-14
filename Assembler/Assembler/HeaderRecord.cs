@@ -37,7 +37,7 @@ namespace Assembler
         private string loadAddress;
         public string LoadAddress {
             get { return this.loadAddress; }
-            set { this.loadAddress = value.PadLeft(4, '0'); }
+            set { this.loadAddress = value.PadLeft(4, '0').ToUpper(); }
         }
 
         /**
@@ -46,7 +46,7 @@ namespace Assembler
         private string moduleLength;
         public string ModuleLength {
             get { return this.moduleLength; }
-            set { this.moduleLength = value.PadLeft(4, '0'); }
+            set { this.moduleLength = value.PadLeft(4, '0').ToUpper(); }
         }
 
         /**
@@ -55,7 +55,7 @@ namespace Assembler
         private string executionStart;
         public string ExecutionStart {
             get { return this.executionStart; }
-            set { this.executionStart = value.PadLeft(4, '0'); }
+            set { this.executionStart = value.PadLeft(4, '0').ToUpper(); }
         }
 
         /**
@@ -87,7 +87,7 @@ namespace Assembler
         private string totalRecords;
         public string TotalRecords {
             get { return this.totalRecords; }
-            set { this.totalRecords = value.PadLeft(4, '0'); }
+            set { this.totalRecords = value.PadLeft(4, '0').ToUpper(); }
         }
 
         /**
@@ -96,7 +96,7 @@ namespace Assembler
         private string totalLinking;
         public string TotalLinking {
             get { return this.totalLinking; }
-            set { this.totalLinking = value.PadLeft(4, '0'); }
+            set { this.totalLinking = value.PadLeft(4, '0').ToUpper(); }
         }
 
 
@@ -106,7 +106,7 @@ namespace Assembler
         private string totalText;
         public string TotalText {
             get { return this.totalText; }
-            set { this.totalText = value.PadLeft(4, '0'); }
+            set { this.totalText = value.PadLeft(4, '0').ToUpper(); }
         }
 
         /**
@@ -115,7 +115,7 @@ namespace Assembler
         private string totalModification;
         public string TotalModification {
             get { return this.totalModification; }
-            set { this.totalModification = value.PadLeft(4, '0'); }
+            set { this.totalModification = value.PadLeft(4, '0').ToUpper(); }
         }
 
         /**

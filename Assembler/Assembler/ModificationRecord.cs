@@ -72,6 +72,13 @@ namespace Assembler
         }
 
         /**
+         * Get the number of adjustments present.
+         */
+        public int Adjustments {
+            get { return this.adjustments.Count; }
+        }
+
+        /**
          * Add an adjustment to this record.
          *
          * @param positive Whether the adjustment should be positive. Otherwise negative.
