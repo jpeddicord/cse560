@@ -241,3 +241,13 @@ all of the info in the correct format.
 To do
 -----
 - Andrew - Create descriptions for each of the test cases to give a better idea of what we are testing.
+
+May 10, 2011 - 5:00 pm
+======================
+Worked on getting pass 2 off of the ground. We're now able to correctly generate output for the midterm problem. Records are split out into multiple classes, which are contained in one ObjectFile to pull them together and render the correct output. We also added an AssemblyReport class to add the appropriate entries to.
+
+To do
+-----
+- Mark - Get ADC/E and expressions working
+- Jacob - Clean up current code and documentation
+- Andrew - ??? Profit
