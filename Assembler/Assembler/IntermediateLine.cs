@@ -352,7 +352,7 @@ namespace Assembler
                         // make sure there's a label or expression
                         if ((this.OpLitOperand != OperandParser.Literal.EXPRESSION &&
                             this.OpLitOperand != OperandParser.Literal.NONE) ||
-                            this.OpOperand == "")
+                            this.OpOperand == "" || this.OpOperand == null)
                         {
                             this.AddError(Errors.Category.Serious, 9);
                             this.NOPificate();
@@ -384,7 +384,7 @@ namespace Assembler
                         this.OpLitOperand != OperandParser.Literal.EXPRESSION)
                     {
                         // bounds-check
-                        int val = BinaryHelper.HexToInt(this.OpOperand, 32);
+                        int val = Convert.ToInt32(this.OpOperand, 16);
                         if (val < 0 || val > 1023) // actually (val < -512 || val > 511) in 10 bits
                         {
                             this.AddError(Errors.Category.Serious, 4);
@@ -420,31 +420,29 @@ namespace Assembler
                         this.NOPificate();
                         return;
                     }
+                    // unused bit
+                    code.Append("0");
                     // ensure that JUMP is taking a label
                     if (this.OpLitOperand == OperandParser.Literal.NONE)
                     {
-                        // unused bit
-                        code.Append("0");
                         // reference label, filled in pass 2
                         code.Append("0000000000");
                     }
                     // or a number
                     else if (this.OpLitOperand == OperandParser.Literal.NUMBER)
                     {
-                        int val = BinaryHelper.HexToInt(this.OpOperand, 32);
+                        int val = Convert.ToInt32(this.OpOperand, 16);
                         if (val < 0 || val > 1023)
                         {
                             this.AddError(Errors.Category.Serious, 12);
                             this.NOPificate();
                             return;
                         }
-                        code.Append("0");
                         code.Append(BinaryHelper.BinaryString(this.OpOperand).PadLeft(10, '0'));
                     }
                     // or an expression (processed later)
                     else if (this.OpLitOperand == OperandParser.Literal.EXPRESSION)
                     {
-                        code.Append("0");
                         code.Append("0000000000");
                     }
                     // otherwise, error
@@ -464,8 +462,8 @@ namespace Assembler
                         return;
                     }
                     // bounds-check
-                    int val = BinaryHelper.HexToInt(this.OpOperand, 32);
-                    if (val < 0 || val > 255)
+                    int val = Convert.ToInt32(this.OpOperand, 16);
+                    if (val < 0 || val > 255) // will catch 2's complement negatives as well
                     {
                         this.AddError(Errors.Category.Serious, 17);
                         this.NOPificate();
@@ -513,7 +511,7 @@ namespace Assembler
                     // or a number
                     else if (this.OpLitOperand == OperandParser.Literal.NUMBER)
                     {
-                        int val = BinaryHelper.HexToInt(this.OpOperand, 32);
+                        int val = Convert.ToInt32(this.OpOperand, 16);
                         if (val < 0 || val > 1023)
                         {
                             this.AddError(Errors.Category.Serious, 4);
