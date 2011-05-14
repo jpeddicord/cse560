@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics;
+using System;
 
 namespace Assembler
 {
@@ -19,6 +20,27 @@ namespace Assembler
         public int TotalLines
         {
             get { return allLines.Count; }
+        }
+
+        /**
+         * The length of this module. (Final LC - Start LC) + 1.  Will only be set one time.
+         */
+        private string length;
+
+        /**
+         * Returns the module length of this file
+         */
+        public string ModuleLength
+        {
+            get { return length; }
+        }
+
+        public void CalculateModuleLength()
+        {
+                int startLoc = Convert.ToInt32(allLines[1].DirectiveOperand, 16);
+                int endLoc = Convert.ToInt32(Parser.LC, 16) - 1;
+                int len = endLoc - startLoc + 1;
+                length = Convert.ToString(len, 16).ToUpper();
         }
 
         /**

@@ -190,7 +190,7 @@ namespace Assembler
         private static void ParseEnd(ref IntermediateLine interLine, ref SymbolTable symb)
         {
             Logger.Log("Parsing END directive", "DirectiveParser");
-            
+
             // check to see if this line has a label
             if (interLine.Label != null)
             {
@@ -321,6 +321,7 @@ namespace Assembler
                     // do stuff with the symbol
                     equSym.usage = Usage.EQUATED;
                     equSym.val = symb.GetSymbol(interLine.DirectiveOperand).val;
+                    equSym.relocations = symb.GetSymbol(interLine.DirectiveOperand).relocations;
                 }
                 else if (interLine.DirectiveLitOperand == OperandParser.Literal.EXPRESSION)
                 {
@@ -331,6 +332,7 @@ namespace Assembler
                                                   out modifications, maxOp);
                     equSym.usage = Usage.EQUATED;
                     equSym.val = oper;
+                    equSym.relocations = modifications;
                 }
                 else
                 {

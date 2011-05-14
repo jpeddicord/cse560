@@ -74,6 +74,7 @@ namespace Assembler
             Parser pars = new Parser();
             IntermediateFile interSource;
             pars.ParseSource(infile, out interSource, out symb);
+            interSource.CalculateModuleLength();
 
 #if DEBUG
             Console.WriteLine(interSource);
