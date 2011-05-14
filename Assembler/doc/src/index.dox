@@ -4,14 +4,16 @@
 
 Welcome to the documentation for the Final Four Accelerated Assembler. You can browse the developer documentation by selecting Classes above, or browse through any of the following sections:
 
-- \ref how_to
 - \ref user_guide
-- \ref machine_description
-- \ref language_spec
-- \ref test_plan
-- \ref ded
-- \ref errata
-- \ref logbook
+ - \ref how_to
+ - \ref machine_description
+ - \ref language_spec
+- <a class="el" href="annotated.html">Developer's Guide</a>
+ - <a class="el" href="annotated.html">Modules</a>
+ - \ref test_plan
+ - \ref ded
+ - \ref errata
+ - \ref logbook
 
 This project was developed by:
 - Andrew Buelow - Testing Lead
