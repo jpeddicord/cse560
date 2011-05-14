@@ -340,7 +340,7 @@ namespace Assembler
                     else if (this.function == "CLRD" || this.function == "CLRT")
                     {
                         // no operand for CLRD/CLRT
-                        if (this.OpOperand != "")
+                        if (this.OpOperand != "" && this.OpOperand != null)
                         {
                             this.AddError(Errors.Category.Warning, 3);
                             this.NOPificate();
