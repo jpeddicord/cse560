@@ -30,12 +30,16 @@ Where FUNC is any of the following functions, and op is an operand pertaining to
 CNTL HALT
 ~~~~~~~~~
 
+Opcode: ``00 000``
+
 Halt the execution of the program. Operand is an integer from 0 to 1023 indicating an exit code. Example::
 
     CNTL HALT,9
 
 CNTL DUMP
 ~~~~~~~~~
+
+Opcode: ``00 001``
 
 Dump out stacks and/or memory contents; useful for debugging purposes. Operand indicates the kind of information to dump:
 
@@ -50,6 +54,8 @@ For example, this may be a useful debugging command::
 CNTL CLRD
 ~~~~~~~~~
 
+Opcode: ``00 010``
+
 Clears the data stack. No operand accepted::
 
     CNTL CLRD
@@ -57,12 +63,16 @@ Clears the data stack. No operand accepted::
 CNTL CLRT
 ~~~~~~~~~
 
+Opcode: ``00 011``
+
 Clears the test stack. No operand accepted::
 
     CNTL CLRT
 
 CNTL GOTO
 ~~~~~~~~~
+
+Opcode: ``00 100``
 
 Unconditionally branches to the specified label. To jump to label ``foo``::
 
@@ -76,6 +86,8 @@ This machine contains a data stack capable of storing 256 entries. It can be dir
 STACK PUSH
 ~~~~~~~~~~
 
+Opcode: ``00 101``
+
 Push an item onto the top of the stack. Example::
 
     STACK PUSH,FOO
@@ -87,6 +99,8 @@ would push the data at FOO on to the stack. To push a value directly::
 STACK POP
 ~~~~~~~~~
 
+Opcode: ``00 110``
+
 Pop an item off of the top of the stack. As an example, this would pop the top item off of the stack and store the value at the memory location given by BAR::
 
 	STACK POP,BAR
@@ -97,6 +111,8 @@ Again, this can also be done by providing a numeric memory reference.  Using the
 
 STACK TEST
 ~~~~~~~~~~
+
+Opcode: ``00 111``
 
 Pop a single item off of the data stack, and compare it with the given label. Depending on the results of the test, any of the following may be pushed on to the test stack:
 
@@ -117,14 +133,14 @@ JUMP
 
 Jump to the specified location if a given condition holds, and pop the test off of the test stack. This instruction operates on data in the test stack (with the exception of ``dnull``), so to do anything useful `STACK TEST`_ should probably be used first. The available tests are:
 
-* ``=`` - if ``0`` was on the test stack.
-* ``^=`` - if ``1`` or ``2`` was on the test stack.
-* ``<`` - if ``1`` was on the test stack.
-* ``>`` - if ``2`` was on the test stack.
-* ``<=`` - if ``0`` or ``1`` was on the test stack.
-* ``>=`` - if ``0`` or ``2`` was on the test stack.
-* ``tnull`` - if the test stack is empty.
-* ``dnull`` - if the data stack is empty. This is the only test that doesn't use the test stack.
+* ``=`` - if ``0`` was on the test stack. (Opcode: ``01 000``)
+* ``^=`` - if ``1`` or ``2`` was on the test stack. (Opcode: ``01 001``)
+* ``<`` - if ``1`` was on the test stack. (Opcode: ``01 010``)
+* ``>`` - if ``2`` was on the test stack. (Opcode: ``01 011``)
+* ``<=`` - if ``0`` or ``1`` was on the test stack. (Opcode: ``01 100``)
+* ``>=`` - if ``0`` or ``2`` was on the test stack. (Opcode: ``01 101``)
+* ``tnull`` - if the test stack is empty. (Opcode: ``01 110``)
+* ``dnull`` - if the data stack is empty. This is the only test that doesn't use the test stack. (Opcode: ``01 111``)
 
 SOPER
 -----
@@ -133,6 +149,8 @@ SOPER
 
 SOPER ADD
 ~~~~~~~~~
+
+Opcode: ``10 000``
 
 Pops any number of items off of the stack and adds them together. Pushes the result on the top of the stack::
 
@@ -143,12 +161,16 @@ If the stack was [4, 6, 10], then this instruction would result in the stack bei
 SOPER SUB
 ~~~~~~~~~
 
+Opcode: ``10 001``
+
 Pops any number of items off of the stack, subtracts them in the order they were in the stack, and pushes the result::
 
     SOPER ADD,2
 
 SOPER MUL
 ~~~~~~~~~
+
+Opcode: ``10 010``
 
 Pops any number of items off of the stack, multiplies them, and pushes the result::
 
@@ -157,12 +179,16 @@ Pops any number of items off of the stack, multiplies them, and pushes the resul
 SOPER DIV
 ~~~~~~~~~
 
+Opcode: ``10 011``
+
 Pops any number of items off of the stack, divides them in order, and pushes the result::
 
     SOPER DIV,7
 
 SOPER OR
 ~~~~~~~~
+
+Opcode: ``10 100``
 
 Pops any number of items off of the stack, performs a logical ``OR`` between them, and pushes the result::
 
@@ -171,12 +197,16 @@ Pops any number of items off of the stack, performs a logical ``OR`` between the
 SOPER AND
 ~~~~~~~~~
 
+Opcode: ``10 101``
+
 Pops any number of items off of the stack, performs a logical ``AND`` between them, and pushes the result::
 
     SOPER AND,4
 
 SOPER READN
 ~~~~~~~~~~~
+
+Opcode: ``10 110 0``
 
 Reads an integer from the active input ``nnn`` number of times and pushes all of them onto the stack::
 
@@ -187,12 +217,16 @@ This would read 25 integers, and push them onto the stack in the order they were
 SOPER READC
 ~~~~~~~~~~~
 
+Opcode: ``10 110 1``
+
 Reads ``nnn`` characters from the active input and pushes them onto the stack::
 
     SOPER READC,210
 
 SOPER WRITEN
 ~~~~~~~~~~~~
+
+Opcode: ``10 111 0``
 
 Pops ``nnn`` integers off of the stack and writes them to the active output (screen)::
 
@@ -202,6 +236,8 @@ This would print out the top 8 items off of the stack as integers.
 
 SOPER WRITEC
 ~~~~~~~~~~~~
+
+Opcode: ``10 111 1``
 
 Pops ``nnn`` characters off of the stack and writes them to the active output::
 
@@ -215,6 +251,8 @@ MOPER
 MOPER ADD
 ~~~~~~~~~
 
+Opcode: ``11 000``
+
 Pops the top item off of the data stack and adds it with the data at the referenced memory location. Pushes the result onto the stack::
 
     MOPER ADD,foo
@@ -224,12 +262,16 @@ If the top item on the stack was 5 and the data at ``foo`` was 20, then the stac
 MOPER SUB
 ~~~~~~~~~
 
+Opcode: ``11 001``
+
 Pops the top item off of the stack, and subtracts the data at the referenced memory location from it. Pushes the result on the top of the stack::
 
     MOPER SUB,bar
 
 MOPER MUL
 ~~~~~~~~~
+
+Opcode: ``11 010``
 
 Pops off the top item off of the stack, multiplies it with the data at the referenced memory location, and pushes the result back onto the stack::
 
@@ -238,12 +280,16 @@ Pops off the top item off of the stack, multiplies it with the data at the refer
 MOPER DIV
 ~~~~~~~~~
 
+Opcode: ``11 011``
+
 Pops the top item off of the stack, divides it by the data at the referenced memory location, and pushes the result back onto the stack::
 
     MOPER DIV,foo
 
 MOPER OR
 ~~~~~~~~
+
+Opcode: ``11 100``
 
 Pops the top item off of the stack and performs a logical ``OR`` with the data at the referenced memory location, pushing the result back onto the stack::
 
@@ -252,12 +298,16 @@ Pops the top item off of the stack and performs a logical ``OR`` with the data a
 MOPER AND
 ~~~~~~~~~
 
+Opcode: ``11 101``
+
 Pops the top item off of the stack and performs a logical ``AND`` with the data at the referenced memory location, pushing the result back onto the stack::
 
     MOPER AND,Orange
 
 MOPER READN
 ~~~~~~~~~~~
+
+Opcode: ``11 110 0``
 
 Reads a single integer from the active input and stores it at the referenced memory location. In addition, it pushes the integer onto the stack::
 
@@ -266,6 +316,8 @@ Reads a single integer from the active input and stores it at the referenced mem
 MOPER READC
 ~~~~~~~~~~~
 
+Opcode: ``11 110 1``
+
 Reads a single character from the active input and stores it at the referenced memory location. In addition, it pushes the character onto the stack::
 
     MOPER READC,mychar
@@ -273,12 +325,16 @@ Reads a single character from the active input and stores it at the referenced m
 MOPER WRITEN
 ~~~~~~~~~~~~
 
+Opcode: ``11 111 0``
+
 Writes the data at the referenced memory location as an integer to the active output::
 
     MOPER WRITEN,saveint
 
 MOPER WRITEC
 ~~~~~~~~~~~~
+
+Opcode: ``11 111 1``
 
 Writes the data at the referenced memory location as a character to the active output::
 
