@@ -1,0 +1,1 @@
+Testing the Assembler's ability to handle a program that exceeds the line limit.  Starts at a location counter of 1023 and adds a NOP to reach the max of 1024. Because this is a fatal error, parsing should end after line 3 and the code after should be ignored. We are also testing that NOP is correctly converted to SOPER ADD,0.
