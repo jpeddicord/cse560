@@ -5,15 +5,17 @@ import os
 import re
 from os.path import join, basename
 from subprocess import call, Popen, PIPE
-from shutil import rmtree
+from shutil import rmtree, copytree
 from docutils.core import publish_file
 from docutils.writers import manpage, html4css1
 
 
 def build():
     """Documentation builder"""
-    # set up
+    # clean up old builds
     try:
+        rmtree('tmp')
+        rmtree('out')
         os.makedirs('tmp/tests')
     except: pass
 
@@ -33,9 +35,8 @@ def build():
     build_rst_dir('src', 'tmp')
     print "Running Doxygen"
     doxygen()
-    
-    # clean up
-    #rmtree('tmp')
+    print "Copying images"
+    copytree("src/images", "out/html/images")
 
 def build_ded(directory, out_filename):
     """Process a template for DEDs."""

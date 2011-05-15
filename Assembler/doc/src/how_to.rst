@@ -58,7 +58,7 @@ Inside the c560aa05.sp2.early directory you will also find a folder called "Prog
 the Programs folder. While not necessary to keep your programs here in order to use the Assembler, it is provided for convenience
 and will be assumed to be the location of your programs for the rest of this guide.
 
-<img src="images/programs.png" />
+.. image:: images/programs.png
 
 4) Compiling the Program
 ````````````````````````
@@ -72,13 +72,13 @@ This package includes the source code for the FFA Assembler. Most of the files r
 To compile this using `Visual Studio <http://www.microsoft.com/visualstudio/en-us/home>`_:
 Note: Visual Studio must be installed on your machine to do this.
 
-<img src="images/projectfile.png" />
+.. image:: images/projectfile.png
 
 Double click on Assembler.sln.  This is the project file and will open all associated files in Visual Studio for you.
 At the top of the window there is a dropdown box that will say Debug by default. You chould change this to Release before
 building. The Debug version of this program includes extra output which isn't very useful for general use.
 
-<img src="images/release.png" />
+.. image:: images/release.png
 
 Now go to the Build menu at the top and select Build Solution or press Control + Shift + B. This will create the executable
 file in Assembler/bin/Release/. To use this as described below, you can move Assembler.exe into the Assembler directive
@@ -109,7 +109,7 @@ You can also display all of the contents in your current directory to help you n
 * Windows: Use the command "dir".
 * Unix/Mac: Use the command "ls".
 
-<img src="images/cmd1.png" />
+.. image:: images/cmd1.png
 
 Once you are in the c560aa05.sp2.early folder you can run the Assembler.
 
@@ -139,7 +139,7 @@ Some examples of how you may run this program::
 	Assembler.exe Programs/Sample.txt
 	
 	
-<img src="images/run.png" />
+.. image:: images/run.png
 
 
 Instructions on how to link and run the FFA program will be available with the release of our linker and
