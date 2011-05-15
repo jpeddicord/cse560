@@ -144,7 +144,7 @@ def build_test_scripts(directory, runner, out_dir, prefix, index_file):
     with open(index_file, 'w') as f:
         for n in names:
             base = camelcase_to_underscore(n.replace('.rst', ''))
-            f.write("* `" + n + " <" + prefix + "_" + base + ".html>`_\n")
+            f.write("* `" + n.replace('.rst', '') + " <" + prefix + "_" + base + ".html>`_\n")
     return [prefix + n for n in names]
 
 def build_error_list(in_file, out_file):
