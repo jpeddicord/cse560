@@ -61,8 +61,10 @@ def build_ded(directory, out_filename):
     # write the output
     with open(out_filename, 'w') as out:
         out.write("=======================\nData Element Dictionary\n=======================")
+        out.write("\n\n.. contents::\n\n")
         # read the directory for csv files
         for root, dirs, files in os.walk(directory):
+            files.sort()
             for fname in files:
                 if fname.endswith('.csv'):
                     out.write(create_ded_rst(join(root, fname)))
@@ -106,6 +108,7 @@ def build_test_scripts(directory, runner, out_dir, prefix, index_file):
     """Copy the test script input, run the script, and copy output to an RST source."""
     names = []
     for root, dirs, files in os.walk(directory):
+        files.sort()
         for fname in files:
             if fname.endswith('.txt'):
                 out = fname + '\n' + '`'*len(fname) + '\n\n.. contents::'
