@@ -186,7 +186,7 @@ namespace Assembler
                 if (line.ProgramCounter == null)
                 {
                     // special case: RESET directive should generate a linking record
-                    if (line.Directive == "RESET")
+                    if (line.Directive == "RESET" && line.GetThreeErrors().Count == 0)
                     {
                         var record = new LinkingRecord(this.symb.ProgramName);
                         record.EntryName = line.Label;
@@ -216,16 +216,29 @@ namespace Assembler
                     if (line.Equated != null)
                     {
                         Symbol symb = this.symb.GetSymbol(line.Equated);
-                        ModificationRecord mod = new ModificationRecord(this.symb.ProgramName);
-                        mod.ProgramLocation = line.ProgramCounter;
-                        mod.Word = Convert.ToString(Convert.ToInt32(line.Bytecode, 2), 16);
-                        for (int i = 0; i < symb.relocations; i++)
+                        if (symb.relocations == 0)
                         {
-                            mod.AddAdjustment(true, this.symb.ProgramName);
+                            rec.StatusFlag = 'A';
+                            rec.Adjustments = "0";
                         }
-                        this.AddRecord(mod);
-                        rec.StatusFlag = 'M';
-                        rec.Adjustments = Convert.ToString(symb.relocations, 16);
+                        else if (symb.relocations == 1)
+                        {
+                            rec.StatusFlag = 'R';
+                            rec.Adjustments = "0";
+                        }
+                        else
+                        {
+                            ModificationRecord mod = new ModificationRecord(this.symb.ProgramName);
+                            mod.ProgramLocation = line.ProgramCounter;
+                            mod.Word = Convert.ToString(Convert.ToInt32(line.Bytecode, 2), 16);
+                            for (int i = 0; i < symb.relocations; i++)
+                            {
+                                mod.AddAdjustment(true, this.symb.ProgramName);
+                            }
+                            this.AddRecord(mod);
+                            rec.StatusFlag = 'M';
+                            rec.Adjustments = Convert.ToString(symb.relocations, 16);
+                        }
                     }
                     // or a plain label
                     else if (line.OpLitOperand == OperandParser.Literal.NONE)
