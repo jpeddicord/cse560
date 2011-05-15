@@ -95,7 +95,7 @@ An assembly report will be printed to the screen, containing, for each line:
 
 At the end of the output, the symbol table will be printed, containing a list of all found symbols in the source file, along with their locations and types.
 
-In addition, an object file will be output to ``sample.obj``, which follows the specification format. TODO: link.
+In addition, an object file will be output to ``sample.obj``, which follows the format specified in the `Object File <object_file.html>`_ section.
 
 Output
 ``````
