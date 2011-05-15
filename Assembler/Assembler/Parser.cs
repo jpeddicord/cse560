@@ -346,12 +346,19 @@ namespace Assembler
                 return;
             }
 
+            bool reachedEnd = false;
 
             // iterate the lines of the file
             for (short i = 2; i <= sourceCode.Length; i++)
             {
                 // parse a line and create an intermediate version
                 line = ParseLine(sourceCode[i - 1], i, ref symb);
+
+                // if we're at the end and processing another line
+                if (reachedEnd)
+                {
+                    line.AddError(Errors.Category.Fatal, 7);
+                }
 
                 // check the LC. at this point, the line will have incremented
                 // already, so check if it's 1024 instead of 1023.
@@ -362,6 +369,12 @@ namespace Assembler
 
                 // add to source
                 interSource.AddLine(line);
+
+                // did we find le end?
+                if (line.Directive == "END")
+                {
+                    reachedEnd = true;
+                }
 
                 // check for fatal errors
                 if (HasFatalError(line))
