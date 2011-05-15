@@ -577,6 +577,7 @@ namespace Assembler
                     case Expressions.ADC:
                         {
                             modifications = 1;
+                            rec.AddAdjustment(true, symb.ProgramName);
                             for (int i = 0; i < operands.Count; i++)
                             {
                                 string label = operands[i];

@@ -123,43 +123,54 @@ namespace Assembler
         {
             Logger.Log("Parsing START directive", "DirectiveParser");
 
-            // expecting operand to be the value of the location counter
-            // check to see if operand is valid start value
-            int startLC;
-            if (interLine.DirectiveLitOperand == OperandParser.Literal.NUMBER)
+            // this should only happen if the directive is found on the first line
+            if (interLine.SourceLineNumber == 1)
             {
-                string startOper = BinaryHelper.HexToInt(interLine.DirectiveOperand, 32).ToString();
-                if (int.TryParse(startOper, out startLC))
+                // expecting operand to be the value of the location counter
+                // check to see if operand is valid start value
+                int startLC;
+                if (interLine.DirectiveLitOperand == OperandParser.Literal.NUMBER)
                 {
-                    if (0 <= startLC && startLC <= 1023)
+                    string startOper = BinaryHelper.HexToInt(interLine.DirectiveOperand, 32).ToString();
+                    if (int.TryParse(startOper, out startLC))
                     {
-                        Parser.LC = interLine.DirectiveOperand;
+                        if (0 <= startLC && startLC <= 1023)
+                        {
+                            Parser.LC = interLine.DirectiveOperand;
+                        }
                     }
+                    else
+                    {
+                        /*
+                         * The operand could not be parsed as a number.
+                         * This is here as well as below just in case the 
+                         * Tokenizer has a hiccough and says that something
+                         * that is not a number is a number.
+                         */
+                        Logger.Log("ERROR: EF.06 encountered", "DirectiveParser");
+                        interLine.AddError(Errors.Category.Fatal, 6);
+                        return;
+                    }
+
+                    // update the symbol in the symbol table
+                    Symbol start = symb.RemoveSymbol(interLine.Label);
+                    start.usage = Usage.PRGMNAME;
+                    start.lc = null;
+                    symb.AddSymbol(start);
                 }
                 else
                 {
-                    /*
-                     * The operand could not be parsed as a number.
-                     * This is here as well as below just in case the 
-                     * Tokenizer has a hiccough and says that something
-                     * that is not a number is a number.
-                     */
+                    // the operand could not be parsed as a number
                     Logger.Log("ERROR: EF.06 encountered", "DirectiveParser");
                     interLine.AddError(Errors.Category.Fatal, 6);
                     return;
                 }
-
-                // update the symbol in the symbol table
-                Symbol start = symb.RemoveSymbol(interLine.Label);
-                start.usage = Usage.PRGMNAME;
-                start.lc = null;
-                symb.AddSymbol(start);
             }
             else
             {
-                // the operand could not be parsed as a number
-                Logger.Log("ERROR: EF.06 encountered", "DirectiveParser");
-                interLine.AddError(Errors.Category.Fatal, 6);
+                // not the first line of the source code.
+                Logger.Log("ERROR: ES.35 encountered", "DirectiveParser");
+                interLine.AddError(Errors.Category.Serious, 35);
                 return;
             }
 
@@ -237,15 +248,29 @@ namespace Assembler
             {
                 // the operand of the RESET directive must either be an equated label
                 // or a literal number.
-                if ((symb.ContainsSymbol(interLine.DirectiveOperand) &&
-                    symb.GetSymbol(interLine.DirectiveOperand).usage == Usage.EQUATED) ||
-                    (interLine.DirectiveLitOperand == OperandParser.Literal.NUMBER))
+                if (symb.ContainsSymbol(interLine.DirectiveOperand) &&
+                    symb.GetSymbol(interLine.DirectiveOperand).usage == Usage.EQUATED)
+                {
+                    int curLC = Convert.ToInt32(Parser.LC, 16);
+                    int newLC = Convert.ToInt32(symb.GetSymbol(interLine.DirectiveOperand).val, 16);
+                    if (curLC < newLC)
+                    {
+                        Parser.LC = Convert.ToString(newLC,16);
+                    }
+                    else
+                    {
+                        // error, attempt to use a previously used LC value
+                        Logger.Log("ERROR: ES.08 encountered.", "DirectiveParser");
+                        interLine.AddError(Errors.Category.Serious, 8);
+                    }
+                }
+                else if (interLine.DirectiveLitOperand == OperandParser.Literal.NUMBER)
                 {
                     int curLC = Convert.ToInt32(Parser.LC, 16);
                     int newLC = Convert.ToInt32(interLine.DirectiveOperand, 16);
                     if (curLC < newLC)
                     {
-                        Parser.LC = interLine.DirectiveOperand;
+                        Parser.LC = Convert.ToString(newLC, 16);
                     }
                     else
                     {
@@ -297,7 +322,7 @@ namespace Assembler
             if (symb.ContainsSymbol(interLine.Label))
             {
                 Symbol equSym = symb.RemoveSymbol(interLine.Label);
-                equSym.lc = null;
+                interLine.ProgramCounter = equSym.lc;
                 if (interLine.DirectiveLitOperand == OperandParser.Literal.NUMBER)
                 {
                     // check that number is in bounds
@@ -354,7 +379,8 @@ namespace Assembler
                         interLine.AddError(Errors.Category.Serious, 22);
                         success = false;
                     }
-
+                    interLine.ProgramCounter = null;
+                    equSym.lc = null;
                     symb.AddSymbol(equSym);
                 }
             }

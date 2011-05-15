@@ -214,7 +214,6 @@ namespace Assembler
                 else if (line.Directive == "ADC" || line.Directive == "ADCE")
                 {
                     ModificationRecord mod = new ModificationRecord(symb.ProgramName);
-                    mod.AddAdjustment(true, symb.ProgramName);
                     bool worked = true;
                     string expr = line.DirectiveOperand;
                     int rel = 0;
@@ -232,6 +231,7 @@ namespace Assembler
                     }
                     else if (line.DirectiveLitOperand == OperandParser.Literal.NUMBER)
                     {
+                        mod.AddAdjustment(true, symb.ProgramName);
                         rel = 1;
                         bin = Convert.ToString(Convert.ToInt32(expr, 16), 2);
                     }
