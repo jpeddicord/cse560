@@ -75,30 +75,39 @@ namespace Assembler
             IntermediateFile interSource;
             pars.ParseSource(infile, out interSource, out symb);
 
-            // check for fatal errors here and abort
+
+            bool fatalerr = false;
+            AssemblyReport report = new AssemblyReport();
+
+            // Checking for fatal errors and creating an Assembly Report to display if a fatal error is found.
             foreach (IntermediateLine line in interSource)
             {
                 if (line.Fatal)
                 {
-                    Console.WriteLine("Fatal error on line " + line.SourceLineNumber);
-                    foreach (Errors.Error err in line.GetThreeErrors())
-                    {
-                        Console.WriteLine(err);
-                        System.Environment.Exit(10);
-                    }
+                    fatalerr = true;
                 }
+
+                report.Add(line.ProgramCounter, "0000", ' ', line.SourceLineNumber, line.SourceLine, line.GetThreeErrors());
+            }
+
+            if (fatalerr)
+            {
+                // Output the report
+                Console.WriteLine(report);
+                // and symbol table
+                Console.WriteLine(symb);
+                // Stop the assembler
+                System.Environment.Exit(10);
             }
 
 #if DEBUG
             Console.WriteLine(interSource);
 #endif
 
-            // TODO: check for fatal errors and abort
-
             // pass 2
             Logger.Log("Starting pass 2", "Main");
             interSource.CalculateModuleLength();
-            AssemblyReport report = new AssemblyReport();
+            report = new AssemblyReport();
             ObjectFile obj = new ObjectFile(ref interSource, ref symb, ref report);
             obj.Render(outfile);
 

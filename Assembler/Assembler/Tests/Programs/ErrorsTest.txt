@@ -27,4 +27,4 @@ X1			EQU 1024		: out of range
 X2			DAT C='abc'		: too many characters stored with dat
             STACK PUSH,c='  : malformed string
 end Program					: does not start in 2nd column
-			end Program
+			end Prgm
