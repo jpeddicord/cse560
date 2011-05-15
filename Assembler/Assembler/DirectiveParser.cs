@@ -367,6 +367,9 @@ namespace Assembler
                     success = false;
                 }
 
+                interLine.ProgramCounter = null;
+                equSym.lc = null;
+
                 if (success)
                 {
                     // this needs to be checked here in case ParseExpression
@@ -379,8 +382,6 @@ namespace Assembler
                         interLine.AddError(Errors.Category.Serious, 22);
                         success = false;
                     }
-                    interLine.ProgramCounter = null;
-                    equSym.lc = null;
                     symb.AddSymbol(equSym);
                 }
             }
