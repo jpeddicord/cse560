@@ -1,0 +1,10 @@
+linkingRecords, ObjectFile, List<LinkingRecord>, member, the list of linking records
+textRecords, ObjectFile, List<TextRecord>, member, the list of text records
+modificationRecords, ObjectFile, List<ModificationRecord>, member, the list of modification records
+input, ObjectFile, IntermediateFile, member, the input intermediate source from pass 1
+symb, ObjectFile, SymbolTable, member, the symbol table from pass 1
+report, ObjectFile, AssemblyReport, member, the assembly report to be generated
+symb, ObjectFile.GenerateLinkingRecords, Symbol, local, used to check the type of symbol for generating linking records
+line, ObjectFile.GenerateSourceRecords, IntermediateLine, local, the current line in processing
+bin, ObjectFile.GenerateSourceRecords, string, local, the finalized bytecode in binary
+file, ObjectFile.Render, StreamWriter, local, the file we're writing to

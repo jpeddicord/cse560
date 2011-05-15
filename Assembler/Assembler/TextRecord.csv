@@ -1,0 +1,5 @@
+programName, TextRecord, string, member, the stored program name for the record 
+ProgramLocation, TextRecord, string, member, the location of this record in the program
+HexCode, TextRecord, string, member, the hex bytecode for this record
+StatusFlag, TextRecord, char, member, the A/R/M status flag for this record
+Adjustments, TextRecord, string, member, the hex number of adjustments for this record

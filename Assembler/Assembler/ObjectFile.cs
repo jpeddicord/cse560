@@ -4,21 +4,58 @@ using System.Collections.Generic;
 
 namespace Assembler
 {
+    /**
+     * Object file representation. Can be filled with records and rendered to a file.
+     */
     public class ObjectFile
     {
-
+        /**
+         * The list of linking records
+         */
         private List<LinkingRecord> linkingRecords = new List<LinkingRecord>();
 
+        /**
+         * The list of text records
+         */
         private List<TextRecord> textRecords = new List<TextRecord>();
 
+        /**
+         * The list of modification records
+         */
         private List<ModificationRecord> modificationRecords = new List<ModificationRecord>();
 
+        /**
+         * The input from pass 1
+         */
         private IntermediateFile input;
 
+        /**
+         * The symbol table from pass 1
+         */
         private SymbolTable symb;
 
+        /**
+         * The assembly report to be generated
+         */
         private AssemblyReport report;
 
+        /**
+         * Create an object file using the given inputs.
+         *
+         * @param input Input source from pass 1
+         * @param symb The symbol table
+         * @param report an assembly report to be generated
+         * @refcode TODO
+         * @errtest
+         *  N/A
+         * @errmsg
+         *  N/A
+         * @author Jacob Peddicord
+         * @creation May 10, 2011
+         * @modlog
+         * @teststandard Andrew Buelow
+         * @codestandard Mark Mathis
+         */
         public ObjectFile(ref IntermediateFile input, ref SymbolTable symb, ref AssemblyReport report)
         {
             this.input = input;
@@ -28,6 +65,18 @@ namespace Assembler
 
         /**
          * Add a linking record to this object file.
+         *
+         * @param record The linking record to add
+         * @refcode TODO
+         * @errtest
+         *  N/A
+         * @errmsg
+         *  N/A
+         * @author Jacob Peddicord
+         * @creation May 10, 2011
+         * @modlog
+         * @teststandard Andrew Buelow
+         * @codestandard Mark Mathis
          */
         private void AddRecord(LinkingRecord record)
         {
@@ -36,6 +85,18 @@ namespace Assembler
 
         /**
          * Add a text record to this object file.
+         *
+         * @param record The text record to add
+         * @refcode TODO
+         * @errtest
+         *  N/A
+         * @errmsg
+         *  N/A
+         * @author Jacob Peddicord
+         * @creation May 10, 2011
+         * @modlog
+         * @teststandard Andrew Buelow
+         * @codestandard Mark Mathis
          */
         private void AddRecord(TextRecord record)
         {
@@ -44,6 +105,18 @@ namespace Assembler
 
         /**
          * Add a modification record to this object file.
+         *
+         * @param record The modification record to add
+         * @refcode TODO
+         * @errtest
+         *  N/A
+         * @errmsg
+         *  N/A
+         * @author Jacob Peddicord
+         * @creation May 10, 2011
+         * @modlog
+         * @teststandard Andrew Buelow
+         * @codestandard Mark Mathis
          */
         private void AddRecord(ModificationRecord record)
         {
@@ -53,6 +126,17 @@ namespace Assembler
         /**
          * Scan the symbol table for ENTRY symbols and create linking records
          * for them.
+         *
+         * @refcode TODO
+         * @errtest
+         *  N/A
+         * @errmsg
+         *  N/A
+         * @author Jacob Peddicord
+         * @creation May 11, 2011
+         * @modlog
+         * @teststandard Andrew Buelow
+         * @codestandard Mark Mathis
          */
         private void GenerateLinkingRecords()
         {
@@ -75,6 +159,24 @@ namespace Assembler
         /**
          * Scan and the source (pass 2) and generate text and modification
          * records as apporpriate.
+         *
+         * @refcode TODO
+         * @errtest
+         *  N/A
+         * @errmsg
+         *  N/A
+         * @author Jacob Peddicord
+         * @creation May 9, 2011
+         * @modlog
+         *  - May 10, 2011 - Jacob - Implemented some modification record things
+         *  - May 10, 2011 - Jacob - Refactored line iteration a bit
+         *  - May 11, 2011 - Jacob - Fix how we determine the type and number of modifications
+         *  - May 13, 2011 - Mark  - Implement expression processing
+         *  - May 13, 2011 - Mark  - Fix one of the expression cases with modifications
+         *  - May 14, 2011 - Mark  - Implement ADC/e!
+         *  - May 14, 2011 - Mark  - Adjust error handling code
+         * @teststandard Andrew Buelow
+         * @codestandard Mark Mathis
          */
         private void GenerateSourceRecords()
         {
@@ -266,8 +368,20 @@ namespace Assembler
         }
 
         /**
-         * Render the object file into the file given. If no filename, will
-         * print to stdout.
+         * Render the object file into the file given.
+         *
+         * @param filename The filename to write the object file to.
+         * @refcode TODO
+         * @errtest
+         *  N/A
+         * @errmsg
+         *  N/A
+         * @author Jacob Peddicord
+         * @creation May 10, 2011
+         * @modlog
+         *  - May 14, 2011 - Mark - Add in the load/execution addresses and module length
+         * @teststandard Andrew Buelow
+         * @codestandard Mark Mathis
          */
         public void Render(string filename)
         {
