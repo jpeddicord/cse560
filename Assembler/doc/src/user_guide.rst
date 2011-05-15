@@ -71,19 +71,19 @@ Example
 An example source file, ``sample.txt``, could contain::
 
     PGC  Start 0
-         STACK PUSH,AB     :place AB on stack  0  2005   r
-         STACK PUSH,CD     :place CD on stack  1  2006   r
+         STACK PUSH,AB    :place AB on stack  0  2005   r
+         STACK PUSH,CD    :place CD on stack  1  2006   r
          SOPER WRITEN,2    :print out top      2  3C02   a  0111 1100 0000 0010
          MOPER WRITEN,RES  :output RES         3  FC07   r  1111 1100 0000 0111
-         CNTL  HALT,0      :halt program       4  0000   a
-    AB   CNTL  HALT,10     :halt program       5  000A   a
-    CD   CNTL  HALT,110    :halt program       6  006E   a
-    RES  CNTL  HALT,0      :halt program       7  0000   a
-    END  PGC               :end of program
+         CNTL  HALT,0     :halt program       4  0000   a
+    AB   CNTL  HALT,10    :halt program       5  000A   a
+    CD   CNTL  HALT,110   :halt program       6  006E   a
+    RES  CNTL  HALT,0     :halt program       7  0000   a
+         END   PGC        :end of program 
 
 This would be processed with the following command::
 
-    Assembler.exe sample.txt output.obj
+    Assembler.exe sample.txt sample.obj
 
 An assembly report will be printed to the screen, containing, for each line:
 
@@ -95,17 +95,42 @@ An assembly report will be printed to the screen, containing, for each line:
 
 At the end of the output, the symbol table will be printed, containing a list of all found symbols in the source file, along with their locations and types.
 
-In addition, an object file will be output to ``output.obj``, which follows the specification format. TODO: link.
+In addition, an object file will be output to ``sample.obj``, which follows the specification format. TODO: link.
 
 Output
 ``````
 The assembly report and symbol table for the above input is::
 
-   HERP HERP FILL THIS IN
+    LOC   OBJCODE   FLAG   LINE   SOURCE
+                           1      PGC  Start 0
+    0     2805      R      2           STACK PUSH,AB    :place AB on stack  0  2005   r
+    1     2806      R      3           STACK PUSH,CD    :place CD on stack  1  2006   r
+    2     B802      A      4           SOPER WRITEN,2    :print out top      2  3C02   a  0111 1100 0000 0010
+    3     F807      R      5           MOPER WRITEN,RES  :output RES         3  FC07   r  1111 1100 0000 0111
+    4     0000      A      6           CNTL  HALT,0     :halt program       4  0000   a
+    5     000A      A      7      AB   CNTL  HALT,10    :halt program       5  000A   a
+    6     006E      A      8      CD   CNTL  HALT,110   :halt program       6  006E   a
+    7     0000      A      9      RES  CNTL  HALT,0     :halt program       7  0000   a
+                           10          END   PGC        :end of program
 
-The ``output.obj`` file for the above example would contain::
+    ---- SYMBOL TABLE ----
+                                  AB: 0x5      LABEL             
+                                  CD: 0x6      LABEL             
+                                 PGC:          PRGMNAME          
+                                 RES: 0x7      LABEL             
 
-   XXX XXX XXX UPDATE THIS																
+The ``sample.obj`` file for the above example would contain::
+
+    H:PGC:0000:0008:0000:2011134,21:19:47:9001:0008:0000:0008:0000:FFA-ASM:PGC
+    T:0000:2805:R:0:PGC
+    T:0001:2806:R:0:PGC
+    T:0002:B802:A:0:PGC
+    T:0003:F807:R:0:PGC
+    T:0004:0000:A:0:PGC
+    T:0005:000A:A:0:PGC
+    T:0006:006E:A:0:PGC
+    T:0007:0000:A:0:PGC
+    E:PGC
 
 Following the format above, this output contains each individual line and details, followed by the symbol table containing 4 symbols. No errors were found.
 
