@@ -169,6 +169,7 @@ namespace Assembler
             else
             {
                 // not the first line of the source code.
+                symb.RemoveSymbol(interLine.Label);
                 Logger.Log("ERROR: ES.35 encountered", "DirectiveParser");
                 interLine.AddError(Errors.Category.Serious, 35);
                 return;
