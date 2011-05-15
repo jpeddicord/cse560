@@ -11,7 +11,7 @@ The FFA machine is a hypothetical machine that the FFA Assembler produces code f
 File Format
 ===========
 
-A source file for the FFA Assembler should consist of text (ASCII) instructions, one per line. There is no set line limit, however keep in mind that there is a limit of 1024 words. So, a source file may consist of **at most** 1024 instructions and data-storage directives combined.
+A source file for the FFA Assembler should consist of text (ASCII) instructions, one per line. There is no set line limit, however keep in mind that there is a limit of 1024 words. So, a source file may consist of **at most** 1024 instructions and data-storage directives combined. Labels must start in column 1 of the line they are being defined on. Lines that do not include a label must have whitespace in column 1. The very first line of a file should be the start directive. The very last line must be the end directive. No comments may appear on the lines before or after these directives, however a comment may appear on the same line as the end directive. White space is allowed in the program as long as the instruction format is met, for example, whitespace may not appear between a category and operand that are seperated by a comma. Comments may appear on any line, including on a line by itself, however everything following the colon until the next line will be considered part of the comment.
 
 Instructions
 ============

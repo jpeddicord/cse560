@@ -9,7 +9,7 @@ move your files off of the CD and on to your computer.  Running it from the CD w
 when the application attempts to write a log file to the disc. Insert
 your CD and open it so you are able to view all files on the CD. You should see two items:
 
-* A folder named c560aa05.sp1.ontime - This contains all of the content for our project including source files and documentation.
+* A folder named c560aa05.sp2.early - This contains all of the content for our project including source files and documentation.
 * A README.txt - This README will give you a better understanding of the contents of the project. It is no neccessary to correctly run the Assembler but may still prove to be useful.
 
 Move the folder off the CD either by clicking on it and dragging or copying then
@@ -37,26 +37,69 @@ You will need a program written in FFA to be compiled by this application. The l
 specification is given `here <language_spec.html>`_.  We also have a few example programs in our `testing plan <test_plan.html#sample-test-programs>`_. Your program
 should be written in an ASCII text file.
 
-Inside the c560aa05.sp1.ontime directory you will find two other directories (Assembler and
-Programs) as well as the executable for Assembler. Either move or copy your FFA program into
-the Programs folder.
+Below is another example of a FFA program called Sample.txt::
 
-4) Opening the Terminal
+    PGC  Start 0
+         STACK PUSH,AB    :place AB on stack  0  2805   r
+         STACK PUSH,CD    :place CD on stack  1  2806   r
+         SOPER WRITEN,2    :print out top     2  B802   a  
+         MOPER WRITEN,RES  :output RES        3  F807   r  
+         CNTL  HALT,0     :halt program       4  0000   a
+    AB   CNTL  HALT,10    :halt program       5  000A   a
+    CD   CNTL  HALT,110   :halt program       6  006E   a
+    RES  CNTL  HALT,0     :halt program       7  0000   a
+         END   PGC        :end of program 
+
+In the comments of this program it explains what each line is supposed to do, followed by the line nymber,
+the translated hex code and last the flag set by the assembler for the linker (you don't need to worry about
+these).
+
+Inside the c560aa05.sp2.early directory you will also find a folder called "Programs". Either move or copy your FFA program into
+the Programs folder. While not necessary to keep your programs here in order to use the Assembler, it is provided for convenience
+and will be assumed to be the location of your programs for the rest of this guide.
+
+<img src="images/programs.png" />
+
+4) Compiling the Program
+````````````````````````
+
+Your copy of the FFA Assembler should include an executable file, however if for some reason you want to rebuild the program using
+the provided source code, follow the instructions below. If you plan on using the included executable, please skip this section and
+move on to part 5, opening the terminal.
+
+This package includes the source code for the FFA Assembler. Most of the files required are located in the Assembler directory.
+
+To compile this using `Visual Studio <http://www.microsoft.com/visualstudio/en-us/home>`_:
+Note: Visual Studio must be installed on your machine to do this.
+
+<img src="images/projectfile.png" />
+
+Double click on Assembler.sln.  This is the project file and will open all associated files in Visual Studio for you.
+At the top of the window there is a dropdown box that will say Debug by default. You chould change this to Release before
+building. The Debug version of this program includes extra output which isn't very useful for general use.
+
+<img src="images/release.png" />
+
+Now go to the Build menu at the top and select Build Solution or press Control + Shift + B. This will create the executable
+file in Assembler/bin/Release/. To use this as described below, you can move Assembler.exe into the Assembler directive
+(Assembler/bin/Release/Assembler.exe to Assembler/Assembler.exe).
+
+5) Opening the Terminal
 ```````````````````````
 
-The Assembler is going to be run from a command line.  You will need to open a command
+The easiest way to run the Assembler is from the command line.  You will need to open a command
 prompt.
 
 * In Windows : Open the start menu and type cmd in the search bar. Press enter or select cmd.exe from the results.
 * In Unix : Open the terminal from your launcher or by going to Applications > Accessories > Terminal.
 * In Mac: Launch Applications or Finder then locate Terminal.
 
-Now navigate to the c560aa05.sp1.ontime folder located on your computer through the terminal.
+Now navigate to the c560aa05.sp2.early folder located on your computer through the terminal.
 By typing "cd <dir>" without the quotes and by replacing <dir> with the directory you want,
 you can move into a new directory.  For example, if you are currently in /MyHome/ and you
-want to move to /MyHome/Programs/c560aa05.sp1.ontime you can type::
+want to move to /MyHome/Programs/c560aa05.sp2.early you can type::
 
-	cd Programs/c560aa05.sp1.ontime/
+	cd Programs/c560aa05.sp2.early/
 
 and hit enter.  To move back a directory you can type "cd .." without the quotes. This will
 move you to the directory directly above you.
@@ -66,25 +109,38 @@ You can also display all of the contents in your current directory to help you n
 * Windows: Use the command "dir".
 * Unix/Mac: Use the command "ls".
 
-Once you are in the c560aa05.sp1.ontime folder you can run the Assembler.
+<img src="images/cmd1.png" />
 
-5) Running the Assembler
+Once you are in the c560aa05.sp2.early folder you can run the Assembler.
+
+6) Running the Assembler
 ````````````````````````
 
 Run the Assembler using the command::
 
-	Assembler.exe Programs/<inputfile>
+	Assembler.exe <inputfile> <outputfile>
 
-where input file is the name of your program that you wish to compile.
+where input file is the name of your program that you wish to compile and outputfile is the name
+of the file you wish to save the object file in. Providing an outputfile name is optional. If no 
+outputfile name is given then the Assembler will name the objectfile after your inputfile with .obj
+added to the end.
 
-At this point, the assembler will complete pass 1 and produce a formatted output of your
-program including bytecode for the parts it knows and lists of errors that appear in your program.
+The Assembler will also produce an assembly report which will be displayed to the screen by default.
 Please see the `User's Guide <user_guide.html>`_ for more information on this output.
 
 You can store this output in a file by adding "> <outputfile>" to the command above.
 
 Some examples of how you may run this program::
  
-	Assembler.exe Programs/PRGM1.txt
+	Assembler.exe Programs/PRGM1.txt PRGM.obj
 	
-	Assembler.exe Programs/PRGM2.txt > PRGM2output.txt
+	Assembler.exe Programs/PRGM2.txt PRGM2.obj > PRGM2output.txt
+	
+	Assembler.exe Programs/Sample.txt
+	
+	
+<img src="images/run.png" />
+
+
+Instructions on how to link and run the FFA program will be available with the release of our linker and
+simulator.

@@ -1,8 +1,8 @@
 PGC  Start 0
-     STACK PUSH,AB    :place AB on stack  0  2005   r
-     STACK PUSH,CD    :place CD on stack  1  2006   r
-     SOPER WRITEN,2    :print out top      2  3C02   a  0111 1100 0000 0010
-     MOPER WRITEN,RES  :output RES         3  FC07   r  1111 1100 0000 0111
+     STACK PUSH,AB    :place AB on stack  0  2805   r
+     STACK PUSH,CD    :place CD on stack  1  2806   r
+     SOPER WRITEN,2    :print out top     2  B802   a
+     MOPER WRITEN,RES  :output RES        3  F807   r
      CNTL  HALT,0     :halt program       4  0000   a
 AB   CNTL  HALT,10    :halt program       5  000A   a
 CD   CNTL  HALT,110   :halt program       6  006E   a

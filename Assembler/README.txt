@@ -14,7 +14,7 @@ Getting Started
 
 To get started, you should copy files from this disc or archive to a local folder.
 For information, please see the full Getting Started guide in doc/html/index.html or online
-at files.codechunk.net/560-doc/html.
+at files.codechunk.net/560-doc/html/how_to.html.
 
 
 Contents
