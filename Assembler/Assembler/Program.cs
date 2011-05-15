@@ -74,7 +74,20 @@ namespace Assembler
             Parser pars = new Parser();
             IntermediateFile interSource;
             pars.ParseSource(infile, out interSource, out symb);
-            interSource.CalculateModuleLength();
+
+            // check for fatal errors here and abort
+            foreach (IntermediateLine line in interSource)
+            {
+                if (line.Fatal)
+                {
+                    Console.WriteLine("Fatal error on line " + line.SourceLineNumber);
+                    foreach (Errors.Error err in line.GetThreeErrors())
+                    {
+                        Console.WriteLine(err);
+                        System.Environment.Exit(10);
+                    }
+                }
+            }
 
 #if DEBUG
             Console.WriteLine(interSource);
@@ -84,6 +97,7 @@ namespace Assembler
 
             // pass 2
             Logger.Log("Starting pass 2", "Main");
+            interSource.CalculateModuleLength();
             AssemblyReport report = new AssemblyReport();
             ObjectFile obj = new ObjectFile(ref interSource, ref symb, ref report);
             obj.Render(outfile);

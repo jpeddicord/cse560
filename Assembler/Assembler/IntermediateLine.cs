@@ -218,6 +218,11 @@ namespace Assembler
         public string Equated { get; private set; }
 
         /**
+         * Whether this line has any fatal errors on it.
+         */
+        public bool Fatal { get; private set; }
+
+        /**
          * List of errors that are flagged on this line.
          */
         private List<Errors.Error> errors;
@@ -244,6 +249,7 @@ namespace Assembler
             this.comment = null;
             this.bytecode = null;
             this.Equated = null;
+            this.Fatal = false;
             this.errors = new List<Errors.Error>();
         }
 
@@ -576,6 +582,7 @@ namespace Assembler
             else if (level == Errors.Category.Fatal)
             {
                 this.errors.Add(inst.GetFatalError(code));
+                this.Fatal = true;
             }
         }
 

@@ -811,6 +811,12 @@ dl.bug
     padding: 8px;
 }
 
+#rst #contents {
+    background-color: #eee;
+    border: 1px solid #ddd;
+    padding: 10px;
+}
+
 #rst .note {
     background-color: #dff;
     border: 1px solid #9ff;
