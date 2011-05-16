@@ -158,7 +158,13 @@ namespace Assembler
                     // unused ENTRY directive
                     else
                     {
-                        this.input.Line(1).AddError(Errors.Category.Serious, 36);
+                        foreach (IntermediateLine line in this.input)
+                        {
+                            if (line.Directive == "ENTRY" && line.DirectiveOperand == symb.rlabel)
+                            {
+                                line.AddError(Errors.Category.Serious, 36);
+                            }
+                        }
                     }
                 }
             }
