@@ -1,1 +1,5 @@
 Short program given to us to hand assemble on the midterm.  The program includes the LC, object code, and flag in the comments of each line for comparison of what we expect it to produce, and what the assembler actually produces.
+
+Produces Expected Results: Yes
+
+Date test program was run: 5/15/2011

@@ -1,32 +1,32 @@
 ALT02   start   0       : n/a     n/a                             n/a
        STACK   PUSH,I=17       :000    0010    1100    0001    0001    2C11
-       MOPER   ADD,9   :001    1100    0100    0000    1001    C409
-       STACK   POP,50  :002    0011    0000    0110    0010    3032
-       CNTL    CLRD   :003    0001    0000    0000    0000    1000
+       MOPER   ADD,9   		   :001    1100    0000    0000    1001    C009
+       STACK   POP,50  		   :002    0011    0100    0110    0010    3432
+       CNTL    CLRD            :003    0001    0000    0000    0000    1000
        STACK   PUSH,I=17       :004    0010    1100    0001    0001    2C11
-       MOPER   SUB,9   :005    1100    1100    0000    1001    CC09
-       STACK   POP,51  :006    0011    0000    0110    0011    3033
-       CNTL    CLRD   :007    0001    0000    0000    0000    1000
+       MOPER   SUB,9           :005    1100    1000    0000    1001    C809
+       STACK   POP,51          :006    0011    0000    0110    0011    3433
+       CNTL    CLRD            :007    0001    0000    0000    0000    1000
        STACK   PUSH,I=17       :008    0010    1100    0001    0001    2C11
-       MOPER   MUL,I=9 :009    1101    0100    0000    1001    D409
-       STACK   POP,52  :00A    0011    0000    0110    0100    3034
-       CNTL    CLRD   :00B    0001    0000    0000    0000    1000
+       MOPER   MUL,I=9         :009    Error: Literals not allowed
+       STACK   POP,52          :00A    0011    0100    0110    0100    3434
+       CNTL    CLRD            :00B    0001    0000    0000    0000    1000
        STACK   PUSH,I=17       :00C    0010    1100    0001    0001    2C11
-       MOPER   DIV,9   :00D    1101    1100    0000    1001    DC09
-       STACK   POP,53  :OOE    0011    0000    0110    0101    3035
-       CNTL    CLRD   :00F    0001    0000    0000    0000    1000
+       MOPER   DIV,9           :00D    1101    1000    0000    1001    D809
+       STACK   POP,53          :OOE    0011    0100    0110    0101    3435
+       CNTL    CLRD            :00F    0001    0000    0000    0000    1000
        STACK   PUSH,I=17       :010    0010    1100    0001    0001    2C11
-       MOPER   OR,I=9  :011    1110    0100    0000    1001    E409
-       STACK   POP,54  :012    0011    0000    0110    0110    3036
-       CNTL    CLRD   :013    0001    0000    0000    0000    1000
+       MOPER   OR,I=9          :011    Error: Literals not allowed
+       STACK   POP,54          :012    0011    0100    0110    0110    3436
+       CNTL    CLRD            :013    0001    0000    0000    0000    1000
        STACK   PUSH,I=17       :014    0010    1100    0001    0001    2C11
-       MOPER   AND,I=9 :015    1110    1100    0000    1001    EC09
-       STACK   POP,55  :016    0011    0000    0110    0111    3037
-       CNTL    CLRD   :017    0001    0000    0000    0000    1000
+       MOPER   AND,I=9         :015    Error: Literals not allowed
+       STACK   POP,55          :016    0011    0100    0110    0111    3437
+       CNTL    CLRD            :017    0001    0000    0000    0000    1000
        STACK   PUSH,I=17       :018    0010    1100    0001    0001    2C11
-       MOPER   MUL,1   :019    1101    0111    1111    1111    D7FF
-       MOPER   ADD,9   :01A    1100    0100    0000    1001    C409
-       STACK   POP,56  :01B    0011    0000    0110    1000    3038
-       CNTL    CLRD   :01C    0001    0000    0000    0000    1000
-       CNTL    HALT,34   :01D    0000    0000    0000    0000    0000
+       MOPER   MUL,1   		   :019    1101    0000    0000    0001    D001
+       MOPER   ADD,9   		   :01A    1100    0000    0000    1001    C009
+       STACK   POP,56  		   :01B    0011    0100    0110    1000    3438
+       CNTL    CLRD   		   :01C    0001    0000    0000    0000    1000
+       CNTL    HALT,34   	   :01D    0000    0000    0010    0010    0022
        End     ALT02   : End of test program two

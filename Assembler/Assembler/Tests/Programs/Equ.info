@@ -1,1 +1,5 @@
 Testing the functionality of the equ directive. Note that this program does not cover eque. Tests that equ correctly stores values in the symbol table. Also testing that equ can deal with simple equations, especially dealing with star notation. Equated labels do not have a location counter so when star notation is used in an equ we expect it to use the next location counter that would be used. In this case the second NOP is at LC 1, so the * in the equ on the next line should give a value of 2.
+
+Produces Expected Results: Yes
+
+Date test program was run: 5/15/2011

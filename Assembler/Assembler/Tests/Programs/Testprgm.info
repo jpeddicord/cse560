@@ -1,1 +1,5 @@
 Short program testing the assemblers ability to handle a program with nothing but white space between the start and end directives. This should not generate any errors.
+
+Produces Expected Results: Yes
+
+Date test program was run: 5/15/2011

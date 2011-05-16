@@ -1,1 +1,5 @@
-Second program given to us during grading of SP1. This program contains all valid FFA code and should not find any errors. Hex code conversions can be found in the comment of each line for comparison.
+Second program given to us during grading of SP1. The only errors in this program should be on lines 11, 19 and 23 when literals are used in the oeprand for MOPER. Hex code conversions can be found in the comment of each line for comparison.
+
+Produces Expected Results: Yes
+
+Date test program was run: 5/15/2011
