@@ -352,11 +352,12 @@ namespace Assembler
             for (short i = 2; i <= sourceCode.Length; i++)
             {
                 // parse a line and create an intermediate version
-                line = ParseLine(sourceCode[i - 1], i, ref symb);
+                line = ParseLine(sourceCode[i - 1].TrimEnd(), i, ref symb);
 
                 // if we're at the end and processing another line
                 if (reachedEnd)
                 {
+                    if (line.SourceLine.Length > 0)
                     line.AddError(Errors.Category.Fatal, 7);
                 }
 
@@ -368,6 +369,7 @@ namespace Assembler
                 }
 
                 // add to source
+                if (!reachedEnd || line.SourceLine.Length > 0)
                 interSource.AddLine(line);
 
                 // did we find le end?
