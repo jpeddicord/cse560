@@ -232,7 +232,7 @@ Documentation is looking better at this point.  Some reorganization was done to 
 documentation we will be creating for SP2. We've realized we will need to redo the organization again once we have to deal with
 SP3 and SP4 as well as these are entirely different from the Assembler and will need their own sections.  Back and top links have
 been made to assist users in navigating the documentation with less scrolling. The user guide has been updated with more detail and
-pictures, however this wil need to be updated again after the creation of SP2 to explain to the user the object file and new
+pictures, however this will need to be updated again after the creation of SP2 to explain to the user the object file and new
 Assembly report that will be created. The tables have also been updated with descriptions. We've has some discussion about getting SP2
 working and as of now don't expect it to be too difficult. Because we did so much in pass 1, we should have a majority of hex code
 calculated and really just need to deal with adc/adce and labels that were used before they were declared and of course output
@@ -250,4 +250,26 @@ To do
 -----
 - Mark - Get ADC/E and expressions working
 - Jacob - Clean up current code and documentation
-- Andrew - ??? Profit
+- Andrew - Create some more test programs to use when checking object code
+
+May 14, 2011 - 7:00 pm
+======================
+SP2 is now nearly complete though we do still have a few minor bugs that need to be worked out. The Assembler can successfully parse a source file
+and generate correct object code. It also displayes an assembly report for the user. Documentation for SP2 has been updated including the format
+for the object file. New test programs have been added.  We decided that due to the nature of SP2 it is easier to test its functionality strictly
+through these test programs rather than trying to make unit tests. Similar to parse, it is hard to test individual parts because of the way it is
+structured. We plan on waiting to turn this in until tomorrow so we can get the bugs fixed and browse through the documentation to see if anything
+else needs to be added or updated.
+
+To do
+-----
+- Mark - Fix bugs in assembling.
+- Everyone - Look for issues in documentation.
+
+May 15, 2011 - 9:00 pm
+======================
+We are no longer aware of any bugs in our program. Perhaps the grading session will reveal some but we feel we have a quality project. 
+
+To do
+-----
+- Everyone - Relax for now.
