@@ -1,0 +1,5 @@
+Literal, OperandParser, enum, member, defines the type of literal, NONE/UNKNOWN/EXPRESSION/NUMBER/I/X/B/C
+Expressions, OperandParser, enum, member, defines the type of expression, Operand/EQU/ADC
+token, OperandParser, string, local, token currently being processed, any valid token
+interLine, OperandParser, IntermediateLine, local, line under processing, valid IntermediateLine object
+operand, OperandParser, string, local, result operand, valid parsed operand

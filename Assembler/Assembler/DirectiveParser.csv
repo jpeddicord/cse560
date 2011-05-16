@@ -1,5 +1,5 @@
-startLC,DirectiveParser.ParseStart,int,local,starting location counter to compare
-startOper,DirectiveParser.ParseStart,string,local,operand of starting LC
-equSym,DirectiveParser.ParseEqu,Symbol,local,symbol in use for storing equated symbols
-datSym,DirectiveParser.ParseDat,Symbol,local,symbol to store data
-adcSym,DirectiveParser.ParseAdc,Symbol,local,symbol to store ADC information
+startLC,DirectiveParser.ParseStart,int,local,starting location counter to compare,valid hex location counter
+startOper,DirectiveParser.ParseStart,string,local,operand of starting LC,valid starting LC
+equSym,DirectiveParser.ParseEqu,Symbol,local,symbol in use for storing equated symbols,valid symbol name
+datSym,DirectiveParser.ParseDat,Symbol,local,symbol to store data, valid symbol name
+adcSym,DirectiveParser.ParseAdc,Symbol,local,symbol to store ADC information, valid symbol name

@@ -1,4 +1,4 @@
-convertedNum,BinaryHelper.ConvertNumber,int,local,stores the converted value of the incoming number
-limit,BinaryHelper.ConvertNumber,int,local,stores the point at which a number would become a negative number in two's complement
-fillledDigits,BinaryHelper.ConvertNumber,int,local,stores -1 in two's complement with results in a binary number of size digits filled with 1's
-limit,BinaryHelper.IsInRange,int,local,the threshold of a negative 2's complement number
+convertedNum,BinaryHelper.ConvertNumber,int,local,stores the converted value of the incoming number,valid integer
+limit,BinaryHelper.ConvertNumber,int,local,stores the point at which a number would become a negative number in two's complement,valid integer
+filledDigits,BinaryHelper.ConvertNumber,int,local,stores -1 in two's complement with results in a binary number of size digits filled with 1's,-1
+limit,BinaryHelper.IsInRange,int,local,the threshold of a negative 2's complement number,valid integer

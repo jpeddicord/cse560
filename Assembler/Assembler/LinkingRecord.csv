@@ -1,3 +1,3 @@
-programName, LinkingRecord, string, member, the stored program name for the record 
-entryName, LinkingRecord, string, member, name of the entry to be exported
-programLocation, LinkingRecord, string, member, location of this entry
+programName, LinkingRecord, string, member, the stored program name for the record, valid program name
+entryName, LinkingRecord, string, member, name of the entry to be exported, valid label name
+programLocation, LinkingRecord, string, member, location of this entry, valid hex LC

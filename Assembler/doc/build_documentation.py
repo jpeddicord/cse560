@@ -47,7 +47,7 @@ def build_ded(directory, out_filename):
 {titlebar}
 
 .. csv-table::
-   :header: "Variable Name", "Module Defined", "Data Type", "Local/Global", "Purpose"
+   :header: "Variable Name", "Module Defined", "Data Type", "Local/Global", "Purpose", "Range"
 
 {content}
 

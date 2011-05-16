@@ -1,7 +1,7 @@
-positive, Adjustment, bool, member, true if positive adjustment; false if negative
-label, Adjustment, string, member, the label to associate with this adjustment
-programName, ModificationRecord, string, member, the stored program name for the record 
-adjustments, ModificationRecord, List<Adjustment>, member, the list of adjustments stored for this record
-ProgramLocation, ModificationRecord, string, member, the location in the program that the modifications need to be performed
-Word, ModificationRecord, string, member, the original instruction without modifications
-Adjustments, ModificationRecord, int, member, the number of adjustments required for this record
+positive, Adjustment, bool, member, true if positive adjustment; false if negative, true or false
+label, Adjustment, string, member, the label to associate with this adjustment, valid label
+programName, ModificationRecord, string, member, the stored program name for the record , valid program name
+adjustments, ModificationRecord, List<Adjustment>, member, the list of adjustments stored for this record, list of filled Adjustment types
+ProgramLocation, ModificationRecord, string, member, the location in the program that the modifications need to be performed, valid hex LC
+Word, ModificationRecord, string, member, the original instruction without modifications, 4-digit hex
+Adjustments, ModificationRecord, int, member, the number of adjustments required for this record, 0-15

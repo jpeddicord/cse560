@@ -1,0 +1,7 @@
+lc, AssemblyReport.ReportItem, string, member, the location of the item, valid hex range for a location counter
+objCode, AssemblyReport.ReportItem, string, member, object code for the line, 4-digit hex
+flag, AssemblyReport.ReportItem, char, member, source line flag, A/R/M
+line, AssemblyReport.ReportItem, int, member, source line number, valid source line number
+source, AssemblyReport.ReportItem, char, member, original source line, text
+errors, AssemblyReport.ReportItem, List<Error>, member, list of errors on this item, valid error types
+items, AssemblyReport, List<ReportItem>, member, list of line-items, valid ReportItem structures
