@@ -327,10 +327,21 @@ namespace Assembler
                             // get the hex sorted out
                             int bytecode = Convert.ToInt32(bin, 2);
                             bytecode += Convert.ToInt32(expr, 16);
-                            bin = Convert.ToString(bytecode, 2);
-                            mod.Word = Convert.ToString(bytecode, 16);
-                            mod.ProgramLocation = line.ProgramCounter;
-                            this.AddRecord(mod);
+                            
+                            // check the range
+                            int eof = Convert.ToInt32(this.input.ModuleLength, 16);
+                            if (bytecode > eof)
+                            {
+                                line.AddError(Errors.Category.Serious, 24);
+                                line.NOPificate();
+                            }
+                            else
+                            {
+                                bin = Convert.ToString(bytecode, 2);
+                                mod.Word = Convert.ToString(bytecode, 16);
+                                mod.ProgramLocation = line.ProgramCounter;
+                                this.AddRecord(mod);
+                            }
                         }
                         else
                         {
@@ -379,7 +390,19 @@ namespace Assembler
                                                       ref symb, mod, out rel, maxOp);
                         // catching errors
                         if (worked)
-                            bin = Convert.ToString(Convert.ToInt32(expr, 16), 2).PadLeft(16, '0');
+                        {
+                            // check the range
+                            int eof = Convert.ToInt32(this.input.ModuleLength, 16);
+                            if (Convert.ToInt32(expr, 16) > eof)
+                            {
+                                line.AddError(Errors.Category.Serious, 38);
+                                line.NOPificate();
+                            }
+                            else
+                            {
+                                bin = Convert.ToString(Convert.ToInt32(expr, 16), 2).PadLeft(16, '0');
+                            }
+                        }
                     }
                     else if (line.DirectiveLitOperand == OperandParser.Literal.NUMBER)
                     {

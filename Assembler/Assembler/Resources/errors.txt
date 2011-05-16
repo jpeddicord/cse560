@@ -42,6 +42,7 @@ ES.34 Unresolved symbol. Line replaced with NOP.
 ES.35 START directive encountered on a line besides the first line of source code. Line ignored.
 ES.36 Unused ENTRY label where it was required.
 ES.37 Literal operand in improper format.
+ES.38 Out-of-bounds memory expression.
 EW.01 Blank Line, line ignored and no message given.
 EW.02 Operand field for entry/extern is invalid, line ignored.
 EW.03 Instruction doesn't take an operand; operand ignored.
