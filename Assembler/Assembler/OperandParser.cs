@@ -204,8 +204,11 @@ namespace Assembler
                         litType = Literal.X;
                         outOper = outOper.ToUpper();
 
-                        int junk;
-                        if (!Int32.TryParse(outOper, out junk))
+                        try
+                        {
+                            Convert.ToInt32(outOper, 16);
+                        }
+                        catch (FormatException ex)
                         {
                             litType = Literal.UNKNOWN;
                         }

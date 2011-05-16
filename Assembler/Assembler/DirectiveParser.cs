@@ -443,7 +443,7 @@ namespace Assembler
                 Logger.Log("ERROR: EW.05 encountered", "DirectiveParser");
                 interLine.AddError(Errors.Category.Warning, 5);
             }
-            if (symb.ContainsSymbol(interLine.DirectiveOperand) &&
+            if (symb.ContainsSymbol(interLine.DirectiveOperand) ||
                 symb.GetSymbol(interLine.DirectiveOperand).usage != Usage.EQUATED)
             {
                 Symbol tempsym = symb.RemoveSymbol(interLine.DirectiveOperand);
