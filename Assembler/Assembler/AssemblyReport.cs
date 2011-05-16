@@ -57,7 +57,7 @@ namespace Assembler
          * @param line line number in original source
          * @param source original source line
          * @param errors list of errors encountered while processing this line
-         * @refcode TODO
+         * @refcode AO
          * @errtest
          *  N/A
          * @errmsg
@@ -84,7 +84,7 @@ namespace Assembler
          * Return the assembly report as a string.
          *
          * @return string representation of the report
-         * @refcode TODO
+         * @refcode AO
          * @errtest
          *  N/A
          * @errmsg

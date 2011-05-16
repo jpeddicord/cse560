@@ -15,7 +15,7 @@ namespace Assembler
          * Create a linking record for the given program.
          *
          * @param programName the program name to use
-         * @refcode TODO
+         * @refcode OB2
          * @errtest
          *  N/A
          * @errmsg
@@ -53,7 +53,7 @@ namespace Assembler
          * Return this linking record as a string.
          *
          * @return this record as a string
-         * @refcode TODO
+         * @refcode OB2
          * @errtest
          *  N/A
          * @errmsg

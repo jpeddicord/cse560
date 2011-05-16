@@ -45,7 +45,7 @@ namespace Assembler
          * @param input Input source from pass 1
          * @param symb The symbol table
          * @param report an assembly report to be generated
-         * @refcode TODO
+         * @refcode OB
          * @errtest
          *  N/A
          * @errmsg
@@ -67,7 +67,7 @@ namespace Assembler
          * Add a linking record to this object file.
          *
          * @param record The linking record to add
-         * @refcode TODO
+         * @refcode OB
          * @errtest
          *  N/A
          * @errmsg
@@ -87,7 +87,7 @@ namespace Assembler
          * Add a text record to this object file.
          *
          * @param record The text record to add
-         * @refcode TODO
+         * @refcode OB
          * @errtest
          *  N/A
          * @errmsg
@@ -107,7 +107,7 @@ namespace Assembler
          * Add a modification record to this object file.
          *
          * @param record The modification record to add
-         * @refcode TODO
+         * @refcode OB
          * @errtest
          *  N/A
          * @errmsg
@@ -127,7 +127,7 @@ namespace Assembler
          * Scan the symbol table for ENTRY symbols and create linking records
          * for them.
          *
-         * @refcode TODO
+         * @refcode OB
          * @errtest
          *  N/A
          * @errmsg
@@ -160,7 +160,7 @@ namespace Assembler
          * Scan and the source (pass 2) and generate text and modification
          * records as apporpriate.
          *
-         * @refcode TODO
+         * @refcode OB
          * @errtest
          *  N/A
          * @errmsg
@@ -384,7 +384,7 @@ namespace Assembler
          * Render the object file into the file given.
          *
          * @param filename The filename to write the object file to.
-         * @refcode TODO
+         * @refcode OB
          * @errtest
          *  N/A
          * @errmsg

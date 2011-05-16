@@ -37,7 +37,7 @@ namespace Assembler
          * Create a modification record for the given program.
          *
          * @param programName the program name to use
-         * @refcode TODO
+         * @refcode OB4
          * @errtest
          *  N/A
          * @errmsg
@@ -83,7 +83,7 @@ namespace Assembler
          *
          * @param positive Whether the adjustment should be positive. Otherwise negative.
          * @param label The label to add as an adjustment.
-         * @refcode TODO
+         * @refcode OB4
          * @errtest
          *  N/A
          * @errmsg
@@ -106,7 +106,7 @@ namespace Assembler
          * Return this modification record as a string.
          *
          * @return this record as a string
-         * @refcode TODO
+         * @refcode OB4
          * @errtest
          *  N/A
          * @errmsg

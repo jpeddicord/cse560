@@ -15,7 +15,7 @@ namespace Assembler
          * Create a header record for the given program.
          *
          * @param programName the program name to use
-         * @refcode TODO
+         * @refcode OB1
          * @errtest
          *  N/A
          * @errmsg
@@ -122,7 +122,7 @@ namespace Assembler
          * Return this header record as a string.
          *
          * @return this record as a string
-         * @refcode TODO
+         * @refcode OB1
          * @errtest
          *  N/A
          * @errmsg

@@ -15,7 +15,7 @@ namespace Assembler
          * Create an end record for the given program.
          *
          * @param programName the program name to use
-         * @refcode TODO
+         * @refcode OB5
          * @errtest
          *  N/A
          * @errmsg
@@ -35,7 +35,7 @@ namespace Assembler
          * Return this ending record for the object file.
          *
          * @return this record as a string
-         * @refcode TODO
+         * @refcode OB5
          * @errtest
          *  N/A
          * @errmsg

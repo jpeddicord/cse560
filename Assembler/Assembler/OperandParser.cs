@@ -211,7 +211,6 @@ namespace Assembler
                         Logger.Log("literal operand is binary", "Parser");
                         litType = Literal.B;
                         op = Convert.ToInt32(inOper.Substring(2), 2);
-                        op = BinaryHelper.ConvertNumber(op, bits); // FIXME: should we be doing this?
                         outOper = Convert.ToString(op, 16).ToUpper();
                     } break;
 
