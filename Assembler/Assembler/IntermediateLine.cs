@@ -318,7 +318,7 @@ namespace Assembler
                         {
                             int val = BinaryHelper.HexToInt(this.OpOperand, 32);
                             // out of bounds
-                            if (val < 0 || val > 1023)
+                            if (val <= 0 || val >= 1023)
                             {
                                 this.AddError(Errors.Category.Serious, 12);
                                 this.NOPificate();
