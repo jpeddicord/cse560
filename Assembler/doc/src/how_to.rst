@@ -1,6 +1,9 @@
 How to run the Assembler
 ------------------------
 
+.. contents::
+   :backlinks: none
+
 1) Moving the files
 ```````````````````
 
