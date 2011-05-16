@@ -576,14 +576,14 @@ namespace Assembler
 
                     case Expressions.ADC:
                         {
-                            modifications = 1;
-                            rec.AddAdjustment(true, symb.ProgramName);
+                            bool noLabels = true;
                             for (int i = 0; i < operands.Count; i++)
                             {
                                 string label = operands[i];
 
                                 if (label == "*")
                                 {
+                                    noLabels = false;
                                     if (i == 0)
                                     {
                                         operands[i] = Convert.ToInt32(interLine.ProgramCounter,16).ToString();
@@ -600,6 +600,7 @@ namespace Assembler
                                 }
                                 else if (symb.ContainsSymbol(label))
                                 {
+                                    noLabels = false;
                                     Symbol operSym = symb.GetSymbol(label);
 
                                     if (operSym.usage == Usage.LABEL)
@@ -617,6 +618,7 @@ namespace Assembler
                                     }
                                     else if (operSym.usage == Usage.EXTERNAL)
                                     {
+                                        noLabels = false;
                                         operands[i] = "0";
                                         modifications++;
                                         if (i > 0)
@@ -637,6 +639,12 @@ namespace Assembler
                                         return false;
                                     }
                                 }
+                            }
+
+                            if (noLabels)
+                            {
+                                rec.AddAdjustment(true, symb.ProgramName);
+                                modifications++;
                             }
 
                             bool allNumbers = true;
