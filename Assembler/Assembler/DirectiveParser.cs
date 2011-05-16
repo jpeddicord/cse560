@@ -551,6 +551,11 @@ namespace Assembler
                 // assumed to be in correct representation; always pad to the left
                 interLine.Bytecode = val.PadLeft(16, '0');
             }
+            else if (interLine.DirectiveLitOperand == OperandParser.Literal.UNKNOWN)
+            {
+                // error: literal operand in improper format
+                interLine.AddError(Errors.Category.Serious, 37);
+            }
             else
             {
                 // error: invalid operand type

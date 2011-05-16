@@ -203,6 +203,12 @@ namespace Assembler
                         Logger.Log("literal operand is hex", "Parser");
                         litType = Literal.X;
                         outOper = outOper.ToUpper();
+
+                        int junk;
+                        if (!Int32.TryParse(outOper, out junk))
+                        {
+                            litType = Literal.UNKNOWN;
+                        }
                     } break;
 
                 case 'B':
@@ -419,6 +425,12 @@ namespace Assembler
                                                 rec.AddAdjustment(oprtr == '+', symb.ProgramName);
                                             }
                                         }
+                                    }
+                                    else if (opr2 == "*")
+                                    {
+                                        // error: star used multiple times
+                                        interLine.AddError(Errors.Category.Serious, 19);
+                                        return false;
                                     }
                                     else
                                     {
