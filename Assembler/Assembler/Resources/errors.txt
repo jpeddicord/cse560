@@ -16,7 +16,7 @@ ES.08 Attempted to reset location counter to a previously used value. Reset igno
 ES.09 Instruction requires a label in operand; line substituted with NOP.
 ES.10 RESET directive must take a previously equated symbol or a number. Reset ignored, keeping current location counter value.
 ES.11 CNTL DUMP may only take an operand of 1, 2, or 3.
-ES.12 May only take an exit code of 0-1023.
+ES.12 May only take an exit code of 0-1023 and operand must be a number or equated symbol.
 ES.13 External variables must be defined outside of this program.
 ES.14 Dat directive must have a literal operand, i.e. I=, B=. Line replaced with NOP. Assembly continues.
 ES.15 Literal could not be parsed.
