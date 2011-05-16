@@ -1,21 +1,13 @@
-directiveList,Parser,Directives,member,list of directives
-instructionList,Parser,Instructions,member,list of instructions
-LC,Parser,string,member,the current value of the location counter
-token,Parser.ParseLine,string,local,holds the token values returned by the Tokenizer
-tokenKind,Parser.ParseLine,Tokenizer.TokenKinds,local,holds the token kind values returned by the Tokenizer
-interLine,Parser.ParseLine,IntermediateLine,local,The IntermediateLine that is currently being constructed by the parser
-token,Parser.ParseInstruction,string,local,holds the token values returned by the Tokenizer
-tokenKind,Parser.ParseInstruction,Tokenizer.TokenKinds,local,holds the token kind values returned by the Tokenizer
-operand,Parser.ParseInstruction,string,local,passed to the ParseLiteralOperand method to be filled with the value of the literal operand in this line
-litOperand,Parser.ParseInstruction,string,local,passed to the ParseLiteralOperand method to be filled with the type of the literal operand in this line
+directiveList,Parser,Directives,member,list of directives,All directives specified in the list of directives,
+instructionList,Parser,Instructions,member,list of instructions,All instructions specified in the list of directives,
+LC,Parser,string,member,the current value of the location counter,0-3FF hex,
+token,Parser.ParseLine,string,local,holds the token values returned by the Tokenizer,N/A,
+tokenKind,Parser.ParseLine,Tokenizer.TokenKinds,local,holds the token kind values returned by the Tokenizer,Any valid Tokenizer.TokenKinds value,
+interLine,Parser.ParseLine,IntermediateLine,local,The IntermediateLine that is currently being constructed by the parser,N/A
+token,Parser.ParseInstruction,string,local,holds the token values returned by the Tokenizer,N/A
+tokenKind,Parser.ParseInstruction,Tokenizer.TokenKinds,local,holds the token kind values returned by the Tokenizer,Any valid Tokenizer.TokenKinds value,
 token,Parser.ParseDirective,string,local,holds the token values returned by the Tokenizer
-tokenKind,Parser.ParseDirective,Tokenizer.TokenKinds,local,holds the token kind values returned by the Tokenizer
-operand,Parser.ParseDirective,string,local,passed to the ParseLiteralOperand method to be filled with the value of the literal operand in this line
-op,Parser.ParseLiteralOperand,int,local,stores the operand as an int while being converted
-outOper,Parser.ParseLiteralOperand,string,parameter,"the numerical part of the literal operand, which will be set in this operation"
-litType,Parser.ParseLiteralOperand,string,parameter,"the type of the literal operand, which will be set in this operation."
-litOperand,Parser.ParseDirective,string,local,passed to the ParseLiteralOperand method to be filled with the type of the literal operand in this line
-start,Parser.ParseStart,IntermediateLine,local,the IntermediateLine that will hold the line with the START directive
-sourceCode,Parser.ParseSource,string[],local,holds the lines of source code from the input file.
-symb,Parser.ParseSource,SymbolTable,parameter,out parameter that is initialized here
-interSource,Parser.ParseSource,IntermediateFile,parameter,out parameter that is initialized here
+tokenKind,Parser.ParseDirective,Tokenizer.TokenKinds,local,holds the token kind values returned by the Tokenizer,N/A,
+sourceCode,Parser.ParseSource,string[],local,holds the lines of source code from the input file,N/A
+symb,Parser.ParseSource,SymbolTable,parameter,out parameter that is initialized here,N/A
+interSource,Parser.ParseSource,IntermediateFile,parameter,out parameter that is initialized here,N/A,

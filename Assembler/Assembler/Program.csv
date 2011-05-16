@@ -1,5 +1,5 @@
-file,Program.Main,string,local,list of files sent by the command line
-error,Program.Main,string,local,error message concerning the number of arguments
-pars,Program.Main,Parser,local,the parser that will parse the source files
-interSource,Program.Main,IntermediateFile,local,the intermediate file that will hold the parsed source
-symb,Program.Main,SymbolTable,local,the symbol table that will hold the symbols parsed from the source
+file,Program.Main,string,local,list of files sent by the command line,N/A,
+error,Program.Main,string,local,error message concerning the number of arguments,An error from the list of possible errors,
+pars,Program.Main,Parser,local,the parser that will parse the source files,N/A,
+interSource,Program.Main,IntermediateFile,local,the intermediate file that will hold the parsed source,N/A,
+symb,Program.Main,SymbolTable,local,the symbol table that will hold the symbols parsed from the source,N/A,
