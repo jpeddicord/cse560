@@ -221,6 +221,16 @@ namespace Assembler
                         litType = Literal.B;
                         op = Convert.ToInt32(inOper.Substring(2), 2);
                         outOper = Convert.ToString(op, 16).ToUpper();
+
+                        try
+                        {
+                            Convert.ToInt32(outOper, 2);
+                        }
+                        catch (FormatException ex)
+                        {
+                            litType = Literal.UNKNOWN;
+                        }
+
                     } break;
 
                 case 'I':
@@ -231,6 +241,16 @@ namespace Assembler
                         op = Convert.ToInt32(inOper.Substring(2));
                         op = BinaryHelper.ConvertNumber(op, bits);
                         outOper = Convert.ToString(op, 16).ToUpper();
+
+                        try
+                        {
+                            Convert.ToInt32(outOper);
+                        }
+                        catch (FormatException ex)
+                        {
+                            litType = Literal.UNKNOWN;
+                        }
+
                     } break;
                 case 'C':
                 case 'c':

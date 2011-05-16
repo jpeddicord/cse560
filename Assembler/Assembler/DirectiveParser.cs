@@ -328,7 +328,7 @@ namespace Assembler
                 {
                     // check that number is in bounds
                     int num = BinaryHelper.HexToInt(interLine.DirectiveOperand, 10);
-                    if (0 < num && num < 1023)
+                    if (0 <= num && num <= 1023)
                     {
                         equSym.usage = Usage.EQUATED;
                         equSym.val = interLine.DirectiveOperand;
@@ -443,12 +443,14 @@ namespace Assembler
                 Logger.Log("ERROR: EW.05 encountered", "DirectiveParser");
                 interLine.AddError(Errors.Category.Warning, 5);
             }
-            if (symb.ContainsSymbol(interLine.DirectiveOperand) ||
-                symb.GetSymbol(interLine.DirectiveOperand).usage != Usage.EQUATED)
+            if (symb.ContainsSymbol(interLine.DirectiveOperand))
             {
-                Symbol tempsym = symb.RemoveSymbol(interLine.DirectiveOperand);
-                tempsym.usage = Usage.ENTRY;
-                symb.AddSymbol(tempsym);
+                if (symb.GetSymbol(interLine.DirectiveOperand).usage != Usage.EQUATED)
+                {
+                    Symbol tempsym = symb.RemoveSymbol(interLine.DirectiveOperand);
+                    tempsym.usage = Usage.ENTRY;
+                    symb.AddSymbol(tempsym);
+                }
             }
             else
             {
