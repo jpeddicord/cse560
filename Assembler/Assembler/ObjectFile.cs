@@ -244,7 +244,7 @@ namespace Assembler
                     else if (line.OpLitOperand == OperandParser.Literal.NONE)
                     {
                         // get the symbol that is being referenced
-                        if (this.symb.ContainsSymbol(line.OpOperand))
+                        if (line.OpOperand != null && this.symb.ContainsSymbol(line.OpOperand))
                         {
                             Symbol symb = this.symb.GetSymbol(line.OpOperand);
                             // external labels are processed in the linker
@@ -269,6 +269,12 @@ namespace Assembler
                                 // relocatable label
                                 rec.StatusFlag = 'R';
                             }
+                        }
+                        // was it empty?
+                        else if (line.OpOperand == null || line.OpOperand.Length == 0)
+                        {
+                            bin = line.Bytecode;
+                            rec.StatusFlag = 'A';
                         }
                         // error, otherwise
                         else
