@@ -147,11 +147,19 @@ namespace Assembler
                 Symbol symb = this.symb.GetSymbol(symbName);
                 if (symb.usage == Usage.ENTRY)
                 {
-                    // generate a linking record
-                    var record = new LinkingRecord(this.symb.ProgramName);
-                    record.EntryName = symb.rlabel;
-                    record.ProgramLocation = symb.lc;
-                    this.AddRecord(record);
+                    if (symb.lc != null)
+                    {
+                        // generate a linking record
+                        var record = new LinkingRecord(this.symb.ProgramName);
+                        record.EntryName = symb.rlabel;
+                        record.ProgramLocation = symb.lc;
+                        this.AddRecord(record);
+                    }
+                    // unused ENTRY directive
+                    else
+                    {
+                        this.input.Line(1).AddError(Errors.Category.Serious, 36);
+                    }
                 }
             }
         }
@@ -182,6 +190,7 @@ namespace Assembler
         {
             foreach (IntermediateLine line in this.input)
             {
+                //Console.WriteLine(this.SourceLine)
                 // skip lines that won't be in the object file
                 if (line.ProgramCounter == null)
                 {
