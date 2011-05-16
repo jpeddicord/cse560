@@ -28,7 +28,7 @@ depending on the operating system you use.
 
 * In Windows : If you do not already have the Microsoft .NET Framework or if it isn't up to date you will need to download and install the newest version.  Microsoft .NET Framework 4 and be found `on microsoft's website <http://www.microsoft.com/downloads/en/details.aspx?FamilyID=9cfb2d51-5ff4-4491-b0e5-b386f32c0992&displaylang=en#QuickDetails>`_.
 * In Mac : The .NET Framework will not work in Mac so you will need Mono which is an open source implementation for compatibility with Microsoft.NET. You can download and install mono `from here <http://www.mono-project.com/Main_Page>`_.
-* In Linux : Linux users should be fine as mono is usually included with most distributions of Linux.
+* In Linux : Linux users should be fine as mono is included with most distributions of Linux.
 
 3) Creating a source file
 `````````````````````````
@@ -83,6 +83,8 @@ building. The Debug version of this program includes extra output which isn't ve
 Now go to the Build menu at the top and select Build Solution or press Control + Shift + B. This will create the executable
 file in Assembler/bin/Release/. To use this as described below, you can move Assembler.exe into the Assembler directive
 (Assembler/bin/Release/Assembler.exe to Assembler/Assembler.exe).
+
+Alternatively, advanced users may compile via the command-line. To do this, run ``msbuild`` (Windows) or ``xbuild`` (Linux) from the same directory as Assembler.sln. The executable will be created in the same location as above.
 
 5) Opening the Terminal
 ```````````````````````
