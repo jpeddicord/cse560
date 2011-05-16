@@ -1,4 +1,4 @@
-directiveList,Parser,Directives,member,list of directives,All directives specified in the list of directives,
+directiveList,Parser,Directives,member,list of directives,All directives specified in the list of directives
 instructionList,Parser,Instructions,member,list of instructions,All instructions specified in the list of directives
 LC,Parser,string,member,the current value of the location counter,0-3FF hex
 token,Parser.ParseLine,string,local,holds the token values returned by the Tokenizer,N/A
