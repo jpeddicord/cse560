@@ -426,12 +426,6 @@ namespace Assembler
                                             }
                                         }
                                     }
-                                    else if (opr2 == "*")
-                                    {
-                                        // error: star used multiple times
-                                        interLine.AddError(Errors.Category.Serious, 19);
-                                        return false;
-                                    }
                                     else
                                     {
                                         // error:label is too long
@@ -449,6 +443,12 @@ namespace Assembler
                                         interLine.AddError(Errors.Category.Serious, 27);
                                         return false;
                                     }
+                                }
+                                else if (opr2 == "*")
+                                {
+                                    // error: star used multiple times
+                                    interLine.AddError(Errors.Category.Serious, 19);
+                                    return false;
                                 }
                                 else
                                 {

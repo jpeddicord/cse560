@@ -309,19 +309,27 @@ namespace Assembler
                         int rel;
 
                         // evaluate the expression
-                        OperandParser.ParseExpression(ref expr, OperandParser.Expressions.Operand, 
+                        bool worked;
+                        worked = OperandParser.ParseExpression(ref expr, OperandParser.Expressions.Operand, 
                                                       line, ref symb, mod, out rel);
-                        // adjustments and such
-                        rec.StatusFlag = 'M';
-                        rec.Adjustments = Convert.ToString(mod.Adjustments, 16);
+                        if (worked)
+                        {
+                            // adjustments and such
+                            rec.StatusFlag = 'M';
+                            rec.Adjustments = Convert.ToString(mod.Adjustments, 16);
 
-                        // get the hex sorted out
-                        int bytecode = Convert.ToInt32(bin, 2);
-                        bytecode += Convert.ToInt32(expr, 16);
-                        bin = Convert.ToString(bytecode, 2);
-                        mod.Word = Convert.ToString(bytecode, 16);
-                        mod.ProgramLocation = line.ProgramCounter;
-                        this.AddRecord(mod);
+                            // get the hex sorted out
+                            int bytecode = Convert.ToInt32(bin, 2);
+                            bytecode += Convert.ToInt32(expr, 16);
+                            bin = Convert.ToString(bytecode, 2);
+                            mod.Word = Convert.ToString(bytecode, 16);
+                            mod.ProgramLocation = line.ProgramCounter;
+                            this.AddRecord(mod);
+                        }
+                        else
+                        {
+
+                        }
                     }
                     // special case: numeric values with GOTO, JUMP, MOPER
                     else if (line.OpLitOperand == OperandParser.Literal.NUMBER &&
