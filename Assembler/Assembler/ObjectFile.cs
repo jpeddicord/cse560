@@ -296,8 +296,11 @@ namespace Assembler
                         // evaluate the expression
                         OperandParser.ParseExpression(ref expr, OperandParser.Expressions.Operand, 
                                                       line, ref symb, mod, out rel);
+                        // adjustments and such
                         rec.StatusFlag = 'M';
                         rec.Adjustments = Convert.ToString(mod.Adjustments, 16);
+
+                        // get the hex sorted out
                         int bytecode = Convert.ToInt32(bin, 2);
                         bytecode += Convert.ToInt32(expr, 16);
                         bin = Convert.ToString(bytecode, 2);
@@ -328,28 +331,36 @@ namespace Assembler
                 // or an ADC directive?
                 else if (line.Directive == "ADC" || line.Directive == "ADCE")
                 {
+                    // make the modification record
                     ModificationRecord mod = new ModificationRecord(symb.ProgramName);
                     bool worked = true;
                     string expr = line.DirectiveOperand;
                     int rel = 0;
                     int maxOp = 1;
+
+                    // this differentiates between ADC and ADCe
                     if (line.Directive.EndsWith("E"))
                     {
                         maxOp = 3;
                     }
                     if (line.DirectiveLitOperand == OperandParser.Literal.EXPRESSION)
                     {
+                        // wat do if expressions
                         worked = OperandParser.ParseExpression(ref expr, OperandParser.Expressions.ADC, line,
                                                       ref symb, mod, out rel, maxOp);
+                        // catching errors
                         if (worked)
                             bin = Convert.ToString(Convert.ToInt32(expr, 16), 2).PadLeft(16, '0');
                     }
                     else if (line.DirectiveLitOperand == OperandParser.Literal.NUMBER)
                     {
+                        // wat do if just a number
                         mod.AddAdjustment(true, symb.ProgramName);
                         rel = 1;
                         bin = Convert.ToString(Convert.ToInt32(expr, 16), 2);
                     }
+
+                    // if there are modifications to be made, add them
                     if (mod.Adjustments > 0 && rel > 0 && worked)
                     {
                         rec.StatusFlag = 'M';
