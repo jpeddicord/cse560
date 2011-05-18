@@ -1,0 +1,11 @@
+prg    start 0
+apple  equ 12
+orange equ apple   : should be 12
+       nop         : LC 0
+       nop         : LC 1
+bacon  equ *+1     : should be 3
+lime   equ *+apple : should be 14
+lemons equ lime+orange : should be 26
+       stack push,*+1  : push the data on the next line
+       dat C=':)'
+       end prg

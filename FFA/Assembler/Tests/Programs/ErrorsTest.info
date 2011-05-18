@@ -1,0 +1,5 @@
+Testing that our program can catch various errors that might be found while parsing. Nearly every line in this program contains an error, so this program would accomplish very little after being parsed in its current state. All errors tested are either Warnings or Serious except for the very last line so that assembly is not stopped before all of the errors have been reached. A brief description of the error(s) that exist on each line are given in the comment on the line.
+
+Produces Expected Results: Yes
+
+Date test program was run: 5/15/2011

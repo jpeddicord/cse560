@@ -1,0 +1,5 @@
+Test program given to us testing STACK PUSH, SOPER/MOPER WRITEN, and CNTL HALT.  Expected object code and flag is given in the comment for each line for comparison with actual output produced by the Assembler.
+
+Produces Expected Results: Yes
+
+Date test program was run: 5/15/2011

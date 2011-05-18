@@ -1,0 +1,1 @@
+NeedInit,Logger,bool,static,whether the logger needs to be initalized,true or false

@@ -1,0 +1,17 @@
+ALT05 Start 0
+    RESET 110
+    ENTRY CD
+    EXTRN Mud
+       CNTL  GOTO Mud
+    STACK PUSH,.AB   :AB stk
+    STACK PUSH,,CD   :CD stk
+    SOPER WRitEN,2   :print
+X1   EQU   100
+       MOPER DIV,X1
+    MOpeR WRITEN,RES :output
+    CNTL  HALT,12000 :halt
+AB   CNTL  HALT,AB
+CD   dat   x=100
+RES  dat   c='AB'
+    Dat   i=32767
+    END   ALT05       :end of program

@@ -1,0 +1,9 @@
+Foo 	start 2
+orange  soper div,3
+		jump tnull,orange  : what?!
+		cntl halt,5
+		: i'm a troll comment
+
+ohno	cntl goto,orange
+		cntl clrd
+		end Foo

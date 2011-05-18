@@ -1,0 +1,30 @@
+Program	StArT 10
+			MOPER ADD,I=10 	: Using a literal in MOPER operand
+A			MOPER ADD,,DIrt : Invalid label, too short. Too many commas in operand
+			SOPER ADD,-1	: Invalid operand, below 0
+1adding		SOPER ADD,500	: Invalid operand, above 255. Label that starts with a number.
+			NOPER SUB,10	: Invalid instruction, should not consume memory.
+			MOPER MIV,Foo	: Invalid function, replace with NOP
+FOO			MOPER ReadN, X1	: Space in operand
+Wh@t		STACK, PUSH		: Missing operand. Label with invalid character.
+FOO			STACK, POP,X1	: Duplicate label
+Data		reset,MUD		: Using label that was not declared before reset
+Data2		reset,3			: Resetting to a LC before this line.
+OAK			eque 8++2		: Invalid operand for eque
+OAK2		eque 7+*		: Star notation not first
+OAK3		equ *+5-10		: Too many operands for equ
+OAK4		eque *+*		: Using star notation twice
+OAK5		eque *+X1		: Using an equated label defined later in program
+OAK6		equ *8			: No operator given with invalid expression structure
+OAK7		eque *+8+		: Operand left off
+OAK8		eque *+2000		: Operand too large
+OAK9		equ OAK			: Label not in the symbol table
+OAK10		eque 5+6-3+2-1	: Too many operands in expression
+OAK11		eque -5+4		: using negative number
+OAK12		eque  5 + 4		: spaces in operand.
+			reset 50		: missing required label
+X1			EQU 1024		: out of range
+X2			DAT C='abc'		: too many characters stored with dat
+            STACK PUSH,c='  : malformed string
+end Program					: does not start in 2nd column
+			end Prgm

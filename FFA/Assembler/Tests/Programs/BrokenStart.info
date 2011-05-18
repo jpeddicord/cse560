@@ -1,0 +1,5 @@
+Giving the start directive an equated label when it requires a number. This should throw a fatal error and stop parsing.
+
+Produces Expected Results: Yes
+
+Date test program was run: 5/15/2011

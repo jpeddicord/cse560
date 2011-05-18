@@ -1,0 +1,2 @@
+instance,Directives,Directives,static,the only instance of this class allowed,a single Directives instance
+directiveList,Directives,ArrayList,static,holds the list of directives available,a list of valid Directives

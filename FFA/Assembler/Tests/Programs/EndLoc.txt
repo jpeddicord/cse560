@@ -1,0 +1,5 @@
+ENDLC START 1023
+    NOP
+    SOPER ADD,0     : should error
+    SOPER ADD,1     : unreachable code
+    END ENDLC

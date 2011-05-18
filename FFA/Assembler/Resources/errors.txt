@@ -1,0 +1,51 @@
+EF.01 Invalid start directive.  Assembler has been stopped.
+EF.02 First line not a valid START.  First line must be a valid START.
+EF.03 LC is now larger than 1023.  Your program must use less than 1024 words of memory.
+EF.04 Exceeding the maximum number of symbols.  You must use 50 or fewer labels.
+EF.05 Operand of END directive does not match program name. Assembler has been stopped.
+EF.06 START directive operand must be valid number from 0 to 1023. Assembler stopped.
+EF.07 Instructions present after END.
+ES.01 Unknown keyword in line; skipping to next line.
+ES.02 Invalid Label defined, label ignored. Labels must start with A-Z, a-z and must be between 2 and 32 characters. 0-9 can be used after the first character.
+ES.03 Function is invalid for instruction; line substituted with a NOP.
+ES.04 Invalid Literal, substituted with NOP.  Literal must be in the range of -512 and 511 for instructions.
+ES.05 Invalid Literal, substituted with NOP.  Literal must be in the range of -32768 to 32767 for directives.
+ES.06 Memory address not in proper range, line ignored. Operand must be in the range of 0 to 1023 or an equated symbol in the range of 0 to 1023
+ES.07 Directive requires a label, line ignored.
+ES.08 Attempted to reset location counter to a previously used value. Reset ignored, keeping current location counter value.
+ES.09 Instruction requires a label in operand; line substituted with NOP.
+ES.10 RESET directive must take a previously equated symbol or a number. Reset ignored, keeping current location counter value.
+ES.11 CNTL DUMP may only take an operand of 1, 2, or 3.
+ES.12 May only take an exit code of 0-1023 and operand must be a number or equated symbol.
+ES.13 External variables must be defined outside of this program.
+ES.14 Dat directive must have a literal operand, i.e. I=, B=. Line replaced with NOP. Assembly continues.
+ES.15 Literal could not be parsed.
+ES.16 Operand is missing from instruction. Line replaced with NOP.
+ES.17 SOPER operands must be from 0-255. Line replaced with NOP.
+ES.18 Unexpected token encountered while processing line. Skipping to next line.
+ES.19 If star is used, it must be used once and be the first operand in the expression. Line ignored. Assembly continues.
+ES.20 Symbol must be defined before it can be used. Line skipped, Assembly continues.
+ES.21 Invalid operand for EQU/EQUe. Line ignored, assembly continues.
+ES.22 Too many operators in expression. Ignoring line, assembly continues.
+ES.23 Expressions require at least one operator. Ignoring line, assembly continues.
+ES.24 Mismatched operators in expression. Ignoring line, assembly continues.
+ES.25 Reset directive requires a label, line ignored, location counter unchanged. assembly continues.
+ES.26 Operand for EQU directive must be in the range 0 to 1023. Line ignored, assembly continues.
+ES.27 Expression can only evaluate to a value of 0 to 1023. Line ignored, assembly continues.
+ES.28 Expression can only evaluate to a value of -32768 to 32767. Line ignored, assembly continues.
+ES.29 Operand Expression can only contain numbers and previously equated symbols. Line ignored, assembly continues.
+ES.30 Expressions can only use + and - operators. Line ignored, assembly continues.
+ES.31 Operand expressions must start with a star. Line ignored, assembly continues.
+ES.32 EQU/EQUe expressions can only use symbols that are local references or previously equated symbols. Line ignored, assembly continues.
+ES.33 ADC/ADCe expressions can only use symbols that are local references or external references. Line ignored, assembly continues.
+ES.34 Unresolved symbol. Line replaced with NOP.
+ES.35 START directive encountered on a line besides the first line of source code. Line ignored.
+ES.36 Unused ENTRY label where it was required.
+ES.37 Literal operand in improper format.
+ES.38 Out-of-bounds memory expression.
+EW.01 Blank Line, line ignored and no message given.
+EW.02 Operand field for entry/extern is invalid, line ignored.
+EW.03 Instruction doesn't take an operand; operand ignored.
+EW.04 Attempted to define duplicate symbol, symbol ignored now. Assembly continues.
+EW.05 Directive had a label when none was expected. Ignoring label. Assembly continues.
+EW.06 Invalid input after the operand. Input after operand is ignored. Assembly continues.

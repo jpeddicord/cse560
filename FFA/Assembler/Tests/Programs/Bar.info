@@ -1,0 +1,16 @@
+Short program testing some of the syntax.
+
+Things being checked that should not throw errors:
+
+* Case changes in both the instruction and category.
+* Comments after varying amounts of whitespace
+* Comment on the last line after the end directive
+
+Things being checked that should throw errors:
+
+* Invalid literal (line 5)
+* Instruction missing required label (line 10)
+
+Produces Expected Results: Yes
+
+Date test program was run: 5/15/2011
