@@ -9,6 +9,14 @@ namespace Linker
     {
         static void Main(string[] args)
         {
+            string[] infiles;
+            if (args.Length > 0)
+            {
+                infiles = args;
+            }
+
+            Console.WriteLine("herp");
+            
         }
     }
 }
