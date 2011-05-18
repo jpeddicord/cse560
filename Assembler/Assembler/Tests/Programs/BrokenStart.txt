@@ -1,3 +1,0 @@
-BrokenStart START X1
-X1 EQU 20
- END BrokenStart

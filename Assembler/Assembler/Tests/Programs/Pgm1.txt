@@ -1,8 +1,0 @@
-Pgm1 START 50
-X1 EQU *
-X2 EQU *+X1
-X3 START 70    : Start directive in middle of program
-X4 RESET X2
-   SOPER ADD,5
-   END Pgm1
-   MOPER OR,X4 : Line after end of program

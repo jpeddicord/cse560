@@ -1,5 +1,0 @@
-Sixth program given to us during grading of SP1. This is a good program to test equ, eque, adc, and adce.  This also tests the bounds of dat (smallest number possible to store using dat and largest number to store using dat). Only one error should be present in this program on line 3. Because start sets the LC to 1000, adding 100 will put the LC over the max of 1023.
-
-Produces Expected Results: Yes
-
-Date test program was run: 5/15/2011

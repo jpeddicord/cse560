@@ -1,5 +1,0 @@
-Short program testing some more syntax found in FFA including a few CNTL commands. Two lines in specific that are being tested by this program are line 5 (when the line is just a commment) and line 6 (when the line only contains whitespace).  Neither of these should throw errors but require a little special attention by the Assembler, so we want to ensure they work properly.
-
-Produces Expected Results: Yes
-
-Date test program was run: 5/15/2011

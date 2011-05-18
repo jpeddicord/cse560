@@ -1,8 +1,0 @@
-Things that should be caught in this program:
-
-* Line 4 - Start directive in the middle of a program.
-* Line 8 - Line of code after the end directive.
-
-Produces Expected Results: Yes
-
-Date test program was run: 5/15/2011

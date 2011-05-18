@@ -1,2 +1,0 @@
-instance,Instructions,Instructions object,static,stores a singleton instance of Instructions,single Instructions instance
-instructions,Instructions,Nested dictionary of string-string,member,instruction to bitcode map,valid filled Dictionary
