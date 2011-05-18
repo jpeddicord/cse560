@@ -16,7 +16,7 @@ namespace Assembler
         {
             Console.WriteLine("FFA Assembler");
             Console.WriteLine("Usage:\t\tAssembler source [output]");
-            Console.WriteLine("If no output file is given standard output will be used.");
+            Console.WriteLine("If no output file is given the output will be named source.obj");
         }
 
         /**
