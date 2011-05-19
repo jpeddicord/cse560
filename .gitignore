@@ -5,6 +5,7 @@
 *.swp
 *.resources
 *.obj
+*.sln
 bin/
 obj/
 test-results/
