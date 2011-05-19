@@ -16,21 +16,23 @@ def build():
     try:
         rmtree('tmp')
         rmtree('out')
+    except: pass
+    try:
         os.makedirs('tmp/tests')
     except: pass
 
     # build
     print "Building DED"
-    build_ded('../Assembler/', 'tmp/ded.rst')
+    build_ded('../', 'tmp/ded.rst')
     convert_rst('tmp/ded.rst', 'tmp/ded.html')
     create_dox_wrapper('tmp/ded.rst', 'tmp/ded.dox')
     print "Running test scripts"
-    scripts = build_test_scripts('../Assembler/Tests/Programs', '../Assembler/bin/Release/Assembler.exe', 'tmp/tests', 'testfile_', 'tmp/testscript_index.rst')
+    scripts = build_test_scripts('../Tests/Programs', '../bin/Release/Assembler.exe', 'tmp/tests', 'testfile_', 'tmp/testscript_index.rst')
     for script in scripts:
         convert_rst(join('tmp/tests', script), join('tmp', script.replace('.rst', '.html')))
         create_dox_wrapper(join('tmp/tests', script), join('tmp', script.replace('.rst', '.dox')))
     print "Creating error listing"
-    build_error_list('../Assembler/Resources/errors.txt', 'tmp/errorlist.rst')
+    build_error_list('../Resources/errors.txt', 'tmp/errorlist.rst')
     print "Building manual"
     build_rst_dir('src', 'tmp')
     print "Running Doxygen"
