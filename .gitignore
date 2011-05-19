@@ -10,4 +10,5 @@ obj/
 test-results/
 Log/
 tmp/
+out/
 tags

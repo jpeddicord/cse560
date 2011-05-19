@@ -9,17 +9,44 @@ from shutil import rmtree, copytree
 from docutils.core import publish_file
 from docutils.writers import manpage, html4css1
 
+def preserve_cwd(function):
+   def decorator(*args, **kwargs):
+      cwd = os.getcwd()
+      try:
+          return function(*args, **kwargs)
+      finally:
+          os.chdir(cwd)
+   return decorator
+
+### Builders ###
 
 def build():
-    """Documentation builder"""
+    """The main builder."""
+    try:
+        rmtree('out')
+    except: pass
+    os.mkdir('out')
+    
+    print "Building Assembler documentation"
+    build_assembler()
+    copytree("../Assembler/doc/out/html/", "out/assembler/")
+    print "Building Linker documentation"
+    build_linker()
+    print "Building Simulator documentation"
+    build_simulator()
+
+@preserve_cwd
+def build_assembler():
+    """Documentation builder for Assembler"""
+    
+    os.chdir("../Assembler/doc")
+    
     # clean up old builds
     try:
         rmtree('tmp')
         rmtree('out')
     except: pass
-    try:
-        os.makedirs('tmp/tests')
-    except: pass
+    os.makedirs('tmp/tests')
 
     # build
     print "Building DED"
@@ -39,6 +66,16 @@ def build():
     doxygen()
     print "Copying images"
     copytree("src/images", "out/html/images")
+
+@preserve_cwd
+def build_linker():
+    pass # TODO
+    
+@preserve_cwd
+def build_simulator():
+    pass # TODO
+
+### Utility functions ###
 
 def build_ded(directory, out_filename):
     """Process a template for DEDs."""
@@ -154,6 +191,7 @@ def build_test_scripts(directory, runner, out_dir, prefix, index_file):
     return [prefix + n for n in names]
 
 def build_error_list(in_file, out_file):
+    """Build an error listing."""
     with open(in_file) as i:
         with open(out_file, 'w') as f:
             f.write("\n")
