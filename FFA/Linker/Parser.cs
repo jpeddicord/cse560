@@ -4,41 +4,68 @@ using System.Linq;
 using System.Text;
 using System.IO;
 using System.Text.RegularExpressions;
+using ErrCat = Assembler.Errors.Category;
 
 namespace Linker
 {
     class Parser
     {
-        public void ParseFile(string file)
+        public void ParseFile(string filename)
         {
-            string[] records = File.ReadAllLines(file);
+            var file = new StreamReader(filename);
 
-            foreach (string rec in records)
+            int lineNum = 0;
+            string rec;
+            while ((rec = file.ReadLine()) != null)
             {
-                if (rec[0] == 'H')
+                try
                 {
-                    ParseHeader(rec);
+                    // ignore empty lines
+                    if (rec.Trim().Length == 0)
+                    {
+                        continue;
+                    }
+    
+                    // process different types of records
+                    if (rec[0] == 'H')
+                    {
+                        ParseHeader(rec);
+                    }
+                    else if (rec[0] == 'L')
+                    {
+                        ParseLink(rec);
+                    }
+                    else if (rec[0] == 'T')
+                    {
+                        ParseText(rec);
+                    }
+                    else if (rec[0] == 'M')
+                    {
+                        ParseModify(rec);
+                    }
+                    else if (rec[0] == 'E')
+                    {
+                        ParseEnd(rec);
+                    }
+                    // invalid record or garbage data
+                    else
+                    {
+                        throw new Assembler.ErrorException(ErrCat.Serious, 1); // FIXME: code is wrong
+                    }
                 }
-                else if (rec[0] == 'L')
+                catch (Assembler.ErrorException ex)
                 {
-                    ParseText(rec);
+                    Console.WriteLine(String.Format(
+                            "Parsing error on line {0}:\n{1}",
+                            lineNum, ex));
+                    if (ex.err.category == ErrCat.Fatal)
+                    {
+                        Console.WriteLine("Aborting due to fatal errors.");
+                        break;
+                    }
                 }
-                else if (rec[0] == 'T')
-                {
-                    ParseLink(rec);
-                }
-                else if (rec[0] == 'M')
-                {
-                    ParseModify(rec);
-                }
-                else if (rec[0] == 'E')
-                {
-                    ParseEnd(rec);
-                }
-                else
-                {
-                    // Invalid record type
-                }
+
+                lineNum++;
             }
         }
 
