@@ -4,3 +4,6 @@ ES.03 Wrong number of fields in end record.
 ES.04 Program name of record doesn't match header.
 ES.05 Data found after end record.
 ES.06 Unknown record type.
+ES.07 Invalid memory location.
+ES.08 Wrong word size.
+ES.09 Garbage data found after program end.

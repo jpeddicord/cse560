@@ -10,7 +10,7 @@ namespace Assembler
      */
     public class ErrorException : ApplicationException
     {
-        Errors.Error err;
+        public Errors.Error err;
 
         public ErrorException(Errors.Category category, int code)
         {
