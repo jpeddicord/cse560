@@ -208,7 +208,7 @@ namespace Assembler
                         {
                             Convert.ToInt32(outOper, 16);
                         }
-                        catch (FormatException ex)
+                        catch (FormatException)
                         {
                             litType = Literal.UNKNOWN;
                         }
@@ -226,7 +226,7 @@ namespace Assembler
                         {
                             Convert.ToInt32(outOper, 2);
                         }
-                        catch (FormatException ex)
+                        catch (FormatException)
                         {
                             litType = Literal.UNKNOWN;
                         }
@@ -246,7 +246,7 @@ namespace Assembler
                         {
                             Convert.ToInt32(outOper);
                         }
-                        catch (FormatException ex)
+                        catch (FormatException)
                         {
                             litType = Literal.UNKNOWN;
                         }

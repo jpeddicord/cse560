@@ -22,7 +22,7 @@ namespace Assembler
             sym.rlabel = "test";
             sym.lc = "5";
             sym.usage = Usage.EQUATED;
-            sym.val = "derp";
+            sym.val = "DERP";
             sym.relocations = 0;
             t.AddSymbol(sym);
             Assert.AreEqual(sym, t.GetSymbol("test"));
@@ -39,7 +39,7 @@ namespace Assembler
             sym.rlabel = "test";
             sym.lc = "5";
             sym.usage = Usage.EQUATED;
-            sym.val = "derp";
+            sym.val = "DERP";
             sym.relocations = 0;
             t.AddSymbol("test", "5", Usage.EQUATED, "derp");
             Assert.AreEqual(sym, t.GetSymbol("test"));
