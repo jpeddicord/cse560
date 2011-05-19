@@ -102,6 +102,15 @@ namespace Simulator
             this.testStack.Clear();
         }
 
+        public string[] GetDataStack()
+        {
+            return this.dataStack.ToArray();
+        }
+
+        public short[] GetTestStack()
+        {
+            return this.testStack.ToArray();
+        }
     }
 }
 

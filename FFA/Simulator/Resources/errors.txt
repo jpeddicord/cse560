@@ -1,3 +1,4 @@
+EF.01 Memory reference is out of range. Can only access 0 to 1023.
 ES.01 Wrong number of fields in header record.
 ES.02 Wrong number of fields in text record.
 ES.03 Wrong number of fields in end record.
@@ -7,3 +8,4 @@ ES.06 Unknown record type.
 ES.07 Invalid memory location.
 ES.08 Wrong word size.
 ES.09 Garbage data found after program end.
+ES.10 Invalid flag for DUMP. Can only accept 1, 2 or 3.
