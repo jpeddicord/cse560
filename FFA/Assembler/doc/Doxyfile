@@ -556,7 +556,7 @@ FILE_VERSION_FILTER    =
 # You can optionally specify a file name after the option, if omitted 
 # DoxygenLayout.xml will be used as the name of the layout file.
 
-LAYOUT_FILE            = template/DoxygenLayout.xml
+LAYOUT_FILE            = ../../doc/template/DoxygenLayout.xml
 
 #---------------------------------------------------------------------------
 # configuration options related to warning and progress messages
@@ -850,7 +850,7 @@ HTML_FOOTER            =
 # the style sheet file to the HTML output directory, so don't put your own 
 # stylesheet in the HTML output directory as well, or it will be erased!
 
-HTML_STYLESHEET        = template/style.css
+HTML_STYLESHEET        = ../../doc/template/style.css
 
 # The HTML_COLORSTYLE_HUE tag controls the color of the HTML output. 
 # Doxygen will adjust the colors in the stylesheet and background images 

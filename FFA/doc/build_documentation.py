@@ -9,6 +9,8 @@ from shutil import rmtree, copytree
 from docutils.core import publish_file
 from docutils.writers import manpage, html4css1
 
+global_cwd = os.getcwd()
+
 def preserve_cwd(function):
    def decorator(*args, **kwargs):
       cwd = os.getcwd()
@@ -27,13 +29,15 @@ def build():
     except: pass
     os.mkdir('out')
     
-    print "Building Assembler documentation"
+    print "*** Building Assembler documentation"
     build_assembler()
     copytree("../Assembler/doc/out/html/", "out/assembler/")
-    print "Building Linker documentation"
+    print "*** Building Linker documentation"
     build_linker()
-    print "Building Simulator documentation"
+    copytree("../Linker/doc/out/html/", "out/linker/")
+    print "*** Building Simulator documentation"
     build_simulator()
+    copytree("../Simulator/doc/out/html/", "out/simulator/")
 
 @preserve_cwd
 def build_assembler():
@@ -69,11 +73,67 @@ def build_assembler():
 
 @preserve_cwd
 def build_linker():
-    pass # TODO
+    """Documentation builder for Linker"""
+    
+    os.chdir("../Linker/doc")
+    
+    # clean up old builds
+    try:
+        rmtree('tmp')
+        rmtree('out')
+    except: pass
+    os.mkdir('tmp')
+    
+    # build
+    print "Building DED"
+    build_ded('../', 'tmp/ded.rst')
+    convert_rst('tmp/ded.rst', 'tmp/ded.html')
+    create_dox_wrapper('tmp/ded.rst', 'tmp/ded.dox')
+    #print "Running test scripts"
+    #scripts = build_test_scripts('../Tests/Programs', '../bin/Release/Assembler.exe', 'tmp/tests', 'testfile_', 'tmp/testscript_index.rst')
+    #for script in scripts:
+    #    convert_rst(join('tmp/tests', script), join('tmp', script.replace('.rst', '.html')))
+    #    create_dox_wrapper(join('tmp/tests', script), join('tmp', script.replace('.rst', '.dox')))
+    #print "  Creating error listing"
+    #build_error_list('../Resources/errors.txt', 'tmp/errorlist.rst')
+    print "Building manual"
+    build_rst_dir('src', 'tmp')
+    print "Running Doxygen"
+    doxygen()
+    print "Copying images"
+    copytree("src/images", "out/html/images")
     
 @preserve_cwd
 def build_simulator():
-    pass # TODO
+    """Documentation builder for Simulator"""
+    
+    os.chdir("../Simulator/doc")
+    
+    # clean up old builds
+    try:
+        rmtree('tmp')
+        rmtree('out')
+    except: pass
+    os.mkdir('tmp')
+    
+    # build
+    print "Building DED"
+    build_ded('../', 'tmp/ded.rst')
+    convert_rst('tmp/ded.rst', 'tmp/ded.html')
+    create_dox_wrapper('tmp/ded.rst', 'tmp/ded.dox')
+    #print "Running test scripts"
+    #scripts = build_test_scripts('../Tests/Programs', '../bin/Release/Assembler.exe', 'tmp/tests', 'testfile_', 'tmp/testscript_index.rst')
+    #for script in scripts:
+    #    convert_rst(join('tmp/tests', script), join('tmp', script.replace('.rst', '.html')))
+    #    create_dox_wrapper(join('tmp/tests', script), join('tmp', script.replace('.rst', '.dox')))
+    #print "  Creating error listing"
+    #build_error_list('../Resources/errors.txt', 'tmp/errorlist.rst')
+    print "Building manual"
+    build_rst_dir('src', 'tmp')
+    print "Running Doxygen"
+    doxygen()
+    print "Copying images"
+    copytree("src/images", "out/html/images")
 
 ### Utility functions ###
 
@@ -119,7 +179,7 @@ def build_rst_dir(directory, out_dir):
 
 def convert_rst(rst_file, out_file):
     """Use ReST to convert the given file into HTML."""
-    publish_file(source_path=rst_file, destination_path=out_file, writer=html4css1.Writer(), settings_overrides={'template': 'template/rst.html'})
+    publish_file(source_path=rst_file, destination_path=out_file, writer=html4css1.Writer(), settings_overrides={'template': join(global_cwd, 'template/rst.html')})
 
 def create_dox_wrapper(rst_file, out_file):
     """Create a doxygen wrapper file to embed the given file into."""
@@ -202,6 +262,7 @@ def build_error_list(in_file, out_file):
 
 def doxygen():
     """Run Doxygen."""
+    os.mkdir("out")
     Popen("doxygen", shell=True, stdout=PIPE).communicate()
 
 if __name__ == "__main__":
