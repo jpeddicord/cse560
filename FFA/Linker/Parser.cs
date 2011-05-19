@@ -19,11 +19,11 @@ namespace Linker
                 {
                     ParseHeader(rec);
                 }
-                else if (rec[0] == 'T')
+                else if (rec[0] == 'L')
                 {
                     ParseText(rec);
                 }
-                else if (rec[0] == 'L')
+                else if (rec[0] == 'T')
                 {
                     ParseLink(rec);
                 }
@@ -200,12 +200,63 @@ namespace Linker
 
         }
 
-        public void ParseText(string rec)
+        public void ParseLink(string rec)
         {
             string[] field = rec.Split(':');
+
+            // check that Entry name is valid
+            string entry = field[1].ToUpper();
+
+            /* Regular expression used to determine if all characters in the token are
+             * letters or numbers. */
+            Regex alphaNumeric = new Regex(@"[^0-9a-zA-Z]");
+
+            if (2 <= entry.Length && entry.Length <= 32)
+            {
+                if (!(!alphaNumeric.IsMatch(entry) && char.IsLetter(entry[0])))
+                {
+                    // entry name is not a valid label
+
+                }
+            }
+            else
+            {
+                // entry name is not the right length
+
+            }
+
+
+            // get the location within the program
+            string pgmLoc = field[2].ToUpper();
+
+            // check length, should be 4 digit hex number
+            if (pgmLoc.Length != 4)
+            {
+                // error, wrong length
+            }
+
+            //check that it is valid hex
+            int pgmLocVal = 0;
+            try
+            {
+                pgmLocVal = Convert.ToInt32(pgmLoc, 16);
+            }
+            catch (FormatException ex)
+            {
+                // error, not valid hex
+            }
+
+            // check that it is in the correct range
+            if (pgmLocVal < 0 || pgmLocVal > 1023)
+            {
+                // error, must be between 0 and 1023
+            }
+
+
+
         }
 
-        public void ParseLink(string rec)
+        public void ParseText(string rec)
         {
             string[] field = rec.Split(':');
         }
