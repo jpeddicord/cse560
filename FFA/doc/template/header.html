@@ -4,9 +4,14 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <title>$title</title>
 <link href="$relpath$tabs.css" rel="stylesheet" type="text/css"/>
-<link href="$relpath$search/search.css" rel="stylesheet" type="text/css"/>
-<script type="text/javascript" src="$relpath$search/search.js"></script>
-<link href="$relpath$doxygen.css" rel="stylesheet" type="text/css"/>
+<link href="$relpath$style.css" rel="stylesheet" type="text/css"/> 
 </head>
-<body onload='searchBox.OnSelectItem(0);'>
-<div id="top"><!-- do not remove this div! -->
+<body>
+<div id="top">
+<ul id="topnav" class="$projectname">
+<li><a href="$relpath$../index.html">Home</a></li>
+<li><a href="$relpath$../assembler/index.html" id="assemblernav">Assembler</a></li>
+<li><a href="$relpath$../linker/index.html" id="linkernav">Linker</a></li>
+<li><a href="$relpath$../simulator/index.html" id="simulatornav">Simulator</a></li>
+</ul>
+

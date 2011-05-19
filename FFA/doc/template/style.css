@@ -846,3 +846,47 @@ dl.bug
 #sidebar ul {
     padding-left: 20px;
 }
+
+ul#topnav {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 36px;
+    background: #deefff; /* Old browsers */
+    background: -moz-linear-gradient(top, #deefff 0%, #98bede 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#deefff), color-stop(100%,#98bede)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, #deefff 0%,#98bede 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, #deefff 0%,#98bede 100%); /* Opera11.10+ */
+    background: -ms-linear-gradient(top, #deefff 0%,#98bede 100%); /* IE10+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#deefff', endColorstr='#98bede',GradientType=0 ); /* IE6-9 */
+    background: linear-gradient(top, #deefff 0%,#98bede 100%); /* W3C */
+}
+
+ul#topnav li {
+    float: left;
+    font-size: 1.1em;
+}
+
+ul#topnav li a {
+    display: block;
+    margin: 6px;
+    padding: 4px;
+    font-weight: bold;
+    color: #000;
+    text-shadow: 0px 1px 1px #333;
+    border-radius: 3px;
+}
+
+ul#topnav li a:hover {
+    background-color: #2c80e9 !important;
+    text-decoration: none;
+    color: #fff;
+    box-shadow: 1px 1px 2px #444;
+}
+
+ul#topnav.Assembler li a#assemblernav, ul#topnav.Linker li a#linkernav, ul#topnav.Simulator li a#simulatornav {
+    background-color: #5484bf;
+    border-radius: 3px;
+    color: #fff !important;
+}

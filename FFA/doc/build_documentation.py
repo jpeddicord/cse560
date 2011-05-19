@@ -25,19 +25,19 @@ def preserve_cwd(function):
 def build():
     """The main builder."""
     try:
-        rmtree('out')
+        rmtree('html')
     except: pass
-    os.mkdir('out')
+    os.mkdir('html')
     
     print "*** Building Assembler documentation"
     build_assembler()
-    copytree("../Assembler/doc/out/html/", "out/assembler/")
+    copytree("../Assembler/doc/out/html/", "html/assembler/")
     print "*** Building Linker documentation"
     build_linker()
-    copytree("../Linker/doc/out/html/", "out/linker/")
+    copytree("../Linker/doc/out/html/", "html/linker/")
     print "*** Building Simulator documentation"
     build_simulator()
-    copytree("../Simulator/doc/out/html/", "out/simulator/")
+    copytree("../Simulator/doc/out/html/", "html/simulator/")
 
 @preserve_cwd
 def build_assembler():
