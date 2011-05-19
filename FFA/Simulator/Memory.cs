@@ -73,6 +73,11 @@ namespace Simulator
             return this.dataStack.Count;
         }
 
+        public void ClearData()
+        {
+            this.dataStack.Clear();
+        }
+
         public void TestPush(short data)
         {
             if (this.testStack.Count == 5)
@@ -90,6 +95,11 @@ namespace Simulator
         public int TestSize()
         {
             return this.testStack.Count;
+        }
+
+        public void ClearTest()
+        {
+            this.testStack.Clear();
         }
 
     }

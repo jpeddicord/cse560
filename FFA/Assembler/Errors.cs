@@ -6,6 +6,38 @@ using System.Text;
 namespace Assembler
 {
     /**
+     * An exception representing an Error.
+     */
+    public class ErrorException : ApplicationException
+    {
+        Errors.Error err;
+
+        public ErrorException(Errors.Category category, int code)
+        {
+            this.err.category = category;
+            this.err.code = code;
+            Errors inst = Errors.GetInstance();
+            if (category == Errors.Category.Warning)
+            {
+                this.err.msg = inst.GetWarningError(code).msg;
+            }
+            else if (category == Errors.Category.Serious)
+            {
+                this.err.msg = inst.GetSeriousError(code).msg;
+            }
+            else if (category == Errors.Category.Fatal)
+            {
+                this.err.msg = inst.GetFatalError(code).msg;
+            }
+        }
+
+        public override string ToString()
+        {
+            return this.err.ToString();
+        }
+    }
+
+    /**
      * A singleton class that can be used to fetch the list of built-in errors
      * and their levels and messages.
      */
@@ -90,6 +122,11 @@ namespace Assembler
 
             foreach (string line in Properties.Resources.errors.Split('\n'))
             {
+                if (line.Trim().Length == 0)
+                {
+                    continue;
+                }
+
                 // expecting first 5 characters of line to be error code
                 // something like EF.01
                 string[] errorCode = line.Substring(0, 5).Split('.');

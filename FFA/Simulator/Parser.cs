@@ -1,10 +1,13 @@
 using System;
 using System.IO;
+using ErrCat = Assembler.Errors.Category;
 
 namespace Simulator
 {
     public class Parser
     {
+        private string programName = "";
+
         public Parser()
         {
 
@@ -50,7 +53,6 @@ namespace Simulator
         public void ParseHeader(string[] parts)
         {
             // TODO check that the header is of the correct length
-
         }
 
         public void ParseText(string[] parts)
@@ -61,7 +63,14 @@ namespace Simulator
 
         public void ParseEnd(string[] parts)
         {
-            // TODO check size and parts
+            if (parts.Length != 2)
+            {
+                throw new Assembler.ErrorException(ErrCat.Serious, 3);
+            }
+            if (parts[1] != this.programName)
+            {
+                throw new Assembler.ErrorException(ErrCat.Serious, 4);
+            }
         }
     }
 }
