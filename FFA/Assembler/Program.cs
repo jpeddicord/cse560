@@ -1,5 +1,4 @@
-﻿#define TRACE
-using System;
+﻿using System;
 using System.Diagnostics;
 
 namespace Assembler
