@@ -10,10 +10,9 @@ namespace Simulator
 
         }
 
-        public void ParseFile(string filename, out Memory mem)
+        public void ParseFile(string filename)
         {
             var file = new StreamReader(filename);
-            mem = new Memory();
 
             string line;
             while ((line = file.ReadLine()) != null)
@@ -30,7 +29,7 @@ namespace Simulator
                     // text record found
                     else if (parts[0] == "T")
                     {
-                        ParseText(parts, ref mem);
+                        ParseText(parts);
                     }
                     // end record found
                     else if (parts[0] == "E")
@@ -54,7 +53,7 @@ namespace Simulator
 
         }
 
-        public void ParseText(string[] parts, ref Memory mem)
+        public void ParseText(string[] parts)
         {
             // TODO check size
             // TODO check that program name matches
