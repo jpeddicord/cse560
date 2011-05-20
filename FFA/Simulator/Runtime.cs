@@ -36,19 +36,33 @@ namespace Simulator
             var mem = Memory.GetInstance();
             var instr = Assembler.Instructions.GetInstance();
             string category, function;
-            string bin = Convert.ToString(mem.GetWord(this.lc), 2);
 
-            // look up the associated insruction
-            instr.ReverseLookup(bin.Substring(0, 5), out category, out function);
+            while (true)
+            {
+                // get the binary string of this word
+                string bin = Convert.ToString(mem.GetWord(this.lc), 2);
+    
+                // look up the associated insruction
+                instr.ReverseLookup(bin.Substring(0, 5), out category, out function);
 
-            try
-            {
-                ProcessInstruction(category, function, bin);
-            }
-            catch (Assembler.ErrorException ex)
-            {
-                Console.WriteLine(String.Format("RUNTIME ERROR: {0}", ex));
-                // TODO: abort?
+                int prevLC = this.lc;
+
+                try
+                {
+                    ProcessInstruction(category, function, bin);
+                }
+                catch (Assembler.ErrorException ex)
+                {
+                    Console.WriteLine(String.Format("RUNTIME ERROR: {0}", ex));
+                    // TODO: abort?
+                }
+
+                // if the location counter wasn't changed by an instruction,
+                // increment it.
+                if (this.lc == prevLC)
+                {
+                    this.lc++;
+                }
             }
         }
 
