@@ -29,11 +29,11 @@ namespace Simulator
         public static void Pop(string addr)
         {
             // TODO Check that addr is in range.
-            String s = "";
+            int i = 0;
             try
             {
-                s = Memory.GetInstance().DataPop();
-                Memory.GetInstance().SetWord(Convert.ToInt32(addr, 16), s);
+                i = Memory.GetInstance().DataPop();
+                Memory.GetInstance().SetWord(Convert.ToInt32(addr, 16), i);
             }
             catch (Exception)
             {
@@ -44,21 +44,20 @@ namespace Simulator
         public static void Test(string addr)
         {
             Memory m = Memory.GetInstance();
-            String s = "", t;
-            int i;
+            int i, d = 0, w;
 
             try
             {
-                s = m.DataPop();
+                d = Assembler.BinaryHelper.ConvertNumber(m.DataPop(), 16);
             }
             catch (Exception)
             {
                 // TODO Add error handling (nothing on stack)
             }
 
-            t = m.GetWord(Convert.ToInt32(addr, 16));
+            w = Assembler.BinaryHelper.ConvertNumber(m.GetWord(Convert.ToInt32(addr, 16)), 16);
 
-            i = Convert.ToInt32(s, 16).CompareTo(Convert.ToInt32(t, 16));
+            i = d.CompareTo(w);
 
             try
             {
@@ -78,10 +77,6 @@ namespace Simulator
             catch (Exception)
             {
                 //TODO Add error handling if too many items on test stack
-            }
-            finally
-            {
-                m.DataPush(s);
             }
         }
     }

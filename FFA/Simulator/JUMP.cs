@@ -14,7 +14,7 @@ namespace Simulator
             // Logging?
         }
 
-        public static void Equal(string addr, ref string LC)
+        public static void Equal(string addr, ref int LC)
         {
             int i = -1;
 
@@ -29,11 +29,11 @@ namespace Simulator
 
             if (i == 0)
             {
-                LC = addr;
+                LC = Convert.ToInt32(addr, 16);
             }
         }
 
-        public static void Less(string addr, ref string LC)
+        public static void Less(string addr, ref int LC)
         {
             int i = -1;
 
@@ -48,11 +48,11 @@ namespace Simulator
 
             if (i == 1)
             {
-                LC = addr;
+                LC = Convert.ToInt32(addr, 16);
             }
         }
 
-        public static void Greater(string addr, ref string LC)
+        public static void Greater(string addr, ref int LC)
         {
             int i = -1;
 
@@ -67,23 +67,23 @@ namespace Simulator
 
             if (i == 2)
             {
-                LC = addr;
+                LC = Convert.ToInt32(addr, 16);
             }
         }
 
-        public static void Dnull(string addr, ref string LC)
+        public static void Dnull(string addr, ref int LC)
         {
             if (Memory.GetInstance().GetDataStack().Length == 0)
             {
-                LC = addr;
+                LC = Convert.ToInt32(addr, 16);
             }
         }
 
-        public static void Tnull(string addr, ref string LC)
+        public static void Tnull(string addr, ref int LC)
         {
             if (Memory.GetInstance().GetTestStack().Length == 0)
             {
-                LC = addr;
+                LC = Convert.ToInt32(addr, 16);
             }
         }
     }

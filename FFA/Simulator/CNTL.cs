@@ -125,7 +125,7 @@ namespace Simulator
          * @teststandard Andrew Buelow
          * @codestandard Mark Mathis
          */
-        public static void Goto(ref String addr, out String LC)
+        public static void Goto(ref String addr, out int LC)
         {
             // convert memory address to int for comparison
             int address = Convert.ToInt32(addr, 16);
@@ -133,7 +133,7 @@ namespace Simulator
             // ensure that the new address is within range of memory, otherwise throw an exception
             if (1023 >= address || address >= 0)
             {
-                LC = addr;
+                LC = address;
             }
             else
             {        
@@ -158,8 +158,8 @@ namespace Simulator
         private static void dumpStack()
         {
             // Get both stacks as Arrays
-            string[] data = Memory.GetInstance().GetDataStack();
-            short[] test = Memory.GetInstance().GetTestStack();
+            int[] data = Memory.GetInstance().GetDataStack();
+            int[] test = Memory.GetInstance().GetTestStack();
 
             // Print the "header" for data stack
             Console.Write("Data Stack: ");
@@ -168,7 +168,7 @@ namespace Simulator
             // Otherwise, pad with spaces to make the test stack line up correctly
             if (data.Length > 0)
             {
-                Console.Write(data[0]);
+                Console.Write(Convert.ToString(data[0], 16).PadLeft(4, '0'));
             }
             else
             {
@@ -181,7 +181,7 @@ namespace Simulator
             // Only attempt to print the first item in the test stack if it exists
             if (test.Length > 0)
             {
-                Console.Write(test[0]);
+                Console.Write(Convert.ToString(test[0], 16).PadLeft(4, '0'));
             }
 
             Console.Write('\n');
@@ -196,7 +196,7 @@ namespace Simulator
                 // pad with spaces
                 if (n < data.Length)
                 {
-                    Console.Write(data[n]);
+                    Console.Write(Convert.ToString(data[n], 16).PadLeft(4, '0'));
                 }
                 else
                 {
@@ -231,6 +231,8 @@ namespace Simulator
          */
         private static void dumpMem()
         {
+            Memory m = Memory.GetInstance();
+
             // Handles each row of memory
             for (int i = 0; i <= 1023; i = i + 16)
             {
@@ -241,7 +243,7 @@ namespace Simulator
                 for (int j = 0; j < 16; j++)
                 {
                     // Print the memory at memory offset + position in this row.
-                    Console.Write(" " + Memory.GetInstance().GetWord(i + j));
+                    Console.Write(" " + Convert.ToString(m.GetWord(i + j), 16).PadLeft(4, '0'));
                 }
 
                 Console.Write("\n");

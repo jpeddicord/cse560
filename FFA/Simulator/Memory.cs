@@ -95,7 +95,7 @@ namespace Simulator
             this.testStack.Push(data);
         }
 
-        public short TestPop()
+        public int TestPop()
         {
             return this.testStack.Pop();
         }
@@ -115,7 +115,7 @@ namespace Simulator
             return this.dataStack.ToArray();
         }
 
-        public short[] GetTestStack()
+        public int[] GetTestStack()
         {
             return this.testStack.ToArray();
         }
