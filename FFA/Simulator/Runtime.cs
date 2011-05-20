@@ -56,6 +56,12 @@ namespace Simulator
                     Console.WriteLine(String.Format("RUNTIME ERROR: {0}", ex));
                     // TODO: abort?
                 }
+#if !DEBUG
+                catch (Exception)
+                {
+                    Console.WriteLine("An internal software error has occurred.");
+                }
+#endif
 
                 // if the location counter wasn't changed by an instruction,
                 // increment it.

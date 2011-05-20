@@ -98,7 +98,7 @@ namespace Simulator
             {
                 throw new Assembler.ErrorException(ErrCat.Serious, 2);
             }
-            // validate the memory address TODO: convert to int and verify bound
+            // validate the memory address
             if (parts[1].Length != 4)
             {
                 throw new Assembler.ErrorException(ErrCat.Serious, 7);
@@ -116,7 +116,8 @@ namespace Simulator
 
             // set the memory
             var mem = Memory.GetInstance();
-            mem.SetWord(parts[1], parts[2]);
+            mem.SetWord(Convert.ToInt32(parts[1], 16),
+                        Convert.ToInt32(parts[2], 16));
         }
 
         public void ParseEnd(string[] parts)

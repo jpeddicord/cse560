@@ -11,11 +11,13 @@ namespace Simulator
         {
             if (function == "HALT")
             {
-
+                // halt code is in last 10 bits
+                CNTL.Halt(Convert.ToInt32(bin.Substring(6), 2));
             }
             else if (function == "DUMP")
             {
-
+                // dump flag is in last 2 bits
+                CNTL.Halt(Convert.ToInt32(bin.Substring(14), 2));
             }
             else if (function == "CLRD")
             {
@@ -27,7 +29,11 @@ namespace Simulator
             }
             else if (function == "GOTO")
             {
-
+                // goto address is in last 10 bits
+                int lc;
+                CNTL.Goto(Convert.ToInt32(bin.Substring(6), 2),
+                        out lc);
+                Runtime.GetInstance().LC = lc;
             }
        }
 
@@ -144,15 +150,12 @@ namespace Simulator
          * @teststandard Andrew Buelow
          * @codestandard Mark Mathis
          */
-        public static void Goto(ref String addr, out int LC)
+        public static void Goto(int addr, out int LC)
         {
-            // convert memory address to int for comparison
-            int address = Convert.ToInt32(addr, 16);
-
             // ensure that the new address is within range of memory, otherwise throw an exception
-            if (1023 >= address || address >= 0)
+            if (1023 >= addr || addr >= 0)
             {
-                LC = address;
+                LC = addr;
             }
             else
             {        

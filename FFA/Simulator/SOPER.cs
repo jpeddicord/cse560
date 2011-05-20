@@ -62,7 +62,7 @@ namespace Simulator
                     int total = 0;
                     while (n > 0)
                     {
-                        total = total + Convert.ToInt32(m.DataPop(), 16);
+                        total = total + m.DataPop();
                     }
 
                     if (total > 65535)
@@ -70,7 +70,7 @@ namespace Simulator
                         throw new Assembler.ErrorException(ErrCat.Serious, 11);
                     }
 
-                    m.DataPush(Convert.ToString(total, 16));
+                    m.DataPush(total);
                 }
                 catch (Exception)
                 {
@@ -86,11 +86,11 @@ namespace Simulator
                 try
                 {
                     Memory m = Memory.GetInstance();
-                    int total = Convert.ToInt32(m.DataPop(), 16);
+                    int total = m.DataPop();
 
                     while (n > 1)
                     {
-                        total = total - Convert.ToInt32(m.DataPop(), 16);
+                        total = total - m.DataPop();
                     }
 
                     if (total < 0)
@@ -98,7 +98,7 @@ namespace Simulator
                         throw new Assembler.ErrorException(ErrCat.Serious, 11);
                     }
 
-                    m.DataPush(Convert.ToString(total, 16));
+                    m.DataPush(total);
 
                 }
                 catch (Exception)
@@ -118,7 +118,7 @@ namespace Simulator
                     int total = 1;
                     while (n > 0)
                     {
-                        total = total * Convert.ToInt32(m.DataPop(), 16);
+                        total = total * m.DataPop();
                     }
 
                     if (total > 65535)
@@ -126,7 +126,7 @@ namespace Simulator
                         throw new Assembler.ErrorException(ErrCat.Serious, 11);
                     }
 
-                    m.DataPush(Convert.ToString(total, 16));
+                    m.DataPush(total);
                 }
                 catch (Exception)
                 {
@@ -142,18 +142,18 @@ namespace Simulator
                 try
                 {
                     Memory m = Memory.GetInstance();
-                    int total = Convert.ToInt32(m.DataPop(), 16);
+                    int total = m.DataPop();
 
                     while (n > 1)
                     {
-                        int i = Convert.ToInt32(m.DataPop(), 16);
+                        int i = m.DataPop();
 
                         if (i == 0)
                         {
                             throw new Assembler.ErrorException(ErrCat.Serious, 12);
                         }
 
-                        total = total / Convert.ToInt32(m.DataPop(), 16);
+                        total = total / m.DataPop();
                     }
 
                     if (total > 65535)
@@ -161,7 +161,7 @@ namespace Simulator
                         throw new Assembler.ErrorException(ErrCat.Serious, 11);
                     }
 
-                    m.DataPush(Convert.ToString(total, 16));
+                    m.DataPush(total);
                 }
                 catch (Exception)
                 {
@@ -177,14 +177,14 @@ namespace Simulator
                 try
                 {
                     Memory m = Memory.GetInstance();
-                    int total = Convert.ToInt32(m.DataPop(), 16);
+                    int total = m.DataPop();
 
                     while (n > 1)
                     {
-                        total = total | Convert.ToInt32(m.DataPop(), 16);
+                        total = total | m.DataPop();
                     }
 
-                    m.DataPush(Convert.ToString(total, 16));
+                    m.DataPush(total);
 
                 }
                 catch (Exception)
@@ -201,14 +201,14 @@ namespace Simulator
                 try
                 {
                     Memory m = Memory.GetInstance();
-                    int total = Convert.ToInt32(m.DataPop(), 16);
+                    int total = m.DataPop();
 
                     while (n > 1)
                     {
-                        total = total & Convert.ToInt32(m.DataPop(), 16);
+                        total = total & m.DataPop();
                     }
 
-                    m.DataPush(Convert.ToString(total, 16));
+                    m.DataPush(total);
 
                 }
                 catch (Exception)
