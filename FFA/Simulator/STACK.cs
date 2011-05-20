@@ -7,9 +7,20 @@ namespace Simulator
 {
     class STACK
     {
-        public STACK()
+        public static void Run(string function, string bin)
         {
-            // Logging?
+            if (function == "PUSH")
+            {
+
+            }
+            else if (function == "POP")
+            {
+
+            }
+            else if (function == "TEST")
+            {
+
+            }
         }
 
         public static void Push(string addr)

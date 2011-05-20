@@ -56,162 +56,23 @@ namespace Simulator
         {
             if (category == "CNTL")
             {
-                if (function == "HALT")
-                {
-
-                }
-                else if (function == "DUMP")
-                {
-
-                }
-                else if (function == "CLRD")
-                {
-                    CNTL.Clrd();
-                }
-                else if (function == "CLRT")
-                {
-                    CNTL.Clrt();
-                }
-                else if (function == "GOTO")
-                {
-
-                }
+                CNTL.Run(function, bin);
             }
             else if (category == "STACK")
             {
-                if (function == "PUSH")
-                {
-
-                }
-                else if (function == "POP")
-                {
-
-                }
-                else if (function == "TEST")
-                {
-
-                }
+                STACK.Run(function, bin);
             }
             else if (category == "JUMP")
             {
-                if (function == "=")
-                {
-
-                }
-                else if (function == "^=")
-                {
-
-                }
-                else if (function == "<")
-                {
-
-                }
-                else if (function == ">")
-                {
-
-                }
-                else if (function == "<=")
-                {
-
-                }
-                else if (function == ">=")
-                {
-
-                }
-                else if (function == "TNULL")
-                {
-
-                }
-                else if (function == "DNULL")
-                {
-
-                }
+                JUMP.Run(function, bin);
             }
             else if (category == "SOPER")
             {
-                if (function == "ADD")
-                {
-
-                }
-                else if (function == "SUB")
-                {
-
-                }
-                else if (function == "MUL")
-                {
-
-                }
-                else if (function == "DIV")
-                {
-
-                }
-                else if (function == "OR")
-                {
-
-                }
-                else if (function == "AND")
-                {
-
-                }
-                else if (function == "READN")
-                {
-
-                }
-                else if (function == "READC")
-                {
-
-                }
-                else if (function == "WRITEN")
-                {
-
-                }
-                else if (function == "WRITEC")
-                {
-
-                }
+                SOPER.Run(function, bin);
             }
             else if (category == "MOPER")
             {
-                if (function == "ADD")
-                {
-
-                }
-                else if (function == "SUB")
-                {
-
-                }
-                else if (function == "MUL")
-                {
-
-                }
-                else if (function == "DIV")
-                {
-
-                }
-                else if (function == "OR")
-                {
-
-                }
-                else if (function == "AND")
-                {
-
-                }
-                else if (function == "READN")
-                {
-
-                }
-                else if (function == "READC")
-                {
-
-                }
-                else if (function == "WRITEN")
-                {
-
-                }
-                else if (function == "WRITEC")
-                {
-
-                }
+                //MOPER.Run(function, bin);
             }
         }
     }

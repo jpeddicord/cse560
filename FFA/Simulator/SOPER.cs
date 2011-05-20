@@ -8,9 +8,48 @@ namespace Simulator
 {
     class SOPER
     {
-        public SOPER()
+        public static void Run(string function, string bin)
         {
-            // Logger?
+            if (function == "ADD")
+            {
+
+            }
+            else if (function == "SUB")
+            {
+
+            }
+            else if (function == "MUL")
+            {
+
+            }
+            else if (function == "DIV")
+            {
+
+            }
+            else if (function == "OR")
+            {
+
+            }
+            else if (function == "AND")
+            {
+
+            }
+            else if (function == "READN")
+            {
+
+            }
+            else if (function == "READC")
+            {
+
+            }
+            else if (function == "WRITEN")
+            {
+
+            }
+            else if (function == "WRITEC")
+            {
+
+            }
         }
 
         public static void Add(int n)

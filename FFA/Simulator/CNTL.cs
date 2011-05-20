@@ -7,10 +7,29 @@ namespace Simulator
 {
     class CNTL
     {
-        public CNTL()
+        public static void Run(string function, string bin)
         {
-            // Possibly logging?
-        }
+            if (function == "HALT")
+            {
+
+            }
+            else if (function == "DUMP")
+            {
+
+            }
+            else if (function == "CLRD")
+            {
+                CNTL.Clrd();
+            }
+            else if (function == "CLRT")
+            {
+                CNTL.Clrt();
+            }
+            else if (function == "GOTO")
+            {
+
+            }
+       }
 
         /**
          * Halts the program with a user specified halt code. This code must be in the range

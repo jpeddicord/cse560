@@ -9,9 +9,40 @@ namespace Simulator
     class JUMP
     {
 
-        public JUMP()
+        public static void Run(string function, string bin)
         {
-            // Logging?
+            if (function == "=")
+            {
+
+            }
+            else if (function == "^=")
+            {
+
+            }
+            else if (function == "<")
+            {
+
+            }
+            else if (function == ">")
+            {
+
+            }
+            else if (function == "<=")
+            {
+
+            }
+            else if (function == ">=")
+            {
+
+            }
+            else if (function == "TNULL")
+            {
+
+            }
+            else if (function == "DNULL")
+            {
+
+            }
         }
 
         public static void Equal(string addr, ref int LC)
