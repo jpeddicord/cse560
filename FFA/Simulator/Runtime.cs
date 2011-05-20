@@ -33,7 +33,7 @@ namespace Simulator
         public void IncrementLC()
         {
             int lc = Convert.ToInt32(this.lc, 16);
-            this.lc = Convert.ToString(this.lc + 1, 16);
+            this.lc = Convert.ToString(lc + 1, 16);
         }
 
         public void Run()
@@ -46,7 +46,7 @@ namespace Simulator
                     Convert.ToInt32(mem.GetWord(this.lc), 16), 2);
 
             // look up the associated insruction
-            instr.ReverseLookup(bin.Substring(0, 5), category, function);
+            instr.ReverseLookup(bin.Substring(0, 5), out category, out function);
 
             try
             {
@@ -61,7 +61,165 @@ namespace Simulator
 
         public void ProcessInstruction(string category, string function, string bin)
         {
+            if (category == "CNTL")
+            {
+                if (function == "HALT")
+                {
 
+                }
+                else if (function == "DUMP")
+                {
+
+                }
+                else if (function == "CLRD")
+                {
+
+                }
+                else if (function == "CLRT")
+                {
+
+                }
+                else if (function == "GOTO")
+                {
+
+                }
+            }
+            else if (category == "STACK")
+            {
+                if (function == "PUSH")
+                {
+
+                }
+                else if (function == "POP")
+                {
+
+                }
+                else if (function == "TEST")
+                {
+
+                }
+            }
+            else if (category == "JUMP")
+            {
+                if (function == "=")
+                {
+
+                }
+                else if (function == "^=")
+                {
+
+                }
+                else if (function == "<")
+                {
+
+                }
+                else if (function == ">")
+                {
+
+                }
+                else if (function == "<=")
+                {
+
+                }
+                else if (function == ">=")
+                {
+
+                }
+                else if (function == "TNULL")
+                {
+
+                }
+                else if (function == "DNULL")
+                {
+
+                }
+            }
+            else if (category == "SOPER")
+            {
+                if (function == "ADD")
+                {
+
+                }
+                else if (function == "SUB")
+                {
+
+                }
+                else if (function == "MUL")
+                {
+
+                }
+                else if (function == "DIV")
+                {
+
+                }
+                else if (function == "OR")
+                {
+
+                }
+                else if (function == "AND")
+                {
+
+                }
+                else if (function == "READN")
+                {
+
+                }
+                else if (function == "READC")
+                {
+
+                }
+                else if (function == "WRITEN")
+                {
+
+                }
+                else if (function == "WRITEC")
+                {
+
+                }
+            }
+            else if (category == "MOPER")
+            {
+                if (function == "ADD")
+                {
+
+                }
+                else if (function == "SUB")
+                {
+
+                }
+                else if (function == "MUL")
+                {
+
+                }
+                else if (function == "DIV")
+                {
+
+                }
+                else if (function == "OR")
+                {
+
+                }
+                else if (function == "AND")
+                {
+
+                }
+                else if (function == "READN")
+                {
+
+                }
+                else if (function == "READC")
+                {
+
+                }
+                else if (function == "WRITEN")
+                {
+
+                }
+                else if (function == "WRITEC")
+                {
+
+                }
+            }
         }
     }
 }
