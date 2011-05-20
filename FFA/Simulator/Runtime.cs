@@ -73,11 +73,11 @@ namespace Simulator
                 }
                 else if (function == "CLRD")
                 {
-
+                    CNTL.Clrd();
                 }
                 else if (function == "CLRT")
                 {
-
+                    CNTL.Clrt();
                 }
                 else if (function == "GOTO")
                 {
