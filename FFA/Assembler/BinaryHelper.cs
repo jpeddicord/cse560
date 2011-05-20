@@ -9,7 +9,7 @@ namespace Assembler
     /**
      * Allows users to convert to and from two's complement representation.
      */
-    static class BinaryHelper
+    public static class BinaryHelper
     {
 
         /**

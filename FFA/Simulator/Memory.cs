@@ -7,21 +7,21 @@ namespace Simulator
     {
         private static Memory inst = null;
 
-        private string[] storage = new string[1024];
+        private int[] storage = new int[1024];
 
-        private Stack<string> dataStack = new Stack<string>();
+        private Stack<int> dataStack = new Stack<int>();
 
-        private Stack<short> testStack = new Stack<short>();
+        private Stack<int> testStack = new Stack<int>();
 
         /**
          *
          */
         private Memory()
         {
-            // fill each address with its hex location
+            // fill each address with its location
             for (int i = 0; i < 1024; i++)
             {
-                this.storage[i] = Convert.ToString(i, 16).PadLeft(4, '0');
+                this.storage[i] = i;
             }
         }
 
@@ -34,27 +34,35 @@ namespace Simulator
             return Memory.inst;
         }
 
-        public string GetWord(int address)
+        public int GetWord(int address)
         {
             return this.storage[address];
         }
 
-        public string GetWord(string hexAddress)
+        /**
+         * Like GetWord, but converts from 16-bit 2's complement first.
+         */
+        public int GetWordInt(int address)
         {
-            return this.GetWord(Convert.ToInt32(hexAddress, 16));
+            return Assembler.BinaryHelper.ConvertNumber(this.storage[address], 16);
         }
 
-        public void SetWord(int address, string val)
+        public void SetWord(int address, int val)
         {
-            this.storage[address] = val.PadLeft(4, '0');
+            this.storage[address] = val;
         }
 
-        public void SetWord(string hexAddress, string val)
+        public void SetWordInt(int address, int val)
         {
-            this.SetWord(Convert.ToInt32(hexAddress, 16), val);
+            // if negative, convert to the appropriate 2's complement representation
+            if (val < 0)
+            {
+                val = Assembler.BinaryHelper.ConvertNumber(val, 16);
+            }
+            this.storage[address] = val;
         }
 
-        public void DataPush(string data)
+        public void DataPush(int data)
         {
             if (this.dataStack.Count == 256)
             {
@@ -63,7 +71,7 @@ namespace Simulator
             this.dataStack.Push(data);
         }
 
-        public string DataPop()
+        public int DataPop()
         {
             return this.dataStack.Pop();
         }
@@ -102,7 +110,7 @@ namespace Simulator
             this.testStack.Clear();
         }
 
-        public string[] GetDataStack()
+        public int[] GetDataStack()
         {
             return this.dataStack.ToArray();
         }

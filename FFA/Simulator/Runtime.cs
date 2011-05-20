@@ -6,7 +6,7 @@ namespace Simulator
     {
         private static Runtime inst = null;
 
-        private string lc = "0000";
+        private int lc = 0;
 
         private Runtime()
         {
@@ -21,19 +21,13 @@ namespace Simulator
             return Runtime.inst;
         }
 
-        public string LC
+        public int LC
         {
             get { return this.lc; }
             set
             { // TODO: error check
-                this.lc = value.PadLeft(4, '0');
+                this.lc = value;
             }
-        }
-
-        public void IncrementLC()
-        {
-            int lc = Convert.ToInt32(this.lc, 16);
-            this.lc = Convert.ToString(lc + 1, 16);
         }
 
         public void Run()
@@ -42,8 +36,7 @@ namespace Simulator
             var mem = Memory.GetInstance();
             var instr = Assembler.Instructions.GetInstance();
             string category, function;
-            string bin = Convert.ToString(
-                    Convert.ToInt32(mem.GetWord(this.lc), 16), 2);
+            string bin = Convert.ToString(mem.GetWord(this.lc), 2);
 
             // look up the associated insruction
             instr.ReverseLookup(bin.Substring(0, 5), out category, out function);
