@@ -181,6 +181,42 @@ namespace Assembler
             
             return this.instructions[instrGroup][function];
         }
-        
+
+        /**
+         * The reverse of GetBytecodeString. Finds the matching category and
+         * function for the given bits.
+         *
+         * @param bits 5 bits to perform a reverse lookup for
+         * @param category Returned function category
+         * @param function Returned function
+         *
+         * @refcode OP
+         * @errtest
+         *  N/A
+         * @errmsg
+         *  None
+         * @author Jacob Peddicord
+         * @creation May 19, 2011
+         * @modlog
+         * @codestandard Mark Mathis
+         * @teststandard Andrew Buelow
+         */
+        public void ReverseLookup(string bits, out string category, out string function)
+        {
+            category = "";
+            function = "";
+            foreach (var cat in this.instructions)
+            {
+                foreach (var func in cat.Value)
+                {
+                    if (func.Value == bits)
+                    {
+                        category = cat.Key;
+                        function = func.Key;
+                        break;
+                    }
+                }
+            }
+        }
     }
 }
