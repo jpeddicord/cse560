@@ -69,5 +69,11 @@ namespace Simulator.Properties {
                 return ResourceManager.GetString("errors", resourceCulture);
             }
         }
+
+        internal static string instructions {
+            get {
+                return ResourceManager.GetString("instructions", resourceCulture);
+            }
+        }
     }
 }

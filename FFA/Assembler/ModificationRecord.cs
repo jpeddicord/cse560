@@ -68,7 +68,7 @@ namespace Assembler
         private string word;
         public string Word {
             get { return this.word; }
-            set { this.word = value.ToUpper(); }
+            set { this.word = value.PadLeft(4, '0').ToUpper(); }
         }
 
         /**

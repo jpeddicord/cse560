@@ -5,7 +5,7 @@ import os
 import re
 from os.path import join, basename
 from subprocess import call, Popen, PIPE
-from shutil import rmtree, copytree
+from shutil import rmtree, copytree, copyfile
 from docutils.core import publish_file
 from docutils.writers import manpage, html4css1
 
@@ -39,6 +39,10 @@ def build():
     build_simulator()
     copytree("../Simulator/doc/out/html/", "html/simulator/")
 
+    print "*** Building toplevel"
+    build_rst_dir('src', 'html', 'rst-top')
+    copyfile('template/style.css', 'html/style.css')
+
 @preserve_cwd
 def build_assembler():
     """Documentation builder for Assembler"""
@@ -55,17 +59,17 @@ def build_assembler():
     # build
     print "Building DED"
     build_ded('../', 'tmp/ded.rst')
-    convert_rst('tmp/ded.rst', 'tmp/ded.html')
+    convert_rst('tmp/ded.rst', 'tmp/ded.html', 'rst-assembler')
     create_dox_wrapper('tmp/ded.rst', 'tmp/ded.dox')
     print "Running test scripts"
     scripts = build_test_scripts('../Tests/Programs', '../bin/Release/Assembler.exe', 'tmp/tests', 'testfile_', 'tmp/testscript_index.rst')
     for script in scripts:
-        convert_rst(join('tmp/tests', script), join('tmp', script.replace('.rst', '.html')))
+        convert_rst(join('tmp/tests', script), join('tmp', script.replace('.rst', '.html')), 'rst-assembler')
         create_dox_wrapper(join('tmp/tests', script), join('tmp', script.replace('.rst', '.dox')))
     print "Creating error listing"
     build_error_list('../Resources/errors.txt', 'tmp/errorlist.rst')
     print "Building manual"
-    build_rst_dir('src', 'tmp')
+    build_rst_dir('src', 'tmp', 'rst-assembler')
     print "Running Doxygen"
     doxygen()
     print "Copying images"
@@ -87,7 +91,7 @@ def build_linker():
     # build
     print "Building DED"
     build_ded('../', 'tmp/ded.rst')
-    convert_rst('tmp/ded.rst', 'tmp/ded.html')
+    convert_rst('tmp/ded.rst', 'tmp/ded.html', 'rst-linker')
     create_dox_wrapper('tmp/ded.rst', 'tmp/ded.dox')
     #print "Running test scripts"
     #scripts = build_test_scripts('../Tests/Programs', '../bin/Release/Assembler.exe', 'tmp/tests', 'testfile_', 'tmp/testscript_index.rst')
@@ -97,7 +101,7 @@ def build_linker():
     #print "  Creating error listing"
     #build_error_list('../Resources/errors.txt', 'tmp/errorlist.rst')
     print "Building manual"
-    build_rst_dir('src', 'tmp')
+    build_rst_dir('src', 'tmp', 'rst-linker')
     print "Running Doxygen"
     doxygen()
     print "Copying images"
@@ -119,7 +123,7 @@ def build_simulator():
     # build
     print "Building DED"
     build_ded('../', 'tmp/ded.rst')
-    convert_rst('tmp/ded.rst', 'tmp/ded.html')
+    convert_rst('tmp/ded.rst', 'tmp/ded.html', 'rst-simulator')
     create_dox_wrapper('tmp/ded.rst', 'tmp/ded.dox')
     #print "Running test scripts"
     #scripts = build_test_scripts('../Tests/Programs', '../bin/Release/Assembler.exe', 'tmp/tests', 'testfile_', 'tmp/testscript_index.rst')
@@ -129,7 +133,7 @@ def build_simulator():
     #print "  Creating error listing"
     #build_error_list('../Resources/errors.txt', 'tmp/errorlist.rst')
     print "Building manual"
-    build_rst_dir('src', 'tmp')
+    build_rst_dir('src', 'tmp', 'rst-simulator')
     print "Running Doxygen"
     doxygen()
     print "Copying images"
@@ -169,17 +173,17 @@ def build_ded(directory, out_filename):
                 if fname.endswith('.csv'):
                     out.write(create_ded_rst(join(root, fname)))
 
-def build_rst_dir(directory, out_dir):
+def build_rst_dir(directory, out_dir, template):
     """Generate HTML for all RST files in the given directory. Additionally, create dox wrappers."""
     for root, dirs, files in os.walk(directory):
         for fname in files:
             if fname.endswith('.rst'):
-                convert_rst(join(root, fname), join(out_dir, fname.replace('.rst', '.html')))
+                convert_rst(join(root, fname), join(out_dir, fname.replace('.rst', '.html')), template)
                 create_dox_wrapper(join(root, fname), join(out_dir, fname.replace('.rst', '.dox')))
 
-def convert_rst(rst_file, out_file):
+def convert_rst(rst_file, out_file, template):
     """Use ReST to convert the given file into HTML."""
-    publish_file(source_path=rst_file, destination_path=out_file, writer=html4css1.Writer(), settings_overrides={'template': join(global_cwd, 'template/rst.html')})
+    publish_file(source_path=rst_file, destination_path=out_file, writer=html4css1.Writer(), settings_overrides={'template': join(global_cwd, 'template/' + template + '.html')})
 
 def create_dox_wrapper(rst_file, out_file):
     """Create a doxygen wrapper file to embed the given file into."""

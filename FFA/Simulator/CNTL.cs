@@ -12,6 +12,21 @@ namespace Simulator
             // Possibly logging?
         }
 
+        /**
+         * Halts the program with a user specified halt code. This code must be in the range
+         * 0 to 1023.
+         *
+         * @param code Code to displayed to screen as the halt code for the running program.
+         *
+         * @refcode OP0.0
+         * @errtest 
+         * @errmsg
+         * @author Andrew Buelow
+         * @creation May 18, 2011
+         * @modlog 
+         * @teststandard Andrew Buelow
+         * @codestandard Mark Mathis
+         */
         public static void Halt(int code)
         {
             // TODO Throw error if out of range
@@ -19,6 +34,22 @@ namespace Simulator
             System.Environment.Exit(code);
         }
 
+        /**
+         * Dumps memory or stack contents based on flag given. 1 will print the contents of
+         * the data and test stack. 2 will print the contents of memory. 3 will print both
+         * the contents of the stacks and memory.
+         *
+         * @param flag Determines what information to dump.
+         *
+         * @refcode OP0.1
+         * @errtest 
+         * @errmsg
+         * @author Andrew Buelow
+         * @creation May 18, 2011
+         * @modlog 
+         * @teststandard Andrew Buelow
+         * @codestandard Mark Mathis
+         */
         public static void Dump(short flag)
         {
             // User should only provide a 1, 2 or 3 as a dump flag
@@ -45,16 +76,55 @@ namespace Simulator
 
         }
 
+        /**
+         * Clears the contents of the data stack.
+         *
+         * @refcode OP0.2
+         * @errtest 
+         * @errmsg
+         * @author Andrew Buelow
+         * @creation May 18, 2011
+         * @modlog 
+         * @teststandard Andrew Buelow
+         * @codestandard Mark Mathis
+         */
         public static void Clrd()
         {
             Memory.GetInstance().ClearData();
         }
 
+        /**
+         * Clears the contents of the test stack.
+         *
+         * @refcode OP0.3
+         * @errtest 
+         * @errmsg
+         * @author Andrew Buelow
+         * @creation May 18, 2011
+         * @modlog 
+         * @teststandard Andrew Buelow
+         * @codestandard Mark Mathis
+         */
         public static void Clrt()
         {
             Memory.GetInstance().ClearTest();
         }
 
+        /**
+         * Sets the location counter to the address provided in the instruction.
+         *
+         * @param addr The address being jumped to.
+         * @param LC Reference to the location counter to be changed to the address.
+         *
+         * @refcode OP0.4
+         * @errtest 
+         * @errmsg
+         * @author Andrew Buelow
+         * @creation May 18, 2011
+         * @modlog 
+         * @teststandard Andrew Buelow
+         * @codestandard Mark Mathis
+         */
         public static void Goto(ref String addr, out String LC)
         {
             // convert memory address to int for comparison
@@ -71,6 +141,20 @@ namespace Simulator
             }
         }
 
+        /**
+         * Private procedure used by dump to output the contents of the stacks. This procedure
+         * gets the stacks as arrays and outputs the items using spaces as padding for
+         * better formatting.
+         *
+         * @refcode OP0.1
+         * @errtest 
+         * @errmsg
+         * @author Andrew Buelow
+         * @creation May 18, 2011
+         * @modlog 
+         * @teststandard Andrew Buelow
+         * @codestandard Mark Mathis
+         */
         private static void dumpStack()
         {
             // Get both stacks as Arrays
@@ -131,6 +215,20 @@ namespace Simulator
             }
         }
 
+        /**
+         * Private procedure used by dump to output the contents of memory. The memory offset
+         * is displayed along the left and starts at 0, incrementing by 16 (decimal) for
+         * each row.
+         *
+         * @refcode OP0.1
+         * @errtest 
+         * @errmsg
+         * @author Andrew Buelow
+         * @creation May 18, 2011
+         * @modlog 
+         * @teststandard Andrew Buelow
+         * @codestandard Mark Mathis
+         */
         private static void dumpMem()
         {
             // Handles each row of memory

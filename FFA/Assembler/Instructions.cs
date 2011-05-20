@@ -55,18 +55,20 @@ namespace Assembler
          */
         private Instructions()
         {
-            Logger.Log("Creating instance of Instructions.", "Instructions");
             this.instructions = new Dictionary<string, Dictionary<string, string>>();
             
             // fill the instruction mapping with data from the file
             foreach (string line in Properties.Resources.instructions.Split('\n'))
             {
-                string[] parts = line.Split(' ');
-                if (!this.instructions.ContainsKey(parts[0].Trim()))
+                if (line.Trim().Length > 0)
                 {
-                    this.instructions[parts[0].Trim()] = new Dictionary<string, string>();
+                    string[] parts = line.Split(' ');
+                    if (!this.instructions.ContainsKey(parts[0].Trim()))
+                    {
+                        this.instructions[parts[0].Trim()] = new Dictionary<string, string>();
+                    }
+                    this.instructions[parts[0].Trim()][parts[1].Trim()] = parts[2].Trim();
                 }
-                this.instructions[parts[0].Trim()][parts[1].Trim()] = parts[2].Trim();
             }
         }
 
@@ -116,9 +118,6 @@ namespace Assembler
          */
         public bool IsInstruction(string instrGroup, string function)
         {
-            Logger.Log(String.Format("Check if {0} is valid function in {1} category.",
-                function, instrGroup), "Instructions");
-
             return this.instructions.ContainsKey(instrGroup.ToUpper())
                 && this.instructions[instrGroup.ToUpper()].ContainsKey(function.ToUpper());
         }
@@ -142,9 +141,6 @@ namespace Assembler
          */
         public bool IsGroup(string instrGroup)
         {
-            Logger.Log(String.Format("Check if {0} is valid instruction category", 
-                instrGroup), "Instructions");
-
             return this.instructions.ContainsKey(instrGroup.ToUpper());
         }
 
@@ -185,6 +181,42 @@ namespace Assembler
             
             return this.instructions[instrGroup][function];
         }
-        
+
+        /**
+         * The reverse of GetBytecodeString. Finds the matching category and
+         * function for the given bits.
+         *
+         * @param bits 5 bits to perform a reverse lookup for
+         * @param category Returned function category
+         * @param function Returned function
+         *
+         * @refcode OP
+         * @errtest
+         *  N/A
+         * @errmsg
+         *  None
+         * @author Jacob Peddicord
+         * @creation May 19, 2011
+         * @modlog
+         * @codestandard Mark Mathis
+         * @teststandard Andrew Buelow
+         */
+        public void ReverseLookup(string bits, out string category, out string function)
+        {
+            category = "";
+            function = "";
+            foreach (var cat in this.instructions)
+            {
+                foreach (var func in cat.Value)
+                {
+                    if (func.Value == bits)
+                    {
+                        category = cat.Key;
+                        function = func.Key;
+                        break;
+                    }
+                }
+            }
+        }
     }
 }

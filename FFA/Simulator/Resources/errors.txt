@@ -9,3 +9,5 @@ ES.07 Invalid memory location.
 ES.08 Wrong word size.
 ES.09 Garbage data found after program end.
 ES.10 Invalid flag for DUMP. Can only accept 1, 2 or 3.
+ES.11 Resulting data value is out of range for data stack.
+ES.12 Division by zero.
