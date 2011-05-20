@@ -55,18 +55,20 @@ namespace Assembler
          */
         private Instructions()
         {
-            Logger.Log("Creating instance of Instructions.", "Instructions");
             this.instructions = new Dictionary<string, Dictionary<string, string>>();
             
             // fill the instruction mapping with data from the file
             foreach (string line in Properties.Resources.instructions.Split('\n'))
             {
-                string[] parts = line.Split(' ');
-                if (!this.instructions.ContainsKey(parts[0].Trim()))
+                if (line.Trim().Length > 0)
                 {
-                    this.instructions[parts[0].Trim()] = new Dictionary<string, string>();
+                    string[] parts = line.Split(' ');
+                    if (!this.instructions.ContainsKey(parts[0].Trim()))
+                    {
+                        this.instructions[parts[0].Trim()] = new Dictionary<string, string>();
+                    }
+                    this.instructions[parts[0].Trim()][parts[1].Trim()] = parts[2].Trim();
                 }
-                this.instructions[parts[0].Trim()][parts[1].Trim()] = parts[2].Trim();
             }
         }
 
@@ -116,9 +118,6 @@ namespace Assembler
          */
         public bool IsInstruction(string instrGroup, string function)
         {
-            Logger.Log(String.Format("Check if {0} is valid function in {1} category.",
-                function, instrGroup), "Instructions");
-
             return this.instructions.ContainsKey(instrGroup.ToUpper())
                 && this.instructions[instrGroup.ToUpper()].ContainsKey(function.ToUpper());
         }
@@ -142,9 +141,6 @@ namespace Assembler
          */
         public bool IsGroup(string instrGroup)
         {
-            Logger.Log(String.Format("Check if {0} is valid instruction category", 
-                instrGroup), "Instructions");
-
             return this.instructions.ContainsKey(instrGroup.ToUpper());
         }
 
