@@ -48,7 +48,20 @@ namespace Simulator
             // look up the associated insruction
             instr.ReverseLookup(bin.Substring(0, 5), category, function);
 
-            
+            try
+            {
+                ProcessInstruction(category, function, bin);
+            }
+            catch (Assembler.ErrorException ex)
+            {
+                Console.WriteLine(String.Format("RUNTIME ERROR: {0}", ex));
+                // TODO: abort?
+            }
+        }
+
+        public void ProcessInstruction(string category, string function, string bin)
+        {
+
         }
     }
 }
