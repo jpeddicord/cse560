@@ -9,13 +9,19 @@ namespace Linker
     {
         static void Main(string[] args)
         {
-            string[] infiles;
+            string[] infiles = new string[1];
             if (args.Length > 0)
             {
                 infiles = args;
             }
 
             Console.WriteLine("herp");
+            Parser pars = new Parser();
+
+            foreach (var f in infiles)
+            {
+                pars.ParseFile(f);
+            }
             
         }
     }
