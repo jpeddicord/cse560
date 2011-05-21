@@ -9,27 +9,30 @@ namespace Simulator
     {
         public static void Run(string function, string bin)
         {
+            // TODO: LITERAL FLAG!
+            int addr = Convert.ToInt32(bin.Substring(6), 2);
             if (function == "PUSH")
             {
-                throw new NotImplementedException();
+                STACK.Push(addr);
             }
             else if (function == "POP")
             {
-                throw new NotImplementedException();
+                STACK.Pop(addr);
             }
             else if (function == "TEST")
             {
-                throw new NotImplementedException();
+                STACK.Test(addr);
             }
         }
 
-        public static void Push(string addr)
+// TODO: LITERAL FLAG
+        public static void Push(int addr)
         {
             // TODO Check that addr is in range.
             try
             {
                 Memory m = Memory.GetInstance();
-                m.DataPush(m.GetWord(Convert.ToInt32(addr, 16)));
+                m.DataPush(m.GetWord(addr));
             }
             catch (Exception)
             {
@@ -37,22 +40,24 @@ namespace Simulator
             }
         }
 
-        public static void Pop(string addr)
+// TODO: LITERAL FLAG
+        public static void Pop(int addr)
         {
             // TODO Check that addr is in range.
             int i = 0;
             try
             {
                 i = Memory.GetInstance().DataPop();
-                Memory.GetInstance().SetWord(Convert.ToInt32(addr, 16), i);
+                Memory.GetInstance().SetWord(addr, i);
             }
             catch (Exception)
             {
                 // TODO Add error handling (nothing on stack)
             }
         }
-
-        public static void Test(string addr)
+        
+// TODO: LITERAL FLAG
+        public static void Test(int addr)
         {
             Memory m = Memory.GetInstance();
             int i, d = 0, w;
@@ -66,7 +71,7 @@ namespace Simulator
                 // TODO Add error handling (nothing on stack)
             }
 
-            w = Assembler.BinaryHelper.ConvertNumber(m.GetWord(Convert.ToInt32(addr, 16)), 16);
+            w = Assembler.BinaryHelper.ConvertNumber(m.GetWord(addr), 16);
 
             i = d.CompareTo(w);
 
@@ -74,11 +79,11 @@ namespace Simulator
             {
                 if (i < 0)
                 {
-                    m.TestPush(1);
+                    m.TestPush(1); // FIXME: 3?
                 }
                 else if (i > 0)
                 {
-                    m.TestPush(2);
+                    m.TestPush(2); // FIXME: 4?
                 }
                 else
                 {
