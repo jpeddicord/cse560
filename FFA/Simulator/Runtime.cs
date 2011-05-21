@@ -2,16 +2,36 @@ using System;
 
 namespace Simulator
 {
+    /**
+     * Main program runtime.
+     */
     public class Runtime
     {
+        /**
+         * The singleton instance of this class
+         */
         private static Runtime inst = null;
 
+        /**
+         * The location counter
+         */
         private int lc = 0;
 
-        private Runtime()
-        {
-        }
-
+        /**
+         * Get the active Runtime instance.
+         *
+         * @return active instance
+         * @refcode N/A
+         * @errtest
+         *  N/A
+         * @errmsg
+         *  N/A
+         * @author Jacob Peddicord
+         * @creation May 18, 2011
+         * @modlog
+         * @teststandard Andrew Buelow
+         * @codestandard Mark Mathis
+         */
         public static Runtime GetInstance()
         {
             if (Runtime.inst == null)
@@ -21,6 +41,9 @@ namespace Simulator
             return Runtime.inst;
         }
 
+        /**
+         * Location counter public property.
+         */
         public int LC
         {
             get { return this.lc; }
@@ -30,6 +53,22 @@ namespace Simulator
             }
         }
 
+        /**
+         * Start running the program at the current LC. If an error is found,
+         * print out a runtime error, but continue if possible. Will run the
+         * program until it halts or a fatal condition is reached.
+         *
+         * @refcode N/A
+         * @errtest
+         *  N/A
+         * @errmsg
+         *  N/A
+         * @author Jacob Peddicord
+         * @creation May 19, 2011
+         * @modlog
+         * @teststandard Andrew Buelow
+         * @codestandard Mark Mathis
+         */
         public void Run()
         {
             // get the data at the current LC
@@ -72,6 +111,23 @@ namespace Simulator
             }
         }
 
+        /**
+         * Process a single instruction.
+         *
+         * @param category Category name
+         * @param function Function name
+         * @param bin 16-bit binary string on the instruction line
+         * @refcode S1-S4
+         * @errtest
+         *  N/A
+         * @errmsg
+         *  N/A
+         * @author Jacob Peddicord
+         * @creation May 20, 2011
+         * @modlog
+         * @teststandard Andrew Buelow
+         * @codestandard Mark Mathis
+         */
         public void ProcessInstruction(string category, string function, string bin)
         {
             if (category == "CNTL")

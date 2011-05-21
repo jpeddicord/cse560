@@ -1,0 +1,2 @@
+inst, Runtime, Runtime, static, the singleton instance of the Runtime class, Runtime instance pointer
+lc, Runtime, int, member, the location counter, 0-1023
