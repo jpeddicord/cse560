@@ -37,7 +37,7 @@ depending on the operating system you use.
 `````````````````````````
 
 You will need a program written in FFA to be compiled by this application. The language
-specification is given `here <language_spec.html>`_.  We also have a few example programs in our `testing plan <test_plan.html#sample-test-programs>`_. Your program
+specification is given `here <../language_spec.html>`_.  We also have a few example programs in our `testing plan <test_plan.html#sample-test-programs>`_. Your program
 should be written in an ASCII text file.
 
 Below is another example of a FFA program called Sample.txt::

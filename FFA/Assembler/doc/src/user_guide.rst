@@ -10,7 +10,7 @@ Thank for evaluating the test edition of the Final Four Accelerated Assembler. H
 Language Reference
 ==================
 
-For a description of the machine and language specification, please see the the `Language Specification <language_spec.html>`_ page.
+For a description of the machine and language specification, please see the the `Language Specification <../language_spec.html>`_ page.
 
 Requirements
 ============
@@ -39,7 +39,7 @@ The usage of the FFA Assembler is as follows::
 
 Output will be printed to the screen in this test edition.
 
-The format of the ``source`` file is documented in the FFA machine `language specifications <language_spec.html>`_. The format of the file is one instruction per line, and comments are accepted as defined in the language specification. Specific deviations from specification may have been made; for specifics, please see Limitations_.
+The format of the ``source`` file is documented in the FFA machine `language specifications <../language_spec.html>`_. The format of the file is one instruction per line, and comments are accepted as defined in the language specification. Specific deviations from specification may have been made; for specifics, please see Limitations_.
 
 Output
 ------
@@ -158,4 +158,4 @@ Mono has the following requirements[*]_:
 .. [*] Up to date requirements can be found on the `site for mono develop <http://mono-project.com/Main_Page>`_.
 
 
-Programs assembled and source input files are only limited by the capabilities of the host operating system. However, keep in mind requirements in the target machine specification and language, such as the limit of 1024 words per program (after linking). These limites can be found on the `machine description page <machine_description.html>`_.
+Programs assembled and source input files are only limited by the capabilities of the host operating system. However, keep in mind requirements in the target machine specification and language, such as the limit of 1024 words per program (after linking). These limites can be found on the `machine description page <../machine_description.html>`_.
