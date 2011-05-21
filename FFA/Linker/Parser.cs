@@ -21,6 +21,7 @@ namespace Linker
 
             int lineNum = 0;
             string rec;
+            Module mod = new Module();
             while ((rec = file.ReadLine()) != null)
             {
                 try
@@ -34,23 +35,23 @@ namespace Linker
                     // process different types of records
                     if (rec[0] == 'H')
                     {
-                        ParseHeader(rec);
+                        ParseHeader(rec, out mod);
                     }
                     else if (rec[0] == 'L')
                     {
-                        ParseLink(rec);
+                        ParseLink(rec, mod);
                     }
                     else if (rec[0] == 'T')
                     {
-                        ParseText(rec);
+                        ParseText(rec, mod);
                     }
                     else if (rec[0] == 'M')
                     {
-                        ParseModify(rec);
+                        ParseModify(rec, mod);
                     }
                     else if (rec[0] == 'E')
                     {
-                        ParseEnd(rec);
+                        ParseEnd(rec, mod);
                     }
                     // invalid record or garbage data
                     else
@@ -75,9 +76,10 @@ namespace Linker
             startAddress = address;
         }
 
-        public void ParseHeader(string rec)
+        public void ParseHeader(string rec, out Module mod)
         {
             string[] field = rec.Split(':');
+            Header head = new Header();
 
             // check that the header record contains the correct number of fields
             if (field.Length != 15)
@@ -106,6 +108,9 @@ namespace Linker
 
             }
 
+            // add program name to the linking header record
+            head.ProgramName = prgmName;
+
 
             // get the Assembler assigned program load address
             // see if it is properly formatted
@@ -127,12 +132,15 @@ namespace Linker
             {
                 // error, not valid hex
             }
-
+            
             // check that it is in the correct range
             if (assLoadVal < 0 || assLoadVal > 1023)
             {
                 // error, must be between 0 and 1023
             }
+
+            // add assembler load address to linking header record
+            head.AssemblerLoadAddress = assLoadVal;
 
 
             // get the module length
@@ -161,6 +169,9 @@ namespace Linker
                 // error, must be between 0 and 1024
             }
 
+            // add module length to linking header record
+            head.ModuleLength = modLenVal;
+
 
             // get the execution start address
             string execAdd = field[4].ToUpper();
@@ -188,6 +199,8 @@ namespace Linker
                 // error, must be between 0 and 1023
             }
 
+            // add execution start address to linking header record
+            head.ExecutionStartAddress = execAddVal;
 
             // get date and time of assembly
             string dateAndTime = String.Format("{0}:{1}:{2}", field[5], field[6], field[7]);
@@ -229,6 +242,9 @@ namespace Linker
                 // error, not valid hex
             }
 
+            // add the total number of records to the linker header record
+            head.TotalRecords = totalRecVal;
+
 
             // get the number of linking records in the object file
             string linkRec = field[10].ToUpper();
@@ -249,6 +265,9 @@ namespace Linker
             {
                 // error, not valid hex
             }
+
+            // add the total number of linking records to the linker header record
+            head.TotalLinkingRecords = linkRecVal;
 
 
             // get the number of text records in the object file
@@ -277,6 +296,9 @@ namespace Linker
                 // error, can only have 0 to module length text records
             }
 
+            // add the total number of text records to the linker header record
+            head.TotalTextRecords = textRecVal;
+
 
             // get the number of modify records in the object file
             string modRec = field[12].ToUpper();
@@ -298,6 +320,9 @@ namespace Linker
                 // error, not valid hex
             }
 
+            // add the total number of modify records to the linker header record
+            head.TotalModifyRecords = modRecVal;
+
             
             // check that the assembler name is correct
             if (field[13].ToUpper() != "FFA-ASM")
@@ -313,21 +338,24 @@ namespace Linker
                 // error, program names do not match
             }
 
-            // add program to the symbol table
-            // is this the first file we've looked at?
-            if (fileNum < 1)
+            if (fileNum == 0)
             {
+                head.LinkerLoadAddress = assLoadVal;
                 address = assLoadVal + modLenVal;
             }
             else
             {
-
+                head.LinkerLoadAddress = address;
+                address += modLenVal;
             }
+
+            mod = new Module(head);
         }
 
-        public void ParseLink(string rec)
+        public void ParseLink(string rec, Module mod)
         {
             string[] field = rec.Split(':');
+            Linking linkRecord = new Linking();
 
             // check if record has the correct number of fields
             if (field.Length != 4)
@@ -356,21 +384,24 @@ namespace Linker
 
             }
 
+            // add entry name to linker linking record
+            linkRecord.EntryName = entry;
+
 
             // get the location within the program
-            string pgmLoc = field[2].ToUpper();
+            string prgmLoc = field[2].ToUpper();
 
             // check length, should be 4 digit hex number
-            if (pgmLoc.Length != 4)
+            if (prgmLoc.Length != 4)
             {
                 // error, wrong length
             }
 
             //check that it is valid hex
-            int pgmLocVal = 0;
+            int prgmLocVal = 0;
             try
             {
-                pgmLocVal = Convert.ToInt32(pgmLoc, 16);
+                prgmLocVal = Convert.ToInt32(prgmLoc, 16);
             }
             catch (FormatException ex)
             {
@@ -378,10 +409,13 @@ namespace Linker
             }
 
             // check that it is in the correct range
-            if (pgmLocVal < 0 || pgmLocVal > 1023)
+            if (prgmLocVal < 0 || prgmLocVal > 1023)
             {
                 // error, must be between 0 and 1023
             }
+
+            // add location to linking header record
+            linkRecord.Location = prgmLocVal;
 
 
             // make sure the program name is properly formatted
@@ -403,13 +437,20 @@ namespace Linker
             }
 
             // check that program name is in symbol table
+            if (mod.ModuleName != pgmName)
+            {
+                // error, program name at end of linking record must match program name
+                // of program being parsed
+            }
 
             // add entry to symbol table
+            mod.AddRecord(linkRecord);
         }
 
-        public void ParseText(string rec)
+        public void ParseText(string rec, Module mod)
         {
             string[] field = rec.Split(':');
+            Text textRecord = new Text();
 
             // check that the record has the correct number of fields
             if (field.Length != 6)
@@ -443,6 +484,10 @@ namespace Linker
                 // error, must be between 0 and 1023
             }
 
+            // add program location to the linker text record
+            textRecord.Location = progLocVal;
+
+
             // check the hex code of the instruction
             string hexCode = field[2].ToUpper();
 
@@ -463,6 +508,8 @@ namespace Linker
                 // error, not valid hex
             }
 
+            // add hex code of instruction to linker text record
+            textRecord.Word = hexCodeVal;
 
             // check address status flag
             string addStatus = field[3].ToUpper();
@@ -478,6 +525,9 @@ namespace Linker
             {
                 // error, invalid value for status flag
             }
+
+            // add status flag to linker text record
+            textRecord.Flag = addStatus[0];
 
 
             // check number of M adjustments needed
@@ -501,17 +551,29 @@ namespace Linker
             }
             // if it's valid then it should be in the correct range
             // since one hex digit can only be 0-15
+            
+            // add number of adjustments to the linker text record
+            textRecord.Adjustments = mAdjVal;
 
 
             // check the program name
             string prgmName = field[5].ToUpper();
 
             // check that the program name is in the symbol table
+            if (mod.ModuleName != prgmName)
+            {
+                // error, program name at end of text record must match
+                // program name of program being parsed
+            }
+
+            
+            mod.AddRecord(textRecord);
         }
 
-        public void ParseModify(string rec)
+        public void ParseModify(string rec, Module mod)
         {
             string[] field = rec.Split(':');
+            Modify modRecord = new Modify();
 
             // check the location
             string loc = field[1];
@@ -539,6 +601,10 @@ namespace Linker
                 // error, location invalid
             }
             
+            // add  location to the linker modification record
+            modRecord.Location = locVal;
+
+            
             // check the hex code of the word
             string hex = field[2];
 
@@ -558,6 +624,10 @@ namespace Linker
             {
                 // error, not valid hex
             }
+
+            // add the hex code of the word to be modified to the linker modification record
+            modRecord.Word = hexVal;
+
 
             /* Regular expression used to determine if all characters in the token are
              * letters or numbers. */
@@ -585,6 +655,9 @@ namespace Linker
 
                 }
 
+                // add adjustments to the linker modification record
+                modRecord.AddAdjustments(sign, label);
+
                 // get next sign
                 sign = field[i++];
             }
@@ -609,9 +682,18 @@ namespace Linker
             // check if the label is in the symbol table
             // if it is, it's probably not an error
             // if it isn't, it could be an error: say something about it
+            if (mod.ModuleName != sign)
+            {
+                // error, program name at the end of modification record must match
+                // program name of program being parsed
+            }
+
+
+            // add modification record to module
+            mod.AddRecord(modRecord);
         }
 
-        public void ParseEnd(string rec)
+        public void ParseEnd(string rec, Module mod)
         {
             string[] field = rec.Split(':');
 

@@ -16,6 +16,9 @@ namespace Linker
         public int ModuleLength
         { get; set; }
 
+        public int LinkerLoadAddress
+        { get; set; }
+
         public int ExecutionStartAddress
         { get; set; }
 
