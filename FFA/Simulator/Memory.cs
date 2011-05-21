@@ -3,18 +3,46 @@ using System.Collections.Generic;
 
 namespace Simulator
 {
+    /**
+     * Memory representation.
+     */
     public class Memory
     {
+        /**
+         * The singleton Memory instance.
+         */
         private static Memory inst = null;
 
+        /**
+         * Main memory storage.
+         */
         private int[] storage = new int[1024];
 
+        /**
+         * The data stack.
+         */
         private Stack<int> dataStack = new Stack<int>();
 
+        /**
+         * The test stack.
+         */
         private Stack<int> testStack = new Stack<int>();
 
         /**
+         * Create a new instance of memory and fill each location with its
+         * address. Since addresses are below 1024, each filled word will
+         * always be a CNTL HALT, with the exit code being the address.
          *
+         * @refcode H2
+         * @errtest
+         *  N/A
+         * @errmsg
+         *  N/A
+         * @author Jacob Peddicord
+         * @creation May 19, 2011
+         * @modlog
+         * @teststandard Andrew Buelow
+         * @codestandard Mark Mathis
          */
         private Memory()
         {
@@ -25,6 +53,21 @@ namespace Simulator
             }
         }
 
+        /**
+         * Get the single Memory instance.
+         *
+         * @return active Memory instance
+         * @refcode N/A
+         * @errtest
+         *  N/A
+         * @errmsg
+         *  N/A
+         * @author Jacob Peddicord
+         * @creation May 19, 2011
+         * @modlog
+         * @teststandard Andrew Buelow
+         * @codestandard Mark Mathis
+         */
         public static Memory GetInstance()
         {
             if (Memory.inst == null)
@@ -34,6 +77,22 @@ namespace Simulator
             return Memory.inst;
         }
 
+        /**
+         * Get a word of memory at the given address.
+         *
+         * @param address location to retrieve memory for
+         * @return 16-bit integer of memory stored at that location
+         * @refcode H2
+         * @errtest
+         *  N/A
+         * @errmsg
+         *  N/A
+         * @author Jacob Peddicord
+         * @creation May 19, 2011
+         * @modlog
+         * @teststandard Andrew Buelow
+         * @codestandard Mark Mathis
+         */
         public int GetWord(int address)
         {
             return this.storage[address];
@@ -41,17 +100,67 @@ namespace Simulator
 
         /**
          * Like GetWord, but converts from 16-bit 2's complement first.
+         *
+         * @param address location to retrieve memory for
+         * @return 2's complement representation of memory
+         * @refcode H2
+         * @errtest
+         *  N/A
+         * @errmsg
+         *  N/A
+         * @author Jacob Peddicord
+         * @creation May 19, 2011
+         * @modlog
+         * @teststandard Andrew Buelow
+         * @codestandard Mark Mathis
          */
         public int GetWordInt(int address)
         {
             return Assembler.BinaryHelper.ConvertNumber(this.storage[address], 16);
         }
 
+        /**
+         * Set a word of memory at a given address.
+         *
+         * @param address location to retrieve memory for
+         * @param val value to set the word to
+         * @refcode H2
+         * @errtest
+         *  N/A
+         * @errmsg
+         *  N/A
+         * @author Jacob Peddicord
+         * @creation May 19, 2011
+         * @modlog
+         * @teststandard Andrew Buelow
+         * @codestandard Mark Mathis
+         */
         public void SetWord(int address, int val)
         {
+            if (val > 65535)
+            {
+                throw new OverflowException();
+            }
             this.storage[address] = val;
         }
 
+        /**
+         * Like SetWord, but converts to 16-bit 2's complement representation
+         * first before storing into memory.
+         *
+         * @param address location to retrieve memory for
+         * @param val integer value to convert and set the word to
+         * @refcode H2
+         * @errtest
+         *  N/A
+         * @errmsg
+         *  N/A
+         * @author Jacob Peddicord
+         * @creation May 19, 2011
+         * @modlog
+         * @teststandard Andrew Buelow
+         * @codestandard Mark Mathis
+         */
         public void SetWordInt(int address, int val)
         {
             // if negative, convert to the appropriate 2's complement representation
@@ -62,6 +171,21 @@ namespace Simulator
             this.storage[address] = val;
         }
 
+        /**
+         * Push a single element onto the data stack.
+         *
+         * @param data Element to push onto the stack
+         * @refcode H3.1
+         * @errtest
+         *  N/A
+         * @errmsg
+         *  N/A
+         * @author Jacob Peddicord
+         * @creation May 19, 2011
+         * @modlog
+         * @teststandard Andrew Buelow
+         * @codestandard Mark Mathis
+         */
         public void DataPush(int data)
         {
             if (this.dataStack.Count == 256)
@@ -71,22 +195,81 @@ namespace Simulator
             this.dataStack.Push(data);
         }
 
+        /**
+         * Pop a single item off of the data stack.
+         *
+         * @return the popped element
+         * @refcode H3.1
+         * @errtest
+         *  N/A
+         * @errmsg
+         *  N/A
+         * @author Jacob Peddicord
+         * @creation May 19, 2011
+         * @modlog
+         * @teststandard Andrew Buelow
+         * @codestandard Mark Mathis
+         */
         public int DataPop()
         {
             return this.dataStack.Pop();
         }
 
+        /**
+         * Get the size of the data stack.
+         *
+         * @return size of the data stack
+         * @refcode H3.1
+         * @errtest
+         *  N/A
+         * @errmsg
+         *  N/A
+         * @author Jacob Peddicord
+         * @creation May 19, 2011
+         * @modlog
+         * @teststandard Andrew Buelow
+         * @codestandard Mark Mathis
+         */
         public int DataSize()
         {
             return this.dataStack.Count;
         }
 
+        /**
+         * Clear the data stack.
+         *
+         * @refcode H3.1
+         * @errtest
+         *  N/A
+         * @errmsg
+         *  N/A
+         * @author Jacob Peddicord
+         * @creation May 19, 2011
+         * @modlog
+         * @teststandard Andrew Buelow
+         * @codestandard Mark Mathis
+         */
         public void ClearData()
         {
             this.dataStack.Clear();
         }
 
-        public void TestPush(short data)
+        /**
+         * Push an element onto the test stack.
+         *
+         * @param data integer to push onto the stack
+         * @refcode H3.2
+         * @errtest
+         *  N/A
+         * @errmsg
+         *  N/A
+         * @author Jacob Peddicord
+         * @creation May 19, 2011
+         * @modlog
+         * @teststandard Andrew Buelow
+         * @codestandard Mark Mathis
+         */
+        public void TestPush(int data)
         {
             if (this.testStack.Count == 5)
             {
@@ -95,26 +278,100 @@ namespace Simulator
             this.testStack.Push(data);
         }
 
+        /**
+         * Pop an item off of the test stack.
+         *
+         * @return popped item
+         * @refcode H3.2
+         * @errtest
+         *  N/A
+         * @errmsg
+         *  N/A
+         * @author Jacob Peddicord
+         * @creation May 19, 2011
+         * @modlog
+         * @teststandard Andrew Buelow
+         * @codestandard Mark Mathis
+         */
         public int TestPop()
         {
             return this.testStack.Pop();
         }
 
+        /**
+         * Get the size of the test stack.
+         *
+         * @return the size of the test stack
+         * @refcode H3.2
+         * @errtest
+         *  N/A
+         * @errmsg
+         *  N/A
+         * @author Jacob Peddicord
+         * @creation May 19, 2011
+         * @modlog
+         * @teststandard Andrew Buelow
+         * @codestandard Mark Mathis
+         */
         public int TestSize()
         {
             return this.testStack.Count;
         }
 
+        /**
+         * Clear the test stack.
+         *
+         * @refcode H3.2
+         * @errtest
+         *  N/A
+         * @errmsg
+         *  N/A
+         * @author Jacob Peddicord
+         * @creation May 19, 2011
+         * @modlog
+         * @teststandard Andrew Buelow
+         * @codestandard Mark Mathis
+         */
         public void ClearTest()
         {
             this.testStack.Clear();
         }
 
+        /**
+         * Get the data stack as an array.
+         *
+         * @return data stack represented as an array
+         * @refcode H3.1
+         * @errtest
+         *  N/A
+         * @errmsg
+         *  N/A
+         * @author Andrew Buelow
+         * @creation May 19, 2011
+         * @modlog
+         * @teststandard Andrew Buelow
+         * @codestandard Mark Mathis
+         */
         public int[] GetDataStack()
         {
             return this.dataStack.ToArray();
         }
 
+        /**
+         * Get the test stack as an array.
+         *
+         * @return test stack represented as an array
+         * @refcode H3.2
+         * @errtest
+         *  N/A
+         * @errmsg
+         *  N/A
+         * @author Andrew Buelow
+         * @creation May 19, 2011
+         * @modlog
+         * @teststandard Andrew Buelow
+         * @codestandard Mark Mathis
+         */
         public int[] GetTestStack()
         {
             return this.testStack.ToArray();

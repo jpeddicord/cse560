@@ -1,0 +1,5 @@
+programName, Parser, string, member, the stored program name, valid program name
+loadAddress, Parser, int, member, the loading address, 0-1023
+executionStart, Parser, int, member, the start of execution, 0-1023
+totalLength, Parser, int, member, the total length of the program, 0-1023
+totalRecords, Parser, int, member, the total number of records in the loader file, 0-1023

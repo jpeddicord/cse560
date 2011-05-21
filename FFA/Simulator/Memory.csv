@@ -1,0 +1,4 @@
+inst, Memory, Memory, static, the singleton instance of Memory, Memory instance pointer
+storage, Memory, int[], member, main memory storage, valid array of 16-bit integers
+dataStack, Memory, Stack<int>, member, the data stack, containing valid 16-bit words
+testStack, Memory, Stack<int>, member, the test stack, containing valid integers from 0-5

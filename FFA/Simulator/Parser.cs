@@ -4,26 +4,62 @@ using ErrCat = Assembler.Errors.Category;
 
 namespace Simulator
 {
+    /**
+     * The loader file parser. Reads the data into simulated memory.
+     */
     public class Parser
     {
+        /**
+         * The stored program name.
+         */
         private string programName = "";
-        private string loadAddress = "";
-        private string executionStart = "";
+
+        /**
+         * The loading address.
+         */
+        private int loadAddress = "";
+
+        /**
+         * The start of execution.
+         */
+        private int executionStart = "";
+
+        /**
+         * The total length of the program.
+         */
         private int totalLength = 0;
+
+        /**
+         * The total number of records in the loader file.
+         */
         private int totalRecords = 0;
 
-        public Parser()
-        {
-
-        }
-
-        public void ParseFile(string filename)
+        /**
+         * Parse the given file, and load its contents into memory. If any
+         * errors are found in the file, they will be displayed, but unless
+         * they are fatal parsing will continue.
+         *
+         * @param filename The filename to parse and load
+         * @return true if successful, false otherwise
+         * @refcode N/A
+         * @errtest
+         *  N/A
+         * @errmsg
+         *  N/A
+         * @author Jacob Peddicord
+         * @creation May 20, 2011
+         * @modlog
+         * @teststandard Andrew Buelow
+         * @codestandard Mark Mathis
+         */
+        public bool ParseFile(string filename)
         {
             var file = new StreamReader(filename);
 
             string line;
             int lineNum = 1;
             bool reachedEnd = false;
+            bool success = true;
             while ((line = file.ReadLine()) != null)
             {
                 try
@@ -69,6 +105,7 @@ namespace Simulator
                     if (ex.err.category == ErrCat.Fatal)
                     {
                         Console.WriteLine("Aborting due to fatal errors.");
+                        success = false;
                         break;
                     }
                 }
@@ -77,8 +114,25 @@ namespace Simulator
             }
 
             file.Close();
+
+            return success;
         }
 
+        /**
+         * Parse a header record line. Will set local members as appropriate.
+         *
+         * @param parts The line to parse, split by colon
+         * @refcode LM1
+         * @errtest
+         *  N/A
+         * @errmsg
+         *  N/A
+         * @author Jacob Peddicord
+         * @creation May 20, 2011
+         * @modlog
+         * @teststandard Andrew Buelow
+         * @codestandard Mark Mathis
+         */
         public void ParseHeader(string[] parts)
         {
             if (parts.Length != 13)
@@ -91,6 +145,21 @@ namespace Simulator
             }
         }
 
+        /**
+         * Parse a text record and load its contents into the relevant address.
+         *
+         * @param parts The line to parse, split by colon
+         * @refcode LM2
+         * @errtest
+         *  N/A
+         * @errmsg
+         *  N/A
+         * @author Jacob Peddicord
+         * @creation May 20, 2011
+         * @modlog
+         * @teststandard Andrew Buelow
+         * @codestandard Mark Mathis
+         */
         public void ParseText(string[] parts)
         {
             // check the overall record length
@@ -120,6 +189,21 @@ namespace Simulator
                         Convert.ToInt32(parts[2], 16));
         }
 
+        /**
+         * Parse the end record.
+         *
+         * @param parts The line to parse, split by colon
+         * @refcode LM3
+         * @errtest
+         *  N/A
+         * @errmsg
+         *  N/A
+         * @author Jacob Peddicord
+         * @creation May 20, 2011
+         * @modlog
+         * @teststandard Andrew Buelow
+         * @codestandard Mark Mathis
+         */
         public void ParseEnd(string[] parts)
         {
             if (parts.Length != 2)
