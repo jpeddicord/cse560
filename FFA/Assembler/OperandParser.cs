@@ -275,7 +275,7 @@ namespace Assembler
                         // single character
                         else if (str.Length == 1) {
                             str = Convert.ToString((short) str[0], 2).PadLeft(8, '0');
-                            outOper = Convert.ToString(Convert.ToInt32(str, 2), 16);
+                            outOper = Convert.ToString(Convert.ToInt32(str, 2), 16).PadRight(4, '0');
                         }
                         // anything else is invalid
                         else
