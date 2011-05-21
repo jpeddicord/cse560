@@ -4,15 +4,15 @@
 
 Welcome to the documentation for the Final Four Accelerated Simulator. You can browse the developer documentation by selecting Modules above, or browse through any of the following sections:
 
-- ref user_guide
- - ref how_to
+- \ref user_guide
+ - \ref how_to
  - <a class="el" href="../machine_description.html">Machine Description</a>
  - <a class="el" href="../language_spec.html">Language Specification</a>
 - <a class="el" href="annotated.html">Developer's Guide</a>
  - <a class="el" href="annotated.html">Modules</a>
  - \ref test_plan
  - \ref ded
- - ref errata
+ - \ref errata
 
 This project was developed by:
 - Andrew Buelow - Testing Lead

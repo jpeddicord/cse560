@@ -4,15 +4,15 @@
 
 Welcome to the documentation for the Final Four Accelerated Linker. You can browse the developer documentation by selecting Modules above, or browse through any of the following sections:
 
-- ref user_guide
- - ref how_to
- - ref language_spec
- - ref object_file
+- \ref user_guide
+ - \ref how_to
+ - <a class="el" href="../assembler/object_file.html">Input Object File Format</a> (from Assembler)
+ - \ref loader_file
 - <a class="el" href="annotated.html">Developer's Guide</a>
  - <a class="el" href="annotated.html">Modules</a>
- - ref test_plan
- - ref ded
- - ref errata
+ - \ref test_plan
+ - \ref ded
+ - \ref errata
 
 This project was developed by:
 - Andrew Buelow - Testing Lead
