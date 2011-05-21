@@ -10,8 +10,13 @@ namespace Linker
 {
     class Parser
     {
+        private int fileNum;
+        private int address;
+
         public void ParseFile(string filename, int fileNum, ref int startAddress)
         {
+            this.fileNum = fileNum;
+            this.address = startAddress;
             var file = new StreamReader(filename);
 
             int lineNum = 0;
@@ -67,6 +72,7 @@ namespace Linker
 
                 lineNum++;
             }
+            startAddress = address;
         }
 
         public void ParseHeader(string rec)
@@ -308,6 +314,15 @@ namespace Linker
             }
 
             // add program to the symbol table
+            // is this the first file we've looked at?
+            if (fileNum < 1)
+            {
+                address = assLoadVal + modLenVal;
+            }
+            else
+            {
+
+            }
         }
 
         public void ParseLink(string rec)
