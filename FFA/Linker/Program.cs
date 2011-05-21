@@ -9,6 +9,8 @@ namespace Linker
     {
         static void Main(string[] args)
         {
+            // XXX: Assembler.Errors.SetResource(Properties.Resources.errors);
+
             string[] infiles = new string[1];
             if (args.Length > 0)
             {

@@ -95,6 +95,8 @@ namespace Assembler
          */
         private Dictionary<Errors.Category, Dictionary<int, Error>> errorList;
 
+        private static string errorRes = "";
+
         /**
          * Creates an object that can be used to look up errors. These errors
          * will be read in from a resource file.
@@ -120,7 +122,7 @@ namespace Assembler
             errorList[Category.Serious] = new Dictionary<int, Error>();
             errorList[Category.Warning] = new Dictionary<int, Error>();
 
-            foreach (string line in Properties.Resources.errors.Split('\n'))
+            foreach (string line in Errors.errorRes.Split('\n'))
             {
                 if (line.Trim().Length == 0)
                 {
@@ -181,6 +183,27 @@ namespace Assembler
             }
 
             Logger.Log("Finished reading error messages.", "Errors");
+        }
+
+        /**
+         * Set the error string resource to load from.
+         *
+         * @return the instance of this class
+         * 
+         * @refcode N/A
+         * @errtest
+         *  N/A
+         * @errmsg
+         *  N/A
+         * @author Jacob Peddicord
+         * @creation May 20, 2011
+         * @modlog
+         * @codestandard Mark Mathis
+         * @teststandard Andrew Buelow
+         */
+        public static void SetResource(string errs)
+        {
+            Errors.errorRes = errs;
         }
 
         /**

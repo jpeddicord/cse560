@@ -17,12 +17,12 @@ namespace Simulator
         /**
          * The loading address.
          */
-        private int loadAddress = "";
+        private int loadAddress = 0;
 
         /**
          * The start of execution.
          */
-        private int executionStart = "";
+        private int executionStart = 0;
 
         /**
          * The total length of the program.

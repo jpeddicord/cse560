@@ -9,6 +9,9 @@ namespace Simulator
     {
         static void Main(string[] args)
         {
+            Assembler.Errors.SetResource(Properties.Resources.errors);
+
+            
         }
     }
 }

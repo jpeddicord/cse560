@@ -67,6 +67,8 @@ namespace Assembler
                 System.Environment.Exit(1);
             }
 
+            Errors.SetResource(Properties.Resources.errors);
+
             // pass 1
             Logger.Log("Starting up", "Main");
             SymbolTable symb = new SymbolTable();
