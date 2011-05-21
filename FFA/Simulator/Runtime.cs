@@ -79,7 +79,7 @@ namespace Simulator
             while (true)
             {
                 // get the binary string of this word
-                string bin = Convert.ToString(mem.GetWord(this.lc), 2);
+                string bin = Convert.ToString(mem.GetWord(this.lc), 2).PadLeft(16, '0');
     
                 // look up the associated insruction
                 instr.ReverseLookup(bin.Substring(0, 5), out category, out function);
@@ -89,6 +89,7 @@ namespace Simulator
                 try
                 {
                     ProcessInstruction(category, function, bin);
+                    PrintDebug();
                 }
                 catch (Assembler.ErrorException ex)
                 {
@@ -98,7 +99,7 @@ namespace Simulator
 #if !DEBUG
                 catch (Exception)
                 {
-                    Console.WriteLine("An internal software error has occurred.");
+                    Console.WriteLine("Unknown runtime error on LC " + this.lc);
                 }
 #endif
 
@@ -150,6 +151,32 @@ namespace Simulator
             {
                 //MOPER.Run(function, bin);
             }
+        }
+
+        public void PrintDebug()
+        {
+            var mem = Memory.GetInstance();
+            var instr = Assembler.Instructions.GetInstance();
+            string bin = Convert.ToString(mem.GetWord(this.lc), 2).PadLeft(16, '0');
+            string category, function;
+            instr.ReverseLookup(bin.Substring(0, 5), out category, out function);
+
+            Console.WriteLine("---------- DEBUG ----------");
+            Console.WriteLine(" LC = {0,4}  MEM = {1}  Op-code = {2}  Function = {3}  S = {4}",
+                    this.lc,
+                    bin,
+                    bin.Substring(0, 2),
+                    bin.Substring(2, 3),
+                    bin.Substring(6));
+            Console.WriteLine(" Category: {0,8}  Function: {1}",
+                    category, function);
+            Console.WriteLine(" S = {0}  M(S) = {1}",
+                    Convert.ToInt32(bin.Substring(6), 2),
+                    mem.GetWord(Convert.ToInt32(bin.Substring(6), 2)));
+            Console.WriteLine(" Top of data stack = {0}",
+                    (mem.DataSize() > 0 ? Convert.ToString(mem.GetDataStack()[0]) : "empty"));
+            Console.WriteLine(" Top of test stack = {0}",
+                    (mem.TestSize() > 0 ? Convert.ToString(mem.GetTestStack()[0]) : "empty"));
         }
     }
 }

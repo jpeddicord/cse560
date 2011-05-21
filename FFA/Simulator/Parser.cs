@@ -78,7 +78,16 @@ namespace Simulator
                         // header record found
                         if (parts[0] == "H")
                         {
-                            ParseHeader(parts);
+                            // any errors in the header record can cause the rest of the parsing to fail
+                            try
+                            {
+                                ParseHeader(parts);
+                            }
+                            catch (Assembler.ErrorException ex)
+                            {
+                                Console.WriteLine(String.Format("Header parse error:\n    {0}", ex));
+                                throw new Assembler.ErrorException(ErrCat.Fatal, 2);
+                            }
                         }
                         // text record found
                         else if (parts[0] == "T")
@@ -203,6 +212,7 @@ namespace Simulator
             try
             {
                 this.executionStart = Convert.ToInt32(parts[3], 16);
+                Runtime.GetInstance().LC = this.executionStart;
             }
             catch (Exception)
             {
