@@ -13,35 +13,35 @@ namespace Simulator
         {
             if (function == "=")
             {
-
+                throw new NotImplementedException();
             }
             else if (function == "^=")
             {
-
+                throw new Assembler.ErrorException(Assembler.Errors.Category.Serious, 22);
             }
             else if (function == "<")
             {
-
+                throw new NotImplementedException();
             }
             else if (function == ">")
             {
-
+                throw new NotImplementedException();
             }
             else if (function == "<=")
             {
-
+                throw new Assembler.ErrorException(Assembler.Errors.Category.Serious, 22);
             }
             else if (function == ">=")
             {
-
+                throw new Assembler.ErrorException(Assembler.Errors.Category.Serious, 22);
             }
             else if (function == "TNULL")
             {
-
+                throw new NotImplementedException();
             }
             else if (function == "DNULL")
             {
-
+                throw new NotImplementedException();
             }
         }
 

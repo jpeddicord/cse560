@@ -21,3 +21,4 @@ ES.18 Invalid date format in header record.
 ES.19 Invalid total number of records specified in header record.
 ES.20 Text record count must match total length field in header record.
 ES.21 FFA-LLM field missing or incorrect in header.
+ES.22 JUMP ^=, >=, and <= are not supported.

@@ -48,7 +48,7 @@ namespace Simulator
         {
             get { return this.lc; }
             set
-            { // TODO: error check
+            {
                 this.lc = value;
             }
         }
@@ -90,6 +90,13 @@ namespace Simulator
                 {
                     ProcessInstruction(category, function, bin);
                     PrintDebug();
+
+                    // if the location counter wasn't changed by an instruction,
+                    // increment it.
+                    if (this.lc == prevLC)
+                    {
+                        this.lc++;
+                    }
                 }
                 catch (Assembler.ErrorException ex)
                 {
@@ -103,12 +110,6 @@ namespace Simulator
                 }
 #endif
 
-                // if the location counter wasn't changed by an instruction,
-                // increment it.
-                if (this.lc == prevLC)
-                {
-                    this.lc++;
-                }
             }
         }
 
@@ -175,7 +176,7 @@ namespace Simulator
                     mem.GetWord(Convert.ToInt32(bin.Substring(6), 2)));
             Console.WriteLine(" Top of data stack = {0}",
                     (mem.DataSize() > 0 ? Convert.ToString(mem.GetDataStack()[0]) : "empty"));
-            Console.WriteLine(" Top of test stack = {0}",
+            Console.WriteLine(" Top of test stack = {0}\n",
                     (mem.TestSize() > 0 ? Convert.ToString(mem.GetTestStack()[0]) : "empty"));
         }
     }

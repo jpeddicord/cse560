@@ -12,43 +12,43 @@ namespace Simulator
         {
             if (function == "ADD")
             {
-
+                throw new NotImplementedException();
             }
             else if (function == "SUB")
             {
-
+                throw new NotImplementedException();
             }
             else if (function == "MUL")
             {
-
+                throw new NotImplementedException();
             }
             else if (function == "DIV")
             {
-
+                throw new NotImplementedException();
             }
             else if (function == "OR")
             {
-
+                throw new NotImplementedException();
             }
             else if (function == "AND")
             {
-
+                throw new NotImplementedException();
             }
             else if (function == "READN")
             {
-
+                throw new NotImplementedException();
             }
             else if (function == "READC")
             {
-
+                throw new NotImplementedException();
             }
             else if (function == "WRITEN")
             {
-
+                throw new NotImplementedException();
             }
             else if (function == "WRITEC")
             {
-
+                throw new NotImplementedException();
             }
         }
 

@@ -11,15 +11,15 @@ namespace Simulator
         {
             if (function == "PUSH")
             {
-
+                throw new NotImplementedException();
             }
             else if (function == "POP")
             {
-
+                throw new NotImplementedException();
             }
             else if (function == "TEST")
             {
-
+                throw new NotImplementedException();
             }
         }
 
