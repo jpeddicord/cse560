@@ -100,7 +100,7 @@ namespace Simulator
                 catch (Assembler.ErrorException ex)
                 {
                     Console.WriteLine(String.Format(
-                            "Parsing error on line {0}:\n{1}",
+                            "Parsing error on line {0}:\n    {1}",
                             lineNum, ex));
                     if (ex.err.category == ErrCat.Fatal)
                     {
@@ -135,14 +135,100 @@ namespace Simulator
          */
         public void ParseHeader(string[] parts)
         {
-            if (parts.Length != 13)
+            // error checking
+            if (parts.Length != 12)
             {
                 throw new Assembler.ErrorException(ErrCat.Serious, 1);
             }
-            for (int i = 0; i < 13; i++)
+            // check module name length
+            if (parts[1].Length < 2)
             {
-
+                throw new Assembler.ErrorException(ErrCat.Serious, 14);
             }
+            // check load address length
+            if (parts[2].Length != 4)
+            {
+                throw new Assembler.ErrorException(ErrCat.Serious, 15);
+            }
+            // check exec start length
+            if (parts[3].Length != 4)
+            {
+                throw new Assembler.ErrorException(ErrCat.Serious, 16);
+            }
+            // check total length field length
+            if (parts[4].Length != 4)
+            {
+                throw new Assembler.ErrorException(ErrCat.Serious, 17);
+            }
+            // check that a date exists
+            if (parts[5].Length == 0)
+            {
+                throw new Assembler.ErrorException(ErrCat.Serious, 18);
+            }
+            // check record number length
+            if (parts[8].Length != 4)
+            {
+                throw new Assembler.ErrorException(ErrCat.Serious, 19);
+            }
+            // check text record count matches the total length
+            if (parts[9] != parts[4])
+            {
+                throw new Assembler.ErrorException(ErrCat.Serious, 20);
+            }
+            // check FFA-LLM
+            if (parts[10] != "FFA-LLM")
+            {
+                throw new Assembler.ErrorException(ErrCat.Serious, 21);
+            }
+            // check program name matches
+            if (parts[11] != parts[1])
+            {
+                throw new Assembler.ErrorException(ErrCat.Serious, 4);
+            }
+
+            // set the program name
+            this.programName = parts[1];
+
+            // try to set the load address
+            try
+            {
+                this.loadAddress = Convert.ToInt32(parts[2], 16);
+            }
+            catch (Exception)
+            {
+                throw new Assembler.ErrorException(ErrCat.Serious, 15);
+            }
+
+            // try to set the execution start
+            try
+            {
+                this.executionStart = Convert.ToInt32(parts[3], 16);
+            }
+            catch (Exception)
+            {
+                throw new Assembler.ErrorException(ErrCat.Serious, 16);
+            }
+
+            // try to set the total length
+            try
+            {
+                this.totalLength = Convert.ToInt32(parts[4], 16);
+            }
+            catch (Exception)
+            {
+                throw new Assembler.ErrorException(ErrCat.Serious, 17);
+            }
+
+            // try to set the total number of records
+            try
+            {
+                this.totalRecords = Convert.ToInt32(parts[8], 16);
+            }
+            catch (Exception)
+            {
+                throw new Assembler.ErrorException(ErrCat.Serious, 19);
+            }
+
         }
 
         /**

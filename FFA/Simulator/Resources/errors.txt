@@ -6,8 +6,17 @@ ES.04 Program name of record doesn't match header.
 ES.05 Data found after end record.
 ES.06 Unknown record type.
 ES.07 Invalid memory location.
-ES.08 Wrong word size.
+ES.08 Invalid word size or format.
 ES.09 Garbage data found after program end.
 ES.10 Invalid flag for DUMP. Can only accept 1, 2 or 3.
 ES.11 Resulting data value is out of range for data stack.
 ES.12 Division by zero.
+ES.13 Invalid field in header record.
+ES.14 Invalid program name in header record.
+ES.15 Invalid load address in header record.
+ES.16 Invalid execution start address in header record.
+ES.17 Invalid program length field in header record.
+ES.18 Invalid date format in header record.
+ES.19 Invalid total number of records specified in header record.
+ES.20 Text record count must match total length field in header record.
+ES.21 FFA-LLM field missing or incorrect in header.

@@ -11,7 +11,10 @@ namespace Simulator
         {
             Assembler.Errors.SetResource(Properties.Resources.errors);
 
-            
+            var parser = new Parser();
+            parser.ParseFile(args[0]);
+
+            Runtime.GetInstance().Run();
         }
     }
 }
