@@ -10,7 +10,7 @@ namespace Linker
 {
     class Parser
     {
-        public void ParseFile(string filename)
+        public void ParseFile(string filename, int fileNum, ref int startAddress)
         {
             var file = new StreamReader(filename);
 

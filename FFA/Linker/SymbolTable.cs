@@ -98,7 +98,6 @@ namespace Linker
          *
          * @refcode S2
          * @errtest
-         *  See the test plan for SymbolTable for information.
          * @errmsg
          *  None known.
          * @author Mark Mathis

@@ -20,9 +20,14 @@ namespace Linker
             Console.WriteLine("herp");
             Parser pars = new Parser();
 
+            int file = 0;
+            int address = 0;
+            SymbolTable symb = new SymbolTable();
+
             foreach (var f in infiles)
             {
-                pars.ParseFile(f);
+                pars.ParseFile(f, file, ref address);
+                file++;
             }
             
         }
