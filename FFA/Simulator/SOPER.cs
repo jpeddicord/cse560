@@ -56,26 +56,14 @@ namespace Simulator
         {
             if (n > 1)
             {
-                try
-                {
                     Memory m = Memory.GetInstance();
                     int total = 0;
                     while (n > 0)
                     {
-                        total = total + m.DataPop();
+                        total = total + m.DataPopInt();
                     }
 
-                    if (total > 65535)
-                    {
-                        throw new Assembler.ErrorException(ErrCat.Serious, 11);
-                    }
-
-                    m.DataPush(total);
-                }
-                catch (Exception)
-                {
-                    // TODO Handle error nothing on data stack
-                }
+                    m.DataPushInt(total);
             }
         }
 
@@ -83,28 +71,17 @@ namespace Simulator
         {
             if (n > 1)
             {
-                try
-                {
+
                     Memory m = Memory.GetInstance();
-                    int total = m.DataPop();
+                    int total = m.DataPopInt();
 
                     while (n > 1)
                     {
-                        total = total - m.DataPop();
+                        total = total - m.DataPopInt();
                     }
 
-                    if (total < 0)
-                    {
-                        throw new Assembler.ErrorException(ErrCat.Serious, 11);
-                    }
+                    m.DataPushInt(total);
 
-                    m.DataPush(total);
-
-                }
-                catch (Exception)
-                {
-                    // TODO Handle error nothing on data stack
-                }
             }
         }
 
@@ -112,26 +89,16 @@ namespace Simulator
         {
             if (n > 1)
             {
-                try
-                {
+
                     Memory m = Memory.GetInstance();
                     int total = 1;
                     while (n > 0)
                     {
-                        total = total * m.DataPop();
+                        total = total * m.DataPopInt();
                     }
 
-                    if (total > 65535)
-                    {
-                        throw new Assembler.ErrorException(ErrCat.Serious, 11);
-                    }
+                    m.DataPushInt(total);
 
-                    m.DataPush(total);
-                }
-                catch (Exception)
-                {
-                    // TODO Handle error nothing on data stack
-                }
             }
         }
 
@@ -139,34 +106,24 @@ namespace Simulator
         {
             if (n > 1)
             {
-                try
-                {
+
                     Memory m = Memory.GetInstance();
-                    int total = m.DataPop();
+                    int total = m.DataPopInt();
 
                     while (n > 1)
                     {
-                        int i = m.DataPop();
+                        int i = m.DataPopInt();
 
                         if (i == 0)
                         {
                             throw new Assembler.ErrorException(ErrCat.Serious, 12);
                         }
 
-                        total = total / m.DataPop();
+                        total = total / m.DataPopInt();
                     }
 
-                    if (total > 65535)
-                    {
-                        throw new Assembler.ErrorException(ErrCat.Serious, 11);
-                    }
+                    m.DataPushInt(total);
 
-                    m.DataPush(total);
-                }
-                catch (Exception)
-                {
-                    // TODO Handle error nothing on data stack
-                }
             }
         }
 
@@ -174,23 +131,16 @@ namespace Simulator
         {
             if (n > 1)
             {
-                try
-                {
+
                     Memory m = Memory.GetInstance();
-                    int total = m.DataPop();
+                    int total = m.DataPopInt();
 
                     while (n > 1)
                     {
-                        total = total | m.DataPop();
+                        total = total | m.DataPopInt();
                     }
 
-                    m.DataPush(total);
-
-                }
-                catch (Exception)
-                {
-                    // TODO Handle error nothing on data stack
-                }
+                    m.DataPushInt(total);
             }
         }
 
@@ -198,24 +148,58 @@ namespace Simulator
         {
             if (n > 1)
             {
-                try
-                {
                     Memory m = Memory.GetInstance();
-                    int total = m.DataPop();
+                    int total = m.DataPopInt();
 
                     while (n > 1)
                     {
-                        total = total & m.DataPop();
+                        total = total & m.DataPopInt();
                     }
 
-                    m.DataPush(total);
-
-                }
-                catch (Exception)
-                {
-                    // TODO Handle error nothing on data stack
-                }
+                    m.DataPushInt(total);
             }
+        }
+
+        public static void Readn(int n)
+        {
+            while (n > 0)
+            {
+                Console.Write("Enter an integer: ");
+                string str = Console.ReadLine();
+                int i = 0;
+
+                if (str.Length == 0)
+                {
+                    throw new Assembler.ErrorException(ErrCat.Serious, 23);
+                }
+
+                try
+                {
+                    i = Convert.ToInt32(str);
+                }
+                catch (FormatException)
+                {
+                    throw new Assembler.ErrorException(ErrCat.Serious, 25);
+                }
+                catch (OverflowException)
+                {
+                    throw new Assembler.ErrorException(ErrCat.Serious, 24);
+                }
+
+                if (-32768 > i || i > 32767)
+                {
+                    throw new Assembler.ErrorException(ErrCat.Serious, 24);
+                }
+
+                Memory.GetInstance().DataPushInt(i);
+
+                n--;
+            }
+        }
+
+        public static void Readc(int n)
+        {
+
         }
     }
 }

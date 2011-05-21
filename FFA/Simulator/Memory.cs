@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using ErrCat = Assembler.Errors.Category; 
 
 namespace Simulator
 {
@@ -163,6 +164,11 @@ namespace Simulator
          */
         public void SetWordInt(int address, int val)
         {
+            if (32767 < val || val < -32768)
+            {
+                throw new Assembler.ErrorException(ErrCat.Serious, 11);
+            }
+            
             // if negative, convert to the appropriate 2's complement representation
             if (val < 0)
             {
@@ -192,6 +198,45 @@ namespace Simulator
             {
                 throw new StackOverflowException();
             }
+            else if (0 > data || data > 65535)
+            {
+                throw new Assembler.ErrorException(ErrCat.Serious, 11);
+            }
+            this.dataStack.Push(data);
+        }
+
+        /**
+         * Like DataPush, but converts to 16-bit 2's complement representation
+         * first before adding to the stack.
+         *
+         * @param data Element to push onto the stack
+         * @refcode H3.1
+         * @errtest
+         *  N/A
+         * @errmsg
+         *  N/A
+         * @author Andrew Buelow
+         * @creation May 19, 2011
+         * @modlog
+         * @teststandard Andrew Buelow
+         * @codestandard Mark Mathis
+         */
+        public void DataPushInt(int data)
+        {
+            if (this.dataStack.Count == 256)
+            {
+                throw new StackOverflowException();
+            }
+            else if (32767 < data || data < -32768)
+            {
+                throw new Assembler.ErrorException(ErrCat.Serious, 11);
+            }
+
+            if (data < 0)
+            {
+                data = Assembler.BinaryHelper.ConvertNumber(data, 16);
+            }
+
             this.dataStack.Push(data);
         }
 
@@ -213,6 +258,26 @@ namespace Simulator
         public int DataPop()
         {
             return this.dataStack.Pop();
+        }
+
+        /**
+         * Pop a single item off of the data stack.
+         *
+         * @return the popped element
+         * @refcode H3.1
+         * @errtest
+         *  N/A
+         * @errmsg
+         *  N/A
+         * @author Jacob Peddicord
+         * @creation May 19, 2011
+         * @modlog
+         * @teststandard Andrew Buelow
+         * @codestandard Mark Mathis
+         */
+        public int DataPopInt()
+        {
+            return Assembler.BinaryHelper.ConvertNumber(this.dataStack.Pop(), 16);
         }
 
         /**
