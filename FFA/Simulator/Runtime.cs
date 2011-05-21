@@ -107,6 +107,7 @@ namespace Simulator
                 catch (Exception)
                 {
                     Console.WriteLine("Unknown runtime error on LC " + this.lc);
+                    break;
                 }
 #endif
 

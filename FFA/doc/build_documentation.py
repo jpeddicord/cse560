@@ -86,7 +86,7 @@ def build_linker():
         rmtree('tmp')
         rmtree('out')
     except: pass
-    os.mkdir('tmp')
+    os.makedirs('tmp/tests')
     
     # build
     print "Building DED"
@@ -118,20 +118,20 @@ def build_simulator():
         rmtree('tmp')
         rmtree('out')
     except: pass
-    os.mkdir('tmp')
+    os.makedirs('tmp/tests')
     
     # build
     print "Building DED"
     build_ded('../', 'tmp/ded.rst')
     convert_rst('tmp/ded.rst', 'tmp/ded.html', 'rst-simulator')
     create_dox_wrapper('tmp/ded.rst', 'tmp/ded.dox')
-    #print "Running test scripts"
-    #scripts = build_test_scripts('../Tests/Programs', '../bin/Release/Assembler.exe', 'tmp/tests', 'testfile_', 'tmp/testscript_index.rst')
-    #for script in scripts:
-    #    convert_rst(join('tmp/tests', script), join('tmp', script.replace('.rst', '.html')))
-    #    create_dox_wrapper(join('tmp/tests', script), join('tmp', script.replace('.rst', '.dox')))
-    #print "  Creating error listing"
-    #build_error_list('../Resources/errors.txt', 'tmp/errorlist.rst')
+    print "Running test scripts"
+    scripts = build_test_scripts('../Tests/Programs', '../bin/Release/Simulator.exe', 'tmp/tests', 'testfile_', 'tmp/testscript_index.rst', '.prg')
+    for script in scripts:
+        convert_rst(join('tmp/tests', script), join('tmp', script.replace('.rst', '.html')), 'rst-simulator')
+        create_dox_wrapper(join('tmp/tests', script), join('tmp', script.replace('.rst', '.dox')))
+    print "  Creating error listing"
+    build_error_list('../Resources/errors.txt', 'tmp/errorlist.rst')
     print "Building manual"
     build_rst_dir('src', 'tmp', 'rst-simulator')
     print "Running Doxygen"
@@ -208,17 +208,17 @@ def camelcase_to_underscore(txt):
     s1 = re.sub('(.)([A-Z][a-z]+)', r'\1_\2', txt)
     return re.sub('([a-z0-9])([A-Z])', r'\1_\2', s1).lower()
 
-def build_test_scripts(directory, runner, out_dir, prefix, index_file):
+def build_test_scripts(directory, runner, out_dir, prefix, index_file, ext='.txt'):
     """Copy the test script input, run the script, and copy output to an RST source."""
     names = []
     for root, dirs, files in os.walk(directory):
         files.sort()
         for fname in files:
-            if fname.endswith('.txt'):
+            if fname.endswith(ext):
                 out = fname + '\n' + '`'*len(fname) + '\n\n.. contents::'
                 # get the info file
                 try:
-                    with open(join(root, fname.replace('.txt', '.info'))) as f:
+                    with open(join(root, fname.replace(ext, '.info'))) as f:
                         out += '\n\n' + f.read()
                 except:
                     pass
@@ -243,7 +243,7 @@ def build_test_scripts(directory, runner, out_dir, prefix, index_file):
                 except:
                     pass
                 # write the output file
-                name = fname.replace('.txt', '.rst')
+                name = fname.replace(ext, '.rst')
                 with open(join(out_dir, prefix + name), 'w') as f:
                     f.write(out)
                 names.append(name)

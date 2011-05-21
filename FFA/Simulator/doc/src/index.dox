@@ -6,14 +6,11 @@ Welcome to the documentation for the Final Four Accelerated Simulator. You can b
 
 - ref user_guide
  - ref how_to
- - <a href="../machine_description.html">Machine Description</a>
- - <a href="../language_spec.html">Language Specification</a>
- - ref language_spec
- - ref object_file
+ - <a class="el" href="../machine_description.html">Machine Description</a>
+ - <a class="el" href="../language_spec.html">Language Specification</a>
 - <a class="el" href="annotated.html">Developer's Guide</a>
  - <a class="el" href="annotated.html">Modules</a>
- - ref table_descriptions
- - ref test_plan
+ - \ref test_plan
  - \ref ded
  - ref errata
 
