@@ -11,9 +11,17 @@ namespace Simulator
 
         public static void Run(string function, string bin)
         {
+            // save the LC for operations
+            var runtime = Runtime.GetInstance();
+            int lc = runtime.LC;
+
+            // get the jump destination
+            int dest = Convert.ToInt32(bin.Substring(6), 2);
+
+            // see which type of jump to perform
             if (function == "=")
             {
-                throw new NotImplementedException();
+                JUMP.Equal(dest, ref lc);
             }
             else if (function == "^=")
             {
@@ -21,11 +29,11 @@ namespace Simulator
             }
             else if (function == "<")
             {
-                throw new NotImplementedException();
+                JUMP.Less(dest, ref lc);
             }
             else if (function == ">")
             {
-                throw new NotImplementedException();
+                JUMP.Greater(dest, ref lc);
             }
             else if (function == "<=")
             {
@@ -37,15 +45,17 @@ namespace Simulator
             }
             else if (function == "TNULL")
             {
-                throw new NotImplementedException();
+                JUMP.Tnull(dest, ref lc);
             }
             else if (function == "DNULL")
             {
-                throw new NotImplementedException();
+                JUMP.Dnull(dest, ref lc);
             }
+
+            // set the LC
         }
 
-        public static void Equal(string addr, ref int LC)
+        public static void Equal(int addr, ref int LC)
         {
             int i = -1;
 
@@ -60,11 +70,11 @@ namespace Simulator
 
             if (i == 0)
             {
-                LC = Convert.ToInt32(addr, 16);
+                LC = addr;
             }
         }
 
-        public static void Less(string addr, ref int LC)
+        public static void Less(int addr, ref int LC)
         {
             int i = -1;
 
@@ -79,11 +89,11 @@ namespace Simulator
 
             if (i == 1)
             {
-                LC = Convert.ToInt32(addr, 16);
+                LC = addr;
             }
         }
 
-        public static void Greater(string addr, ref int LC)
+        public static void Greater(int addr, ref int LC)
         {
             int i = -1;
 
@@ -98,23 +108,23 @@ namespace Simulator
 
             if (i == 2)
             {
-                LC = Convert.ToInt32(addr, 16);
+                LC = addr;
             }
         }
 
-        public static void Dnull(string addr, ref int LC)
+        public static void Dnull(int addr, ref int LC)
         {
             if (Memory.GetInstance().GetDataStack().Length == 0)
             {
-                LC = Convert.ToInt32(addr, 16);
+                LC = addr;
             }
         }
 
-        public static void Tnull(string addr, ref int LC)
+        public static void Tnull(int addr, ref int LC)
         {
             if (Memory.GetInstance().GetTestStack().Length == 0)
             {
-                LC = Convert.ToInt32(addr, 16);
+                LC = addr;
             }
         }
     }
