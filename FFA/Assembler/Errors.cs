@@ -188,7 +188,7 @@ namespace Assembler
         /**
          * Set the error string resource to load from.
          *
-         * @return the instance of this class
+         * @param errs Resource to use
          * 
          * @refcode N/A
          * @errtest
