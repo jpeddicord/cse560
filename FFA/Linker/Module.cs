@@ -46,6 +46,11 @@ namespace Linker
                     {
                         rec.Word += this.relocationValue;
                     }
+                    else
+                    {
+                        // Error: Address Field relocation will be out of range of this program
+                        // NOP substituted
+                    }
                 }
                 textRecords.Add(rec.Location, rec);
             }

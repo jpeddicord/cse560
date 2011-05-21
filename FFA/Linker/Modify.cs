@@ -13,7 +13,7 @@ namespace Linker
         public int Word
         { get; set; }
 
-        private List<string> adjustments;
+        private List<string> adjustments = new List<string>();
 
         public List<string> Adjustments
         {
