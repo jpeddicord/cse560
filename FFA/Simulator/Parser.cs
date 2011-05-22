@@ -147,7 +147,7 @@ namespace Simulator
         {
             var errors = new List<Assembler.ErrorException>();
             // error checking
-            if (parts.Length != 12)
+            if (parts.Length != 13)
             {
                 throw new Assembler.ErrorException(ErrCat.Fatal, 3);
             }
