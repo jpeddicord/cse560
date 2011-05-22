@@ -26,7 +26,7 @@ namespace Simulator
          */
         public static void Run(string function, string bin)
         {
-            bool character = (bin[5] == '1');
+            bool character = (bin[5] == '0');
             int addr = Convert.ToInt32(bin.Substring(6), 2);
 
             if (function == "ADD")

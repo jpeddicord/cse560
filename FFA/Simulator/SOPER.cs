@@ -27,7 +27,7 @@ namespace Simulator
         public static void Run(string function, string bin)
         {
             // determine if it would be a number or character read/write
-            bool character = (bin[5] == '1');
+            bool character = (bin[5] == '0');
 
             // Use the last 8 bits for the number
             int num = Convert.ToInt32(bin.Substring(8), 2);
