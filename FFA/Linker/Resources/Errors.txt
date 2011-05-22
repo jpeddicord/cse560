@@ -1,5 +1,6 @@
-EW.01 Assembly date and time contain incorrect number of characters, ignoring linking continues.
+EW.01 Assembly date and time contain incorrect number of characters, ignoring: linking continues.
+EW.02 Assembler assigned load address must be 4 hex characters, ignoring: linking continues.
 
-ES.01 Program name can only be between 2 and 32 characters long, start with a letter, and
+ES.01 Program name can only be between 2 and 32 characters long, start with a letter, and contain only letters and numbers
 
 EF.01 Header record has wrong number of fields, stopping linker.

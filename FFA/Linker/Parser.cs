@@ -110,13 +110,13 @@ namespace Linker
                 if (!(!alphaNumeric.IsMatch(prgmName) && char.IsLetter(prgmName[0])))
                 {
                     // program name is not a valid label
-
+                    throw new ErrorException(ErrCat.Serious, 1);
                 }
             }
             else
             {
                 // program name is not the right length
-
+                throw new ErrorException(ErrCat.Serious, 1);
             }
 
             // add program name to the linking header record
@@ -131,6 +131,7 @@ namespace Linker
             if (assLoad.Length != 4)
             {
                 // error, wrong length
+                
             }
 
             //check that it is valid hex
