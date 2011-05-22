@@ -17,6 +17,8 @@ namespace Simulator
          */
         private int lc = 0;
 
+        public static bool Debug { get; set; }
+
         /**
          * Get the active Runtime instance.
          *
@@ -88,8 +90,18 @@ namespace Simulator
 
                 try
                 {
+                    if (Runtime.Debug)
+                    {
+                        PrintDebug();
+                    }
+
                     ProcessInstruction(category, function, bin);
-                    PrintDebug();
+
+                    if (Runtime.Debug)
+                    {
+                        PrintDebug();
+                        Console.WriteLine("\n");
+                    }
 
                     // if the location counter wasn't changed by an instruction,
                     // increment it.
@@ -101,7 +113,7 @@ namespace Simulator
                 catch (Assembler.ErrorException ex)
                 {
                     Console.WriteLine(String.Format("RUNTIME ERROR: {0}", ex));
-                    // TODO: abort?
+                    break;
                 }
 #if !DEBUG
                 catch (Exception)

@@ -126,7 +126,7 @@ def build_simulator():
     convert_rst('tmp/ded.rst', 'tmp/ded.html', 'rst-simulator')
     create_dox_wrapper('tmp/ded.rst', 'tmp/ded.dox')
     print "Running test scripts"
-    scripts = build_test_scripts('../Tests/Programs', '../bin/Release/Simulator.exe', 'tmp/tests', 'testsim_', 'tmp/testsim_index.rst', '.prg')
+    scripts = build_test_scripts('../Tests/Programs', '../bin/Release/Simulator.exe -d', 'tmp/tests', 'testsim_', 'tmp/testsim_index.rst', '.prg')
     for script in scripts:
         convert_rst(join('tmp/tests', script), join('tmp', script.replace('.rst', '.html')), 'rst-simulator')
         create_dox_wrapper(join('tmp/tests', script), join('tmp', script.replace('.rst', '.dox')))
