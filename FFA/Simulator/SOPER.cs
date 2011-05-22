@@ -119,7 +119,7 @@ namespace Simulator
                             throw new Assembler.ErrorException(ErrCat.Serious, 12);
                         }
 
-                        total = total / m.DataPopInt();
+                        total = total / i;
                     }
 
                     m.DataPushInt(total);
@@ -237,7 +237,7 @@ namespace Simulator
             {
                 int i = m.DataPopInt();
 
-                Console.WriteLine(i);
+                Console.Write(i);
 
                 n--;
             }
@@ -250,6 +250,16 @@ namespace Simulator
             while (n > 0)
             {
                 int i = m.DataPop();
+
+                int char2 = i % 256;
+
+                int char1 = i / 256;
+
+                char c1 = (char)char1;
+                char c2 = (char)char2;
+
+                Console.Write(c1 + c2);
+
                 n--;
             }
         }

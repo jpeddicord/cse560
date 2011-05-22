@@ -96,6 +96,10 @@ namespace Simulator
          */
         public int GetWord(int address)
         {
+            if (0 > address || address > 1023)
+            {
+                throw new Assembler.ErrorException(ErrCat.Serious, 26);
+            }
             return this.storage[address];
         }
 
@@ -117,6 +121,10 @@ namespace Simulator
          */
         public int GetWordInt(int address)
         {
+            if (0 > address || address > 1023)
+            {
+                throw new Assembler.ErrorException(ErrCat.Serious, 26);
+            }
             return Assembler.BinaryHelper.ConvertNumber(this.storage[address], 16);
         }
 
@@ -141,6 +149,10 @@ namespace Simulator
             if (val > 65535)
             {
                 throw new OverflowException();
+            }
+            else if (0 > address || address > 1023)
+            {
+                throw new Assembler.ErrorException(ErrCat.Serious, 26);
             }
             this.storage[address] = val;
         }
@@ -167,6 +179,10 @@ namespace Simulator
             if (32767 < val || val < -32768)
             {
                 throw new Assembler.ErrorException(ErrCat.Serious, 11);
+            }
+            else if (0 > address || address > 1023)
+            {
+                throw new Assembler.ErrorException(ErrCat.Serious, 26);
             }
             
             // if negative, convert to the appropriate 2's complement representation

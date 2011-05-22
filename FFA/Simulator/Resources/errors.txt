@@ -25,4 +25,5 @@ ES.22 JUMP ^=, >=, and <= are not supported.
 ES.23 No input given. Ignoring push to stack.
 ES.24 Given integer must be between -32768 and 32767. Ignoring push to stack.
 ES.25 Given input must be an integer but was not. Ignoring push to stack.
+ES.26 Address is out of range of memory.
 EW.01 Invalid character entry, too many characters given. Accepting up to the first two and ignoring the rest.
