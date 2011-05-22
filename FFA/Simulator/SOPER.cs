@@ -199,7 +199,59 @@ namespace Simulator
 
         public static void Readc(int n)
         {
+            while (n > 0)
+            {
+                Console.Write("Enter 1 or 2 characters: ");
+                string str = Console.ReadLine();
+                int i = 0;
 
+                if (str.Length == 0)
+                {
+                    throw new Assembler.ErrorException(ErrCat.Serious, 23);
+                }
+                else if (str.Length > 2)
+                {
+                    throw new Assembler.ErrorException(ErrCat.Warning, 1);
+                }
+
+                i = (int)str[0];
+
+                i *= 256;
+
+                if (str.Length == 2)
+                {
+                    i += (int)str[1];
+                }              
+
+                Memory.GetInstance().DataPushInt(i);
+
+                n--;
+            }
+        }
+
+        public static void Writen(int n)
+        {
+            Memory m = Memory.GetInstance();
+
+            while (n > 0)
+            {
+                int i = m.DataPopInt();
+
+                Console.WriteLine(i);
+
+                n--;
+            }
+        }
+
+        public static void Writec(int n)
+        {
+            Memory m = Memory.GetInstance();
+
+            while (n > 0)
+            {
+                int i = m.DataPop();
+                n--;
+            }
         }
     }
 }
