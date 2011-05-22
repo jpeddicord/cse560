@@ -200,7 +200,7 @@ namespace Simulator
         {
             Memory m = Memory.GetInstance();
 
-            int i = m.GetWordInt(addr);
+            int i = m.GetWord(addr);
 
             int char2 = i % 256;
             int char1 = i / 256;
