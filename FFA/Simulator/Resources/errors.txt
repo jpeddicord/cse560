@@ -4,6 +4,7 @@ EF.03 Wrong number of fields in header record.
 EF.04 Invalid load address in header record.
 EF.05 Invalid execution start address in header record.
 EF.06 Invalid program length field in header record.
+ES.01 Missing version number of linker, or incorrect format.
 ES.02 Wrong number of fields in text record.
 ES.03 Wrong number of fields in end record.
 ES.05 Data found after end record.

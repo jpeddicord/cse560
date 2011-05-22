@@ -192,8 +192,12 @@ namespace Simulator
             {
                 errors.Add(new Assembler.ErrorException(ErrCat.Serious, 21));
             }
+            if (parts[11].Length != 4)
+            {
+                errors.Add(new Assembler.ErrorException(ErrCat.Serious, 1));
+            }
             // check program name matches
-            if (parts[11] != parts[1])
+            if (parts[12] != parts[1])
             {
                 errors.Add(new Assembler.ErrorException(ErrCat.Warning, 3));
             }
