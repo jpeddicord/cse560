@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Collections.Generic;
 using ErrCat = Assembler.Errors.Category;
 
 namespace Simulator
@@ -133,9 +134,9 @@ namespace Simulator
          * @param parts The line to parse, split by colon
          * @refcode LM1
          * @errtest
-         *  N/A
+         *  Valid header format
          * @errmsg
-         *  N/A
+         *  Any errors as a result of an incorrect or improper header
          * @author Jacob Peddicord
          * @creation May 20, 2011
          * @modlog
@@ -144,55 +145,57 @@ namespace Simulator
          */
         public void ParseHeader(string[] parts)
         {
+            var errors = new List<Assembler.ErrorException>();
             // error checking
             if (parts.Length != 12)
             {
-                throw new Assembler.ErrorException(ErrCat.Serious, 1);
+                throw new Assembler.ErrorException(ErrCat.Fatal, 3);
             }
             // check module name length
             if (parts[1].Length < 2)
             {
-                throw new Assembler.ErrorException(ErrCat.Serious, 14);
+                errors.Add(new Assembler.ErrorException(ErrCat.Serious, 14));
             }
             // check load address length
             if (parts[2].Length != 4)
             {
-                throw new Assembler.ErrorException(ErrCat.Serious, 15);
+                throw new Assembler.ErrorException(ErrCat.Fatal, 4);
             }
             // check exec start length
             if (parts[3].Length != 4)
             {
-                throw new Assembler.ErrorException(ErrCat.Serious, 16);
+                throw new Assembler.ErrorException(ErrCat.Fatal, 5);
             }
             // check total length field length
             if (parts[4].Length != 4)
             {
-                throw new Assembler.ErrorException(ErrCat.Serious, 17);
+                // TODO: FATAL
+                throw new Assembler.ErrorException(ErrCat.Fatal, 6);
             }
             // check that a date exists
             if (parts[5].Length == 0)
             {
-                throw new Assembler.ErrorException(ErrCat.Serious, 18);
-            }
+                errors.Add(new Assembler.ErrorException(ErrCat.Serious, 18));
+            }// TODO: date field may not have colons...
             // check record number length
             if (parts[8].Length != 4)
             {
-                throw new Assembler.ErrorException(ErrCat.Serious, 19);
+                errors.Add(new Assembler.ErrorException(ErrCat.Serious, 19));
             }
             // check text record count matches the total length
             if (parts[9] != parts[4])
             {
-                throw new Assembler.ErrorException(ErrCat.Serious, 20);
+                errors.Add(new Assembler.ErrorException(ErrCat.Serious, 20));
             }
             // check FFA-LLM
             if (parts[10] != "FFA-LLM")
             {
-                throw new Assembler.ErrorException(ErrCat.Serious, 21);
+                errors.Add(new Assembler.ErrorException(ErrCat.Serious, 21));
             }
             // check program name matches
             if (parts[11] != parts[1])
             {
-                throw new Assembler.ErrorException(ErrCat.Serious, 4);
+                errors.Add(new Assembler.ErrorException(ErrCat.Warning, 3));
             }
 
             // set the program name
@@ -205,7 +208,7 @@ namespace Simulator
             }
             catch (Exception)
             {
-                throw new Assembler.ErrorException(ErrCat.Serious, 15);
+                throw new Assembler.ErrorException(ErrCat.Fatal, 4);
             }
 
             // try to set the execution start
@@ -216,7 +219,7 @@ namespace Simulator
             }
             catch (Exception)
             {
-                throw new Assembler.ErrorException(ErrCat.Serious, 16);
+                throw new Assembler.ErrorException(ErrCat.Fatal, 5);
             }
 
             // try to set the total length
@@ -226,7 +229,7 @@ namespace Simulator
             }
             catch (Exception)
             {
-                throw new Assembler.ErrorException(ErrCat.Serious, 17);
+                throw new Assembler.ErrorException(ErrCat.Fatal, 6);
             }
 
             // try to set the total number of records
@@ -236,7 +239,13 @@ namespace Simulator
             }
             catch (Exception)
             {
-                throw new Assembler.ErrorException(ErrCat.Serious, 19);
+                errors.Add(new Assembler.ErrorException(ErrCat.Serious, 19));
+            }
+
+            // print out any errors
+            foreach (var err in errors)
+            {
+                Console.WriteLine(err);
             }
 
         }
@@ -273,16 +282,17 @@ namespace Simulator
             {
                 throw new Assembler.ErrorException(ErrCat.Serious, 8);
             }
-            // validate the program name
-            if (parts[3] != this.programName)
-            {
-                throw new Assembler.ErrorException(ErrCat.Serious, 4);
-            }
 
             // set the memory
             var mem = Memory.GetInstance();
             mem.SetWord(Convert.ToInt32(parts[1], 16),
                         Convert.ToInt32(parts[2], 16));
+
+            // validate the program name
+            if (parts[3] != this.programName)
+            {
+                throw new Assembler.ErrorException(ErrCat.Warning, 3);
+            }
         }
 
         /**
@@ -308,7 +318,7 @@ namespace Simulator
             }
             if (parts[1] != this.programName)
             {
-                throw new Assembler.ErrorException(ErrCat.Serious, 4);
+                throw new Assembler.ErrorException(ErrCat.Warning, 3);
             }
         }
     }

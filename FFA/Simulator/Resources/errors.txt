@@ -1,9 +1,11 @@
 EF.01 Memory reference is out of range. Can only access 0 to 1023.
 EF.02 Invalid header data; cannot continue.
-ES.01 Wrong number of fields in header record.
+EF.03 Wrong number of fields in header record.
+EF.04 Invalid load address in header record.
+EF.05 Invalid execution start address in header record.
+EF.06 Invalid program length field in header record.
 ES.02 Wrong number of fields in text record.
 ES.03 Wrong number of fields in end record.
-ES.04 Program name of record doesn't match header.
 ES.05 Data found after end record.
 ES.06 Unknown record type.
 ES.07 Invalid memory location.
@@ -14,9 +16,6 @@ ES.11 Resulting data value is out of range for data stack.
 ES.12 Division by zero.
 ES.13 Invalid field in header record.
 ES.14 Invalid program name in header record.
-ES.15 Invalid load address in header record.
-ES.16 Invalid execution start address in header record.
-ES.17 Invalid program length field in header record.
 ES.18 Invalid date format in header record.
 ES.19 Invalid total number of records specified in header record.
 ES.20 Text record count must match total length field in header record.
@@ -33,3 +32,4 @@ ES.30 Test stack is empty, unable to remove an item.
 ES.31 Value is too large to fit in memory. Must be within 0 and 65535.
 EW.01 Invalid character entry, too many characters given. Accepting up to the first two and ignoring the rest.
 EW.02 Halt code out of range. Setting code to 1023.
+EW.03 Program name of record doesn't match header.
