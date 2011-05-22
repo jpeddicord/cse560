@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.IO;
 using System.Text.RegularExpressions;
+using ErrorException = Assembler.ErrorException;
 using ErrCat = Assembler.Errors.Category;
 
 namespace Linker
@@ -94,6 +95,7 @@ namespace Linker
             if (field.Length != 15)
             {
                 // error, wrong number of fields in header record
+                throw new ErrorException(ErrCat.Fatal, 1);
             }
 
             // check that program name is valid

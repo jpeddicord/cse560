@@ -1,1 +1,5 @@
-ES.01 herp
+EW.01 Assembly date and time contain incorrect number of characters, ignoring linking continues.
+
+ES.01 Program name can only be between 2 and 32 characters long, start with a letter, and
+
+EF.01 Header record has wrong number of fields, stopping linker.
