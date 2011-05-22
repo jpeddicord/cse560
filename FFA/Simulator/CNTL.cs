@@ -87,7 +87,7 @@ namespace Simulator
                 code = 1023;
             }
 
-            Console.WriteLine("Program exited with code: " + code);
+            Console.WriteLine("\nProgram exited with code: " + code);
             System.Environment.Exit(code);
         }
 

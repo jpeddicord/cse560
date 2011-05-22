@@ -459,7 +459,7 @@ namespace Simulator
                 char c1 = (char)char1;
                 char c2 = (char)char2;
 
-                Console.Write(c1 + c2);
+                Console.Write(c1.ToString() + c2.ToString());
 
                 n--;
             }
