@@ -12,6 +12,9 @@ namespace Simulator
          * Executes the JUMP instruction. Breaks the rest of the binary string apart and calls
          * the desired procedure.
          *
+         * @param function The JUMP procedure to be called.
+         * @param bin The binary representation of the instruction.
+         * 
          * @refcode OP1
          * @errtest 
          * @errmsg

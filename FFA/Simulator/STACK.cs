@@ -11,6 +11,9 @@ namespace Simulator
          * Executes the STACK instruction. Breaks the rest of the binary string apart and calls
          * the desired procedure providing information needed.
          *
+         * @param function The STACK procedure to be called.
+         * @param bin The binary representation of the instruction.
+         * 
          * @refcode OP0
          * @errtest 
          * @errmsg
