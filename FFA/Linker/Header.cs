@@ -51,7 +51,7 @@ namespace Linker
         public override String ToString()
         {
             return String.Format(
-                    "H:{0}:{1}:{2}:{3}:{4}:{5}:{6}:FFA-LLM:288:{0}",
+                    "H:{0}:{1}:{2}:{3}:{4}:{5}:{6}:FFA-LLM:0288:{0}",
                     this.ProgramName,
                     Convert.ToString(this.LinkerLoadAddress,16).ToUpper().PadLeft(4,'0'),
                     Convert.ToString(this.ExecutionStartAddress,16).ToUpper().PadLeft(4,'0'),

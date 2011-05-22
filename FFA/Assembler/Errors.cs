@@ -297,5 +297,21 @@ namespace Assembler
         {
             return errorList[Category.Warning][errCode];
         }
+
+        public void PrintError(Category cat, int errCode)
+        {
+            if (cat == Category.Fatal)
+            {
+                Console.WriteLine(GetFatalError(errCode));
+            }
+            else if (cat == Category.Serious)
+            {
+                Console.WriteLine(GetSeriousError(errCode));
+            }
+            else if (cat == Category.Warning)
+            {
+                Console.WriteLine(GetWarningError(errCode));
+            }
+        }
     }
 }
