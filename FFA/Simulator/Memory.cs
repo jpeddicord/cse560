@@ -146,9 +146,9 @@ namespace Simulator
          */
         public void SetWord(int address, int val)
         {
-            if (val > 65535)
+            if (0 > val || val > 65535)
             {
-                throw new OverflowException();
+                throw new Assembler.ErrorException(ErrCat.Serious, 31);
             }
             else if (0 > address || address > 1023)
             {
@@ -212,7 +212,7 @@ namespace Simulator
         {
             if (this.dataStack.Count == 256)
             {
-                throw new StackOverflowException();
+                throw new Assembler.ErrorException(ErrCat.Serious, 27);
             }
             else if (0 > data || data > 65535)
             {
@@ -241,7 +241,7 @@ namespace Simulator
         {
             if (this.dataStack.Count == 256)
             {
-                throw new StackOverflowException();
+                throw new Assembler.ErrorException(ErrCat.Serious, 27);
             }
             else if (32767 < data || data < -32768)
             {
@@ -273,6 +273,10 @@ namespace Simulator
          */
         public int DataPop()
         {
+            if (this.dataStack.Count == 0)
+            {
+                throw new Assembler.ErrorException(ErrCat.Serious, 29);
+            }
             return this.dataStack.Pop();
         }
 
@@ -293,6 +297,10 @@ namespace Simulator
          */
         public int DataPopInt()
         {
+            if (this.dataStack.Count == 0)
+            {
+                throw new Assembler.ErrorException(ErrCat.Serious, 29);
+            }
             return Assembler.BinaryHelper.ConvertNumber(this.dataStack.Pop(), 16);
         }
 
@@ -354,7 +362,7 @@ namespace Simulator
         {
             if (this.testStack.Count == 5)
             {
-                throw new StackOverflowException();
+                throw new Assembler.ErrorException(ErrCat.Serious, 28);
             }
             this.testStack.Push(data);
         }
@@ -376,6 +384,10 @@ namespace Simulator
          */
         public int TestPop()
         {
+            if (this.testStack.Count == 0)
+            {
+                throw new Assembler.ErrorException(ErrCat.Serious, 30);
+            }
             return this.testStack.Pop();
         }
 
