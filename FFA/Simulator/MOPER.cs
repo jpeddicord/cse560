@@ -10,45 +10,76 @@ namespace Simulator
     {
         public static void Run(string function, string bin)
         {
+            bool character = (bin[5] == '1');
+            int addr = Convert.ToInt32(bin.Substring(6), 2);
+
             if (function == "ADD")
             {
-                throw new NotImplementedException();
+                MOPER.Add(addr);
             }
             else if (function == "SUB")
             {
-                throw new NotImplementedException();
+                MOPER.Sub(addr);
             }
             else if (function == "MUL")
             {
-                throw new NotImplementedException();
+                MOPER.Mul(addr);
             }
             else if (function == "DIV")
             {
-                throw new NotImplementedException();
+                MOPER.Div(addr);
             }
             else if (function == "OR")
             {
-                throw new NotImplementedException();
+                MOPER.Or(addr);
             }
             else if (function == "AND")
             {
-                throw new NotImplementedException();
+                MOPER.And(addr);
             }
             else if (function == "READN")
             {
-                throw new NotImplementedException();
+                if (character)
+                {
+                    MOPER.Readc(addr);
+                }
+                else
+                {
+                    MOPER.Readn(addr);
+                }
             }
             else if (function == "READC")
             {
-                throw new NotImplementedException();
+                if (character)
+                {
+                    MOPER.Readc(addr);
+                }
+                else
+                {
+                    MOPER.Readn(addr);
+                }
             }
             else if (function == "WRITEN")
             {
-                throw new NotImplementedException();
+                if (character)
+                {
+                    MOPER.Writec(addr);
+                }
+                else
+                {
+                    MOPER.Writen(addr);
+                }
             }
             else if (function == "WRITEC")
             {
-                throw new NotImplementedException();
+                if (character)
+                {
+                    MOPER.Writec(addr);
+                }
+                else
+                {
+                    MOPER.Writen(addr);
+                }
             }
         }
 

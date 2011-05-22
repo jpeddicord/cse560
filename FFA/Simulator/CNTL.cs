@@ -7,6 +7,26 @@ namespace Simulator
 {
     class CNTL
     {
+        /**
+         * Executes the CNTL instruction. Breaks the rest of the binary string apart and calls
+         * the desired procedure providing information needed.
+         *
+         * @param function The CNTL procedure to be called
+         * @param bin The binary representation of the instruction.
+         *
+         * @refcode OP0
+         * @errtest 
+         * @errmsg
+         * @author Jacob Peddicord
+         * @creation May 20, 2011
+         * @modlog
+         *  - May 21, 2011 - Andrew - Altered the call to dump to provide the entire
+         *  last 10 bits. Even though we only expect a 1, 2 or 3 which can be held in
+         *  the last 2 bits, we should still error check that they aren't trying to
+         *  call it with a larger number.
+         * @teststandard Andrew Buelow
+         * @codestandard Mark Mathis
+         */
         public static void Run(string function, string bin)
         {
             if (function == "HALT")
@@ -16,7 +36,8 @@ namespace Simulator
             }
             else if (function == "DUMP")
             {
-                // dump flag is in last 2 bits
+                // provide last 10 bits even though it only needs last two.
+                // Allows us to error check the instruction.
                 CNTL.Halt(Convert.ToInt32(bin.Substring(6), 2));
             }
             else if (function == "CLRD")
@@ -31,6 +52,8 @@ namespace Simulator
             {
                 // goto address is in last 10 bits
                 int lc;
+
+                // Determines if the address is a valid location to jump to
                 CNTL.Goto(Convert.ToInt32(bin.Substring(6), 2),
                         out lc);
                 Runtime.GetInstance().LC = lc;
@@ -48,15 +71,18 @@ namespace Simulator
          * @errmsg
          * @author Andrew Buelow
          * @creation May 18, 2011
-         * @modlog 
+         * @modlog
+         *  - May 21, 2011 - Andrew - Altered Halt to display the error here instead of throwing
+         *  an exception. This allows us to display the error and still complete the instruction
+         *  since the error is only a warning.
          * @teststandard Andrew Buelow
          * @codestandard Mark Mathis
          */
         public static void Halt(int code)
         {
-            // TODO Throw error if out of range
             if (code > 1023)
             {
+                // Show warning and set the halt code at 1023.
                 Console.WriteLine(String.Format("RUNTIME ERROR: {0}", new Assembler.ErrorException(ErrCat.Warning, 2)));
                 code = 1023;
             }

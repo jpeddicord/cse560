@@ -10,45 +10,75 @@ namespace Simulator
     {
         public static void Run(string function, string bin)
         {
+            bool character = (bin[5] == '1');
+            int num = Convert.ToInt32(bin.Substring(8), 2);
             if (function == "ADD")
             {
-                throw new NotImplementedException();
+                SOPER.Add(num);
             }
             else if (function == "SUB")
             {
-                throw new NotImplementedException();
+                SOPER.Sub(num);
             }
             else if (function == "MUL")
             {
-                throw new NotImplementedException();
+                SOPER.Mul(num);
             }
             else if (function == "DIV")
             {
-                throw new NotImplementedException();
+                SOPER.Div(num);
             }
             else if (function == "OR")
             {
-                throw new NotImplementedException();
+                SOPER.Or(num);
             }
             else if (function == "AND")
             {
-                throw new NotImplementedException();
+                SOPER.And(num);
             }
             else if (function == "READN")
             {
-                throw new NotImplementedException();
+                if (character)
+                {
+                    SOPER.Readc(num);
+                }
+                else
+                {
+                    SOPER.Readn(num);
+                }
             }
             else if (function == "READC")
             {
-                throw new NotImplementedException();
+                if (character)
+                {
+                    SOPER.Readc(num);
+                }
+                else
+                {
+                    SOPER.Readn(num);
+                }
             }
             else if (function == "WRITEN")
             {
-                throw new NotImplementedException();
+                if (character)
+                {
+                    SOPER.Writec(num);
+                }
+                else
+                {
+                    SOPER.Writen(num);
+                }
             }
             else if (function == "WRITEC")
             {
-                throw new NotImplementedException();
+                if (character)
+                {
+                    SOPER.Writec(num);
+                }
+                else
+                {
+                    SOPER.Writen(num);
+                }
             }
         }
 
