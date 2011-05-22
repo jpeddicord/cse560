@@ -13,7 +13,7 @@ namespace Linker
         private int fileNum;
         private int address;
 
-        public void ParseFile(string filename, int fileNum, ref int startAddress)
+        public void ParseFile(string filename, out Module mod, int fileNum, ref int startAddress)
         {
             this.fileNum = fileNum;
             this.address = startAddress;
@@ -21,7 +21,7 @@ namespace Linker
 
             int lineNum = 0;
             string rec;
-            Module mod = new Module();
+            mod = new Module();
             while ((rec = file.ReadLine()) != null)
             {
                 try

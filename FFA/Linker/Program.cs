@@ -23,13 +23,15 @@ namespace Linker
             int file = 0;
             int address = 0;
             SymbolTable symb = new SymbolTable();
+            Dictionary<string, Module> modules = new Dictionary<string, Module>();
 
             foreach (var f in infiles)
             {
-                pars.ParseFile(f, file, ref address);
+                Module mod;
+                pars.ParseFile(f, out mod, file, ref address);
                 file++;
+                modules.Add(mod.ModuleName, mod);
             }
-            
         }
     }
 }
