@@ -96,7 +96,6 @@ namespace Linker
             if (field.Length != 15)
             {
                 // error, wrong number of fields in header record
-                throw new Error(ErrCat.Fatal, 1);
             }
 
             // check that program name is valid
@@ -111,13 +110,11 @@ namespace Linker
                 if (!(!alphaNumeric.IsMatch(prgmName) && char.IsLetter(prgmName[0])))
                 {
                     // program name is not a valid label
-                    errPrinter.PrintError(ErrCat.Serious, 1);
                 }
             }
             else
             {
                 // program name is not the right length
-                errPrinter.PrintError(ErrCat.Serious, 1);
             }
 
             // add program name to the linking header record
@@ -129,15 +126,9 @@ namespace Linker
             string assLoad = field[2].ToUpper();
 
             // check length, should be 4 digit hex number
-            if (assLoad.Length < 4)
+            if (assLoad.Length != 4)
             {
-                // error, too short
-                errPrinter.PrintError(ErrCat.Warning, 2);
-            }
-            else if (assLoad.Length > 4)
-            {
-                // error, too long
-                throw new Error(ErrCat.Fatal, 4);
+                // error, wrong length
             }
 
             //check that it is valid hex
@@ -149,14 +140,12 @@ namespace Linker
             catch (FormatException)
             {
                 // error, not valid hex
-                throw new Error(ErrCat.Fatal, 2);
             }
             
             // check that it is in the correct range
             if (assLoadVal < 0 || assLoadVal > 1023)
             {
                 // error, must be between 0 and 1023
-                throw new Error(ErrCat.Fatal, 3);
             }
 
             // add assembler load address to linking header record
@@ -169,13 +158,7 @@ namespace Linker
             // check that it is a 4 digit hex
             if (modLen.Length < 4)
             {
-                // error, too short
-                errPrinter.PrintError(ErrCat.Warning, 3);
-            }
-            else if (modLen.Length > 4)
-            {
-                // error, too long
-                throw new Error(ErrCat.Fatal, 5);
+                // error, wrong length
             }
 
             // check that it is valid hex
@@ -187,14 +170,12 @@ namespace Linker
             catch (FormatException)
             {
                 // error, not valid hex
-                throw new Error(ErrCat.Fatal, 6);
             }
 
             // check that it is in the correct range
             if (modLenVal < 0 || modLenVal > 1024)
             {
                 // error, must be between 0 and 1024
-                throw new Error(ErrCat.Fatal, 7);
             }
 
             // add module length to linking header record
@@ -207,13 +188,7 @@ namespace Linker
             // check length, should be 4 digit hex number
             if (execAdd.Length < 4)
             {
-                // error, too short
-                errPrinter.PrintError(ErrCat.Warning, 4);
-            }
-            else if (execAdd.Length > 4)
-            {
-                // error, too long
-                throw new Error(ErrCat.Fatal, 8);
+                // error, wrong length
             }
 
             //check that it is valid hex
@@ -225,14 +200,12 @@ namespace Linker
             catch (FormatException)
             {
                 // error, not valid hex
-                throw new Error(ErrCat.Fatal, 9);
             }
 
             // check that it is in the correct range
             if (execAddVal < 0 || execAddVal > 1023)
             {
                 // error, must be between 0 and 1023
-                throw new Error(ErrCat.Fatal, 10);
             }
 
             // add execution start address to linking header record
@@ -245,7 +218,6 @@ namespace Linker
             if (dateAndTime.Length != 16)
             {
                 // error?, not the proper length
-                errPrinter.PrintError(ErrCat.Warning, 1);
             }
 
 
@@ -256,7 +228,6 @@ namespace Linker
             if (verNum.Length != 4)
             {
                 // error?, not the proper length
-                errPrinter.PrintError(ErrCat.Warning, 5);
             }
 
 
@@ -266,13 +237,8 @@ namespace Linker
             // check length, should be 4 digit hex number
             if (totalRec.Length < 4)
             {
-                // error, too short
-                errPrinter.PrintError(ErrCat.Warning, 6);
-            }
-            else if (totalRec.Length > 4)
-            {
-                // error, too long
-                throw new Error(ErrCat.Fatal, 11);
+                // error, wrong length
+                
             }
 
             //check that it is valid hex
@@ -284,7 +250,6 @@ namespace Linker
             catch (FormatException)
             {
                 // error, not valid hex
-                throw new Error(ErrCat.Fatal, 12);
             }
 
             // add the total number of records to the linker header record
@@ -298,7 +263,6 @@ namespace Linker
             if (linkRec.Length != 4)
             {
                 // error, wrong length
-                errPrinter.PrintError(ErrCat.Warning, 7);
             }
 
 
@@ -311,7 +275,6 @@ namespace Linker
             catch (FormatException)
             {
                 // error, not valid hex
-                errPrinter.PrintError(ErrCat.Serious, 2);
             }
 
             // add the total number of linking records to the linker header record
@@ -322,15 +285,9 @@ namespace Linker
             string textRec = field[11].ToUpper();
 
             // check length, should be 4 digit hex number
-            if (textRec.Length < 4)
+            if (textRec.Length != 4)
             {
-                // error, too short
-                errPrinter.PrintError(ErrCat.Warning, 8);
-            }
-            else if (textRec.Length > 4)
-            {
-                // error, too long
-                throw new Error(ErrCat.Fatal, 13);
+                // error, wrong length
             }
 
             // check that it is valid hex
