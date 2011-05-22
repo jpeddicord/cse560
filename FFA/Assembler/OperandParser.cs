@@ -224,7 +224,7 @@ namespace Assembler
 
                         try
                         {
-                            Convert.ToInt32(outOper, 2);
+                            Convert.ToInt32(inOper.Substring(2), 2);
                         }
                         catch (FormatException)
                         {
@@ -239,18 +239,18 @@ namespace Assembler
                         Logger.Log("literal operand is integer", "Parser");
                         litType = Literal.I;
                         op = Convert.ToInt32(inOper.Substring(2));
-                        op = BinaryHelper.ConvertNumber(op, bits);
-                        outOper = Convert.ToString(op, 16).ToUpper();
 
                         try
                         {
-                            Convert.ToInt32(outOper);
+                            Convert.ToInt32(op);
                         }
                         catch (FormatException)
                         {
                             litType = Literal.UNKNOWN;
                         }
 
+                        op = BinaryHelper.ConvertNumber(op, bits);
+                        outOper = Convert.ToString(op, 16).ToUpper();
                     } break;
                 case 'C':
                 case 'c':
