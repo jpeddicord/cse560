@@ -1,0 +1,11 @@
+A version of Test1 that has had its object files modified to introduce errors
+in linking. No errors in the header record here.
+
+Specific errors:
+
+* Line 2 points to an invalid LC.
+* Line 15 of mod1 points to an invalid LC.
+* Line 18 is missing the word to modify.
+* Line 19 has a + followed by nothing.
+* Line 21 has the wrong program name.
+

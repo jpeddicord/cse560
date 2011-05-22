@@ -1,0 +1,8 @@
+A version of test 1 with some errors in the header introduced.
+
+Specific errors:
+
+* strings - module length mismatch (set to 2)
+* strings - date parsing error
+* strings - total number of records wrong (set to 7)
+* strings - program name mismatch

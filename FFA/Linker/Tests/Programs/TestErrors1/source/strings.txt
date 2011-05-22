@@ -1,0 +1,8 @@
+ModStrings  start 9
+            entry seven
+            entry hello2
+hello2      dat c='ll'
+hello3      dat c='o'
+            entry hello3
+seven       dat i=7
+            end ModStrings

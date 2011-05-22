@@ -1,0 +1,8 @@
+H:ModStrings:0009:0002:0009:201114123:33:50:9001:0007:0003:0003:0000:FFA-ASM:ModString
+L:hello2:0009:ModStrings
+L:hello3:000A:ModStrings
+L:seven:000B:ModStrings
+T:0009:6C6C:A:0:ModStrings
+T:000A:6F00:A:0:ModStrings
+T:000B:0007:A:0:ModStrings
+E:ModStrings

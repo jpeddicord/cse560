@@ -1,0 +1,18 @@
+Module1     start 15
+            extrn hello2
+            extrn hello3
+hello1      dat c='He'
+skip        reset 20
+            extrn seven
+he          moper writec,hello1     : write "He"
+ll          moper writec,hello2     :       "ll"
+lettero     moper writec,hello3     :       "o"
+            stack push,seven
+            stack push,I=2
+            soper add,2
+            stack pop,*+2
+            cntl goto,*+2
+            dat i=0
+            moper writen,*-1
+            cntl halt,0
+            end Module1
