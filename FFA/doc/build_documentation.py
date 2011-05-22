@@ -271,6 +271,7 @@ def build_linker_tests(directory, runner, out_dir,  prefix, index_file, ext='.ob
                 pass
             out += '\n\nInput\n^^^^^'
             # script sources
+            sources = []
             for oroot, odirs, ofiles in os.walk(join(root, dname, 'objects')):
                 ofiles.sort()
                 for fname in ofiles:
@@ -283,17 +284,21 @@ def build_linker_tests(directory, runner, out_dir,  prefix, index_file, ext='.ob
                                 out += '    ' + line.rstrip() + '\n'
                     except:
                         pass
+                    sources.append(join(oroot, fname))
                 break
             out += '\n\nOutput\n^^^^^^\n\n::\n\n'
             # launch the linker
-            p = Popen(' '.join([runner] + [join(root, dname, 'objects', n) for n in ofiles]), shell=True, stdout=PIPE)
+            p = Popen(' '.join([runner] + sources), shell=True, stdout=PIPE)
             outdata, err = p.communicate()
             # grab and insert the testing output
             for line in outdata.split('\n'):
                 out += '    ' + line.rstrip() + '\n'
-            # TODO: grab the load file
+            # grab the load file
             try:
-                pass
+                with open(sources[0] + '.ffa') as f:
+                    out += '\n\nLoad File\n^^^^^^^^^\n\n::\n\n'
+                    for line in f:
+                        out += '    ' + line.rstrip() + '\n'
             except:
                 pass
             # write the output
@@ -315,8 +320,9 @@ def build_error_list(in_file, out_file):
         with open(out_file, 'w') as f:
             f.write("\n")
             for line in i:
-                code, val = line.split(' ', 1)
-                f.write("* **" + code + "** - " + val.rstrip() + "\n")
+                if len(line.strip()) > 0:
+                    code, val = line.split(' ', 1)
+                    f.write("* **" + code + "** - " + val.rstrip() + "\n")
             f.write("\n")
 
 def doxygen():
