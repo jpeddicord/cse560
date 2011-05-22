@@ -325,14 +325,15 @@ namespace Assembler
                             rec.Adjustments = Convert.ToString(mod.Adjustments, 16);
 
                             // get the hex sorted out
-                            int bytecode = Convert.ToInt32(bin, 2);
-                            bytecode += Convert.ToInt32(expr, 16);
+                            int adj = Convert.ToInt32(expr, 16);
+                            int bytecode = Convert.ToInt32(bin, 2) + adj;
                             
                             // check the range
-                            int eof = Convert.ToInt32(this.input.ModuleLength, 16);
-                            if (bytecode > eof)
+                            int eof = Convert.ToInt32(this.input.Line(1).DirectiveOperand, 16) +
+                                      Convert.ToInt32(this.input.ModuleLength, 16);
+                            if (Convert.ToInt32(expr, 16) > eof)
                             {
-                                line.AddError(Errors.Category.Serious, 24);
+                                line.AddError(Errors.Category.Serious, 38);
                                 line.NOPificate();
                             }
                             else
@@ -392,7 +393,8 @@ namespace Assembler
                         if (worked)
                         {
                             // check the range
-                            int eof = Convert.ToInt32(this.input.ModuleLength, 16);
+                            int eof = Convert.ToInt32(this.input.Line(1).DirectiveOperand, 16) +
+                                      Convert.ToInt32(this.input.ModuleLength, 16);
                             if (Convert.ToInt32(expr, 16) > eof)
                             {
                                 line.AddError(Errors.Category.Serious, 38);
