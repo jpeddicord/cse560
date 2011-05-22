@@ -128,7 +128,7 @@ namespace Linker
             {
                 assLoadVal = Convert.ToInt32(assLoad, 16);
             }
-            catch (FormatException )
+            catch (FormatException)
             {
                 // error, not valid hex
             }
@@ -158,7 +158,7 @@ namespace Linker
             {
                 modLenVal = Convert.ToInt32(modLen, 16);
             }
-            catch (FormatException )
+            catch (FormatException)
             {
                 // error, not valid hex
             }
@@ -188,7 +188,7 @@ namespace Linker
             {
                 execAddVal = Convert.ToInt32(execAdd, 16);
             }
-            catch (FormatException )
+            catch (FormatException)
             {
                 // error, not valid hex
             }
@@ -237,7 +237,7 @@ namespace Linker
             {
                 totalRecVal = Convert.ToInt32(totalRec, 16);
             }
-            catch (FormatException )
+            catch (FormatException)
             {
                 // error, not valid hex
             }
@@ -261,7 +261,7 @@ namespace Linker
             {
                 linkRecVal = Convert.ToInt32(linkRec, 16);
             }
-            catch (FormatException )
+            catch (FormatException)
             {
                 // error, not valid hex
             }
@@ -285,7 +285,7 @@ namespace Linker
             {
                 textRecVal = Convert.ToInt32(textRec, 16);
             }
-            catch (FormatException )
+            catch (FormatException)
             {
                 // error, not valid hex
             }
@@ -315,7 +315,7 @@ namespace Linker
             {
                 modRecVal = Convert.ToInt32(modRec, 16);
             }
-            catch (FormatException )
+            catch (FormatException)
             {
                 // error, not valid hex
             }
@@ -340,8 +340,8 @@ namespace Linker
 
             if (fileNum == 0)
             {
-                head.LinkerLoadAddress = assLoadVal;
-                address = assLoadVal + modLenVal;
+                head.LinkerLoadAddress = 0;
+                address = modLenVal;
             }
             else
             {
@@ -403,7 +403,7 @@ namespace Linker
             {
                 prgmLocVal = Convert.ToInt32(prgmLoc, 16);
             }
-            catch (FormatException )
+            catch (FormatException)
             {
                 // error, not valid hex
             }
@@ -473,7 +473,7 @@ namespace Linker
             {
                 progLocVal = Convert.ToInt32(progLoc, 16);
             }
-            catch (FormatException )
+            catch (FormatException)
             {
                 // error, not valid hex
             }
@@ -503,7 +503,7 @@ namespace Linker
             {
                 hexCodeVal = Convert.ToInt32(hexCode, 16);
             }
-            catch (FormatException )
+            catch (FormatException)
             {
                 // error, not valid hex
             }
@@ -545,7 +545,7 @@ namespace Linker
             {
                 mAdjVal = Convert.ToInt32(mAdj, 16);
             }
-            catch (FormatException )
+            catch (FormatException)
             {
                 // error, not valid hex
             }
@@ -590,7 +590,7 @@ namespace Linker
             {
                 locVal = Convert.ToInt32(loc, 16);
             }
-            catch (FormatException )
+            catch (FormatException)
             {
                 // error, not valid hex
             }
@@ -620,7 +620,7 @@ namespace Linker
             {
                 hexVal = Convert.ToInt32(hex, 16);
             }
-            catch (FormatException )
+            catch (FormatException)
             {
                 // error, not valid hex
             }

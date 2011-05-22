@@ -50,6 +50,7 @@ namespace Linker
                     {
                         // Error: Address Field relocation will be out of range of this program
                         // NOP substituted
+                        rec.Word = 32768;
                     }
                 }
                 textRecords.Add(rec.Location, rec);
