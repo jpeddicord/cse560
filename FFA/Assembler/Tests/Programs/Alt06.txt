@@ -11,4 +11,5 @@ A2   adce *+100
 A3  adce *-10
 A4  adce 10+20+30+40
 A5  ADCe AB+A1
+V1  adce *-3
    End ALT06

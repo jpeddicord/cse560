@@ -329,9 +329,9 @@ namespace Assembler
                             int bytecode = Convert.ToInt32(bin, 2) + adj;
                             
                             // check the range
-                            int eof = Convert.ToInt32(this.input.Line(1).DirectiveOperand, 16) +
-                                      Convert.ToInt32(this.input.ModuleLength, 16);
-                            if (Convert.ToInt32(expr, 16) > eof)
+                            int start = Convert.ToInt32(this.input.Line(1).DirectiveOperand, 16);
+                            int eof = start + Convert.ToInt32(this.input.ModuleLength, 16);
+                            if (Convert.ToInt32(expr, 16) > eof || Convert.ToInt32(expr, 16) < start)
                             {
                                 line.AddError(Errors.Category.Serious, 38);
                                 line.NOPificate();
@@ -392,18 +392,7 @@ namespace Assembler
                         // catching errors
                         if (worked)
                         {
-                            // check the range
-                            int eof = Convert.ToInt32(this.input.Line(1).DirectiveOperand, 16) +
-                                      Convert.ToInt32(this.input.ModuleLength, 16);
-                            if (Convert.ToInt32(expr, 16) > eof)
-                            {
-                                line.AddError(Errors.Category.Serious, 38);
-                                line.NOPificate();
-                            }
-                            else
-                            {
-                                bin = Convert.ToString(Convert.ToInt32(expr, 16), 2).PadLeft(16, '0');
-                            }
+                            bin = Convert.ToString(Convert.ToInt32(expr, 16), 2);
                         }
                     }
                     else if (line.DirectiveLitOperand == OperandParser.Literal.NUMBER)
@@ -412,6 +401,16 @@ namespace Assembler
                         mod.AddAdjustment(true, symb.ProgramName);
                         rel = 1;
                         bin = Convert.ToString(Convert.ToInt32(expr, 16), 2);
+                    }
+
+                    // check the range
+                    int start = Convert.ToInt32(this.input.Line(1).DirectiveOperand, 16);
+                    int eof = start + Convert.ToInt32(this.input.ModuleLength, 16);
+                    if (Convert.ToInt32(expr, 16) > eof || Convert.ToInt32(expr, 16) < start)
+                    {
+                        line.AddError(Errors.Category.Serious, 38);
+                        line.NOPificate();
+                        bin = "0000000000000000";
                     }
 
                     // if there are modifications to be made, add them
