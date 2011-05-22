@@ -12,16 +12,19 @@ namespace Linker
     {
         private int fileNum;
         private int address;
+        private SymbolTable symb;
 
-        public void ParseFile(string filename, out Module mod, int fileNum, ref int startAddress)
+        public void ParseFile(string filename, out Module mod, SymbolTable symb, int fileNum, ref int startAddress)
         {
             this.fileNum = fileNum;
             this.address = startAddress;
             var file = new StreamReader(filename);
+            this.symb = symb;
 
             int lineNum = 0;
             string rec;
             mod = new Module();
+            bool endReached = false;
             while ((rec = file.ReadLine()) != null)
             {
                 try
@@ -30,6 +33,12 @@ namespace Linker
                     if (rec.Trim().Length == 0)
                     {
                         continue;
+                    }
+
+                    if (endReached)
+                    {
+                        // error, input present after the end record
+                        Console.WriteLine("WRONG!");
                     }
     
                     // process different types of records
@@ -51,7 +60,7 @@ namespace Linker
                     }
                     else if (rec[0] == 'E')
                     {
-                        ParseEnd(rec, mod);
+                        endReached = ParseEnd(rec, mod);
                     }
                     // invalid record or garbage data
                     else
@@ -350,6 +359,7 @@ namespace Linker
             }
 
             mod = new Module(head);
+            symb.AddSymbol(mod.ModuleName, Assembler.Usage.PRGMNAME, mod.RelocateValue);
         }
 
         public void ParseLink(string rec, Module mod)
@@ -638,7 +648,7 @@ namespace Linker
             int i = 4;
             while (sign == "+" || sign == "-")
             {
-                string label = field[i++];
+                string label = field[i++].ToUpper();
 
                 // check that label is valid label
                 if (2 <= label.Length && label.Length <= 32)
@@ -688,12 +698,17 @@ namespace Linker
                 // program name of program being parsed
             }
 
+            //check to see that the modify record doesn't have too many adjustments
+            if (modRecord.Adjustments.Count > 15)
+            {
+                // error, can only have 15 adjustments in a modify record
+            }
 
             // add modification record to module
             mod.AddRecord(modRecord);
         }
 
-        public void ParseEnd(string rec, Module mod)
+        public bool ParseEnd(string rec, Module mod)
         {
             string[] field = rec.Split(':');
 
@@ -715,7 +730,7 @@ namespace Linker
                 if (!(!alphaNumeric.IsMatch(prgmName) && char.IsLetter(prgmName[0])))
                 {
                     // program name is not a valid label
-
+                    
                 }
             }
             else
@@ -726,6 +741,49 @@ namespace Linker
 
 
             // check that this program name is in the symbol table.
+            if (mod.ModuleName != prgmName)
+            {
+                // error, must have the same program name at the end of the record as the
+                // module currently being parsed
+            }
+
+            // since end record has been reached there should be no more input
+            // check to see if the correct number of records has been found
+            CheckRecords(mod);
+
+            // add linking records to the symbol table since all the data we
+            // need should be there at this point
+            DoLinkingRecords(mod);
+
+            return true;
+        }
+
+        private void CheckRecords(Module mod)
+        {
+            if (mod.HeaderRecord.TotalTextRecords != mod.TotalTextRecords)
+            {
+                // error, wrong number of text records
+            }
+
+            if (mod.HeaderRecord.TotalLinkingRecords != mod.TotalLinkingRecords)
+            {
+                // error, wrong number of linking records
+            }
+
+            if (mod.HeaderRecord.TotalModifyRecords != mod.TotalModifyRecords)
+            {
+                // error, wrong number of modify records
+            }
+        }
+
+        private void DoLinkingRecords(Module mod)
+        {
+            var lRec = mod.LinkingRecords;
+            foreach (var rec in lRec)
+            {
+                int lValue = mod.GetTextRecord(lRec[rec.Key].Location).Location;
+                symb.AddSymbol(lRec[rec.Key].EntryName, Assembler.Usage.ENTRY, lValue);
+            }
         }
     }
 }

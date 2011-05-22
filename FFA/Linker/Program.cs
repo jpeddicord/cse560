@@ -17,21 +17,27 @@ namespace Linker
                 infiles = args;
             }
 
-            Console.WriteLine("herp");
+            string outfile = infiles[0] + ".FFA";
+
             Parser pars = new Parser();
 
             int file = 0;
             int address = 0;
             SymbolTable symb = new SymbolTable();
             Dictionary<string, Module> modules = new Dictionary<string, Module>();
+            Module[] mods = new Module[infiles.Length];
 
             foreach (var f in infiles)
             {
                 Module mod;
-                pars.ParseFile(f, out mod, file, ref address);
-                file++;
+                pars.ParseFile(f, out mod, symb, file, ref address);
                 modules.Add(mod.ModuleName, mod);
+                mods[file] = mod;
+                file++;
             }
+
+            LoadFile load = new LoadFile(mods, symb);
+            load.Render(outfile);
         }
     }
 }

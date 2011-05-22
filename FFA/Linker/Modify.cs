@@ -16,9 +16,7 @@ namespace Linker
         private List<string> adjustments = new List<string>();
 
         public List<string> Adjustments
-        {
-            get { return adjustments; }
-        }
+        { get { return adjustments; } }
 
         public void AddAdjustments(string sign, string label)
         {

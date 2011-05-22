@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="Header.cs" />
     <Compile Include="Linking.cs" />
+    <Compile Include="LoadFile.cs" />
     <Compile Include="Modify.cs" />
     <Compile Include="Module.cs" />
     <Compile Include="Parser.cs" />

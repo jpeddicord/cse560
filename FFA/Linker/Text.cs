@@ -21,5 +21,14 @@ namespace Linker
 
         public string ProgramName
         { get; set; }
+
+        public override string ToString()
+        {
+            return string.Format("T:{0}:{1}:{2}",
+                                 Convert.ToString(this.Location,16).ToUpper().PadLeft(4,'0'),
+                                 Convert.ToString(this.Word,16).ToUpper().PadLeft(4,'0'),
+                                 this.ProgramName
+                                 );
+        }
     }
 }
