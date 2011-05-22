@@ -17,7 +17,7 @@ namespace Simulator
             else if (function == "DUMP")
             {
                 // dump flag is in last 2 bits
-                CNTL.Halt(Convert.ToInt32(bin.Substring(14), 2));
+                CNTL.Halt(Convert.ToInt32(bin.Substring(6), 2));
             }
             else if (function == "CLRD")
             {
@@ -55,6 +55,12 @@ namespace Simulator
         public static void Halt(int code)
         {
             // TODO Throw error if out of range
+            if (code > 1023)
+            {
+                Console.WriteLine(String.Format("RUNTIME ERROR: {0}", new Assembler.ErrorException(ErrCat.Warning, 2)));
+                code = 1023;
+            }
+
             Console.WriteLine("Program exited with code: " + code);
             System.Environment.Exit(code);
         }
@@ -75,7 +81,7 @@ namespace Simulator
          * @teststandard Andrew Buelow
          * @codestandard Mark Mathis
          */
-        public static void Dump(short flag)
+        public static void Dump(int flag)
         {
             // User should only provide a 1, 2 or 3 as a dump flag
             switch (flag)

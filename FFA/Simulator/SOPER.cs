@@ -211,7 +211,7 @@ namespace Simulator
                 }
                 else if (str.Length > 2)
                 {
-                    throw new Assembler.ErrorException(ErrCat.Warning, 1);
+                    Console.WriteLine(String.Format("RUNTIME ERROR: {0}", new Assembler.ErrorException(ErrCat.Warning, 1)));
                 }
 
                 i = (int)str[0];
