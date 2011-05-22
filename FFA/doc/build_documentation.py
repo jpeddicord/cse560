@@ -93,13 +93,13 @@ def build_linker():
     build_ded('../', 'tmp/ded.rst')
     convert_rst('tmp/ded.rst', 'tmp/ded.html', 'rst-linker')
     create_dox_wrapper('tmp/ded.rst', 'tmp/ded.dox')
-    #print "Running test scripts"
-    #scripts = build_test_scripts('../Tests/Programs', '../bin/Release/Assembler.exe', 'tmp/tests', 'testfile_', 'tmp/testscript_index.rst')
-    #for script in scripts:
-    #    convert_rst(join('tmp/tests', script), join('tmp', script.replace('.rst', '.html')))
-    #    create_dox_wrapper(join('tmp/tests', script), join('tmp', script.replace('.rst', '.dox')))
-    #print "  Creating error listing"
-    #build_error_list('../Resources/errors.txt', 'tmp/errorlist.rst')
+    print "Running test scripts"
+    scripts = build_linker_tests('../Tests/Programs', '../bin/Release/Linker.exe', 'tmp/tests', 'testlink_', 'tmp/testlink_index.rst')
+    for script in scripts:
+        convert_rst(join('tmp/tests', script), join('tmp', script.replace('.rst', '.html')), 'rst-linker')
+        create_dox_wrapper(join('tmp/tests', script), join('tmp', script.replace('.rst', '.dox')))
+    print "Creating error listing"
+    build_error_list('../Resources/Errors.txt', 'tmp/errorlist.rst')
     print "Building manual"
     build_rst_dir('src', 'tmp', 'rst-linker')
     print "Running Doxygen"
@@ -126,11 +126,11 @@ def build_simulator():
     convert_rst('tmp/ded.rst', 'tmp/ded.html', 'rst-simulator')
     create_dox_wrapper('tmp/ded.rst', 'tmp/ded.dox')
     print "Running test scripts"
-    scripts = build_test_scripts('../Tests/Programs', '../bin/Release/Simulator.exe', 'tmp/tests', 'testfile_', 'tmp/testscript_index.rst', '.prg')
+    scripts = build_test_scripts('../Tests/Programs', '../bin/Release/Simulator.exe', 'tmp/tests', 'testsim_', 'tmp/testsim_index.rst', '.prg')
     for script in scripts:
         convert_rst(join('tmp/tests', script), join('tmp', script.replace('.rst', '.html')), 'rst-simulator')
         create_dox_wrapper(join('tmp/tests', script), join('tmp', script.replace('.rst', '.dox')))
-    print "  Creating error listing"
+    print "Creating error listing"
     build_error_list('../Resources/errors.txt', 'tmp/errorlist.rst')
     print "Building manual"
     build_rst_dir('src', 'tmp', 'rst-simulator')
@@ -247,7 +247,62 @@ def build_test_scripts(directory, runner, out_dir, prefix, index_file, ext='.txt
                 with open(join(out_dir, prefix + name), 'w') as f:
                     f.write(out)
                 names.append(name)
+        break
     # generate the index file
+    with open(index_file, 'w') as f:
+        for n in names:
+            base = camelcase_to_underscore(n.replace('.rst', ''))
+            f.write("* `" + n.replace('.rst', '') + " <" + prefix + "_" + base + ".html>`_\n")
+    return [prefix + n for n in names]
+
+def build_linker_tests(directory, runner, out_dir,  prefix, index_file, ext='.objtxt'):
+    """Run all linker tests and store output."""
+    names = []
+    for root, dirs, files in os.walk(directory):
+        dirs.sort()
+        # tests are grouped into directories
+        for dname in dirs:
+            out = dname + '\n' + '`'*len(dname) + '\n\n.. contents::'
+            # get the info file
+            try:
+                with open(join(root, dname, 'info')) as f:
+                    out += '\n\n' + f.read()
+            except:
+                pass
+            out += '\n\nInput\n^^^^^'
+            # script sources
+            for oroot, odirs, ofiles in os.walk(join(root, dname, 'objects')):
+                ofiles.sort()
+                for fname in ofiles:
+                    if not fname.endswith(ext):
+                        continue
+                    out += '\n\n' + fname + '\n' + '~'*len(fname) + '\n\n::\n\n'
+                    try:
+                        with open(join(oroot, fname)) as f:
+                            for line in f:
+                                out += '    ' + line.rstrip() + '\n'
+                    except:
+                        pass
+                break
+            out += '\n\nOutput\n^^^^^^\n\n::\n\n'
+            # launch the linker
+            p = Popen(' '.join([runner] + [join(root, dname, 'objects', n) for n in ofiles]), shell=True, stdout=PIPE)
+            outdata, err = p.communicate()
+            # grab and insert the testing output
+            for line in outdata.split('\n'):
+                out += '    ' + line.rstrip() + '\n'
+            # TODO: grab the load file
+            try:
+                pass
+            except:
+                pass
+            # write the output
+            name = dname + '.rst'
+            with open(join(out_dir, prefix + name), 'w') as f:
+                f.write(out)
+            names.append(name)
+        break
+    # generate the index
     with open(index_file, 'w') as f:
         for n in names:
             base = camelcase_to_underscore(n.replace('.rst', ''))

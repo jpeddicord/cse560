@@ -18,5 +18,5 @@ Test cases are provided in the following list. Click on a test case to see the t
 Test programs
 -------------
 
-.. include:: ../tmp/testscript_index.rst
+.. include:: ../tmp/testsim_index.rst
 
