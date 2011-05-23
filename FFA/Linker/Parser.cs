@@ -18,9 +18,16 @@ namespace Linker
 
         public void ParseFile(string filename, out Module mod, SymbolTable symb, int fileNum, ref int startAddress)
         {
+            // instantiate mod right away since it must be instantiated before
+            // this method exits
             mod = new Module();
+
+            // keep track of which file we are parsing
             this.fileNum = fileNum;
+
+            // keep track of which linker computed address we are on
             this.address = startAddress;
+
             StreamReader file = null;
             try
             {
@@ -32,9 +39,9 @@ namespace Linker
                 errPrinter.PrintError(ErrCat.Serious, 55);
                 return;
             }
-            this.symb = symb;
 
-            int lineNum = 0;
+            this.symb = symb;
+            int lineNum = 1;
             string rec;
             bool endReached = false;
             while ((rec = file.ReadLine()) != null)
@@ -83,8 +90,8 @@ namespace Linker
                 catch (Error ex)
                 {
                     Console.WriteLine(String.Format(
-                            "Parsing error on line {0}:\n{1}",
-                            lineNum, ex));
+                            "Parsing error on line {0} of {1}:\n{2}",
+                            lineNum, filename, ex));
                     if (ex.err.category == ErrCat.Fatal)
                     {
                         throw new Error(ErrCat.Fatal, ex.err.code);
