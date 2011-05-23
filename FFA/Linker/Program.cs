@@ -14,7 +14,7 @@ namespace Linker
         public static void Usage()
         {
             Console.WriteLine("FFA Linker");
-            Console.WriteLine("Usage:\t\tLinker obj1.obj [obj2.obj...]");
+            Console.WriteLine("Usage:  Linker obj1.obj [obj2.obj...]");
             Console.WriteLine("Linker will link all obj files into obj1.ffa");
         }
 
@@ -29,6 +29,7 @@ namespace Linker
             }
             else
             {
+                // there must be at least one input file
                 Usage();
                 System.Environment.Exit(1);
             }
@@ -40,20 +41,37 @@ namespace Linker
             int file = 0;
             int address = 0;
             SymbolTable symb = new SymbolTable();
+            List<Module> modules = new List<Module>();
             Module[] mods = new Module[infiles.Length];
 
             try
             {
                 foreach (var f in infiles)
                 {
-                    Module mod;
-                    pars.ParseFile(f, out mod, symb, file, ref address);
+                    Module mod = new Module();
+                    try
+                    {
+                        pars.ParseFile(f, out mod, symb, file, ref address);
+                    }
+                    catch (Error ex)
+                    {
+                        Console.WriteLine(ex.err);
+                        continue;
+                    }
+                    modules.Add(mod);
                     mods[file] = mod;
                     file++;
                 }
 
-                LoadFile load = new LoadFile(mods, symb);
-                load.Render(outfile);
+                if (modules.Count > 0)
+                {
+                    LoadFile load = new LoadFile(modules, symb);
+                    load.Render(outfile);
+                }
+                else
+                {
+                    Assembler.Errors.GetInstance().PrintError(Assembler.Errors.Category.Serious, 57);
+                }
             }
             catch (Error)
             {

@@ -11,11 +11,11 @@ namespace Linker
     {
         Assembler.Errors errPrinter = Assembler.Errors.GetInstance();
 
-        private Module[] modules;
+        private List<Module> modules;
         private SymbolTable symb;
         private Header loadHeader = new Header();
 
-        public LoadFile(Module[] modules, SymbolTable symb)
+        public LoadFile(List<Module> modules, SymbolTable symb)
         {
             this.modules = modules;
             this.symb = symb;

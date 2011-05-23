@@ -36,8 +36,7 @@ namespace Linker
             catch (Exception)
             {
                 // error, input file cannot be opened
-                errPrinter.PrintError(ErrCat.Serious, 55);
-                return;
+                throw new Error(ErrCat.Serious, 55);
             }
 
             this.symb = symb;

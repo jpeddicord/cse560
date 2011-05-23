@@ -26,7 +26,7 @@ ES.03 Assembler assigned location counter should be 4 hex digits but is not, ass
 ES.04 Module length should be 4 hex digits but is not, assuming valid hex. Linking continues.
 ES.05 Execution start address should be 4 hex digits but is not, assuming valid hex. Linking continues.
 ES.06 Total number of text records should be 4 hex digits but is not, assuming valid hex. Linking continues.
-ES.07 Total number of text records should be valid hex but is not. The linker will not be able to verify that the proper number of text records have been read in. Linking continues, but here be dragons.
+ES.07 Total number of text records should be valid hex but is not. The linker will not be able to verify that the proper number of text records have been read in. Linking continues, here be dragons.
 ES.08 Program name at the end of header record does not match program name at the beginning of header record. Linking continues, handle with care.
 ES.09 Linking record has the incorrect number of fields. Record ignored, linking continues.
 ES.10 Entry name must be between 2 and 32 characters long, start with a letter, and contain only letters and numbers. Linking continues.
@@ -74,8 +74,9 @@ ES.51 While evaluating modify record adjustments, an entry was requested that do
 ES.52 Error when writing object load file to disk. Check your permissions. Object file will be printed to the screen.
 ES.53 Total number of text records should not be less than the total program length. Object file will be written, check it for errors.
 ES.54 Error when writing object load file to disk. Check your permissions. Some of the object file may have been written to disk. Check for errors.
-ES.55 Error opening input file. File will be skipped. This will almost certainly cause problems.
+ES.55 Error opening input file. File will be skipped. Linking continues.
 ES.56 While evaluating modify record adjustments, a modify record modified a location that does not exist in this module. Modify record is ignored. Linking continues.
+ES.57 No valid input files found. At least one input file must be a valid FFA-ASM object file.
 
 
 EF.01 Header record has the incorrect number of fields. Stopping linker.
