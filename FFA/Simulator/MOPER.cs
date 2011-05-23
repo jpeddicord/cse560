@@ -379,6 +379,8 @@ namespace Simulator
             int i = m.GetWordInt(addr);
 
             Console.Write(i);
+            Console.Out.Flush();
+
         }
 
         /**
@@ -412,6 +414,8 @@ namespace Simulator
             char c2 = (char)char2;
 
             Console.Write(c1.ToString() + c2.ToString());
+            Console.Out.Flush();
+
         }
     }
 }

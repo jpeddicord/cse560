@@ -177,7 +177,7 @@ namespace Simulator
             }
             else if (category == "MOPER")
             {
-                //MOPER.Run(function, bin);
+                MOPER.Run(function, bin);
             }
         }
 
@@ -195,7 +195,7 @@ namespace Simulator
             }
             else
             {
-                Console.WriteLine("===After Simulation=== ===After Simulation=== ===After Simulation===");
+                Console.WriteLine("\n===After Simulation===  ===After Simulation===  ===After Simulation===");
             }
 
             Console.WriteLine(" LC = {0,4}  MEM = {1}  Op-code = {2}  Function = {3}  S = {4}",
@@ -220,7 +220,7 @@ namespace Simulator
             }
             else
             {
-                Console.WriteLine("===After Simulation=== ===After Simulation=== ===After Simulation===\n");
+                Console.WriteLine("===After Simulation===  ===After Simulation===  ===After Simulation===\n");
             }
         }
     }
