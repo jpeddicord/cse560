@@ -55,7 +55,18 @@ namespace Simulator
          */
         public bool ParseFile(string filename)
         {
-            var file = new StreamReader(filename);
+
+            StreamReader file;
+
+            try
+            {
+                file = new StreamReader(filename);
+            }
+            catch (Exception)
+            {
+                Assembler.Errors.GetInstance().PrintError(ErrCat.Fatal, 7);
+                return false;
+            }
 
             string line;
             int lineNum = 1;

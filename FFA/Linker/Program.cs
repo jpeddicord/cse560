@@ -8,6 +8,16 @@ namespace Linker
 {
     class Program
     {
+        /**
+         * Output usage information.
+         */
+        public static void Usage()
+        {
+            Console.WriteLine("FFA Linker");
+            Console.WriteLine("Usage:\t\tLinker obj1.obj [obj2.obj...]");
+            Console.WriteLine("Linker will link all obj files into obj1.ffa");
+        }
+
         static void Main(string[] args)
         {
              Assembler.Errors.SetResource(Properties.Resources.Errors);
@@ -16,6 +26,11 @@ namespace Linker
             if (args.Length > 0)
             {
                 infiles = args;
+            }
+            else
+            {
+                Usage();
+                System.Environment.Exit(1);
             }
 
             string outfile = System.IO.Path.GetFileNameWithoutExtension(infiles[0]) + ".ffa";

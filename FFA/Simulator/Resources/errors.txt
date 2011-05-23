@@ -4,6 +4,8 @@ EF.03 Wrong number of fields in header record.
 EF.04 Invalid load address in header record.
 EF.05 Invalid execution start address in header record.
 EF.06 Invalid program length field in header record.
+EF.07 Error opening input file; cannot continue.
+
 ES.01 Missing version number of linker, or incorrect format.
 ES.02 Wrong number of fields in text record.
 ES.03 Wrong number of fields in end record.
@@ -31,6 +33,8 @@ ES.28 Too many items on the test stack, unable to add more. Ignoring push to sta
 ES.29 Data stack is empty, unable to remove an item.
 ES.30 Test stack is empty, unable to remove an item.
 ES.31 Value is too large to fit in memory. Must be within 0 and 65535.
+
+
 EW.01 Invalid character entry, too many characters given. Accepting up to the first two and ignoring the rest.
 EW.02 Halt code out of range. Setting code to 1023.
 EW.03 Program name of record doesn't match header.
