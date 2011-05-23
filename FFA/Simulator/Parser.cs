@@ -158,7 +158,7 @@ namespace Simulator
         {
             var errors = new List<Assembler.ErrorException>();
             // error checking
-            if (parts.Length != 13)
+            if (parts.Length != 11)
             {
                 throw new Assembler.ErrorException(ErrCat.Fatal, 3);
             }
@@ -189,26 +189,26 @@ namespace Simulator
                 errors.Add(new Assembler.ErrorException(ErrCat.Serious, 18));
             }// TODO: date field may not have colons...
             // check record number length
-            if (parts[8].Length != 4)
+            if (parts[6].Length != 4)
             {
                 errors.Add(new Assembler.ErrorException(ErrCat.Serious, 19));
             }
             // check text record count matches the total length
-            if (parts[9] != parts[4])
+            if (parts[7] != parts[4])
             {
                 errors.Add(new Assembler.ErrorException(ErrCat.Serious, 20));
             }
             // check FFA-LLM
-            if (parts[10] != "FFA-LLM")
+            if (parts[8] != "FFA-LLM")
             {
                 errors.Add(new Assembler.ErrorException(ErrCat.Serious, 21));
             }
-            if (parts[11].Length != 4)
+            if (parts[9].Length != 4)
             {
                 errors.Add(new Assembler.ErrorException(ErrCat.Serious, 1));
             }
             // check program name matches
-            if (parts[12] != parts[1])
+            if (parts[10] != parts[1])
             {
                 errors.Add(new Assembler.ErrorException(ErrCat.Warning, 3));
             }
@@ -250,7 +250,7 @@ namespace Simulator
             // try to set the total number of records
             try
             {
-                this.totalRecords = Convert.ToInt32(parts[8], 16);
+                this.totalRecords = Convert.ToInt32(parts[6], 16);
             }
             catch (Exception)
             {
