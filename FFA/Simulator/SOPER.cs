@@ -120,14 +120,15 @@ namespace Simulator
         {
             if (n > 1)
             {
-                    Memory m = Memory.GetInstance();
-                    int total = 0;
-                    while (n > 0)
-                    {
-                        total = total + m.DataPopInt();
-                    }
+                Memory m = Memory.GetInstance();
+                int total = 0;
+                while (n > 0)
+                {
+                    total = total + m.DataPopInt();
+                    n--;
+                }
 
-                    m.DataPushInt(total);
+                m.DataPushInt(total);
             }
         }
 
@@ -150,15 +151,16 @@ namespace Simulator
             if (n > 1)
             {
 
-                    Memory m = Memory.GetInstance();
-                    int total = m.DataPopInt();
+                Memory m = Memory.GetInstance();
+                int total = m.DataPopInt();
 
-                    while (n > 1)
-                    {
-                        total = total - m.DataPopInt();
-                    }
+                while (n > 1)
+                {
+                    total = total - m.DataPopInt();
+                    n--;
+                }
 
-                    m.DataPushInt(total);
+                m.DataPushInt(total);
 
             }
         }
@@ -187,6 +189,7 @@ namespace Simulator
                 while (n > 0)
                 {
                     total = total * m.DataPopInt();
+                    n--;
                 }
 
                 m.DataPushInt(total);
@@ -213,23 +216,24 @@ namespace Simulator
             if (n > 1)
             {
 
-                    Memory m = Memory.GetInstance();
-                    int total = m.DataPopInt();
+                Memory m = Memory.GetInstance();
+                int total = m.DataPopInt();
 
-                    while (n > 1)
+                while (n > 1)
+                {
+                    int i = m.DataPopInt();
+
+                    // Check to ensure we never divide by zero, throw an error if we do
+                    if (i == 0)
                     {
-                        int i = m.DataPopInt();
-
-                        // Check to ensure we never divide by zero, throw an error if we do
-                        if (i == 0)
-                        {
-                            throw new Assembler.ErrorException(ErrCat.Serious, 12);
-                        }
-
-                        total = total / i;
+                        throw new Assembler.ErrorException(ErrCat.Serious, 12);
                     }
 
-                    m.DataPushInt(total);
+                    total = total / i;
+                    n--;
+                }
+
+                m.DataPushInt(total);
 
             }
         }
@@ -253,15 +257,17 @@ namespace Simulator
             if (n > 1)
             {
 
-                    Memory m = Memory.GetInstance();
-                    int total = m.DataPopInt();
+                Memory m = Memory.GetInstance();
+                int total = m.DataPopInt();
 
-                    while (n > 1)
-                    {
-                        total = total | m.DataPopInt();
-                    }
+                while (n > 1)
+                {
+                    total = total | m.DataPopInt();
+                    n--;
+                }
 
-                    m.DataPushInt(total);
+                m.DataPushInt(total);
+
             }
         }
 
@@ -283,15 +289,16 @@ namespace Simulator
         {
             if (n > 1)
             {
-                    Memory m = Memory.GetInstance();
-                    int total = m.DataPopInt();
+                Memory m = Memory.GetInstance();
+                int total = m.DataPopInt();
 
-                    while (n > 1)
-                    {
-                        total = total & m.DataPopInt();
-                    }
+                while (n > 1)
+                {
+                    total = total & m.DataPopInt();
+                    n--;
+                }
 
-                    m.DataPushInt(total);
+                m.DataPushInt(total);
             }
         }
 
