@@ -113,9 +113,13 @@ namespace Simulator
                 }
                 catch (Assembler.ErrorException ex)
                 {
-                    Console.WriteLine(String.Format("RUNTIME ERROR: {0}\n", ex));
+                    Console.WriteLine(String.Format("RUNTIME ERROR ON LC {0}: {1}", this.LC, ex));
 
-                    PrintDebug(false);
+                    if (Runtime.Debug)
+                    {
+                        PrintDebug(false);
+                    }
+
                     Console.WriteLine();
 
                     // break on fatal errors
