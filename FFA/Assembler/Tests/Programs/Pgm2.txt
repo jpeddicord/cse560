@@ -1,0 +1,14 @@
+Pgm2 start 0
+     STACK PUSH,x1
+	 STACK PUSH,x2
+	 STACK PUSH,x3
+	 STACK PUSH,x4
+	 STACK PUSH,x5
+	 SOPER WRITEC,5
+	 CNTL HALT,0
+x1	 dat I=21072
+x2	 dat I=17477
+x3	 dat I=32
+x4	 dat I=21072
+x5	 dat I=18501
+	 end Pgm2
