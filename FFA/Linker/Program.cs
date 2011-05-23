@@ -42,7 +42,8 @@ namespace Linker
             }
             catch (Error)
             {
-                // silently die on fatal exceptions
+                // gracefully die on fatal exceptions
+                Console.WriteLine("Stopping linker due to fatal error.");
                 System.Environment.Exit(1);
             }
         }

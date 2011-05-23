@@ -318,6 +318,7 @@ namespace Assembler
          */
         public void PrintError(Category cat, int errCode)
         {
+            
             if (cat == Category.Fatal)
             {
                 Console.WriteLine(GetFatalError(errCode));

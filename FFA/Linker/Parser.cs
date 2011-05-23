@@ -20,7 +20,17 @@ namespace Linker
         {
             this.fileNum = fileNum;
             this.address = startAddress;
-            var file = new StreamReader(filename);
+            StreamReader file = null;
+            try
+            {
+                file = new StreamReader(filename);
+            }
+            catch (Exception)
+            {
+                // error, input file cannot be opened
+                errPrinter.PrintError(ErrCat.Serious, 55);
+                return;
+            }
             this.symb = symb;
 
             int lineNum = 0;

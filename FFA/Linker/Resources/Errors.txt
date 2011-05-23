@@ -61,6 +61,21 @@ ES.38 Attempted to define duplicate entry in symbol table. Linking continues but
 ES.39 Location value in linking record does not have a corresponding text record. Entry is ignored. Linking continues.
 ES.40 Location of text record will be relocated out of bounds of memory. Text record discarded. Linking continues.
 ES.41 Location of text record will be relocated our of bounds of module. Text record discarded. Linking continues.
+ES.42 The text record being added to the module has the same location counter as a previously added text record. Current text record will be discarded. Linking continues.
+ES.43 The address field of the text record will be relocated out of the range of memory. NOP inserted. Linking continues.
+ES.44 Location of linking record will be relocated out of bounds of memory. Linking record discarded. Linking continues.
+ES.45 Location of linking record will be relocated our of bounds of module. Linking record discarded. Linking continues.
+ES.46 The linking record being added to the module has the same location counter as a previously added linking record. Current linking record will be discarded. Linking continues.
+ES.47 Location of modify record will be relocated out of bounds of memory. modify record discarded. Linking continues.
+ES.48 Location of modify record will be relocated our of bounds of module. modify record discarded. Linking continues.
+ES.49 The modify record being added to the module has the same location counter as a previously added modify record. Current modify record will be discarded. Linking continues.
+ES.50 While evaluating modify record adjustments, an improper operator has been encountered. This probably means something wrong happened while parsing. Adjustment will be skipped. Linking continues.
+ES.51 While evaluating modify record adjustments, an entry was requested that does not exist in the symbol table. This probably means something wrong happened while parsing. Adjustment will be skipped. Linking continues.
+ES.52 Error when writing object load file to disk. Check your permissions. Object file will be printed to the screen.
+ES.53 Total number of text records does not match the total program length. Object file will be written, check it for errors.
+ES.54 Error when writing object load file to disk. Check your permissions. Some of the object file may have been written to disk. Check for errors.
+ES.55 Error opening input file. File will be skipped. This will almost certainly cause problems.
+
 
 EF.01 Header record has the incorrect number of fields. Stopping linker.
 EF.02 Assembler assigned location value must be valid hex. Stopping linker.

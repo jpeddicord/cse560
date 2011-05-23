@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Error = Assembler.ErrorException;
 using ErrCat = Assembler.Errors.Category;
 
 namespace Linker
@@ -64,16 +65,14 @@ namespace Linker
             if (!(0 <= address && address <= 1023))
             {
                 // error, address will be relocated out of the range of memory
-                errPrinter.PrintError(ErrCat.Serious, 40);
-                return;
+                throw new Error(ErrCat.Serious, 40);
             }
 
             if (address < HeaderRecord.LinkerLoadAddress || 
                 address > HeaderRecord.LinkerLoadAddress + HeaderRecord.ModuleLength)
             {
                 // error, address will be relocated out of the range of the module
-                errPrinter.PrintError(ErrCat.Serious, 41);
-                return;
+                throw new Error(ErrCat.Serious, 41);
             }
 
             rec.Location = address;
@@ -82,6 +81,7 @@ namespace Linker
             if (textRecords.ContainsKey(rec.Location))
             {
                 // error, multiple text records with same location counter value
+                throw new Error(ErrCat.Serious, 42);
             }
             else
             {
@@ -97,6 +97,7 @@ namespace Linker
                     {
                         // Error: Address Field relocation will be out of range of this program
                         // NOP substituted
+                        errPrinter.PrintError(ErrCat.Serious, 43);
                         rec.Word = 32768;
                     }
                 }
@@ -113,12 +114,14 @@ namespace Linker
             if (!(0 <= address && address <= 1023))
             {
                 // error, address will be relocated out of the range of memory
+                throw new Error(ErrCat.Serious, 44);
             }
 
             if (address < HeaderRecord.LinkerLoadAddress ||
                 address > HeaderRecord.LinkerLoadAddress + HeaderRecord.ModuleLength)
             {
                 // error, address will be relocated out of the range of the module
+                throw new Error(ErrCat.Serious, 45);
             }
 
             rec.Location = address;
@@ -128,6 +131,7 @@ namespace Linker
             if (linkingRecords.ContainsKey(rec.Location))
             {
                 // error, multiple linking records with same location counter value
+                throw new Error(ErrCat.Serious, 46);
             }
             else
             {
@@ -144,12 +148,14 @@ namespace Linker
             if (!(0 <= address && address <= 1023))
             {
                 // error, address will be relocated out of the range of memory
+                throw new Error(ErrCat.Serious, 47);
             }
 
             if (address < HeaderRecord.LinkerLoadAddress ||
                 address > HeaderRecord.LinkerLoadAddress + HeaderRecord.ModuleLength)
             {
                 // error, address will be relocated out of the range of the module
+                throw new Error(ErrCat.Serious, 48);
             }
 
             rec.Location = address;
@@ -158,6 +164,7 @@ namespace Linker
             if (modifyRecords.ContainsKey(rec.Location))
             {
                 // error, multiple modify records with same location counter value
+                throw new Error(ErrCat.Serious, 49);
             }
             else
             {
