@@ -126,7 +126,7 @@ def build_simulator():
     convert_rst('tmp/ded.rst', 'tmp/ded.html', 'rst-simulator')
     create_dox_wrapper('tmp/ded.rst', 'tmp/ded.dox')
     print "Running test scripts"
-    scripts = build_test_scripts('../Tests/Programs', '../bin/Release/Simulator.exe -d', 'tmp/tests', 'testsim_', 'tmp/testsim_index.rst', '.ffa')
+    scripts = build_sim_tests('../Tests/Programs', '../bin/Release/Simulator.exe', 'tmp/tests', 'testsim_', 'tmp/testsim_index.rst', '.ffa')
     for script in scripts:
         convert_rst(join('tmp/tests', script), join('tmp', script.replace('.rst', '.html')), 'rst-simulator')
         create_dox_wrapper(join('tmp/tests', script), join('tmp', script.replace('.rst', '.dox')))
@@ -310,6 +310,53 @@ def build_linker_tests(directory, runner, out_dir, prefix, index_file, ext='.obj
             names.append(name)
         break
     # generate the index
+    with open(index_file, 'w') as f:
+        for n in names:
+            base = camelcase_to_underscore(n.replace('.rst', ''))
+            f.write("* `" + n.replace('.rst', '') + " <" + prefix + "_" + base + ".html>`_\n")
+    return [prefix + n for n in names]
+
+def build_sim_tests(directory, runner, out_dir, prefix, index_file, ext='.ffa'):
+    """Copy the test script input, run the script, and copy output to an RST source."""
+    names = []
+    for root, dirs, files in os.walk(directory):
+        files.sort()
+        for fname in files:
+            if fname.endswith(ext):
+                print "    " + fname
+                out = fname + '\n' + '`'*len(fname) + '\n\n.. contents::'
+                # get the info file
+                try:
+                    with open(join(root, fname.replace(ext, '.info'))) as f:
+                        out += '\n\n' + f.read()
+                except:
+                    pass
+                out += '\n\nInput\n^^^^^\n\n::\n\n'
+                # get the script source
+                with open(join(root, fname)) as f:
+                    for line in f:
+                        out += '    ' + line.rstrip() + '\n'
+                out += '\n\nOutput\n^^^^^^\n\n::\n\n'
+                # launch the test program
+                p = Popen(runner + ' ' + join(root, fname), shell=True, stdout=PIPE)
+                outdata, err = p.communicate()
+                # insert the test output
+                for line in outdata.split('\n'):
+                    out += '    ' + line.rstrip() + '\n'
+                out += '\n\nDebug Mode\n~~~~~~~~~~\n\n::\n\n'
+                # launch the test program again, with debug
+                p = Popen(runner + ' -d ' + join(root, fname), shell=True, stdout=PIPE)
+                outdata, err = p.communicate()
+                # insert the debug output
+                for line in outdata.split('\n'):
+                    out += '    ' + line.rstrip() + '\n'
+                # write the output file
+                name = fname.replace(ext, '.rst')
+                with open(join(out_dir, prefix + name), 'w') as f:
+                    f.write(out)
+                names.append(name)
+        break
+    # generate the index file
     with open(index_file, 'w') as f:
         for n in names:
             base = camelcase_to_underscore(n.replace('.rst', ''))
