@@ -809,6 +809,8 @@ dl.bug
     background-color: #eee;
     border: 1px dashed #ddd;
     padding: 8px;
+    max-height: 450px;
+    overflow: auto;
 }
 
 #rst #contents {
