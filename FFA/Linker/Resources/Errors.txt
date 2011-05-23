@@ -1,0 +1,60 @@
+EW.01 Assembly date and time invalid, but it doesn't matter. Linking continues.
+EW.02 Version number of assembler should be 4 digits, but it doesn't matter. Linking continues.
+EW.03 Total number of records should be 4 hex digits but is not, assuming valid hex. Linking continues.
+EW.04 Total number of records should be valid hex but is not. The linker will not be able to verify that the proper number of records have been read in. Linking continues, but things might get weird.
+EW.05 Total number of linking records should be 4 hex digits but is not, assuming valid hex. Linking continues.
+EW.06 Total number of linking records should be valid hex but is not. The linker will not be able to verify that the proper number of linking records have been read in. Linking continues, but beware the Kraken.
+EW.07 Total number of modify records should be 4 hex digits but is not, assuming valid hex. Linking continues.
+EW.08 Total number of modify records should be valid hex but is not. The linker will not be able to verify that the proper number of linking records have been read in. Linking continues, danger: choking hazard.
+EW.09 Name of assembler does not match expected (FFA-ASM), it's probably okay. Linking continues.
+EW.10 Entry location in program should be 4 hex digits but is not, assuming valid hex. Linking continues.
+EW.11 Text record location in program should be 4 hex digits but is not, assuming valid hex. Linking continues.
+EW.12 Text record hex code should be 4 hex digits but is not, assuming valid hex. Linking continues.
+EW.13 Text record amount to be adjusted should only be 1 hex digit but is not. Adjustment amount assumed to be 1, though it doesn't really matter too much. For recreational use only. Linkin continues.
+EW.14 Text record amount to be adjusted should be valid hex but is not. Adjustment amount assumed to be 1. Linking continues. Slippery when wet.
+EW.15 Modify record location in program should be 4 hex digits but is not, assuming valid hex. Linking continues.
+EW.16 Modify record hex code to modify should be 4 hex digits but is not, assuming valid hex. Linking continues.
+EW.17 Modify record should not have more than 15 adjustments but it does. But it doesn't really matter. Linking continues.
+
+
+ES.01 Input found after end record was reached. Input ignored.
+ES.02 Program name must be between 2 and 32 characters long, start with a letter, and contain only letters and numbers. Linking continues.
+ES.03 Assembler assigned location counter should be 4 hex digits but is not, assuming valid hex. Linking continues.
+ES.04 Module length should be 4 hex digits but is not, assuming valid hex. Linking continues.
+ES.05 Execution start address should be 4 hex digits but is not, assuming valid hex. Linking continues.
+ES.06 Total number of text records should be 4 hex digits but is not, assuming valid hex. Linking continues.
+ES.07 Total number of text records should be valid hex but is not. The linker will not be able to verify that the proper number of text records have been read in. Linking continues, but here be dragons.
+ES.08 Program name at the end of header record does not match program name at the beginning of header record. Linking continues, handle with care.
+ES.09 Linking record has the incorrect number of fields. Record ignored, linking continues.
+ES.10 Entry name must be between 2 and 32 characters long, start with a letter, and contain only letters and numbers. Linking continues.
+ES.11 Entry location should be valid hex but is not. The linker will assume the location is 0 and continue linking. May cause irritation!
+ES.12 Entry location should be within the range of 0-1023 but it is not. This entry is ignored. Linking continues.
+ES.13 Program name at the end of linking record should be between 2 and 32 characters long, start with a letter, and contain only letters and numbers. Entry is ignored. Linking continues.
+ES.14 Program name at the end of linking record does not match name of program being parsed. Entry is ignored, linking continues.
+ES.15 Program name at the end of linking record does not appear in the symbol table. Entry will be added to symbol table and linking continues. May cause drowsiness.
+ES.16 Text record has incorrect number of fields. Record ignored, linking continues.
+ES.17 Text record location should be valid hex but is not. The linker will assume the location is 0 and continue linking. Do not swallow.
+ES.18 Text record location should be within the range of 0-1023 but it is not. The record is ignored. Linking continues.
+ES.19 Text record hex code cannot be more than 4 digits. NOP inserted. Linking continues.
+ES.20 Text record hex code should be valid hex but is not. NOP inserted. Linking continues.
+ES.21 Text record status flag invalid. Assume flag should be 'A'. Linking continues.
+ES.22 Program name at the end of text record does not match name of program being parsed. Text record is ignored, linking continues.
+ES.23 Program name at the end of text record does not appear in the symbol table. Text record is ignored, linking continues.
+ES.24 Modify record location in program should be valid hex but is not. Location cannot be determined, modify record is ignored. Linking continues.
+ES.25 Modify record location in program should be within the range of 0-1023 but it is not. The record is ignored. linking continues.
+ES.26 Modify record hex code cannot be more than 4 hex digits. Modify record ignored, linking continues.
+ES.27 Modify record hex code should be valid hex but is not. Modify record ignored, linking continues.
+ES.28 Modify record sign of adjustment must be either a + or - but is not. Modify record ignored, linking continues.
+ES.29 Modify record label to be adjusted must be between 2 and 32 characters long, start with a letter, and contain only letters and numbers. Linking continues.
+ES.30 Program name at the end of modify record does not match name of program being parsed. Modify record is ignored, linking continues.
+ES.31 Program name at the end of modify record does not exist in the symbol table. Modify record is ignored, linking continues.
+ES.32 Modify record adjustments contain mismatched sets. Modify record ignored, linking continues.
+
+EF.01 Header record has the incorrect number of fields. Stopping linker.
+EF.02 Assembler assigned location value must be valid hex. Stopping linker.
+EF.03 Assembler assigned location value must be in the range of 0-1023. Stopping linker.
+EF.04 Module length must be valid hex. Stopping Linker.
+EF.05 Module length must be in the range of 0-1024. Stopping linker.
+EF.06 Execution start address must be valid hex. Stopping linker.
+EF.07 Execution start address must be in the range of 0-1023. Stopping linker.
+EF.08 Total number of text records must be in the range of 0 to ModuleLength but is not. Stopping linker.

@@ -40,7 +40,7 @@ namespace Linker
                     if (endReached)
                     {
                         // error, input present after the end record
-                        Console.WriteLine("WRONG!");
+                        throw new Error(ErrCat.Serious, 1);
                     }
     
                     // process different types of records
@@ -96,6 +96,7 @@ namespace Linker
             if (field.Length != 15)
             {
                 // error, wrong number of fields in header record
+                throw new Error(ErrCat.Fatal, 1);
             }
 
             // check that program name is valid
@@ -110,11 +111,13 @@ namespace Linker
                 if (!(!alphaNumeric.IsMatch(prgmName) && char.IsLetter(prgmName[0])))
                 {
                     // program name is not a valid label
+                    errPrinter.PrintError(ErrCat.Serious, 2);
                 }
             }
             else
             {
                 // program name is not the right length
+                errPrinter.PrintError(ErrCat.Serious, 2);
             }
 
             // add program name to the linking header record
@@ -129,6 +132,7 @@ namespace Linker
             if (assLoad.Length != 4)
             {
                 // error, wrong length
+                errPrinter.PrintError(ErrCat.Serious, 3);
             }
 
             //check that it is valid hex
@@ -140,12 +144,14 @@ namespace Linker
             catch (FormatException)
             {
                 // error, not valid hex
+                throw new Error(ErrCat.Fatal, 2);
             }
             
             // check that it is in the correct range
             if (assLoadVal < 0 || assLoadVal > 1023)
             {
                 // error, must be between 0 and 1023
+                throw new Error(ErrCat.Fatal, 3);
             }
 
             // add assembler load address to linking header record
@@ -156,9 +162,10 @@ namespace Linker
             string modLen = field[3].ToUpper();
 
             // check that it is a 4 digit hex
-            if (modLen.Length < 4)
+            if (modLen.Length != 4)
             {
                 // error, wrong length
+                errPrinter.PrintError(ErrCat.Serious, 4);
             }
 
             // check that it is valid hex
@@ -170,12 +177,14 @@ namespace Linker
             catch (FormatException)
             {
                 // error, not valid hex
+                throw new Error(ErrCat.Fatal, 4);
             }
 
             // check that it is in the correct range
             if (modLenVal < 0 || modLenVal > 1024)
             {
                 // error, must be between 0 and 1024
+                throw new Error(ErrCat.Fatal, 5);
             }
 
             // add module length to linking header record
@@ -186,9 +195,10 @@ namespace Linker
             string execAdd = field[4].ToUpper();
 
             // check length, should be 4 digit hex number
-            if (execAdd.Length < 4)
+            if (execAdd.Length != 4)
             {
                 // error, wrong length
+                errPrinter.PrintError(ErrCat.Serious, 5);
             }
 
             //check that it is valid hex
@@ -200,12 +210,14 @@ namespace Linker
             catch (FormatException)
             {
                 // error, not valid hex
+                throw new Error(ErrCat.Fatal, 6);
             }
 
             // check that it is in the correct range
             if (execAddVal < 0 || execAddVal > 1023)
             {
                 // error, must be between 0 and 1023
+                throw new Error(ErrCat.Fatal, 7);
             }
 
             // add execution start address to linking header record
@@ -218,6 +230,7 @@ namespace Linker
             if (dateAndTime.Length != 16)
             {
                 // error?, not the proper length
+                errPrinter.PrintError(ErrCat.Warning, 1);
             }
 
 
@@ -228,6 +241,7 @@ namespace Linker
             if (verNum.Length != 4)
             {
                 // error?, not the proper length
+                errPrinter.PrintError(ErrCat.Warning, 2);
             }
 
 
@@ -235,10 +249,10 @@ namespace Linker
             string totalRec = field[9].ToUpper();
 
             // check length, should be 4 digit hex number
-            if (totalRec.Length < 4)
+            if (totalRec.Length != 4)
             {
                 // error, wrong length
-                
+                errPrinter.PrintError(ErrCat.Warning, 3);
             }
 
             //check that it is valid hex
@@ -250,6 +264,7 @@ namespace Linker
             catch (FormatException)
             {
                 // error, not valid hex
+                errPrinter.PrintError(ErrCat.Warning, 4);
             }
 
             // add the total number of records to the linker header record
@@ -263,6 +278,7 @@ namespace Linker
             if (linkRec.Length != 4)
             {
                 // error, wrong length
+                errPrinter.PrintError(ErrCat.Warning, 5);
             }
 
 
@@ -275,6 +291,7 @@ namespace Linker
             catch (FormatException)
             {
                 // error, not valid hex
+                errPrinter.PrintError(ErrCat.Warning, 6);
             }
 
             // add the total number of linking records to the linker header record
@@ -288,6 +305,7 @@ namespace Linker
             if (textRec.Length != 4)
             {
                 // error, wrong length
+                errPrinter.PrintError(ErrCat.Serious, 6);
             }
 
             // check that it is valid hex
@@ -299,12 +317,14 @@ namespace Linker
             catch (FormatException)
             {
                 // error, not valid hex
+                errPrinter.PrintError(ErrCat.Serious, 7);
             }
 
             // check that the number is in the proper range
             if (textRecVal < 0 || textRecVal > modLenVal)
             {
                 // error, can only have 0 to module length text records
+                throw new Error(ErrCat.Fatal, 8);
             }
 
             // add the total number of text records to the linker header record
@@ -318,6 +338,7 @@ namespace Linker
             if (modRec.Length != 4)
             {
                 // error, wrong length
+                errPrinter.PrintError(ErrCat.Warning, 7);
             }
 
             // check that it is valid hex
@@ -329,6 +350,7 @@ namespace Linker
             catch (FormatException)
             {
                 // error, not valid hex
+                errPrinter.PrintError(ErrCat.Warning, 8);
             }
 
             // add the total number of modify records to the linker header record
@@ -339,6 +361,7 @@ namespace Linker
             if (field[13].ToUpper() != "FFA-ASM")
             {
                 // error? wrong assembler?
+                errPrinter.PrintError(ErrCat.Warning, 9);
             }
 
 
@@ -347,6 +370,7 @@ namespace Linker
             if (field[14].ToUpper() != prgmName)
             {
                 // error, program names do not match
+                errPrinter.PrintError(ErrCat.Serious, 8);
             }
 
             if (fileNum == 0)
@@ -373,6 +397,7 @@ namespace Linker
             if (field.Length != 4)
             {
                 // error, wrong number of fields
+                errPrinter.PrintError(ErrCat.Serious, 9);
             }
 
             // check that Entry name is valid
@@ -387,13 +412,13 @@ namespace Linker
                 if (!(!alphaNumeric.IsMatch(entry) && char.IsLetter(entry[0])))
                 {
                     // entry name is not a valid label
-
+                    errPrinter.PrintError(ErrCat.Serious, 10);
                 }
             }
             else
             {
                 // entry name is not the right length
-
+                errPrinter.PrintError(ErrCat.Serious, 10);
             }
 
             // add entry name to linker linking record
@@ -407,6 +432,7 @@ namespace Linker
             if (prgmLoc.Length != 4)
             {
                 // error, wrong length
+                errPrinter.PrintError(ErrCat.Warning, 10);
             }
 
             //check that it is valid hex
@@ -418,12 +444,14 @@ namespace Linker
             catch (FormatException)
             {
                 // error, not valid hex
+                errPrinter.PrintError(ErrCat.Serious, 11);
             }
 
             // check that it is in the correct range
             if (prgmLocVal < 0 || prgmLocVal > 1023)
             {
                 // error, must be between 0 and 1023
+                errPrinter.PrintError(ErrCat.Serious, 12);
             }
 
             // add location to linking header record
@@ -439,13 +467,13 @@ namespace Linker
                 if (!(!alphaNumeric.IsMatch(pgmName) && char.IsLetter(pgmName[0])))
                 {
                     // program name is not a valid label
-
+                    throw new Error(ErrCat.Serious, 13);
                 }
             }
             else
             {
                 // program name is not the right length
-                
+                throw new Error(ErrCat.Serious, 13);
             }
 
             // check that program name is in symbol table
@@ -453,6 +481,13 @@ namespace Linker
             {
                 // error, program name at end of linking record must match program name
                 // of program being parsed
+                throw new Error(ErrCat.Serious, 14);
+            }
+
+            if (!symb.ContainsSymbol(pgmName))
+            {
+                // error, program name not in the symbol table
+                errPrinter.PrintError(ErrCat.Serious, 15);
             }
 
             // add entry to symbol table
@@ -468,6 +503,7 @@ namespace Linker
             if (field.Length != 6)
             {
                 // error, wrong number of fields
+                throw new Error(ErrCat.Serious, 16);
             }
 
             // check program assigned location
@@ -477,6 +513,7 @@ namespace Linker
             if (progLoc.Length != 4)
             {
                 // error, wrong length
+                errPrinter.PrintError(ErrCat.Warning, 11);
             }
 
             //check that it is valid hex
@@ -488,12 +525,14 @@ namespace Linker
             catch (FormatException)
             {
                 // error, not valid hex
+                errPrinter.PrintError(ErrCat.Serious, 17);
             }
 
             // check that it is in the correct range
             if (progLocVal < 0 || progLocVal > 1023)
             {
                 // error, must be between 0 and 1023
+                errPrinter.PrintError(ErrCat.Serious, 18);
             }
 
             // add program location to the linker text record
@@ -504,9 +543,16 @@ namespace Linker
             string hexCode = field[2].ToUpper();
 
             // check length, should be 4 digit hex number
-            if (hexCode.Length != 4)
+            if (hexCode.Length < 4)
             {
-                // error, wrong length
+                // error, too short
+                errPrinter.PrintError(ErrCat.Warning, 12);
+            }
+            else if (hexCode.Length > 4)
+            {
+                // error, too long
+                errPrinter.PrintError(ErrCat.Serious, 19);
+                hexCode = "8000";
             }
 
             //check that it is valid hex
@@ -518,6 +564,8 @@ namespace Linker
             catch (FormatException)
             {
                 // error, not valid hex
+                errPrinter.PrintError(ErrCat.Serious, 20);
+                hexCodeVal = Convert.ToInt32("8000", 16);
             }
 
             // add hex code of instruction to linker text record
@@ -530,12 +578,16 @@ namespace Linker
             if (addStatus.Length != 1)
             {
                 // error wrong length
+                errPrinter.PrintError(ErrCat.Serious, 21);
+                addStatus = "A";
             }
 
             // check that the flag is a valid value
             if (!(addStatus[0] == 'A' || addStatus[0] == 'R' || addStatus[0] == 'M'))
             {
                 // error, invalid value for status flag
+                errPrinter.PrintError(ErrCat.Serious, 21);
+                addStatus = "A";
             }
 
             // add status flag to linker text record
@@ -549,6 +601,8 @@ namespace Linker
             if (mAdj.Length != 1)
             {
                 // error wrong length
+                errPrinter.PrintError(ErrCat.Warning, 13);
+                mAdj = "1";
             }
 
             // check that it is valid hex
@@ -560,6 +614,8 @@ namespace Linker
             catch (FormatException)
             {
                 // error, not valid hex
+                errPrinter.PrintError(ErrCat.Warning, 14);
+                mAdjVal = 1;
             }
             // if it's valid then it should be in the correct range
             // since one hex digit can only be 0-15
@@ -576,6 +632,13 @@ namespace Linker
             {
                 // error, program name at end of text record must match
                 // program name of program being parsed
+                throw new Error(ErrCat.Serious, 22);
+            }
+
+            if (!symb.ContainsSymbol(prgmName))
+            {
+                // error, program name is not in symbol table
+                throw new Error(ErrCat.Serious, 23);
             }
 
             
@@ -594,6 +657,7 @@ namespace Linker
             if (loc.Length != 4)
             {
                 // error, incorrect length
+                errPrinter.PrintError(ErrCat.Warning, 15);
             }
 
             // check that it is a valid hex string
@@ -605,12 +669,14 @@ namespace Linker
             catch (FormatException)
             {
                 // error, not valid hex
+                throw new Error(ErrCat.Serious, 24);
             }
 
             // check that the location value is in the proper range
             if (locVal < 0 || locVal > 1023)
             {
                 // error, location invalid
+                throw new Error(ErrCat.Serious, 25);
             }
             
             // add  location to the linker modification record
@@ -621,9 +687,15 @@ namespace Linker
             string hex = field[2];
 
             // check the length of the hex code
-            if (hex.Length != 4)
+            if (hex.Length < 4)
             {
-                // error, incorrect length
+                // error, too short
+                errPrinter.PrintError(ErrCat.Warning, 16);
+            }
+            else if (hex.Length > 4)
+            {
+                // error, too long
+                throw new Error(ErrCat.Serious, 26);
             }
 
             // check that it is a valid hex string
@@ -635,6 +707,7 @@ namespace Linker
             catch (FormatException)
             {
                 // error, not valid hex
+                throw new Error(ErrCat.Serious, 27);
             }
 
             // add the hex code of the word to be modified to the linker modification record
@@ -647,6 +720,14 @@ namespace Linker
 
             // go through the modifications and make sure they are formatted correctly
             string sign = field[3];
+
+            // check that sign is a + or -
+            if (!(sign == "+" || sign == "-"))
+            {
+                // error, sign must be a + or -
+                throw new Error(ErrCat.Serious, 28);
+            }
+
             int i = 4;
             while (sign == "+" || sign == "-")
             {
@@ -658,20 +739,27 @@ namespace Linker
                     if (!(!alphaNumeric.IsMatch(label) && char.IsLetter(label[0])))
                     {
                         // label is not a valid label
-
+                        errPrinter.PrintError(ErrCat.Serious, 29);
                     }
                 }
                 else
                 {
                     // label is not the right length
-
+                    errPrinter.PrintError(ErrCat.Serious, 29);
                 }
 
                 // add adjustments to the linker modification record
                 modRecord.AddAdjustments(sign, label);
 
                 // get next sign
-                sign = field[i++];
+                try
+                {
+                    sign = field[i++];
+                }
+                catch (IndexOutOfRangeException)
+                {
+                    throw new Error(ErrCat.Serious, 32);
+                }
             }
             // reached end of modification record, or there was an error
             // in the format of modifications
@@ -682,13 +770,13 @@ namespace Linker
                 if (!(!alphaNumeric.IsMatch(sign) && char.IsLetter(sign[0])))
                 {
                     // label is not a valid label
-
+                    errPrinter.PrintError(ErrCat.Serious, 29);
                 }
             }
             else
             {
                 // label is not the right length
-
+                errPrinter.PrintError(ErrCat.Serious, 29);
             }
 
             // check if the label is in the symbol table
@@ -698,12 +786,20 @@ namespace Linker
             {
                 // error, program name at the end of modification record must match
                 // program name of program being parsed
+                throw new Error(ErrCat.Serious, 30);
+            }
+
+            if (!symb.ContainsSymbol(sign))
+            {
+                // error, something isn't in the symbol table
+                throw new Error(ErrCat.Serious, 31);
             }
 
             //check to see that the modify record doesn't have too many adjustments
             if (modRecord.Adjustments.Count > 15)
             {
                 // error, can only have 15 adjustments in a modify record
+                errPrinter.PrintError(ErrCat.Warning, 17);
             }
 
             // add modification record to module
