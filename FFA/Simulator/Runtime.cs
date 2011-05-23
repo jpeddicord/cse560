@@ -92,14 +92,14 @@ namespace Simulator
                 {
                     if (Runtime.Debug)
                     {
-                        PrintDebug();
+                        PrintDebug(true);
                     }
 
                     ProcessInstruction(category, function, bin);
 
                     if (Runtime.Debug)
                     {
-                        PrintDebug();
+                        PrintDebug(false);
                         Console.WriteLine("\n");
                     }
 
@@ -167,7 +167,7 @@ namespace Simulator
             }
         }
 
-        public void PrintDebug()
+        public void PrintDebug(Boolean before)
         {
             var mem = Memory.GetInstance();
             var instr = Assembler.Instructions.GetInstance();
@@ -175,7 +175,15 @@ namespace Simulator
             string category, function;
             instr.ReverseLookup(bin.Substring(0, 5), out category, out function);
 
-            Console.WriteLine("---------- DEBUG ----------");
+            if (before)
+            {
+                Console.WriteLine("---Before Simulation--- ---Before Simulation--- ---Before Simulation---");
+            }
+            else
+            {
+                Console.WriteLine("===After Simulation=== ===After Simulation=== ===After Simulation===");
+            }
+
             Console.WriteLine(" LC = {0,4}  MEM = {1}  Op-code = {2}  Function = {3}  S = {4}",
                     this.lc,
                     bin,
@@ -189,8 +197,17 @@ namespace Simulator
                     mem.GetWord(Convert.ToInt32(bin.Substring(6), 2)));
             Console.WriteLine(" Top of data stack = {0}",
                     (mem.DataSize() > 0 ? Convert.ToString(mem.GetDataStack()[0]) : "empty"));
-            Console.WriteLine(" Top of test stack = {0}\n",
+            Console.WriteLine(" Top of test stack = {0}",
                     (mem.TestSize() > 0 ? Convert.ToString(mem.GetTestStack()[0]) : "empty"));
+
+            if (before)
+            {
+                Console.WriteLine("---Before Simulation--- ---Before Simulation--- ---Before Simulation---\n");
+            }
+            else
+            {
+                Console.WriteLine("===After Simulation=== ===After Simulation=== ===After Simulation===\n");
+            }
         }
     }
 }
