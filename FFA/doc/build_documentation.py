@@ -215,6 +215,7 @@ def build_test_scripts(directory, runner, out_dir, prefix, index_file, ext='.txt
         files.sort()
         for fname in files:
             if fname.endswith(ext):
+                print "    " + fname
                 out = fname + '\n' + '`'*len(fname) + '\n\n.. contents::'
                 # get the info file
                 try:
@@ -262,6 +263,7 @@ def build_linker_tests(directory, runner, out_dir,  prefix, index_file, ext='.ob
         dirs.sort()
         # tests are grouped into directories
         for dname in dirs:
+            print "    " + dname
             out = dname + '\n' + '`'*len(dname) + '\n\n.. contents::'
             # get the info file
             try:
