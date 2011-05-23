@@ -99,7 +99,7 @@ namespace Assembler
         public string OpFunction
         {
             get { return this.function; }
-            set { this.function = value; }
+            set { this.function = value.ToUpper(); }
         }
 
 
@@ -476,7 +476,7 @@ namespace Assembler
                         return;
                     }
                     // the write flag is only set for character operations
-                    if (this.OpOperand == "READC" || this.OpOperand == "WRITEC")
+                    if (this.OpFunction == "READC" || this.OpFunction == "WRITEC")
                     {
                         code.Append("1");
                     }
@@ -499,7 +499,7 @@ namespace Assembler
                         return;
                     }
                     // the write flag is only set for character operations
-                    if (this.OpOperand == "READC" || this.OpOperand == "WRITEC")
+                    if (this.OpFunction == "READC" || this.OpFunction == "WRITEC")
                     {
                         code.Append("1");
                     }
