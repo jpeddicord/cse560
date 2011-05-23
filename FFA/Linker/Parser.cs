@@ -18,6 +18,7 @@ namespace Linker
 
         public void ParseFile(string filename, out Module mod, SymbolTable symb, int fileNum, ref int startAddress)
         {
+            mod = new Module();
             this.fileNum = fileNum;
             this.address = startAddress;
             StreamReader file = null;
@@ -35,7 +36,6 @@ namespace Linker
 
             int lineNum = 0;
             string rec;
-            mod = new Module();
             bool endReached = false;
             while ((rec = file.ReadLine()) != null)
             {
