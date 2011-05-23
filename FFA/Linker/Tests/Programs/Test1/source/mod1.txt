@@ -1,8 +1,8 @@
 Module1     start 15
             extrn hello2
             extrn hello3
+            cntl goto,*+2
 hello1      dat c='He'
-skip        reset 20
             extrn seven
 he          moper writec,hello1     : write "He"
 ll          moper writec,hello2     :       "ll"
