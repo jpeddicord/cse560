@@ -202,12 +202,13 @@ namespace Simulator
                 Console.WriteLine("\n===After Simulation===  ===After Simulation===  ===After Simulation===");
             }
 
-            Console.WriteLine(" LC = {0,4}  MEM = {1}  Op-code = {2}  Function = {3}  S = {4}",
+            Console.WriteLine(" LC = {0,4}  MEM = {5} = {1}  Op-code = {2}  Function = {3}  S = {4}",
                     this.lc,
                     bin,
                     bin.Substring(0, 2),
                     bin.Substring(2, 3),
-                    bin.Substring(6));
+                    bin.Substring(6),
+                    Convert.ToString(mem.GetWord(this.lc), 16).PadLeft(4, '0'));
             Console.WriteLine(" Category: {0,8}  Function: {1}",
                     category, function);
             Console.WriteLine(" S = {0}  M(S) = {1}",
