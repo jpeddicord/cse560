@@ -49,6 +49,8 @@ ES.29 Modify record label to be adjusted must be between 2 and 32 characters lon
 ES.30 Program name at the end of modify record does not match name of program being parsed. Modify record is ignored, linking continues.
 ES.31 Program name at the end of modify record does not exist in the symbol table. Modify record is ignored, linking continues.
 ES.32 Modify record adjustments contain mismatched sets. Modify record ignored, linking continues.
+ES.33 Invalid record type encountered. Record will be ignored, linking continues.
+
 
 EF.01 Header record has the incorrect number of fields. Stopping linker.
 EF.02 Assembler assigned location value must be valid hex. Stopping linker.

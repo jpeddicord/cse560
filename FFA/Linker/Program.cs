@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Error = Assembler.ErrorException;
 
 namespace Linker
 {
@@ -26,16 +27,24 @@ namespace Linker
             SymbolTable symb = new SymbolTable();
             Module[] mods = new Module[infiles.Length];
 
-            foreach (var f in infiles)
+            try
             {
-                Module mod;
-                pars.ParseFile(f, out mod, symb, file, ref address);
-                mods[file] = mod;
-                file++;
-            }
+                foreach (var f in infiles)
+                {
+                    Module mod;
+                    pars.ParseFile(f, out mod, symb, file, ref address);
+                    mods[file] = mod;
+                    file++;
+                }
 
-            LoadFile load = new LoadFile(mods, symb);
-            load.Render(outfile);
+                LoadFile load = new LoadFile(mods, symb);
+                load.Render(outfile);
+            }
+            catch (Error)
+            {
+                // silently die on fatal exceptions
+                System.Environment.Exit(1);
+            }
         }
     }
 }

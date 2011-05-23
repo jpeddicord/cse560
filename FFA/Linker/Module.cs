@@ -80,8 +80,6 @@ namespace Linker
             {
                 if (rec.Flag == 'R')
                 {
-                    //TODO is this right?
-                    //rec.Word += this.relocationValue;
                     int s = Convert.ToInt32(Convert.ToString(rec.Word, 2).Substring(6), 2);
                     s += this.relocationValue;
                     if (0 <= s && s <= 1023)

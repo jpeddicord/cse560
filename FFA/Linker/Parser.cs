@@ -67,18 +67,17 @@ namespace Linker
                     // invalid record or garbage data
                     else
                     {
-                        throw new Assembler.ErrorException(ErrCat.Serious, 1); // FIXME: code is wrong
+                        throw new Error(ErrCat.Serious, 33);
                     }
                 }
-                catch (Assembler.ErrorException ex)
+                catch (Error ex)
                 {
                     Console.WriteLine(String.Format(
                             "Parsing error on line {0}:\n{1}",
                             lineNum, ex));
                     if (ex.err.category == ErrCat.Fatal)
                     {
-                        Console.WriteLine("Aborting due to fatal errors.");
-                        break;
+                        throw new Error(ErrCat.Fatal, ex.err.code);
                     }
                 }
 
