@@ -429,6 +429,7 @@ namespace Simulator
                 int i = m.DataPopInt();
 
                 Console.Write(i);
+                Console.Out.Flush();
 
                 n--;
             }
@@ -467,6 +468,7 @@ namespace Simulator
                 char c2 = (char)char2;
 
                 Console.Write(c1.ToString() + c2.ToString());
+                Console.Out.Flush();
 
                 n--;
             }
