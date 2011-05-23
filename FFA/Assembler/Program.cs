@@ -52,7 +52,7 @@ namespace Assembler
             if (args.Length == 1)
             {
                 infile = args[0];
-                outfile = args[0] + ".obj";
+                outfile = System.IO.Path.GetFileNameWithoutExtension(args[0]) + ".obj";
             }
             // two args given, read in the first and output to the second
             else if (args.Length == 2)

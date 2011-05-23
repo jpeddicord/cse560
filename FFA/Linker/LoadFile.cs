@@ -62,7 +62,14 @@ namespace Linker
                     }
                 }
 
-                mod.GetTextRecord(mRec[rec.Key].Location).Word = word;
+                try
+                {
+                    mod.GetTextRecord(mRec[rec.Key].Location).Word = word;
+                }
+                catch (NullReferenceException)
+                {
+                    errPrinter.PrintError(ErrCat.Serious, 56);
+                }
             }
         }
 
@@ -122,7 +129,7 @@ namespace Linker
                 totalTextRecords += m.HeaderRecord.TotalTextRecords;
             }
 
-            if (totalLength != totalTextRecords)
+            if (totalLength < totalTextRecords)
             {
                 // error, should have the same number of text records as
                 // the length of the program

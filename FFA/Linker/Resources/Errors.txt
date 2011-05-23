@@ -72,9 +72,10 @@ ES.49 The modify record being added to the module has the same location counter 
 ES.50 While evaluating modify record adjustments, an improper operator has been encountered. This probably means something wrong happened while parsing. Adjustment will be skipped. Linking continues.
 ES.51 While evaluating modify record adjustments, an entry was requested that does not exist in the symbol table. This probably means something wrong happened while parsing. Adjustment will be skipped. Linking continues.
 ES.52 Error when writing object load file to disk. Check your permissions. Object file will be printed to the screen.
-ES.53 Total number of text records does not match the total program length. Object file will be written, check it for errors.
+ES.53 Total number of text records should not be less than the total program length. Object file will be written, check it for errors.
 ES.54 Error when writing object load file to disk. Check your permissions. Some of the object file may have been written to disk. Check for errors.
 ES.55 Error opening input file. File will be skipped. This will almost certainly cause problems.
+ES.56 While evaluating modify record adjustments, a modify record modified a location that does not exist in this module. Modify record is ignored. Linking continues.
 
 
 EF.01 Header record has the incorrect number of fields. Stopping linker.

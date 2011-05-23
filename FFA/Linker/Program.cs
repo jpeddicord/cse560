@@ -18,7 +18,7 @@ namespace Linker
                 infiles = args;
             }
 
-            string outfile = infiles[0] + ".ffa";
+            string outfile = System.IO.Path.GetFileNameWithoutExtension(infiles[0]) + ".ffa";
 
             Parser pars = new Parser();
 

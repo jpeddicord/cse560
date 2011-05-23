@@ -116,7 +116,7 @@ namespace Linker
             }
 
             // check that program name is valid
-            string prgmName = field[1].ToUpper();
+            string prgmName = field[1];
 
             /* Regular expression used to determine if all characters in the token are
              * letters or numbers. */
@@ -383,7 +383,7 @@ namespace Linker
 
             // check that the program name at the end of
             // the record is the same as at the beginning
-            if (field[14].ToUpper() != prgmName)
+            if (field[14] != prgmName)
             {
                 // error, program names do not match
                 errPrinter.PrintError(ErrCat.Serious, 8);
@@ -417,7 +417,7 @@ namespace Linker
             }
 
             // check that Entry name is valid
-            string entry = field[1].ToUpper();
+            string entry = field[1];
 
             /* Regular expression used to determine if all characters in the token are
              * letters or numbers. */
@@ -641,7 +641,7 @@ namespace Linker
 
 
             // check the program name
-            string prgmName = field[5].ToUpper();
+            string prgmName = field[5];
 
             // check that the program name is in the symbol table
             if (mod.ModuleName != prgmName)
@@ -747,7 +747,7 @@ namespace Linker
             int i = 4;
             while (sign == "+" || sign == "-")
             {
-                string label = field[i++].ToUpper();
+                string label = field[i++];
 
                 // check that label is valid label
                 if (2 <= label.Length && label.Length <= 32)
@@ -834,7 +834,7 @@ namespace Linker
             }
 
             // check that program name is valid
-            string prgmName = field[1].ToUpper();
+            string prgmName = field[1];
 
             /* Regular expression used to determine if all characters in the token are
              * letters or numbers. */
