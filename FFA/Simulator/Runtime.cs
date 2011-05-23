@@ -113,9 +113,8 @@ namespace Simulator
                 }
                 catch (Assembler.ErrorException ex)
                 {
-                    Console.WriteLine(String.Format("RUNTIME ERROR: {0}", ex));
+                    Console.WriteLine(String.Format("RUNTIME ERROR: {0}\n", ex));
 
-                    Console.WriteLine();
                     PrintDebug(false);
                     Console.WriteLine();
 
