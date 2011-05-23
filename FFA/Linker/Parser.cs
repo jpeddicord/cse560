@@ -93,7 +93,7 @@ namespace Linker
                             lineNum, filename, ex));
                     if (ex.err.category == ErrCat.Fatal)
                     {
-                        throw new Error(ErrCat.Fatal, ex.err.code);
+                        throw ex;
                     }
                 }
 

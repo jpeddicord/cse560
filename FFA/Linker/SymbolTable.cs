@@ -80,5 +80,39 @@ namespace Linker
             else
                 return false;
         }
+
+        public List<string> SortedSymbols()
+        {
+            List<string> keys = new List<string>();
+            foreach (var key in this.symbols.Keys)
+            {
+                keys.Add(key);
+            }
+            keys.Sort();
+            return keys;
+        }
+
+        public override string ToString()
+        {
+            string disp = "\n\n\t";
+            disp += "----------- SYMBOL TABLE -----------\n";
+            disp += string.Format("{0,32}: {1,-16} {2,-8} \n\n",
+                                      "Label",
+                                      "Relocation value",
+                                      "Symbol usage");
+            foreach (string s in this.SortedSymbols())
+            {
+                Symbol sym = this.symbols[s];
+
+                int val = sym.LinkerValue;
+                val = Assembler.BinaryHelper.ConvertNumber(val);
+
+                disp += string.Format("{0,32}: {1,-16} {2,-8} \n",
+                                      sym.Label,
+                                      Convert.ToString(val,16).ToUpper().PadLeft(4,'0'),
+                                      sym.SymbolUsage);
+            }
+            return disp;
+        }
     }
 }

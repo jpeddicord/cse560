@@ -55,8 +55,15 @@ namespace Linker
                     }
                     catch (Error ex)
                     {
-                        Console.WriteLine(ex.err);
-                        continue;
+                        if (ex.err.category == Assembler.Errors.Category.Fatal)
+                        {
+                            throw ex;
+                        }
+                        else
+                        {
+                            Console.WriteLine(ex.err);
+                            continue;
+                        }
                     }
                     modules.Add(mod);
                     mods[file] = mod;
@@ -72,13 +79,15 @@ namespace Linker
                 {
                     Assembler.Errors.GetInstance().PrintError(Assembler.Errors.Category.Serious, 57);
                 }
+                Console.WriteLine(symb);
             }
             catch (Error)
             {
                 // gracefully die on fatal exceptions
                 Console.WriteLine("Stopping linker due to fatal error.");
-                System.Environment.Exit(1);
-            }
+                Console.WriteLine(symb);
+                System.Environment.Exit(1);                
+            }           
         }
     }
 }
