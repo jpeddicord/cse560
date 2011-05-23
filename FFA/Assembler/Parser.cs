@@ -335,14 +335,22 @@ namespace Assembler
             // first line is expected to hold the start directive
             IntermediateLine line = ParseLine(sourceCode[0], 1, ref symb);
             interSource.AddLine(line);
-            if (line.Directive.ToUpper() != "START")
+            if (line.Directive != null)
             {
-                // file must start with a valid start directive
-                line.AddError(Errors.Category.Fatal, 2);
-                return;
+                if (line.Directive.ToUpper() != "START")
+                {
+                    // file must start with a valid start directive
+                    line.AddError(Errors.Category.Fatal, 2);
+                    return;
+                }
+                else if (HasFatalError(line))
+                {
+                    return;
+                }
             }
-            else if (HasFatalError(line))
+            else
             {
+                line.AddError(Errors.Category.Fatal, 2);
                 return;
             }
 
