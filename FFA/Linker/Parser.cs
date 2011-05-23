@@ -889,13 +889,18 @@ namespace Linker
             var lRec = mod.LinkingRecords;
             foreach (var rec in lRec)
             {
-                int lValue = mod.GetTextRecord(lRec[rec.Key].Location).Location;
                 try
                 {
+                    int lValue = mod.GetTextRecord(lRec[rec.Key].Location).Location;
                     symb.AddSymbol(lRec[rec.Key].EntryName, Assembler.Usage.ENTRY, lValue);
+                }
+                catch (NullReferenceException) 
+                {
+                    errPrinter.PrintError(ErrCat.Serious, 39);
                 }
                 catch (Assembler.SymbolException)
                 {
+                    // error, symbol already in symbol table
                     errPrinter.PrintError(ErrCat.Serious, 38);
                 }
             }

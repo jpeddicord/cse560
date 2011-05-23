@@ -109,6 +109,7 @@ namespace Assembler
          * @author Mark Mathis
          * @creation April 14, 2011
          * @modlog
+         *  - May 20, 2011 - Jacob - Now ignores blank lines when parsing errors file.
          * @codestandard Mark Mathis
          * @teststandard Andrew Buelow
          */
@@ -124,6 +125,7 @@ namespace Assembler
 
             foreach (string line in Errors.errorRes.Split('\n'))
             {
+                // ignore empty lines
                 if (line.Trim().Length == 0)
                 {
                     continue;
@@ -298,6 +300,22 @@ namespace Assembler
             return errorList[Category.Warning][errCode];
         }
 
+        /**
+         * Print the specified error to the console.
+         *
+         * @param cat category of error
+         * @param errCode error id
+         * 
+         * @refcode EW, ES, EF
+         * @errtest
+         * @errmsg
+         *  None
+         * @author Mark Mathis
+         * @creation May 22, 2011
+         * @modlog 
+         * @codestandard Mark Mathis
+         * @teststandard Andrew Buelow
+         */
         public void PrintError(Category cat, int errCode)
         {
             if (cat == Category.Fatal)

@@ -58,7 +58,9 @@ ES.35 Program name at end of end record does not match name of program being par
 ES.36 Program name at end of end record does not exist in symbol table. Linker will assume end record has been reached and continue as normal. Linking continues.
 ES.37 Actual number of text records encountered in this program does not match number of text records in header record. This probably is a problem. Linking continues. Harmful or fatal if swallowed.
 ES.38 Attempted to define duplicate entry in symbol table. Linking continues but unexpected things may happen at runtime.
-
+ES.39 Location value in linking record does not have a corresponding text record. Entry is ignored. Linking continues.
+ES.40 Location of text record will be relocated out of bounds of memory. Text record discarded. Linking continues.
+ES.41 Location of text record will be relocated our of bounds of module. Text record discarded. Linking continues.
 
 EF.01 Header record has the incorrect number of fields. Stopping linker.
 EF.02 Assembler assigned location value must be valid hex. Stopping linker.

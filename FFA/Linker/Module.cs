@@ -2,11 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using ErrCat = Assembler.Errors.Category;
 
 namespace Linker
 {
     class Module
     {
+        private Assembler.Errors errPrinter = Assembler.Errors.GetInstance();
+   
         public string ModuleName
         { get; private set; }
 
@@ -61,12 +64,16 @@ namespace Linker
             if (!(0 <= address && address <= 1023))
             {
                 // error, address will be relocated out of the range of memory
+                errPrinter.PrintError(ErrCat.Serious, 40);
+                return;
             }
 
             if (address < HeaderRecord.LinkerLoadAddress || 
                 address > HeaderRecord.LinkerLoadAddress + HeaderRecord.ModuleLength)
             {
                 // error, address will be relocated out of the range of the module
+                errPrinter.PrintError(ErrCat.Serious, 41);
+                return;
             }
 
             rec.Location = address;
