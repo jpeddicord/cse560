@@ -38,7 +38,7 @@ namespace Simulator
             {
                 // provide last 10 bits even though it only needs last two.
                 // Allows us to error check the instruction.
-                CNTL.Halt(Convert.ToInt32(bin.Substring(6), 2));
+                CNTL.Dump(Convert.ToInt32(bin.Substring(6), 2));
             }
             else if (function == "CLRD")
             {
@@ -222,7 +222,7 @@ namespace Simulator
             // Otherwise, pad with spaces to make the test stack line up correctly
             if (data.Length > 0)
             {
-                Console.Write(Convert.ToString(data[0], 16).PadLeft(4, '0'));
+                Console.Write(Convert.ToString(data[0], 16).PadLeft(4, '0').ToUpper());
             }
             else
             {
@@ -235,7 +235,7 @@ namespace Simulator
             // Only attempt to print the first item in the test stack if it exists
             if (test.Length > 0)
             {
-                Console.Write(Convert.ToString(test[0], 16).PadLeft(4, '0'));
+                Console.Write(Convert.ToString(test[0], 16).PadLeft(4, '0').ToUpper());
             }
 
             Console.Write('\n');
@@ -250,7 +250,7 @@ namespace Simulator
                 // pad with spaces
                 if (n < data.Length)
                 {
-                    Console.Write(Convert.ToString(data[n], 16).PadLeft(4, '0'));
+                    Console.Write(Convert.ToString(data[n], 16).PadLeft(4, '0').ToUpper());
                 }
                 else
                 {
@@ -262,11 +262,13 @@ namespace Simulator
                 if (n < test.Length)
                 {
                     Console.Write("              ");
-                    Console.Write(Convert.ToString(test[n], 16).PadLeft(4, '0'));
+                    Console.Write(Convert.ToString(test[n], 16).PadLeft(4, '0').ToUpper());
                 }
 
                 Console.Write('\n');
             }
+
+            Console.Write('\n');
         }
 
         /**
@@ -291,17 +293,19 @@ namespace Simulator
             for (int i = 0; i <= 1023; i = i + 16)
             {
                 // Print the memory offset on this row
-                Console.Write(Convert.ToString(i, 16).PadLeft(3, '0'));
+                Console.Write(Convert.ToString(i, 16).PadLeft(3, '0').ToUpper() + " ");
 
                 // Prints each item in the row
                 for (int j = 0; j < 16; j++)
                 {
                     // Print the memory at memory offset + position in this row.
-                    Console.Write(" " + Convert.ToString(m.GetWord(i + j), 16).PadLeft(4, '0'));
+                    Console.Write(" " + Convert.ToString(m.GetWord(i + j), 16).PadLeft(4, '0').ToUpper());
                 }
 
                 Console.Write("\n");
             }
+
+            Console.Write('\n');
         }
     }
 }
