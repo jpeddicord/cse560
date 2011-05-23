@@ -256,7 +256,7 @@ def build_test_scripts(directory, runner, out_dir, prefix, index_file, ext='.txt
             f.write("* `" + n.replace('.rst', '') + " <" + prefix + "_" + base + ".html>`_\n")
     return [prefix + n for n in names]
 
-def build_linker_tests(directory, runner, out_dir,  prefix, index_file, ext='.objtxt'):
+def build_linker_tests(directory, runner, out_dir, prefix, index_file, ext='.objtxt'):
     """Run all linker tests and store output."""
     names = []
     for root, dirs, files in os.walk(directory):
@@ -286,18 +286,18 @@ def build_linker_tests(directory, runner, out_dir,  prefix, index_file, ext='.ob
                                 out += '    ' + line.rstrip() + '\n'
                     except:
                         pass
-                    sources.append(join(oroot, fname))
+                    sources.append(fname)
                 break
             out += '\n\nOutput\n^^^^^^\n\n::\n\n'
             # launch the linker
-            p = Popen(' '.join([runner] + sources), shell=True, stdout=PIPE)
+            p = Popen([join(os.getcwd(), runner)] + sources, stdout=PIPE, cwd=oroot)
             outdata, err = p.communicate()
             # grab and insert the testing output
             for line in outdata.split('\n'):
                 out += '    ' + line.rstrip() + '\n'
             # grab the load file
             try:
-                with open(sources[0] + '.ffa') as f:
+                with open(join(oroot, sources[0].replace(ext, '.ffa'))) as f:
                     out += '\n\nLoad File\n^^^^^^^^^\n\n::\n\n'
                     for line in f:
                         out += '    ' + line.rstrip() + '\n'
