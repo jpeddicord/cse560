@@ -83,7 +83,7 @@ namespace Simulator
                 // get the binary string of this word
                 string bin = Convert.ToString(mem.GetWord(this.lc), 2).PadLeft(16, '0');
     
-                // look up the associated insruction
+                // look up the associated instruction
                 instr.ReverseLookup(bin.Substring(0, 5), out category, out function);
 
                 int prevLC = this.lc;
@@ -92,6 +92,7 @@ namespace Simulator
                 {
                     if (Runtime.Debug)
                     {
+                        Console.WriteLine();
                         PrintDebug(true);
                     }
 
@@ -100,7 +101,7 @@ namespace Simulator
                     if (Runtime.Debug)
                     {
                         PrintDebug(false);
-                        Console.WriteLine("\n");
+                        Console.WriteLine();
                     }
 
                     // if the location counter wasn't changed by an instruction,
@@ -113,7 +114,20 @@ namespace Simulator
                 catch (Assembler.ErrorException ex)
                 {
                     Console.WriteLine(String.Format("RUNTIME ERROR: {0}", ex));
-                    break;
+
+                    PrintDebug(false);
+                    Console.WriteLine();
+
+                    // break on fatal errors
+                    if (ex.err.category == Assembler.Errors.Category.Fatal)
+                    {
+                        break;
+                    }
+                    // otherwise just go to the next line
+                    else
+                    {
+                        this.lc++;
+                    }
                 }
 #if !DEBUG
                 catch (Exception)
