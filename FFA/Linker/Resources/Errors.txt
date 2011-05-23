@@ -15,6 +15,9 @@ EW.14 Text record amount to be adjusted should be valid hex but is not. Adjustme
 EW.15 Modify record location in program should be 4 hex digits but is not, assuming valid hex. Linking continues.
 EW.16 Modify record hex code to modify should be 4 hex digits but is not, assuming valid hex. Linking continues.
 EW.17 Modify record should not have more than 15 adjustments but it does. But it doesn't really matter. Linking continues.
+EW.18 End record has incorrect number of fields. Linker will assume that the end record belongs. Linking continues.
+EW.19 Actual number of linking records encountered in this program does not match number of linking records in header record. Linking continues.
+EW.20 Actual number of modify records encountered in this program does not match number of modify records in header record. Linking continues.
 
 
 ES.01 Input found after end record was reached. Input ignored.
@@ -50,6 +53,11 @@ ES.30 Program name at the end of modify record does not match name of program be
 ES.31 Program name at the end of modify record does not exist in the symbol table. Modify record is ignored, linking continues.
 ES.32 Modify record adjustments contain mismatched sets. Modify record ignored, linking continues.
 ES.33 Invalid record type encountered. Record will be ignored, linking continues.
+ES.34 Program name at end of end record must be between 2 and 32 characters long, start with a letter, and contain only letters and numbers. Linking continues.
+ES.35 Program name at end of end record does not match name of program being parsed. Linker will assume end record has been reached as normal. Linking continues.
+ES.36 Program name at end of end record does not exist in symbol table. Linker will assume end record has been reached and continue as normal. Linking continues.
+ES.37 Actual number of text records encountered in this program does not match number of text records in header record. This probably is a problem. Linking continues. Harmful or fatal if swallowed.
+ES.38 Attempted to define duplicate entry in symbol table. Linking continues but unexpected things may happen at runtime.
 
 
 EF.01 Header record has the incorrect number of fields. Stopping linker.

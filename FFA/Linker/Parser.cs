@@ -813,6 +813,7 @@ namespace Linker
             if (field.Length != 2)
             {
                 // record has the wrong number of fields
+                errPrinter.PrintError(ErrCat.Warning, 18);
             }
 
             // check that program name is valid
@@ -827,13 +828,13 @@ namespace Linker
                 if (!(!alphaNumeric.IsMatch(prgmName) && char.IsLetter(prgmName[0])))
                 {
                     // program name is not a valid label
-                    
+                    errPrinter.PrintError(ErrCat.Serious, 34);
                 }
             }
             else
             {
                 // program name is not the right length
-
+                errPrinter.PrintError(ErrCat.Serious, 34);
             }
 
 
@@ -842,6 +843,13 @@ namespace Linker
             {
                 // error, must have the same program name at the end of the record as the
                 // module currently being parsed
+                errPrinter.PrintError(ErrCat.Serious, 35);
+            }
+
+            if (!symb.ContainsSymbol(prgmName))
+            {
+                // error, program name not in symbol table
+                errPrinter.PrintError(ErrCat.Serious, 36);
             }
 
             // since end record has been reached there should be no more input
@@ -860,16 +868,19 @@ namespace Linker
             if (mod.HeaderRecord.TotalTextRecords != mod.TotalTextRecords)
             {
                 // error, wrong number of text records
+                errPrinter.PrintError(ErrCat.Serious, 37);
             }
 
             if (mod.HeaderRecord.TotalLinkingRecords != mod.TotalLinkingRecords)
             {
                 // error, wrong number of linking records
+                errPrinter.PrintError(ErrCat.Warning, 19);
             }
 
             if (mod.HeaderRecord.TotalModifyRecords != mod.TotalModifyRecords)
             {
                 // error, wrong number of modify records
+                errPrinter.PrintError(ErrCat.Warning, 20);
             }
         }
 
@@ -879,7 +890,14 @@ namespace Linker
             foreach (var rec in lRec)
             {
                 int lValue = mod.GetTextRecord(lRec[rec.Key].Location).Location;
-                symb.AddSymbol(lRec[rec.Key].EntryName, Assembler.Usage.ENTRY, lValue);
+                try
+                {
+                    symb.AddSymbol(lRec[rec.Key].EntryName, Assembler.Usage.ENTRY, lValue);
+                }
+                catch (Assembler.SymbolException)
+                {
+                    errPrinter.PrintError(ErrCat.Serious, 38);
+                }
             }
         }
     }
