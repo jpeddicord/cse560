@@ -108,7 +108,7 @@ namespace Linker
             Header head = new Header();
 
             // check that the header record contains the correct number of fields
-            if (field.Length != 15)
+            if (field.Length != 13)
             {
                 // error, wrong number of fields in header record
                 throw new Error(ErrCat.Fatal, 1);
@@ -239,7 +239,7 @@ namespace Linker
             head.ExecutionStartAddress = execAddVal;
 
             // get date and time of assembly
-            string dateAndTime = String.Format("{0}:{1}:{2}", field[5], field[6], field[7]);
+            string dateAndTime = field[5];
 
             // check that it is the proper length
             if (dateAndTime.Length != 16)
@@ -250,7 +250,7 @@ namespace Linker
 
 
             // get version number of assembler that assembled this header record
-            string verNum = field[8].ToUpper();
+            string verNum = field[6].ToUpper();
 
             // check that it's the proper length, 4 digits
             if (verNum.Length != 4)
@@ -261,7 +261,7 @@ namespace Linker
 
 
             // get the total number of records in the object file
-            string totalRec = field[9].ToUpper();
+            string totalRec = field[7].ToUpper();
 
             // check length, should be 4 digit hex number
             if (totalRec.Length != 4)
@@ -287,7 +287,7 @@ namespace Linker
 
 
             // get the number of linking records in the object file
-            string linkRec = field[10].ToUpper();
+            string linkRec = field[8].ToUpper();
 
             // check length, should be 4 digit hex number
             if (linkRec.Length != 4)
@@ -314,7 +314,7 @@ namespace Linker
 
 
             // get the number of text records in the object file
-            string textRec = field[11].ToUpper();
+            string textRec = field[9].ToUpper();
 
             // check length, should be 4 digit hex number
             if (textRec.Length != 4)
@@ -347,7 +347,7 @@ namespace Linker
 
 
             // get the number of modify records in the object file
-            string modRec = field[12].ToUpper();
+            string modRec = field[10].ToUpper();
 
             // check length, should be 4 digit hex number
             if (modRec.Length != 4)
@@ -373,7 +373,7 @@ namespace Linker
 
             
             // check that the assembler name is correct
-            if (field[13].ToUpper() != "FFA-ASM")
+            if (field[11].ToUpper() != "FFA-ASM")
             {
                 // error? wrong assembler?
                 errPrinter.PrintError(ErrCat.Warning, 9);
@@ -382,7 +382,7 @@ namespace Linker
 
             // check that the program name at the end of
             // the record is the same as at the beginning
-            if (field[14] != prgmName)
+            if (field[12] != prgmName)
             {
                 // error, program names do not match
                 errPrinter.PrintError(ErrCat.Serious, 8);

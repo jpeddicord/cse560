@@ -94,8 +94,7 @@ namespace Linker
 
         public override string ToString()
         {
-            string disp = "\n\n\t";
-            disp += "----------- SYMBOL TABLE -----------\n";
+            string disp = "\t----------- SYMBOL TABLE -----------\n";
             disp += string.Format("{0,32}: {1,-16} {2,-8} \n\n",
                                       "Label",
                                       "Relocation value",

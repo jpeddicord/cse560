@@ -65,7 +65,7 @@ namespace Assembler
             get
             {
                 DateTime assTime = DateTime.Now;
-                return String.Format("{0:D4}{1:D3},{2:D2}:{3:D2}:{4:D2}",
+                return String.Format("{0:D4}{1:D3},{2:D2},{3:D2},{4:D2}",
                                      assTime.Year,
                                      assTime.DayOfYear,
                                      assTime.Hour,
