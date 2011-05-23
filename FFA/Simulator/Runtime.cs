@@ -115,6 +115,7 @@ namespace Simulator
                 {
                     Console.WriteLine(String.Format("RUNTIME ERROR: {0}", ex));
 
+                    Console.WriteLine();
                     PrintDebug(false);
                     Console.WriteLine();
 
