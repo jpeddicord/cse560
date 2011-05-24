@@ -172,11 +172,11 @@ This linked ``module1.ffa`` file can then be passed into the `Simulator <../simu
 Errors
 ======
 
-.. include:: ../tmp/errorlist.rst
+Please see the `error listing <errors.html>`_.
 
 Limitations
 ===========
 
-TODO
+Please see the `limitations page <limitations.html>`_.
 
 

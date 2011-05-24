@@ -339,11 +339,11 @@ As you can see, debug mode creates quite a lot of output, so you can trace the e
 Errors
 ======
 
-.. include:: ../tmp/errorlist.rst
+See the `errors listing <errors.html>`_.
 
 Limitations
 ===========
 
-TODO
+Please see the `limitations page <limitations.html>`_.
 
 
