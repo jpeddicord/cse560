@@ -1,0 +1,2 @@
+parser, Program, Parser, local, the main program parser, valid Parser object
+debug, Program, boolean, local, whether the program is running in debug mode or not, true/false

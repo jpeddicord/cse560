@@ -5,6 +5,9 @@ using System.Text;
 
 namespace Simulator
 {
+    /**
+     * Main startup program.
+     */
     class Program
     {
         public static void Usage()
