@@ -264,9 +264,12 @@ namespace Simulator
             }
 
             // print out any errors
-            foreach (var err in errors)
-            {
-                Console.WriteLine(err);
+            if (errors.Count > 0){
+                Console.WriteLine("Parsing error in header:");
+                foreach (var err in errors)
+                {
+                    Console.WriteLine("    {0}", err);
+                }
             }
 
         }
