@@ -5,6 +5,10 @@ using System.Text;
 
 namespace Linker
 {
+    /**
+     * Linking record holding information parsed from the assembler
+     * generated object file for use in the Linker.
+     */
     class Linking
     {
         /**

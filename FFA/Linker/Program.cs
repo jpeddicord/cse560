@@ -20,8 +20,10 @@ namespace Linker
 
         static void Main(string[] args)
         {
-             Assembler.Errors.SetResource(Properties.Resources.Errors);
+            // allows the use of the Assembler.Errors class for error handling
+            Assembler.Errors.SetResource(Properties.Resources.Errors);
 
+            // get the command line arguments
             string[] infiles = new string[1];
             if (args.Length > 0)
             {
@@ -34,20 +36,30 @@ namespace Linker
                 System.Environment.Exit(1);
             }
 
+            // output the file to a file using the first argument minus the extension
+            // with the .ffa extension added to the end
             string outfile = System.IO.Path.GetFileNameWithoutExtension(infiles[0]) + ".ffa";
 
+            // get all the things needed to parse the input files
             Parser pars = new Parser();
 
+            // how many files have been parsed
             int file = 0;
-            int address = 0;
-            SymbolTable symb = new SymbolTable();
-            List<Module> modules = new List<Module>();
-            Module[] mods = new Module[infiles.Length];
 
+            // the address the parser should use when calculating the module load addresses
+            int address = 0;
+
+            // the symbol table to save symbols in
+            SymbolTable symb = new SymbolTable();
+            // the list to save the modules in
+            List<Module> modules = new List<Module>();
+
+            // Let's parse us some files
             try
             {
                 foreach (var f in infiles)
                 {
+                    // the module that will hold the object file currently being parsed
                     Module mod = new Module();
                     try
                     {
@@ -55,18 +67,24 @@ namespace Linker
                     }
                     catch (Error ex)
                     {
+                        // there was a problem while parsing :(
                         if (ex.err.category == Assembler.Errors.Category.Fatal)
                         {
+                            // fatal error should stop the linker
+                            // keep the exception moving
                             throw ex;
                         }
                         else
                         {
+                            // not fatal, output the error and keep on going
                             Console.WriteLine(ex.err);
                             continue;
                         }
                     }
+                    // add the module to the module list
                     modules.Add(mod);
-                    mods[file] = mod;
+
+                    // a file has been parsed
                     file++;
                 }
 

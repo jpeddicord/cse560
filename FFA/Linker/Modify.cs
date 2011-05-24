@@ -5,6 +5,10 @@ using System.Text;
 
 namespace Linker
 {
+    /**
+     * Modify record that holds the information parsed from the
+     * assembler generated object file for use in the Linker
+     */
     class Modify
     {
         /**
