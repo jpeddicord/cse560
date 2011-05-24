@@ -4,6 +4,8 @@ User's Guide
 
 Welcome to the user's guide for the Final Four Accelerated Linker. Here you will find usage notes, instructions on how to build the linker, and general documentation. A more detailed description of how to get the linker up and running can be found in our `How To <how_to.html>`_ section.
 
+.. contents::
+
 Requirements
 ============
 
@@ -165,7 +167,7 @@ Additionally, the linker outputs the symbols found and relocated to the screen::
          Module1: 03F1             PRGMNAME
            seven: 000F             ENTRY
 
-This linked ``module1.ffa`` file can then be passed into the `Simulator <../simulator/index.html>` to test in a virtual machine.
+This linked ``module1.ffa`` file can then be passed into the `Simulator <../simulator/index.html>`_ to test in a virtual machine.
 
 Errors
 ======
