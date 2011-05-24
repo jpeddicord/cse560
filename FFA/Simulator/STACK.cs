@@ -67,7 +67,8 @@ namespace Simulator
             Memory m = Memory.GetInstance();
             if (literal)
             {
-                m.DataPush(addr);
+                int val = Assembler.BinaryHelper.ConvertNumber(addr, 10);
+                m.DataPushInt(val);
             }
             else
             {
@@ -129,7 +130,7 @@ namespace Simulator
             // Otherwise use it as an address and get the value located at addr.
             if (literal)
             {
-                data = addr;
+                data = Assembler.BinaryHelper.ConvertNumber(addr);
             }
             else
             {
