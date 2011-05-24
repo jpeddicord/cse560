@@ -60,11 +60,6 @@ Each error will give a brief description of what the issue is and what will be d
 
 .. include:: ../tmp/errorlist.rst
 
-Errors are currently *not* printed for the following issues, since they will be processed in pass 2:
-
-* Malformed expressions in ADCE instructions
-* Undefined label usage
-* Undefined externals (linker)
 
 Example
 -------

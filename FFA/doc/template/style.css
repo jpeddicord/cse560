@@ -822,7 +822,13 @@ dl.bug
 #rst .note {
     background-color: #dff;
     border: 1px solid #9ff;
-    padding: 10px;
+    padding: 6px;
+}
+
+#rst .warning {
+    background-color: #fbb;
+    border: 1px solid #f77;
+    padding: 6px;
 }
 
 #rst table {
