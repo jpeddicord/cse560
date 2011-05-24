@@ -118,7 +118,7 @@ namespace Linker
          * @param header the Header record for this module
          * 
          * @refcode
-         *  OB
+         *  OB, LM
          * @errtest
          * @errmsg
          * @author Mark Mathis
@@ -137,9 +137,13 @@ namespace Linker
         /**
          * Adds the indicated text record to the Module.
          * 
+         * @param rec the text record to be added
+         * 
          * @refcode
+         * OB, LM
          * @errtest
          * @errmsg
+         *  ES.40, ES.41, ES.42
          * @author Mark Mathis
          * @creation May 21, 2011
          * @modlog
@@ -198,9 +202,13 @@ namespace Linker
         /**
          * Adds the indicated linking record to the Module.
          * 
+         * @param rec the linking record to be added
+         * 
          * @refcode
+         * OB, LM
          * @errtest
          * @errmsg
+         *  ES.44, ES.45, ES.46
          * @author Mark Mathis
          * @creation May 21, 2011
          * @modlog
@@ -244,9 +252,13 @@ namespace Linker
         /**
          * Adds the indicated modify record to the Module.
          * 
+         * @param rec the modify record to be added
+         * 
          * @refcode
+         * OB, LM
          * @errtest
          * @errmsg
+         *  ES.47, ES.48, ES.49
          * @author Mark Mathis
          * @creation May 21, 2011
          * @modlog
@@ -288,6 +300,9 @@ namespace Linker
 
         /**
          * Returns the indicated text record.
+         * 
+         * @param LC the location counter value of the text record to return
+         * @return the text record at the indicated location
          * 
          * @refcode
          * @errtest

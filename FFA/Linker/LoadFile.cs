@@ -15,12 +15,32 @@ namespace Linker
         private SymbolTable symb;
         private Header loadHeader = new Header();
 
+        /**
+         * @refcode
+         * @errtest
+         * @errmsg
+         * @author Mark Mathis
+         * @creation May XX, 2011
+         * @modlog
+         * @teststandard Andrew Buelow
+         * @codestandard Mark Mathis
+         */
         public LoadFile(List<Module> modules, SymbolTable symb)
         {
             this.modules = modules;
             this.symb = symb;
         }
 
+        /**
+         * @refcode
+         * @errtest
+         * @errmsg
+         * @author Mark Mathis
+         * @creation May XX, 2011
+         * @modlog
+         * @teststandard Andrew Buelow
+         * @codestandard Mark Mathis
+         */
         private void doModifyRecords(Module mod, SymbolTable symb)
         {
             var mRec = mod.ModifyRecords;
@@ -73,6 +93,20 @@ namespace Linker
             }
         }
 
+        /**
+         * Writes text records to a file using the parameter StreamWriter.
+         * 
+         * @param writer the stream to write to
+         * 
+         * @refcode
+         * @errtest
+         * @errmsg
+         * @author Mark Mathis
+         * @creation May 22, 2011
+         * @modlog
+         * @teststandard Andrew Buelow
+         * @codestandard Mark Mathis
+         */
         private void WriteTextRecords(StreamWriter writer)
         {
             foreach (var mod in modules)
@@ -88,6 +122,18 @@ namespace Linker
             }
         }
 
+        /**
+         * Prints text records to the screen.
+         * 
+         * @refcode
+         * @errtest
+         * @errmsg
+         * @author Mark Mathis
+         * @creation May 23, 2011
+         * @modlog
+         * @teststandard Andrew Buelow
+         * @codestandard Mark Mathis
+         */
         private void WriteTextRecords()
         {
             foreach (var mod in modules)
@@ -103,6 +149,16 @@ namespace Linker
             }
         }
 
+        /**
+         * @refcode
+         * @errtest
+         * @errmsg
+         * @author Mark Mathis
+         * @creation May XX, 2011
+         * @modlog
+         * @teststandard Andrew Buelow
+         * @codestandard Mark Mathis
+         */
         public void Render(string filename)
         {
             StreamWriter writer = null;
