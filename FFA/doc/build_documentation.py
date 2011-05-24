@@ -336,17 +336,24 @@ def build_sim_tests(directory, runner, out_dir, prefix, index_file, ext='.ffa'):
                 with open(join(root, fname)) as f:
                     for line in f:
                         out += '    ' + line.rstrip() + '\n'
+                # check for test script input
+                try:
+                    with open(join(root, fname.replace('.ffa', '.input'))) as f:
+                        scriptin = f.read()
+                        print "        (input file found)"
+                except:
+                    scriptin = ''
                 out += '\n\nOutput\n^^^^^^\n\n::\n\n'
                 # launch the test program
-                p = Popen(runner + ' ' + join(root, fname), shell=True, stdout=PIPE)
-                outdata, err = p.communicate()
+                p = Popen(runner + ' ' + join(root, fname), shell=True, stdout=PIPE, stdin=PIPE)
+                outdata, err = p.communicate(input=scriptin)
                 # insert the test output
                 for line in outdata.split('\n'):
                     out += '    ' + line.rstrip() + '\n'
                 out += '\n\nDebug Mode\n~~~~~~~~~~\n\n::\n\n'
                 # launch the test program again, with debug
-                p = Popen(runner + ' -d ' + join(root, fname), shell=True, stdout=PIPE)
-                outdata, err = p.communicate()
+                p = Popen(runner + ' -d ' + join(root, fname), shell=True, stdout=PIPE, stdin=PIPE)
+                outdata, err = p.communicate(input=scriptin)
                 # insert the debug output
                 for line in outdata.split('\n'):
                     out += '    ' + line.rstrip() + '\n'
