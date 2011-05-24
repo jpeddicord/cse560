@@ -111,6 +111,7 @@ namespace Simulator
          * @author Andrew Buelow
          * @creation May 21, 2011
          * @modlog
+         *  - May 23, 2011 - Andrew - Added The ability to recover items if there is overflow.
          * @teststandard Andrew Buelow
          * @codestandard Mark Mathis
          */
@@ -123,7 +124,17 @@ namespace Simulator
 
             int val = i + j;
 
-            m.DataPushInt(val);
+            try
+            {
+                m.DataPushInt(val);
+            }
+            catch (Exception)
+            {
+                // Put the popped value back if there is overflow.
+                m.DataPushInt(i);
+
+                throw new Assembler.ErrorException(ErrCat.Serious, 11);
+            }
         }
 
 
@@ -139,6 +150,7 @@ namespace Simulator
          * @author Andrew Buelow
          * @creation May 21, 2011
          * @modlog
+         *  - May 23, 2011 - Andrew - Added The ability to recover items if there is overflow.
          * @teststandard Andrew Buelow
          * @codestandard Mark Mathis
          */
@@ -151,7 +163,17 @@ namespace Simulator
 
             int val = i - j;
 
-            m.DataPushInt(val);
+            try
+            {
+                m.DataPushInt(val);
+            }
+            catch (Exception)
+            {
+                // Put the popped value back if there is overflow.
+                m.DataPushInt(i);
+
+                throw new Assembler.ErrorException(ErrCat.Serious, 11);
+            }
         }
 
         /**
@@ -166,6 +188,7 @@ namespace Simulator
          * @author Andrew Buelow
          * @creation May 21, 2011
          * @modlog
+         *  - May 23, 2011 - Andrew - Added The ability to recover items if there is overflow.
          * @teststandard Andrew Buelow
          * @codestandard Mark Mathis
          */
@@ -178,7 +201,17 @@ namespace Simulator
 
             int val = i * j;
 
-            m.DataPushInt(val);
+            try
+            {
+                m.DataPushInt(val);
+            }
+            catch (Exception)
+            {
+                // Put the popped value back if there is overflow.
+                m.DataPushInt(i);
+
+                throw new Assembler.ErrorException(ErrCat.Serious, 11);
+            }
         }
 
         /**
@@ -193,6 +226,7 @@ namespace Simulator
          * @author Andrew Buelow
          * @creation May 21, 2011
          * @modlog
+         *  - May 23, 2011 - Andrew - Added The ability to recover items if there is overflow.
          * @teststandard Andrew Buelow
          * @codestandard Mark Mathis
          */
@@ -210,7 +244,17 @@ namespace Simulator
 
             int val = i / j;
 
-            m.DataPushInt(val);
+            try
+            {
+                m.DataPushInt(val);
+            }
+            catch (Exception)
+            {
+                // Put the popped value back if there is overflow.
+                m.DataPushInt(i);
+
+                throw new Assembler.ErrorException(ErrCat.Serious, 11);
+            }
         }
 
         /**

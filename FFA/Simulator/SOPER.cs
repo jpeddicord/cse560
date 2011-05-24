@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using ErrCat = Assembler.Errors.Category; 
+using ErrCat = Assembler.Errors.Category;
+using System.Collections; 
 
 namespace Simulator
 {
@@ -113,6 +114,7 @@ namespace Simulator
          * @author Andrew Buelow
          * @creation May 20, 2011
          * @modlog
+         *  - May 23, 2011 - Andrew - Added The ability to recover items if there is overflow.
          * @teststandard Andrew Buelow
          * @codestandard Mark Mathis
          */
@@ -121,14 +123,34 @@ namespace Simulator
             if (n > 1)
             {
                 Memory m = Memory.GetInstance();
+
+                // Used to recover data if there is overflow
+                Stack<int> items = new Stack<int>();
+
                 int total = 0;
                 while (n > 0)
                 {
-                    total = total + m.DataPopInt();
+                    int val = m.DataPopInt();
+                    total += val;
+                    items.Push(val);
                     n--;
                 }
 
-                m.DataPushInt(total);
+                try
+                {
+                    m.DataPushInt(total);
+                }
+                catch (Exception)
+                {
+                    // Put all of the values back on the stack
+                    while (items.Count > 0)
+                    {
+                        int i = items.Pop();
+                        m.DataPushInt(i);
+                    }
+
+                    throw new Assembler.ErrorException(ErrCat.Serious, 11);
+                }
             }
         }
 
@@ -143,6 +165,7 @@ namespace Simulator
          * @author Andrew Buelow
          * @creation May 20, 2011
          * @modlog
+         *  - May 23, 2011 - Andrew - Added The ability to recover items if there is overflow.
          * @teststandard Andrew Buelow
          * @codestandard Mark Mathis
          */
@@ -151,16 +174,37 @@ namespace Simulator
             if (n > 1)
             {
 
+                // Used to recover data if there is overflow
+                Stack<int> items = new Stack<int>();
+
                 Memory m = Memory.GetInstance();
                 int total = m.DataPopInt();
 
+                items.Push(total);
+
                 while (n > 1)
                 {
-                    total = total - m.DataPopInt();
+                    int val = m.DataPopInt();
+                    total = total - val;
+                    items.Push(val);
                     n--;
                 }
 
-                m.DataPushInt(total);
+                try
+                {
+                    m.DataPushInt(total);
+                }
+                catch (Exception)
+                {
+                    // Put all of the values back on the stack
+                    while (items.Count > 0)
+                    {
+                        int i = items.Pop();
+                        m.DataPushInt(i);
+                    }
+
+                    throw new Assembler.ErrorException(ErrCat.Serious, 11);
+                }
 
             }
         }
@@ -176,6 +220,7 @@ namespace Simulator
          * @author Andrew Buelow
          * @creation May 20, 2011
          * @modlog
+         *  - May 23, 2011 - Andrew - Added The ability to recover items if there is overflow.
          * @teststandard Andrew Buelow
          * @codestandard Mark Mathis
          */
@@ -183,16 +228,34 @@ namespace Simulator
         {
             if (n > 1)
             {
+                // Used to recover data if there is overflow
+                Stack<int> items = new Stack<int>();
 
                 Memory m = Memory.GetInstance();
                 int total = 1;
                 while (n > 0)
                 {
-                    total = total * m.DataPopInt();
+                    int val = m.DataPopInt();
+                    total = total * val;
+                    items.Push(val);
                     n--;
                 }
 
-                m.DataPushInt(total);
+                try
+                {
+                    m.DataPushInt(total);
+                }
+                catch (Exception)
+                {
+                    // Put all of the values back on the stack
+                    while (items.Count > 0)
+                    {
+                        int i = items.Pop();
+                        m.DataPushInt(i);
+                    }
+
+                    throw new Assembler.ErrorException(ErrCat.Serious, 11);
+                }
 
             }
         }
@@ -208,6 +271,7 @@ namespace Simulator
          * @author Andrew Buelow
          * @creation May 20, 2011
          * @modlog
+         *  - May 23, 2011 - Andrew - Added The ability to recover items if there is overflow.
          * @teststandard Andrew Buelow
          * @codestandard Mark Mathis
          */
@@ -215,9 +279,13 @@ namespace Simulator
         {
             if (n > 1)
             {
+                // Used to recover data if there is overflow
+                Stack<int> items = new Stack<int>();
 
                 Memory m = Memory.GetInstance();
                 int total = m.DataPopInt();
+
+                items.Push(total);
 
                 while (n > 1)
                 {
@@ -230,10 +298,25 @@ namespace Simulator
                     }
 
                     total = total / i;
+                    items.Push(i);
                     n--;
                 }
 
-                m.DataPushInt(total);
+                try
+                {
+                    m.DataPushInt(total);
+                }
+                catch (Exception)
+                {
+                    // Put all of the values back on the stack
+                    while (items.Count > 0)
+                    {
+                        int i = items.Pop();
+                        m.DataPushInt(i);
+                    }
+
+                    throw new Assembler.ErrorException(ErrCat.Serious, 11);
+                }
 
             }
         }
