@@ -5,35 +5,75 @@ using System.Text;
 
 namespace Linker
 {
+    /**
+     * Linker header record used to hold information about the
+     * program being linked.
+     */
     class Header
     {
+        /**
+         * The name of the program.
+         */
         public string ProgramName
         { get; set; }
 
+        /**
+         *  The load address assigned by the Assembler.
+         */
         public int AssemblerLoadAddress
         { get; set; }
 
+        /**
+         * The length of the module.
+         */
         public int ModuleLength
         { get; set; }
 
+        /**
+         * The load address computed by the Linker.
+         */
         public int LinkerLoadAddress
         { get; set; }
 
+        /**
+         * the execution start address of the module.
+         */
         public int ExecutionStartAddress
         { get; set; }
 
+        /**
+         * The total number of records in the module.
+         */
         public int TotalRecords
         { get; set; }
 
+        /**
+         * The total number of linking records in the module.
+         */
         public int TotalLinkingRecords
         { get; set; }
 
+        /**
+         * The total number of text records in the module.
+         */
         public int TotalTextRecords
         { get; set; }
 
+        /**
+         * The total number of modify records in the module.
+         */
         public int TotalModifyRecords
         { get; set; }
 
+        /**
+         * The date and time of the linking in Julian date format.
+         * Date in format: yearday,hh,mm,ss
+         * year = 4 digit year
+         * day = 3 digit day of the year, e.g. Feb 2 is 033
+         * hh = 2 digit hour in 24 hour format
+         * mm = 2 digit minutes value
+         * ss = 2 digit seconds value
+         */
         public string LinkingDate
         {
             get
@@ -48,6 +88,22 @@ namespace Linker
             }
         }
 
+        /**
+         * Returns the header record as a string. Format follows the format given
+         * in table LM1.
+         * 
+         * @return the header record in the specified format
+         * 
+         * @refcode
+         *  LM1
+         * @errtest
+         * @errmsg
+         * @author Mark Mathis
+         * @creation May 22, 2011
+         * @modlog
+         * @teststandard Andrew Buelow
+         * @codestandard Mark Mathis
+         */
         public override String ToString()
         {
             return String.Format(

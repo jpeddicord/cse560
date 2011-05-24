@@ -937,6 +937,9 @@ namespace Linker
          * @param rec the end record to be parsed
          * @param mod the module this end record will be a part of
          * 
+         * @return true if the end record is successfully parsed
+         *         false if parsing the end record is unsuccessful
+         * 
          * @refcode
          *  OB5
          * @errtest
