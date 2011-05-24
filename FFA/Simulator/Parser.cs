@@ -81,7 +81,7 @@ namespace Simulator
             {
                 try
                 {
-                    if (line.Length > 0)
+                    if (line.Trim().Length > 0)
                     {
                         // don't allow garbage after the end
                         if (reachedEnd)
