@@ -9,7 +9,7 @@ EF.07 Error opening input file; cannot continue.
 ES.01 Missing version number of linker, or incorrect format.
 ES.02 Wrong number of fields in text record.
 ES.03 Wrong number of fields in end record.
-ES.05 Data found after end record.
+ES.05 Duplicate location counter found, ignoring line.
 ES.06 Unknown record type.
 ES.07 Invalid memory location.
 ES.08 Invalid word size or format.

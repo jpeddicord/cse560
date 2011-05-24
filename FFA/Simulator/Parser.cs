@@ -36,6 +36,11 @@ namespace Simulator
         private int totalRecords = 0;
 
         /**
+         * Location counter values that have been loaded.
+         */
+        private HashSet<int> usedLC = new HashSet<int>();
+
+        /**
          * Parse the given file, and load its contents into memory. If any
          * errors are found in the file, they will be displayed, but unless
          * they are fatal parsing will continue.
@@ -110,6 +115,7 @@ namespace Simulator
                         else if (parts[0] == "E")
                         {
                             ParseEnd(parts);
+                            reachedEnd = true;
                         }
                         else
                         {
@@ -298,10 +304,18 @@ namespace Simulator
                 throw new Assembler.ErrorException(ErrCat.Serious, 8);
             }
 
-            // set the memory
             var mem = Memory.GetInstance();
-            mem.SetWord(Convert.ToInt32(parts[1], 16),
-                        Convert.ToInt32(parts[2], 16));
+            int lc = Convert.ToInt32(parts[1], 16);
+
+            // has this location been used already?
+            if (this.usedLC.Contains(lc))
+            {
+                throw new Assembler.ErrorException(ErrCat.Serious, 5);
+            }
+
+            // add it
+            mem.SetWord(lc, Convert.ToInt32(parts[2], 16));
+            this.usedLC.Add(lc);
 
             // validate the program name
             if (parts[3] != this.programName)
