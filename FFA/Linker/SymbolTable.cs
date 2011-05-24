@@ -108,9 +108,9 @@ namespace Linker
          * @teststandard Andrew Buelow
          * @codestandard Mark Mathis
          */
-        public void AddSymbol(string label, Usage use, int linkervalue)
+        public void AddSymbol(string label, Usage use, int linkerValue)
         {
-            Symbol sym = new Symbol(label, use, linkervalue);
+            Symbol sym = new Symbol(label, use, linkerValue);
             AddSymbol(sym);
         }
 

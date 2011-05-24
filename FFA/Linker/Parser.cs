@@ -39,7 +39,7 @@ namespace Linker
          * Parses a single FFA object file. This file is the output of the FFA assembler.
          * 
          * @param filename the filename of the file to parse
-         * @param Module the module that represents the file that is read in
+         * @param mod the module that represents the file that is read in
          * @param symb the linker symbol table
          * @param fileNum how many files have been parsed before this file
          * @param startAddress the linker calculated start address of this module
@@ -535,7 +535,7 @@ namespace Linker
             catch (FormatException)
             {
                 // error, not valid hex
-                errPrinter.PrintError(ErrCat.Serious, 11);
+                throw new Error(ErrCat.Serious, 11);
             }
 
             // check that it is in the correct range

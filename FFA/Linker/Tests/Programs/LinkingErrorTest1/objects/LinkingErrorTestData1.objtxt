@@ -1,0 +1,13 @@
+H:TestData:0019:0007:0019:2011144,16,04,40:9001:000B:0004:0007:0000:FFA-ASM:TestData
+L:bee:001ATestData
+L:e:0019:TestData
+L:equal:01G:TestData
+L:see:051B:TestData
+T:0019:8000:A:0:TestData
+T:001A:8000:A:0:TestData
+T:001B:8000:A:0:TestData
+T:001C:8000:A:0:TestData
+T:001D:F019:R:0:TestData
+T:001E:F01A:R:0:TestData
+T:001F:F01B:R:0:TestData
+E:TestData

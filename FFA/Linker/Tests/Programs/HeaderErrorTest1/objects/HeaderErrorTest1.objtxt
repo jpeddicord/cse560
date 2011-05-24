@@ -1,0 +1,13 @@
+H:TestData:019:007:019:2011144,16,04,4:901:hey:yo:0l0:0+0:FFA-APM:TestDatA
+L:bee:001A:TestData
+L:eeh:0019:TestData
+L:equal:001C:TestData
+L:see:001B:TestData
+T:0019:8000:A:0:TestData
+T:001A:8000:A:0:TestData
+T:001B:8000:A:0:TestData
+T:001C:8000:A:0:TestData
+T:001D:F019:R:0:TestData
+T:001E:F01A:R:0:TestData
+T:001F:F01B:R:0:TestData
+E:TestData
