@@ -1,4 +1,5 @@
 using System;
+using ErrCat = Assembler.Errors.Category; 
 
 namespace Simulator
 {
@@ -68,6 +69,7 @@ namespace Simulator
          * @author Jacob Peddicord
          * @creation May 19, 2011
          * @modlog
+         *  - May 24, 2011 - Andrew - Fixing error catching
          * @teststandard Andrew Buelow
          * @codestandard Mark Mathis
          */
@@ -80,16 +82,23 @@ namespace Simulator
 
             while (true)
             {
-                // get the binary string of this word
-                string bin = Convert.ToString(mem.GetWord(this.lc), 2).PadLeft(16, '0');
-    
-                // look up the associated instruction
-                instr.ReverseLookup(bin.Substring(0, 5), out category, out function);
-
-                int prevLC = this.lc;
-
                 try
                 {
+
+                    // check that the LC is valid
+                    if (1023 < this.lc || this.lc < 0)
+                    {
+                        throw new Assembler.ErrorException(ErrCat.Fatal, 8);
+                    }
+
+                    // get the binary string of this word
+                    string bin = Convert.ToString(mem.GetWord(this.lc), 2).PadLeft(16, '0');
+    
+                    // look up the associated instruction
+                    instr.ReverseLookup(bin.Substring(0, 5), out category, out function);
+
+                    int prevLC = this.lc;
+
                     if (Runtime.Debug)
                     {
                         Console.WriteLine();
@@ -115,13 +124,6 @@ namespace Simulator
                 {
                     Console.WriteLine(String.Format("RUNTIME ERROR ON LC {0}: {1}", this.LC, ex));
 
-                    if (Runtime.Debug)
-                    {
-                        PrintDebug(false);
-                    }
-
-                    Console.WriteLine();
-
                     // break on fatal errors
                     if (ex.err.category == Assembler.Errors.Category.Fatal)
                     {
@@ -130,6 +132,13 @@ namespace Simulator
                     // otherwise just go to the next line
                     else
                     {
+                        if (Runtime.Debug)
+                        {
+                            PrintDebug(false);
+                        }
+
+                        Console.WriteLine();
+
                         this.lc++;
                     }
                 }

@@ -262,6 +262,11 @@ namespace Simulator
                 errors.Add(new Assembler.ErrorException(ErrCat.Serious, 19));
             }
 
+            if (this.executionStart + totalLength > 1023)
+            {
+                throw new Assembler.ErrorException(ErrCat.Fatal, 9);
+            }
+
             // print out any errors
             if (errors.Count > 0){
                 Console.WriteLine("Parsing error in header:");

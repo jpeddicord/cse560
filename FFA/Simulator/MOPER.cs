@@ -384,7 +384,7 @@ namespace Simulator
             } // Gives a warning if there are more than two characters.
             else if (str.Length > 2)
             {
-                Console.WriteLine(String.Format("RUNTIME ERROR: {0}", new Assembler.ErrorException(ErrCat.Warning, 1)));
+                Console.WriteLine(String.Format("RUNTIME ERROR ON LC {1}: {0}\n", new Assembler.ErrorException(ErrCat.Warning, 1), Runtime.GetInstance().LC));
             }
             
             i = (int)str[0];

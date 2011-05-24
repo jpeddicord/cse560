@@ -5,6 +5,8 @@ EF.04 Invalid load address in header record.
 EF.05 Invalid execution start address in header record.
 EF.06 Invalid program length field in header record.
 EF.07 Error opening input file; cannot continue.
+EF.08 Location counter out of range of memory.
+EF.09 Unable to fit program in memory. Program length or execution start is too large.
 
 ES.01 Missing version number of linker, or incorrect format.
 ES.02 Wrong number of fields in text record.
