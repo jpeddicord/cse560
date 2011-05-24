@@ -11,7 +11,7 @@ Below is a list of potential errors you may come across when running a simulated
    
    * - Error #
      - Message
-	 - Tested In:
+     - Tested In
 
    * - EF.01
      - Memory reference is out of range. Can only access 0 to 1023.
@@ -49,5 +49,120 @@ Below is a list of potential errors you may come across when running a simulated
      - Unable to fit program in memory. Program length or execution start is too large.
      - `ErrorTest4 <testsim__errortest4.html>`_
 
+   * - ES.01
+     - Missing version number of linker, or incorrect format.
+     - 
+
+   * - ES.02
+     - Wrong number of fields in text record.
+     - 
+
+   * - ES.03
+     - Wrong number of fields in end record.
+     - 
+
+   * - ES.05
+     - Duplicate location counter found, ignoring line.
+     - 
+
+   * - ES.06
+     - Unknown record type.
+     - 
+
+   * - ES.07
+     - Invalid memory location.
+     - 
+
+   * - ES.08
+     - Invalid word size or format.
+     - 
+
+   * - ES.09
+     - Garbage data found after program end.
+     - 
+
+   * - ES.10
+     - Invalid flag for DUMP. Can only accept 1, 2 or 3.
+     - 
+
+   * - ES.11
+     - Resulting data value is out of range for data stack or memory.
+     - 
+
+   * - ES.12
+     - Division by zero.
+     - 
+
+   * - ES.14
+     - Invalid program name in header record.
+     - 
+
+   * - ES.18
+     - Invalid date format in header record.
+     - 
+
+   * - ES.19
+     - Invalid total number of records specified in header record.
+     - 
+
+   * - ES.20
+     - Text record count must match total length field in header record.
+     - 
+
+   * - ES.21
+     - FFA-LLM field missing or incorrect in header.
+     - 
+
+   * - ES.22
+     - JUMP ^=, >=, and <= are not supported.
+     - 
+
+   * - ES.23
+     - No input given. Ignoring push to stack.
+     - 
+
+   * - ES.24
+     - Given integer must be between -32768 and 32767. Ignoring push to stack.
+     - 
+
+   * - ES.25
+     - Given input must be an integer but was not. Ignoring push to stack.
+     - 
+
+   * - ES.26
+     - Address is out of range of memory.
+     - 
+
+   * - ES.27
+     - Too many items on the data stack, unable to add more. Ignoring push to stack.
+     - 
+
+   * - ES.28
+     - Too many items on the test stack, unable to add more. Ignoring push to stack.
+     - 
+
+   * - ES.29
+     - Data stack is empty, unable to remove an item.
+     - 
+
+   * - ES.30
+     - Test stack is empty, unable to remove an item.
+     - 
+
+   * - ES.31
+     - Value is too large to fit in memory. Must be within 0 and 65535.
+     - 
+
+   * - EW.01
+     - Invalid character entry, too many characters given. Accepting up to the first two and ignoring the rest.
+     - 
+
+   * - EW.02
+     - Halt code out of range. Setting code to 1023.
+     - 
+
+   * - EW.03
+     - Program name of record doesn't match header.
+     - 
 
 .. include:: ../tmp/errorlist.rst
