@@ -17,7 +17,6 @@ ES.09 Garbage data found after program end.
 ES.10 Invalid flag for DUMP. Can only accept 1, 2 or 3.
 ES.11 Resulting data value is out of range for data stack or memory.
 ES.12 Division by zero.
-ES.13 Invalid field in header record.
 ES.14 Invalid program name in header record.
 ES.18 Invalid date format in header record.
 ES.19 Invalid total number of records specified in header record.
