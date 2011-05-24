@@ -81,7 +81,7 @@ namespace Simulator
             {
                 try
                 {
-                    if (line.Length > 0)
+                    if (line.Trim().Length > 0)
                     {
                         // don't allow garbage after the end
                         if (reachedEnd)
@@ -169,7 +169,7 @@ namespace Simulator
                 throw new Assembler.ErrorException(ErrCat.Fatal, 3);
             }
             // check module name length
-            if (parts[1].Length < 2)
+            if (parts[1].Length < 2 || parts[1].Length > 32 || Char.IsDigit(parts[1][0]))
             {
                 errors.Add(new Assembler.ErrorException(ErrCat.Serious, 14));
             }
@@ -186,14 +186,13 @@ namespace Simulator
             // check total length field length
             if (parts[4].Length != 4)
             {
-                // TODO: FATAL
                 throw new Assembler.ErrorException(ErrCat.Fatal, 6);
             }
             // check that a date exists
             if (parts[5].Length == 0)
             {
                 errors.Add(new Assembler.ErrorException(ErrCat.Serious, 18));
-            }// TODO: date field may not have colons...
+            }
             // check record number length
             if (parts[6].Length != 4)
             {
@@ -264,9 +263,12 @@ namespace Simulator
             }
 
             // print out any errors
-            foreach (var err in errors)
-            {
-                Console.WriteLine(err);
+            if (errors.Count > 0){
+                Console.WriteLine("Parsing error in header:");
+                foreach (var err in errors)
+                {
+                    Console.WriteLine("    {0}", err);
+                }
             }
 
         }

@@ -404,7 +404,6 @@ namespace Simulator
         {
             while (n > 0)
             {
-                Console.Write("Enter an integer: ");
                 string str = Console.ReadLine();
                 int i = 0;
 
@@ -458,7 +457,6 @@ namespace Simulator
         {
             while (n > 0)
             {
-                Console.Write("Enter 1 or 2 characters: ");
                 string str = Console.ReadLine();
                 int i = 0;
 
