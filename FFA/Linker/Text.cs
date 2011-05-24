@@ -5,6 +5,9 @@ using System.Text;
 
 namespace Linker
 {
+    /**
+     * Holds text records for the linker.
+     */
     class Text
     {
         /**

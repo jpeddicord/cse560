@@ -6,10 +6,22 @@ using Error = Assembler.ErrorException;
 
 namespace Linker
 {
+    /**
+     * Runs the Linker.
+     */
     class Program
     {
         /**
-         * Output usage information.
+         * Output usage information
+         *
+         * @refcode
+         * @errtest
+         * @errmsg
+         * @author Mark Mathis
+         * @creation May 23, 2011
+         * @modlog
+         * @teststandard Andrew Buelow
+         * @codestandard Mark Mathis
          */
         public static void Usage()
         {
@@ -18,6 +30,19 @@ namespace Linker
             Console.WriteLine("Linker will link all obj files into obj1.ffa");
         }
 
+        /**
+         * Makes the Linker do things in the right order.
+         * 
+         * @refcode
+         * @errtest
+         * @errmsg
+         *  ES.57 and any errors caused by every other part of the Linker
+         * @author Mark Mathis
+         * @creation May 18, 2011
+         * @modlog
+         * @teststandard Andrew Buelow
+         * @codestandard Mark Mathis
+         */
         static void Main(string[] args)
         {
             // allows the use of the Assembler.Errors class for error handling
@@ -88,24 +113,38 @@ namespace Linker
                     file++;
                 }
 
+                // make sure that modules were actually produced from the parsing
                 if (modules.Count > 0)
                 {
+                    // create the load file with our newfound knowledge
                     LoadFile load = new LoadFile(modules, symb);
                     load.Render(outfile);
                 }
                 else
                 {
+                    // no valid files parsed
                     Assembler.Errors.GetInstance().PrintError(Assembler.Errors.Category.Serious, 57);
                 }
+
+                // output the symbol table after successfully making the load file
                 Console.WriteLine(symb);
             }
             catch (Error)
             {
                 // gracefully die on fatal exceptions
                 Console.WriteLine("Stopping linker due to fatal error.");
+
+                // output however much of the symbol table was made before the
+                // fatal error was encountered. it probably won't ever be much
                 Console.WriteLine(symb);
-                System.Environment.Exit(1);                
-            }           
+                System.Environment.Exit(1);
+            }
+            catch (Exception)
+            {
+                // die with a bad excuse for anything else
+                Console.WriteLine("Something bad happened and the Linker could not recover.");
+                System.Environment.Exit(2);
+            }
         }
     }
 }

@@ -7,48 +7,126 @@ using ErrCat = Assembler.Errors.Category;
 
 namespace Linker
 {
+    /**
+     * Represents a part of a program in the FFA language. The parsed information
+     * from a single file of Assembler output is saved in a Module.
+     */
     class Module
     {
+        /**
+         * Allows the use of the Assembler.Errors class to report errors.
+         */
         private Assembler.Errors errPrinter = Assembler.Errors.GetInstance();
    
+        /**
+         * The name of the Module as specified in the header record.
+         */
         public string ModuleName
         { get; private set; }
 
+        /**
+         * The header record that corresponds to this Module.
+         */
         Header headerRecord;
 
+        /**
+         * Public accessor to this Module's header record.
+         */
         public Header HeaderRecord
         { get { return headerRecord; } }
 
+        /**
+         * All text records contained in this Module.
+         */
         Dictionary<int, Text> textRecords = new Dictionary<int,Text>();
 
+        /**
+         * The total number of text records contained in this Module.
+         */
         public int TotalTextRecords
         { get { return textRecords.Count; } }
 
+        /**
+         * Public accessor to this Module's text records.
+         */
         public Dictionary<int, Text> TextRecords
         { get { return textRecords; } }
 
+        /**
+         * The linking records that are contained in this Module.
+         */
         Dictionary<int, Linking> linkingRecords = new Dictionary<int,Linking>();
 
+        /**
+         * The total number of linking records contained in this Module.
+         */
         public int TotalLinkingRecords
         { get { return linkingRecords.Count; } }
 
+        /**
+         * Public accessor to this Module's linking records.
+         */
         public Dictionary<int, Linking> LinkingRecords
         { get { return linkingRecords; } }
 
+        /**
+         * The modify records that are contained in this Module.
+         */
         Dictionary<int, Modify> modifyRecords = new Dictionary<int,Modify>();
 
+        /**
+         * The total number of modify records contained in this Module.
+         */
         public int TotalModifyRecords
         { get { return modifyRecords.Count; } }
 
+        /**
+         * Public accessor to this Module's modify records.
+         */
         public Dictionary<int, Modify> ModifyRecords
         { get { return modifyRecords; } }
 
+        /**
+         * The value that this Module is being relocated by the Linker.
+         */
         int relocationValue;
 
+        /**
+         * Public accessor to this Module's relocation value.
+         */
         public int RelocateValue
         { get { return relocationValue; } }
 
+        /**
+         * Empty constructor to be used for instantiating placeholder Modules.
+         * 
+         * @refcode
+         * @errtest
+         * @errmsg
+         * @author Mark Mathis
+         * @creation May 21, 2011
+         * @modlog
+         * @teststandard Andrew Buelow
+         * @codestandard Mark Mathis
+         */
         public Module() { }
+        
+        /**
+         * Constructs Module object to hold the program corresponding with the
+         * indicated header record
+         * 
+         * @param header the Header record for this module
+         * 
+         * @refcode
+         *  OB
+         * @errtest
+         * @errmsg
+         * @author Mark Mathis
+         * @creation May 21, 2011
+         * @modlog
+         * @teststandard Andrew Buelow
+         * @codestandard Mark Mathis
+         */
         public Module(Header header)
         {
             headerRecord = header;
@@ -56,6 +134,18 @@ namespace Linker
             relocationValue = header.LinkerLoadAddress - header.AssemblerLoadAddress;
         }
 
+        /**
+         * Adds the indicated text record to the Module.
+         * 
+         * @refcode
+         * @errtest
+         * @errmsg
+         * @author Mark Mathis
+         * @creation May 21, 2011
+         * @modlog
+         * @teststandard Andrew Buelow
+         * @codestandard Mark Mathis
+         */
         public void AddRecord(Text rec)
         {
             // relocate the address as we add it
@@ -105,6 +195,18 @@ namespace Linker
             }
         }
 
+        /**
+         * Adds the indicated linking record to the Module.
+         * 
+         * @refcode
+         * @errtest
+         * @errmsg
+         * @author Mark Mathis
+         * @creation May 21, 2011
+         * @modlog
+         * @teststandard Andrew Buelow
+         * @codestandard Mark Mathis
+         */
         public void AddRecord(Linking rec)
         {
             // relocate the address as we add it
@@ -139,6 +241,18 @@ namespace Linker
             }
         }
 
+        /**
+         * Adds the indicated modify record to the Module.
+         * 
+         * @refcode
+         * @errtest
+         * @errmsg
+         * @author Mark Mathis
+         * @creation May 21, 2011
+         * @modlog
+         * @teststandard Andrew Buelow
+         * @codestandard Mark Mathis
+         */
         public void AddRecord(Modify rec)
         {
             // relocate the address as we add it
@@ -172,6 +286,18 @@ namespace Linker
             }
         }
 
+        /**
+         * Returns the indicated text record.
+         * 
+         * @refcode
+         * @errtest
+         * @errmsg
+         * @author Mark Mathis
+         * @creation May 21, 2011
+         * @modlog
+         * @teststandard Andrew Buelow
+         * @codestandard Mark Mathis
+         */
         public Text GetTextRecord(int LC)
         {
             if (textRecords.ContainsKey(LC))
