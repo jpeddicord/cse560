@@ -7,20 +7,42 @@ using ErrCat = Assembler.Errors.Category;
 
 namespace Linker
 {
+    /**
+     * Represents the Load file output of the Linker.
+     */
     class LoadFile
     {
+        /**
+         * Allows the LoadFile to report errors.
+         */
         Assembler.Errors errPrinter = Assembler.Errors.GetInstance();
 
+        /**
+         * The modules that are included in this LoadFile.
+         */
         private List<Module> modules;
+
+        /**
+         * The SymbolTable containing Symbols that are needed for this LoadFile.
+         */
         private SymbolTable symb;
+
+        /**
+         * The header of this LoadFile.
+         */
         private Header loadHeader = new Header();
 
         /**
+         * Creates a LoadFile containing Modules and a SymbolTable.
+         * 
+         * @param modules the modules included in this LoadFile
+         * @param symb the SymbolTable holding the Symbols needed for this LoadFile
+         * 
          * @refcode
          * @errtest
          * @errmsg
          * @author Mark Mathis
-         * @creation May XX, 2011
+         * @creation May 22, 2011
          * @modlog
          * @teststandard Andrew Buelow
          * @codestandard Mark Mathis
@@ -32,11 +54,18 @@ namespace Linker
         }
 
         /**
+         * Looks at the modify records and does the adjustments in the records.
+         *
+         * @param mod the Module whose modify records should be calculated
+         * @param symb the SymbolTable that contains the symbols in the specified Module
+         * 
          * @refcode
+         *  OB4
          * @errtest
          * @errmsg
+         *  ES.50, ES.51, ES.56
          * @author Mark Mathis
-         * @creation May XX, 2011
+         * @creation May 22, 2011
          * @modlog
          * @teststandard Andrew Buelow
          * @codestandard Mark Mathis
@@ -150,11 +179,17 @@ namespace Linker
         }
 
         /**
+         * Creates and writes the LoadFile to a file.
+         * 
+         * @param filename the name the LoadFile will be written to disk as.
+         * 
          * @refcode
+         *  LM
          * @errtest
          * @errmsg
+         *  ES.52, ES.53, ES.54
          * @author Mark Mathis
-         * @creation May XX, 2011
+         * @creation May 22, 2011
          * @modlog
          * @teststandard Andrew Buelow
          * @codestandard Mark Mathis
