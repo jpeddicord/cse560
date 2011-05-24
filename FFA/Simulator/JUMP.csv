@@ -1,0 +1,2 @@
+lc,JUMP.Run,int,local,Holds the location counter and is used to change the LC if the jump is taken.,0-1023
+dest,JUMP.Run,int,local,The last 10 bits of the instruction converted to an integer. Holds the address to be jumped to.,0-1023

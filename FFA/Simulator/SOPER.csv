@@ -1,0 +1,8 @@
+character,SOPER.Run,bool,local,Determines whether the user wants to read/write a character or a number,true or false
+num,SOPER.Run,int,local,The number of operations to perform.,0-255
+total,SOPER.Add,int,local,The running total of the current operation.,-32768 to 32767
+total,SOPER.Sub,int,local,The running total of the current operation.,-32768 to 32767
+total,SOPER.Mul,int,local,The running total of the current operation.,-32767 to 32768
+total,SOPER.Div,int,local,The running total of the current operation.,-32767 to 32769
+total,SOPER.And,int,local,The running total of the current operation.,-32767 to 32770
+total,SOPER.Or,int,local,The running total of the current operation.,-32767 to 32771

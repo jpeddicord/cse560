@@ -1,0 +1,2 @@
+literal,STACK.Run,bool,local,Determines whether the instruction contains a literal or an address,true or false
+addr,STACK.Run,int,local,The last 10 bits converted to an int. Holds the address or literal value.,

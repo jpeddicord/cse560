@@ -1,0 +1,8 @@
+character,MOPER.Run,bool,local,Determines whether the user wants to read/write a character or a number,true or false
+addr,MOPER.Run,int,local,The last 10 bits converted to an int. Holds the address of the item to use for procedures.,0-1023
+val,MOPER.Add,int,local,The result of the operation to be pushed on the stack,-32768 to 32767
+val,MOPER.Sub,int,local,The result of the operation to be pushed on the stack,-32768 to 32768
+val,MOPER.Mul,int,local,The result of the operation to be pushed on the stack,-32768 to 32769
+val,MOPER.Div,int,local,The result of the operation to be pushed on the stack,-32768 to 32770
+val,MOPER.And,int,local,The result of the operation to be pushed on the stack,-32768 to 32771
+val,MOPER.Or,int,local,The result of the operation to be pushed on the stack,-32768 to 32772
