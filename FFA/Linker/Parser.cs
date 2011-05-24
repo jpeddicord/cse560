@@ -9,13 +9,52 @@ using ErrCat = Assembler.Errors.Category;
 
 namespace Linker
 {
+    /**
+     * Parser for the linker. It reads in object files that have ben output by the
+     * FFA Assembler and prepares them to be linked by the Linker.
+     */
     class Parser
     {
+        /**
+         * The file currently being parsed.
+         */
         private int fileNum;
+
+        /**
+         * The address to be used any time the Linker calculated address is needed.
+         */
         private int address;
+
+        /**
+         * The symbol table used by the Linker to keep program names and entries in order.
+         */
         private SymbolTable symb;
+
+        /**
+         * Allows the Parser to print error messages.
+         */
         private Assembler.Errors errPrinter = Assembler.Errors.GetInstance();
 
+        /**
+         * Parses a single FFA object file. This file is the output of the FFA assembler.
+         * 
+         * @param filename the filename of the file to parse
+         * @param Module the module that represents the file that is read in
+         * @param symb the linker symbol table
+         * @param fileNum how many files have been parsed before this file
+         * @param startAddress the linker calculated start address of this module
+         * 
+         * @refcode
+         *  OB1, OB2, OB3, OB4, OB5
+         * @errtest
+         * @errmsg
+         *  ES.01, ES.35, ES.55
+         * @author Mark Mathis
+         * @creation May 19, 2011
+         * @modlog
+         * @teststandard Andrew Buelow
+         * @codestandard Mark Mathis
+         */
         public void ParseFile(string filename, out Module mod, SymbolTable symb, int fileNum, ref int startAddress)
         {
             // instantiate mod right away since it must be instantiated before
@@ -79,10 +118,10 @@ namespace Linker
                     else if (rec[0] == 'E')
                     {
                         endReached = ParseEnd(rec, mod);
-                    }
-                    // invalid record or garbage data
+                    }                    
                     else
                     {
+                        // invalid record or garbage data
                         throw new Error(ErrCat.Serious, 33);
                     }
                 }
@@ -102,6 +141,26 @@ namespace Linker
             startAddress = address;
         }
 
+        /**
+         * Parses a single FFA object file header record. This should be the first line of
+         * the assembler output.
+         * 
+         * @param rec the header record to be parsed
+         * @param mod the module this header record will be a part of
+         * 
+         * @refcode
+         *  OB1
+         * @errtest
+         * @errmsg
+         *  EW.01, EW.02, EW.03, EW.04, EW.05, EW.06, EW.07, EW.08, EW.09, 
+         *  ES.02, ES.03, ES.04, ES.05, ES.06, ES.07, ES.08, EF.01, EF.02, 
+         *  EF.03, EF.04, EF.05, EF.06, EF.07, EF.08
+         * @author Mark Mathis
+         * @creation May 19, 2011
+         * @modlog
+         * @teststandard Andrew Buelow
+         * @codestandard Mark Mathis
+         */
         public void ParseHeader(string rec, out Module mod)
         {
             string[] field = rec.Split(':');
@@ -403,6 +462,23 @@ namespace Linker
             symb.AddSymbol(mod.ModuleName, Assembler.Usage.PRGMNAME, mod.RelocateValue);
         }
 
+        /**
+         * Parses a single linking record.
+         * 
+         * @param rec the linking record to be parsed
+         * @param mod the module this linking record will be a part of
+         * 
+         * @refcode
+         *  OB2
+         * @errtest
+         * @errmsg
+         *  EW.10, ES.09, ES.10, ES.11, ES.12, ES.13, ES.14, ES.15
+         * @author Mark Mathis
+         * @creation May 19, 2011
+         * @modlog
+         * @teststandard Andrew Buelow
+         * @codestandard Mark Mathis
+         */
         public void ParseLink(string rec, Module mod)
         {
             string[] field = rec.Split(':');
@@ -509,6 +585,23 @@ namespace Linker
             mod.AddRecord(linkRecord);
         }
 
+        /**
+         * Parses a single text record.
+         * 
+         * @param rec the text record to be parsed
+         * @param mod the module this text record will be a part of
+         * 
+         * @refcode
+         *  OB3
+         * @errtest
+         * @errmsg
+         *  EW.11, EW.12, EW.13, EW.14, ES.16, ES.17, ES.18, ES.19, ES.20, ES.21, ES.22, ES.23
+         * @author Mark Mathis
+         * @creation May 19, 2011
+         * @modlog
+         * @teststandard Andrew Buelow
+         * @codestandard Mark Mathis
+         */
         public void ParseText(string rec, Module mod)
         {
             string[] field = rec.Split(':');
@@ -660,6 +753,23 @@ namespace Linker
             mod.AddRecord(textRecord);
         }
 
+        /**
+         * Parses a single modify record.
+         * 
+         * @param rec the modify record to be parsed
+         * @param mod the module this text record will be a part of
+         * 
+         * @refcode
+         *  OB4
+         * @errtest
+         * @errmsg
+         *  EW.15, EW.16, EW.17, ES.24, ES.25, ES.26, ES.27, ES.28, ES.29, ES.30, ES.31, ES.32
+         * @author Mark Mathis
+         * @creation May 19, 2011
+         * @modlog
+         * @teststandard Andrew Buelow
+         * @codestandard Mark Mathis
+         */
         public void ParseModify(string rec, Module mod)
         {
             string[] field = rec.Split(':');
@@ -821,6 +931,23 @@ namespace Linker
             mod.AddRecord(modRecord);
         }
 
+        /**
+         * Parses a single end record.
+         * 
+         * @param rec the end record to be parsed
+         * @param mod the module this end record will be a part of
+         * 
+         * @refcode
+         *  OB5
+         * @errtest
+         * @errmsg
+         *  EW.18, ES.34, ES.35, ES.36
+         * @author Mark Mathis
+         * @creation May 19, 2011
+         * @modlog
+         * @teststandard Andrew Buelow
+         * @codestandard Mark Mathis
+         */
         public bool ParseEnd(string rec, Module mod)
         {
             string[] field = rec.Split(':');
@@ -879,6 +1006,23 @@ namespace Linker
             return true;
         }
 
+        /**
+         * Checks to see if the number of records actually parsed matches the number
+         * of records reported by the header record.
+         * 
+         * @param mod the module whose records should be checked
+         * 
+         * @refcode
+         *  OB1, OB2, OB3, OB4, OB5
+         * @errtest
+         * @errmsg
+         *  EW.19, EW.20, ES.37
+         * @author Mark Mathis
+         * @creation May 22, 2011
+         * @modlog
+         * @teststandard Andrew Buelow
+         * @codestandard Mark Mathis
+         */
         private void CheckRecords(Module mod)
         {
             if (mod.HeaderRecord.TotalTextRecords != mod.TotalTextRecords)
@@ -900,6 +1044,22 @@ namespace Linker
             }
         }
 
+        /**
+         * Adds all the entries found in the linking records to the symbol table.
+         * 
+         * @param mod the module whose linking records should be added to the symbol table
+         * 
+         * @refcode
+         *  OB2
+         * @errtest
+         * @errmsg
+         *  ES.38, ES.39
+         * @author Mark Mathis
+         * @creation May 22, 2011
+         * @modlog
+         * @teststandard Andrew Buelow
+         * @codestandard Mark Mathis
+         */
         private void DoLinkingRecords(Module mod)
         {
             var lRec = mod.LinkingRecords;
