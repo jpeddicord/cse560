@@ -271,8 +271,6 @@ namespace Simulator
 
                 Console.Write('\n');
             }
-
-            Console.Write('\n');
         }
 
         /**

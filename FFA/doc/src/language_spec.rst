@@ -47,6 +47,23 @@ Dump out stacks and/or memory contents; useful for debugging purposes. Operand i
 * 2 - Dump full program memory
 * 3 - Dump items in both 1 and 2
 
+Stack Dump Output::
+
+    Data Stack: HHHH  Test Stack: HHHH
+                HHHH              HHHH
+                ....              ....
+
+Where H is a hex digit and the values are displayed as Hex values in 16bit twos complement. The top value is the top item in the stack and the values continue downward in a column until all items in the stack have been printed.
+
+Memory Dump Output::
+
+    hhh  HHHH HHHH HHHH HHHH HHHH HHHH HHHH HHHH HHHH HHHH HHHH HHHH HHHH HHHH HHHH HHHH
+    hhh  HHHH HHHH HHHH HHHH HHHH HHHH HHHH HHHH HHHH HHHH HHHH HHHH HHHH HHHH HHHH HHHH
+    hhh  HHHH HHHH HHHH HHHH HHHH HHHH HHHH HHHH HHHH HHHH HHHH HHHH HHHH HHHH HHHH HHHH
+    ...
+
+Where both h and H are hex digits and hhh displays the LC offset starting from 0 and incrementing by 16 (decimal) each row. HHHH the hex 16bit twos comp representation of a word in memory. The address can be determined based on the offset and the column it is in. The very first word has an offset of 0 and is in column 0 so its address is 0.  If the offset is 2C and it is in column 9, the address is 35 (2C + 9).
+
 For example, this may be a useful debugging command::
 
     CNTL DUMP,3
