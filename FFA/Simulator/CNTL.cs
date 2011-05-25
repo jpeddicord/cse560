@@ -220,7 +220,7 @@ namespace Simulator
             int[] test = Memory.GetInstance().GetTestStack();
 
             // Print the "header" for data stack
-            Console.Write("Data Stack: ");
+            Console.Write("\nData Stack: ");
 
             // Only attempt to print the first item in the data stack if it exists
             // Otherwise, pad with spaces to make the test stack line up correctly
@@ -292,6 +292,8 @@ namespace Simulator
         private static void dumpMem()
         {
             Memory m = Memory.GetInstance();
+
+            Console.Write("\n");
 
             // Handles each row of memory
             for (int i = 0; i <= 1023; i = i + 16)
