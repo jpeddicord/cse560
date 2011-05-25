@@ -249,7 +249,7 @@ namespace Linker
                 int val = sym.LinkerValue;
                 val = Assembler.BinaryHelper.ConvertNumber(val);
 
-                disp += string.Format("{0,32}: {1,-16} {2,-8} \n",
+                disp += string.Format("{0,32}: 0x{1,-16} {2,-8} \n",
                                       sym.Label,
                                       Convert.ToString(val,16).ToUpper().PadLeft(4,'0'),
                                       sym.SymbolUsage);

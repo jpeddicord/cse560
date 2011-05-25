@@ -76,7 +76,10 @@ namespace Linker
             foreach (var rec in mRec)
             {
                 int word = mRec[rec.Key].Word;
-                int s = Convert.ToInt32(Convert.ToString(word, 2).Substring(6), 2);
+                int s = Convert.ToInt32(Convert.ToString(word, 2).PadLeft(16, '0').Substring(6), 2);
+                //string sbin = Convert.ToString(word, 2).PadRight(10,'0');
+                //string swhat = sbin.Substring(6);
+                //int s = Convert.ToInt32(swhat, 2);
                 List<string> adjs = mRec[rec.Key].Adjustments;
 
                 for (int i = 0; i < adjs.Count; i += 2)
