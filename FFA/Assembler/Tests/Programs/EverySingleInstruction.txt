@@ -1,9 +1,13 @@
 All     start 0
         : stack!
         STACK PUSH,I=1
+        STACK PUSH,I=2
+        STACK PUSH,I=3
         STACK PUSH,junk
         STACK POP,junk
         STACK TEST,I=2
+        STACK TEST,I=3
+        STACK TEST,I=4
 
         : jump!
         JUMP =,jump1
