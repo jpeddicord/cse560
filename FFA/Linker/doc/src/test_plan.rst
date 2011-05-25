@@ -2,9 +2,8 @@
 Testing Plan
 ============
 
-THIS NEEDS TO BE EDITED!
-
-BLAH BLAH BLAH
+The test plan for the linker consists of various test input files run through linking, and then output is later observed and manually reviewed for errors.
+Testing of individual instructions proves to be difficult when each instruction depends on memory, the current state of the machine, or even other instructions. So, for the linker, we're following a **top-down** approach to testing.
 
 .. contents::
    :backlinks: none
@@ -13,7 +12,13 @@ BLAH BLAH BLAH
 Overall Program Testing
 =======================
 
-FILL THIS OUT LOL.
+Testing for the Linker relies on both unit and general program testing. While unit tests provide us with an idea
+of how well our implementations work, they make it difficult to test for `errors <errors.html>`_ and they don't
+show how well everything works together. We have created some test programs which test various aspects of the
+linker. Some just test that general functionality is there, while others have been edited to contain errors
+and will trip some of our error messages.
+
+Test cases are provided in the following list. Click on a test case to see the test program input, and the linked load output. Program input is in the form of an assembled and linked solution. Output provided in these test cases is run with debug mode both off and on, so that the execution of individual instructions can be traced.
 
 Sample test programs
 --------------------
