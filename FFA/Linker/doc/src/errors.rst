@@ -321,6 +321,10 @@ Below is the vast list of errors you may encounter when linking a program that i
      - No valid input files found. At least one input file must be a valid FFA-ASM object file.
      - RavenTest1_
 
+   * - ES.58
+     - The program exceeds the maximum memory of the FFA machine. Object file will be written but the Simulator will not be able to run it.
+     - This will happen if there are more than 1024 text records in the object file.
+
    * - EF.01
      - Header record has the incorrect number of fields. Stopping linker.
      - HeaderErrorTest2_

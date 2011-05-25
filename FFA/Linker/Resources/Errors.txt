@@ -77,6 +77,7 @@ ES.54 Error when writing object load file to disk. Check your permissions. Some 
 ES.55 Error opening input file. File will be skipped. Linking continues.
 ES.56 While evaluating modify record adjustments, a modify record modified a location that does not exist in this module. Modify record is ignored. Linking continues.
 ES.57 No valid input files found. At least one input file must be a valid FFA-ASM object file.
+ES.58 The program exceeds the maximum memory of the FFA machine. Object file will be written but the Simulator will not be able to run it.
 
 
 EF.01 Header record has the incorrect number of fields. Stopping linker.

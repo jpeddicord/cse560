@@ -227,6 +227,12 @@ namespace Linker
                 errPrinter.PrintError(ErrCat.Serious, 53);
             }
 
+            if (totalTextRecords > 1024)
+            {
+                // error, program exceeds memory
+                errPrinter.PrintError(ErrCat.Serious, 58);
+            }
+
             loadHeader.ProgramName = modules[0].HeaderRecord.ProgramName;
             loadHeader.LinkerLoadAddress = modules[0].HeaderRecord.LinkerLoadAddress;
             loadHeader.ExecutionStartAddress = loadHeader.LinkerLoadAddress;
