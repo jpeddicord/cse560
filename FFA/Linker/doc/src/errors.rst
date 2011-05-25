@@ -93,6 +93,266 @@ Below is the vast list of errors you may encounter when linking a program that i
      - Actual number of modify records encountered in this program does not match number of modify records in header record. Linking continues.
      - 
 
+   * - ES.01
+     - Input found after end record was reached. Input ignored.
+     - 
+
+   * - ES.02
+     - Program name must be between 2 and 32 characters long, start with a letter, and contain only letters and numbers. Linking continues.
+     - 
+
+   * - ES.03
+     - Assembler assigned location counter should be 4 hex digits but is not, assuming valid hex. Linking continues.
+     - 
+
+   * - ES.04
+     - Module length should be 4 hex digits but is not, assuming valid hex. Linking continues.
+     - 
+
+   * - ES.05
+     - Execution start address should be 4 hex digits but is not, assuming valid hex. Linking continues.
+     - 
+
+   * - ES.06
+     - Total number of text records should be 4 hex digits but is not, assuming valid hex. Linking continues.
+     - 
+
+   * - ES.07
+     - Total number of text records should be valid hex but is not. The linker will not be able to verify that the proper number of text records have been read in. Linking continues, here be dragons.
+     - 
+
+   * - ES.08
+     - Program name at the end of header record does not match program name at the beginning of header record. Linking continues, handle with care.
+     - 
+
+   * - ES.09
+     - Linking record has the incorrect number of fields. Record ignored, linking continues.
+     - 
+
+   * - ES.10
+     - Entry name must be between 2 and 32 characters long, start with a letter, and contain only letters and numbers. The Linker can roll with it. Linking continues.
+     - 
+
+   * - ES.11
+     - Entry location should be valid hex but is not. Linking record will be ignored. Linking continues. May cause irritation!
+     - 
+
+   * - ES.12
+     - Entry location should be within the range of 0-1023 but it is not. This entry is ignored. Linking continues.
+     - 
+
+   * - ES.13
+     - Program name at the end of linking record should be between 2 and 32 characters long, start with a letter, and contain only letters and numbers. Entry is ignored. Linking continues.
+     - 
+
+   * - ES.14
+     - Program name at the end of linking record does not match name of program being parsed. Entry is ignored, linking continues.
+     - 
+
+   * - ES.15
+     - Program name at the end of linking record does not appear in the symbol table. Entry will be added to symbol table and linking continues. May cause drowsiness.
+     - 
+
+   * - ES.16
+     - Text record has incorrect number of fields. Record ignored, linking continues.
+     - 
+
+   * - ES.17
+     - Text record location should be valid hex but is not. The linker will assume the location is 0 and continue linking. Do not swallow.
+     - 
+
+   * - ES.18
+     - Text record location should be within the range of 0-1023 but it is not. The record is ignored. Linking continues.
+     - 
+
+   * - ES.19
+     - Text record hex code cannot be more than 4 digits. NOP inserted. Linking continues.
+     - 
+
+   * - ES.20
+     - Text record hex code should be valid hex but is not. NOP inserted. Linking continues.
+     - 
+
+   * - ES.21
+     - Text record status flag invalid. Assume flag should be 'A'. Linking continues.
+     - 
+
+   * - ES.22
+     - Program name at the end of text record does not match name of program being parsed. Text record is ignored, linking continues.
+     - 
+
+   * - ES.23
+     - Program name at the end of text record does not appear in the symbol table. Text record is ignored, linking continues.
+     - 
+
+   * - ES.24
+     - Modify record location in program should be valid hex but is not. Location cannot be determined, modify record is ignored. Linking continues.
+     - 
+
+   * - ES.25
+     - Modify record location in program should be within the range of 0-1023 but it is not. The record is ignored. linking continues.
+     - 
+
+   * - ES.26
+     - Modify record hex code cannot be more than 4 hex digits. Modify record ignored, linking continues.
+     - 
+
+   * - ES.27
+     - Modify record hex code should be valid hex but is not. Modify record ignored, linking continues.
+     - 
+
+   * - ES.28
+     - Modify record sign of adjustment must be either a + or - but is not. Modify record ignored, linking continues.
+     - 
+
+   * - ES.29
+     - Modify record label to be adjusted must be between 2 and 32 characters long, start with a letter, and contain only letters and numbers. Linking continues.
+     - 
+
+   * - ES.30
+     - Program name at the end of modify record does not match name of program being parsed. Modify record is ignored, linking continues.
+     - 
+
+   * - ES.31
+     - Program name at the end of modify record does not exist in the symbol table. Modify record is ignored, linking continues.
+     - 
+
+   * - ES.32
+     - Modify record adjustments contain mismatched sets. Modify record ignored, linking continues.
+     - 
+
+   * - ES.33
+     - Invalid record type encountered. Record will be ignored, linking continues.
+     - 
+
+   * - ES.34
+     - Program name at end of end record must be between 2 and 32 characters long, start with a letter, and contain only letters and numbers. Linking continues.
+     - 
+
+   * - ES.35
+     - Program name at end of end record does not match name of program being parsed. Linker will assume end record has been reached as normal. Linking continues.
+     - 
+
+   * - ES.36
+     - Program name at end of end record does not exist in symbol table. Linker will assume end record has been reached and continue as normal. Linking continues.
+     - 
+
+   * - ES.37
+     - Actual number of text records encountered in this program does not match number of text records in header record. This probably is a problem. Linking continues. Harmful or fatal if swallowed.
+     - 
+
+   * - ES.38
+     - Attempted to define duplicate entry in symbol table. Duplicate symbol will be discarded. Linking continues but unexpected things may happen at runtime.
+     - 
+
+   * - ES.39
+     - Location value in linking record does not have a corresponding text record. Entry is ignored. Linking continues.
+     - 
+
+   * - ES.40
+     - Location of text record will be relocated out of bounds of memory. Text record discarded. Linking continues.
+     - 
+
+   * - ES.41
+     - Location of text record will be relocated our of bounds of module. Text record discarded. Linking continues.
+     - 
+
+   * - ES.42
+     - The text record being added to the module has the same location counter as a previously added text record. Current text record will be discarded. Linking continues.
+     - 
+
+   * - ES.43
+     - The address field of the text record will be relocated out of the range of memory. NOP inserted. Linking continues.
+     - 
+
+   * - ES.44
+     - Location of linking record will be relocated out of bounds of memory. Linking record discarded. Linking continues.
+     - 
+
+   * - ES.45
+     - Location of linking record will be relocated our of bounds of module. Linking record discarded. Linking continues.
+     - 
+
+   * - ES.46
+     - The linking record being added to the module has the same location counter as a previously added linking record. Current linking record will be discarded. Linking continues.
+     - 
+
+   * - ES.47
+     - Location of modify record will be relocated out of bounds of memory. modify record discarded. Linking continues.
+     - 
+
+   * - ES.48
+     - Location of modify record will be relocated our of bounds of module. modify record discarded. Linking continues.
+     - 
+
+   * - ES.49
+     - The modify record being added to the module has the same location counter as a previously added modify record. Current modify record will be discarded. Linking continues.
+     - 
+
+   * - ES.50
+     - While evaluating modify record adjustments, an improper operator has been encountered. This probably means something wrong happened while parsing. Adjustment will be skipped. Linking continues.
+     - 
+
+   * - ES.51
+     - While evaluating modify record adjustments, an entry was requested that does not exist in the symbol table. This probably means something wrong happened while parsing. Adjustment will be skipped. Linking continues.
+     - 
+
+   * - ES.52
+     - Error when writing object load file to disk. Check your permissions. Object file will be printed to the screen.
+     - 
+
+   * - ES.53
+     - Total number of text records should not be less than the total program length. Object file will be written, check it for errors.
+     - 
+
+   * - ES.54
+     - Error when writing object load file to disk. Check your permissions. Some of the object file may have been written to disk. Check for errors.
+     - 
+
+   * - ES.55
+     - Error opening input file. File will be skipped. Linking continues.
+     - 
+
+   * - ES.56
+     - While evaluating modify record adjustments, a modify record modified a location that does not exist in this module. Modify record is ignored. Linking continues.
+     - 
+
+   * - ES.57
+     - No valid input files found. At least one input file must be a valid FFA-ASM object file.
+     - 
+
+   * - EF.01
+     - Header record has the incorrect number of fields. Stopping linker.
+     - 
+
+   * - EF.02
+     - Assembler assigned location value must be valid hex. Stopping linker.
+     - 
+
+   * - EF.03
+     - Assembler assigned location value must be in the range of 0-1023. Stopping linker.
+     - 
+
+   * - EF.04
+     - Module length must be valid hex. Stopping Linker.
+     - 
+
+   * - EF.05
+     - Module length must be in the range of 0-1024. Stopping linker.
+     - 
+
+   * - EF.06
+     - Execution start address must be valid hex. Stopping linker.
+     - 
+
+   * - EF.07
+     - Execution start address must be in the range of 0-1023. Stopping linker.
+     - 
+
+   * - EF.08
+     - Total number of text records must be in the range of 0 to ModuleLength but is not. Stopping linker.
+     - 
+
 
 
 .. include:: ../tmp/errorlist.rst
