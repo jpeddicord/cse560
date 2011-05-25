@@ -21,7 +21,7 @@ namespace Simulator
         }
 
         /**
-         * [C2] Tests that Goto works with the minimum LC.
+         * [C2] Tests that Goto works with the maximum LC.
          */
         [Test]
         public void GotoMax()
