@@ -27,7 +27,7 @@ free to move the folder to a location that is more easily accessible.
 Ensuring it will run
 ````````````````````
 
-In order to run the Simulator it is required that the Microsoft .NET Framework 4 or Mono is installed on your machine
+In order to run the Linker it is required that the Microsoft .NET Framework 4 or Mono is installed on your machine
 depending on the operating system you use.
 
 * In Windows : If you do not already have the Microsoft .NET Framework or if it isn't up to date you will need to download and install the newest version.  Microsoft .NET Framework 4 and be found `on microsoft's website <http://www.microsoft.com/downloads/en/details.aspx?FamilyID=9cfb2d51-5ff4-4491-b0e5-b386f32c0992&displaylang=en#QuickDetails>`_.
@@ -58,7 +58,7 @@ Note: Visual Studio must be installed on your machine to do this.
 
 .. image:: images/projectfile.png
 
-Duble click on FFA.sln.  This is the project file and will open all associated files in Visual Studio for you.
+Double click on FFA.sln.  This is the project file and will open all associated files in Visual Studio for you.
 At the top of the window there is a dropdown box that will say Debug by default. You chould change this to Release before
 building. The Debug version of this program includes extra output which isn't very useful for general use.
 
@@ -85,7 +85,7 @@ By typing ``cd <dir>`` and by replacing <dir> with the directory you want,
 you can move into a new directory.  For example, if you are currently in /MyHome/ and you
 want to move to /MyHome/Programs/c560aa05.sp3.early, you can type::
 
-	cd Programs/c560aa05.sp2.early/
+	cd Programs/c560aa05.sp3.early/
 
 and hit enter.  To move back a directory you can type ``cd ..`` which will
 move you to the directory directly above you.
