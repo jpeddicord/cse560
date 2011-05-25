@@ -95,7 +95,7 @@ Below is the vast list of errors you may encounter when linking a program that i
 
    * - ES.01
      - Input found after end record was reached. Input ignored.
-     - InputAfterEndTest1_
+     - InputAfterEndTest1_, RavenTest1_
 
    * - ES.02
      - Program name must be between 2 and 32 characters long, start with a letter, and contain only letters and numbers. Linking continues.
@@ -151,11 +151,11 @@ Below is the vast list of errors you may encounter when linking a program that i
 
    * - ES.15
      - Program name at the end of linking record does not appear in the symbol table. Entry will be added to symbol table and linking continues. May cause drowsiness.
-     - 
+     - Only occurs in very rare circumstances, usually ES.14 will be found instead.
 
    * - ES.16
      - Text record has incorrect number of fields. Record ignored, linking continues.
-     - TextErrorTest1_
+     - TextErrorTest1_, RavenTest1_
 
    * - ES.17
      - Text record location should be valid hex but is not. The linker will assume the location is 0 and continue linking. Do not swallow.
@@ -215,7 +215,7 @@ Below is the vast list of errors you may encounter when linking a program that i
 
    * - ES.31
      - Program name at the end of modify record does not exist in the symbol table. Modify record is ignored, linking continues.
-     - 
+     - Only occurs in very rare circumstances, usually ES.30 will be found instead.
 
    * - ES.32
      - Modify record adjustments contain mismatched sets. Modify record ignored, linking continues.
@@ -223,7 +223,7 @@ Below is the vast list of errors you may encounter when linking a program that i
 
    * - ES.33
      - Invalid record type encountered. Record will be ignored, linking continues.
-     - 
+     - RavenTest1_
 
    * - ES.34
      - Program name at end of end record must be between 2 and 32 characters long, start with a letter, and contain only letters and numbers. Linking continues.
@@ -247,7 +247,7 @@ Below is the vast list of errors you may encounter when linking a program that i
 
    * - ES.39
      - Location value in linking record does not have a corresponding text record. Entry is ignored. Linking continues.
-     - 
+     - This will happen if there is an error that causes the text record corresponding to the linking record to be discarded by the linker.
 
    * - ES.40
      - Location of text record will be relocated out of bounds of memory. Text record discarded. Linking continues.
@@ -263,7 +263,7 @@ Below is the vast list of errors you may encounter when linking a program that i
 
    * - ES.43
      - The address field of the text record will be relocated out of the range of memory. NOP inserted. Linking continues.
-     - 
+     - This will occur when the last 10 bits of the instruction word overflows while linking.
 
    * - ES.44
      - Location of linking record will be relocated out of bounds of memory. Linking record discarded. Linking continues.
@@ -279,7 +279,7 @@ Below is the vast list of errors you may encounter when linking a program that i
 
    * - ES.47
      - Location of modify record will be relocated out of bounds of memory. modify record discarded. Linking continues.
-     - 
+     - This will often be caught as ES.48 instead of ES.47
 
    * - ES.48
      - Location of modify record will be relocated our of bounds of module. modify record discarded. Linking continues.
@@ -291,7 +291,7 @@ Below is the vast list of errors you may encounter when linking a program that i
 
    * - ES.50
      - While evaluating modify record adjustments, an improper operator has been encountered. This probably means something wrong happened while parsing. Adjustment will be skipped. Linking continues.
-     - 
+     - It is unlikely that this error will occur since improper operators should be found while parsing
 
    * - ES.51
      - While evaluating modify record adjustments, an entry was requested that does not exist in the symbol table. This probably means something wrong happened while parsing. Adjustment will be skipped. Linking continues.
@@ -299,19 +299,19 @@ Below is the vast list of errors you may encounter when linking a program that i
 
    * - ES.52
      - Error when writing object load file to disk. Check your permissions. Object file will be printed to the screen.
-     - 
+     - This will probably happen if the user does not have write privileges.
 
    * - ES.53
      - Total number of text records should not be less than the total program length. Object file will be written, check it for errors.
-     - 
+     - It may not be possible for this error to happen
 
    * - ES.54
      - Error when writing object load file to disk. Check your permissions. Some of the object file may have been written to disk. Check for errors.
-     - 
+     - This will probably happen if the user does not have write privileges.
 
    * - ES.55
      - Error opening input file. File will be skipped. Linking continues.
-     - 
+     - This will mostly happen when a file that does not exist is passed in as an argument
 
    * - ES.56
      - While evaluating modify record adjustments, a modify record modified a location that does not exist in this module. Modify record is ignored. Linking continues.
@@ -319,7 +319,7 @@ Below is the vast list of errors you may encounter when linking a program that i
 
    * - ES.57
      - No valid input files found. At least one input file must be a valid FFA-ASM object file.
-     - 
+     - RavenTest1_
 
    * - EF.01
      - Header record has the incorrect number of fields. Stopping linker.
@@ -369,5 +369,6 @@ Below is the vast list of errors you may encounter when linking a program that i
 .. _LinkingSymbolErrorTest1: testlink__linking_symbol_error_test1.html
 .. _ModifyErrorTest1: testlink__modify_error_test1.html
 .. _ModifyErrorTest2: testlink__modify_error_test2.html
+.. _RavenTest1: testlink__raven_test1.html
 .. _RelocationErrorTest1: testlink__relocation_error_test1.html
 .. _TextErrorTest1: testlink__text_error_test1.html
