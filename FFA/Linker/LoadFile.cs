@@ -187,7 +187,7 @@ namespace Linker
          *  LM
          * @errtest
          * @errmsg
-         *  ES.52, ES.53, ES.54
+         *  ES.52, ES.53, ES.54, ES.58
          * @author Mark Mathis
          * @creation May 22, 2011
          * @modlog
