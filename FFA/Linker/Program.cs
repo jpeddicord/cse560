@@ -88,7 +88,12 @@ namespace Linker
                     Module mod = new Module();
                     try
                     {
-                        pars.ParseFile(f, out mod, symb, file, ref address);
+                        int modlen = 0;
+                        if (modules.Count > 0)
+                        {
+                            modlen = modules[file - 1].HeaderRecord.ModuleLength;
+                        }
+                        pars.ParseFile(f, out mod, symb, file, ref address, ref modlen);
                     }
                     catch (Error ex)
                     {

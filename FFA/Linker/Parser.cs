@@ -25,6 +25,8 @@ namespace Linker
          */
         private int address;
 
+        private int lastModuleLen;
+
         /**
          * The symbol table used by the Linker to keep program names and entries in order.
          */
@@ -55,7 +57,7 @@ namespace Linker
          * @teststandard Andrew Buelow
          * @codestandard Mark Mathis
          */
-        public void ParseFile(string filename, out Module mod, SymbolTable symb, int fileNum, ref int startAddress)
+        public void ParseFile(string filename, out Module mod, SymbolTable symb, int fileNum, ref int startAddress, ref int lastModuleLength)
         {
             // instantiate mod right away since it must be instantiated before
             // this method exits
@@ -465,7 +467,7 @@ namespace Linker
             }
             else
             {
-                head.LinkerLoadAddress = address;
+                head.LinkerLoadAddress = address + assLoadVal + lastModuleLen;
                 address += modLenVal;
             }
 
