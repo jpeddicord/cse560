@@ -1,0 +1,3 @@
+symb, Program, SymbolTable, local, the symbol table to use, valid instantiated SymbolTable
+modules, Program, List<Module>, local, list of modules in processing, list of valid modules
+pars, Program, Parser, local, active parser object, valid Parser object

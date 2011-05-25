@@ -1,0 +1,4 @@
+fileNum, Parser, int, member, the file currently being processed, valid file number
+address, Parser, int, member, the address to be used any time the linker's calculated address is needed, valid LC
+symb, Parser, SymbolTable, member, the symbol table used by the linker to keep program names, valid symbol table object
+errPrinter, Parser, Errors, member, access to the Errors class, valid Errors object

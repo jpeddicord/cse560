@@ -1,0 +1,5 @@
+Location, Linker, int, member, location of the text record in the program, valid hex LC
+Word, Linker, int, member, memory word of the text record in the program, valid 4-digit hex
+Flag, Linker, char, member, A/R/M flag, A/R/M
+Adjustments, Linker, int, member, number of adjustments to be made, 0-15
+ProgramName, Linker, string, member, the program that contains this record, valid label

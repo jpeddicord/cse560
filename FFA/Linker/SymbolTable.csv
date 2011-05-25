@@ -1,0 +1,3 @@
+Label, Symbol, string, member, the label to refer to this symbol, any valid label
+SymbolUsage, Symbol, Usage, member, how the symbol is used, PRGMNAME or ENTRY
+LinkerValue, Symbol, int, member, the value the linker will need to relocate locations with this symbol, any valid integer
