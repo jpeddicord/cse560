@@ -1,2 +1,2 @@
-The linking records in this program have been changed such that they cause a serious error 13 and 14.
-This, in turn, causes a warning error 19 and several serious error 51s.
+The linking records in this program have been changed such that they cause ES.13 and ES.14.
+This, in turn, causes EW.19 and ES.51.

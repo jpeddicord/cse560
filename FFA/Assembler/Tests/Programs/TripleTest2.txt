@@ -1,0 +1,35 @@
+TestCode	START	30
+			STACK PUSH,see
+			MOPER  MUL,see
+			
+			STACK PUSH,eeh
+			MOPER  MUL,eeh
+			
+			STACK PUSH,bee
+			MOPER  MUL,bee
+			
+			SOPER  ADD,2
+			STACK  POP,equal
+			
+			STACK TEST,equal
+			
+			 JUMP	 =,yay
+dang		MOPER WRITEC,wr
+			MOPER WRITEC,on
+			MOPER WRITEC,letterg
+             CNTL GOTO,end
+yay			MOPER WRITEC,ri
+			MOPER WRITEC,gh
+			MOPER WRITEC,lettert
+end			 CNTL HALT,0
+ri			DAT		C='RI'
+gh          DAT     C='GH'
+lettert     DAT     C='T'
+wr          DAT     C='WR'
+on          DAT     C='ON'
+letterg     DAT     C='G'
+            EXTRN   eeh
+            EXTRN   bee
+            EXTRN   see
+            EXTRN   equal
+            END     TestCode

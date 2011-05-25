@@ -1,2 +1,2 @@
-The linking records in this program have been messed up which causes warning error 10 and serious errors 9, 10, 11, and 12.
-This also leads to a serious error 44, a warning error 19, and several serious error 51s.
+The linking records in this program have been messed up which causes EW.10, ES.09, ES.10, ES.11, and ES.12.
+This also leads to EW.19, ES.44, and ES.51.

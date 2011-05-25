@@ -1,0 +1,14 @@
+TestData    START   25
+            ENTRY   eeh
+            ENTRY   bee
+            ENTRY   see
+            ENTRY   equal
+eeh         DAT     X=8000
+bee         DAT     X=8000
+see         DAT     X=8000
+equal       DAT     X=8000
+
+            MOPER   READN,eeh
+            MOPER   READN,bee
+            MOPER   READN,see
+            END     TestData
