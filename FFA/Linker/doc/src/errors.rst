@@ -354,5 +354,3 @@ Below is the vast list of errors you may encounter when linking a program that i
      - 
 
 
-
-.. include:: ../tmp/errorlist.rst
