@@ -1,0 +1,77 @@
+All     start 0
+        : stack!
+        STACK PUSH,I=1
+        STACK PUSH,junk
+        STACK POP,junk
+        STACK TEST,I=2
+
+        : jump!
+        JUMP =,jump1
+jump1   JUMP <,jump2
+jump2   JUMP >,jump3
+jump3   JUMP tnull,jump4
+jump4   JUMP dnull,jump5
+jump5   SOPER ADD,0 :NOP!
+
+        : add lots of things to the stack
+        STACK PUSH,I=1
+        STACK PUSH,I=2
+        STACK PUSH,I=3
+        STACK PUSH,I=4
+        STACK PUSH,I=5
+        STACK PUSH,I=6
+        STACK PUSH,I=7
+        STACK PUSH,I=8
+        STACK PUSH,I=9
+        STACK PUSH,I=10
+        STACK PUSH,I=11
+        STACK PUSH,I=12
+        STACK PUSH,I=13
+        STACK PUSH,I=14
+        STACK PUSH,I=15
+        STACK PUSH,I=16
+        STACK PUSH,I=17
+        STACK PUSH,I=18
+        STACK PUSH,I=19
+        STACK PUSH,I=20
+
+        : soper!
+        SOPER ADD,2
+        SOPER SUB,2
+        SOPER MUL,3
+        SOPER DIV,2
+        SOPER OR,4
+        SOPER AND,5
+        SOPER READN,1    : requires input
+        SOPER READC,1    : requires input
+        SOPER WRITEN,1
+        SOPER WRITEC,1
+
+        : moper!
+        MOPER ADD,one
+        MOPER SUB,two
+        MOPER MUL,one
+        MOPER DIV,two
+        MOPER OR,one
+        MOPER AND,two
+        MOPER READN,readn    : requires input
+        MOPER READC,readc    : requires input
+        MOPER WRITEN,readn
+        MOPER WRITEC,readc
+
+        : cntl!
+        CNTL DUMP,1
+        CNTL CLRD
+        CNTL CLRT
+        CNTL DUMP,3
+        CNTL HALT,0
+
+        : data
+junk    DAT i=10
+one     DAT i=1
+two     DAT i=2
+readn   DAT i=0
+readc   DAT c=' '
+
+        : end
+        end All

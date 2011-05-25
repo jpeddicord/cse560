@@ -230,14 +230,14 @@ def build_test_scripts(directory, runner, out_dir, prefix, index_file, ext='.txt
                         out += '    ' + line.rstrip() + '\n'
                 out += '\n\nOutput\n^^^^^^\n\n::\n\n'
                 # launch the test program
-                p = Popen(runner + ' ' + join(root, fname), shell=True, stdout=PIPE)
+                p = Popen([join(os.getcwd(), runner), fname], stdout=PIPE, cwd=root)
                 outdata, err = p.communicate()
                 # insert the test output
                 for line in outdata.split('\n'):
                     out += '    ' + line.rstrip() + '\n'
                 # get the object file
                 try:
-                    with open(join(root, fname + '.obj')) as f:
+                    with open(join(root, fname.replace('.txt', '.obj'))) as f:
                         out += '\n\nObject File\n^^^^^^^^^^^\n\n::\n\n'
                         for line in f:
                             out += '    ' + line.rstrip() + '\n'
