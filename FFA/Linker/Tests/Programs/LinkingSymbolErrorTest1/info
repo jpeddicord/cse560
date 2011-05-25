@@ -1,0 +1,1 @@
+This program has two linking records with the same entry. This will cause ES.38 to occur.

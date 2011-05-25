@@ -1,0 +1,2 @@
+Several records' Location values have been changed to cause them to be relocated out of bounds of the memory and the module. The errors caused by these changes are ES.40, ES.41, ES.42, ES.44, ES.45, ES.46, ES.48 and ES.49.
+These cause EW.15, EW.19, EW.20, ES.12, ES.18, ES.25, ES.37, ES.51, and ES.56 as side effects.

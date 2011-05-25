@@ -1075,6 +1075,7 @@ namespace Linker
                 }
                 catch (NullReferenceException) 
                 {
+                    // there's no text record with a corresponding location counter value
                     errPrinter.PrintError(ErrCat.Serious, 39);
                 }
                 catch (Assembler.SymbolException)

@@ -1,0 +1,2 @@
+This program has incorrect modify records that cause the following errors: ES.29, ES.30, ES.32.
+These cause errors EW.20 and ES.51 later on during linking.
