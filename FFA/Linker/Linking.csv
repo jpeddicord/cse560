@@ -1,0 +1,3 @@
+EntryName,Linking,string,member,The name of the entry,any valid FFA label
+Location,Linking,int,member,Location of the entry in memory,0-1023
+ProgramName,Linking,string,member,Name of the program this entry is in,Any valid FFA label

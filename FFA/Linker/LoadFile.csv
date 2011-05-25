@@ -1,0 +1,9 @@
+errPrinter,LoadFile,Assembler.Errors,member,Allows the printing of errors,N/A
+modules,LoadFile,List<Module>,member,Holds the modules in the LoadFile,N/A
+symb,LoadFile,SymbolTable,member,Holds the symbols needed for this LoadFile,N/A
+LoadHeader,LoadFile,Header,member,The header of the load file,N/A
+mRec,LoadFile.doModifyRecords,"Dictionary<string,Modify>",local,holds all of the modify records in the module,N/A
+word,LoadFile.doModifyRecords,int,local,the memory word to be modified,an integer that can fit in 16 bits
+s,LoadFile.doModifyRecords,int,local,the last 10 bits of word,an integer that can fit in 10 bits
+adjs,LoadFile.doModifyRecords,List<string>,local,the adjustments in the current modify record,N/A
+writer,LoadFile.Render,StreamWriter,local,Writes the LoadFile to a file,N/A

@@ -1,0 +1,11 @@
+errPrinter,Module,Assembler.Errors,member,allows the use of the errors class,N/A
+ModuleName,Module,string,member,name of this module,any valid FFA string
+headerRecord,Module,Header,member,the header record that goes with this module,N/A
+HeaderRecord,Module,Header,member,public version of headerRecord,N/A
+textRecords,Module,"Dictionary<int,Text>",member,all text records in the module,N/A
+TotalTextRecords,Module,int,member,total number of text records in the module,0-0124
+linkingRecords,Module,"Dictionary<int,Linking>",member,all linking records in the module,N/A
+TotalLinkingRecords,Module,int,member,total number of linking records in the module,N/A
+modifyRecords,Module,"Dictionary<int,Modify>",member,all modify records in the module,N/A
+TotalModifyRecords,Module,int,member,total number of modify records in the module,N/A
+relocationValue,Module,int,member,amount the linker has calculated for this module to be relocated,-1023 - 1023

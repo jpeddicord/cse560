@@ -1,0 +1,5 @@
+Location,Modify,int,member,Location in memory to modify,0-1023
+Word,Modify,int,member,memory word to modify,any integer that fits into 16 bits
+adjustments,Modify,List<string>,member,the adjustments in the modify record,N/A
+Adjustments,Modify,List<string>,member,public version of adjustments,N/A
+ProgramName,Modify,string,member,the program that contains this modify record,any valid FFA label

@@ -1,0 +1,9 @@
+ProgramName,Header,string,member,Name of the module,valid FFA label
+AssemblerLoadAddress,Header,int,member,Load address assigned by the assembler, 0-1023
+ModuleLength,Header,int,member,Length of the module,0-1024
+LinkerLoadAddress,Header,int,member,Load address computed by the linker,0-1023
+ExecutionStartAddress,Header,int,member,Execution start address of the module,same as load address
+TotalRecords,Header,int,member,Total number of records in the file,any integer n>0
+TotalLinkingRecords,Header,int,member,Total number of linking records in the file,any integer n>0
+TotalModifyRecords,Header,int,member,Total number of modify records in the file,any integer n>0
+LinkingDate,Header,string,member,Date and time of linking,valid julian date string
