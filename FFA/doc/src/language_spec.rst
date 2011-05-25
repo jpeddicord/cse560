@@ -32,7 +32,7 @@ CNTL HALT
 
 Opcode: ``00 000``
 
-Halt the execution of the program. Operand is an integer from 0 to 1023 indicating an exit code. Example::
+Halt the execution of the program. Operand is an integer from 0 to 1023 indicating an exit code. If in debug mode, the simulator will print the exit code, otherwise no output will be given. Example::
 
     CNTL HALT,9
 
@@ -134,11 +134,8 @@ JUMP
 Jump to the specified location if a given condition holds, and pop the test off of the test stack. This instruction operates on data in the test stack (with the exception of ``dnull``), so to do anything useful `STACK TEST`_ should probably be used first. The available tests are:
 
 * ``=`` - if ``0`` was on the test stack. (Opcode: ``01 000``)
-* ``^=`` - if ``1`` or ``2`` was on the test stack. (Opcode: ``01 001``)
 * ``<`` - if ``1`` was on the test stack. (Opcode: ``01 010``)
 * ``>`` - if ``2`` was on the test stack. (Opcode: ``01 011``)
-* ``<=`` - if ``0`` or ``1`` was on the test stack. (Opcode: ``01 100``)
-* ``>=`` - if ``0`` or ``2`` was on the test stack. (Opcode: ``01 101``)
 * ``tnull`` - if the test stack is empty. (Opcode: ``01 110``)
 * ``dnull`` - if the data stack is empty. This is the only test that doesn't use the test stack. (Opcode: ``01 111``)
 

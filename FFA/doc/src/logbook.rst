@@ -6,6 +6,67 @@ Logbook
    :backlinks: none
    :depth: 1
 
+May 24, 2011 - 10:00 pm
+=======================
+Nearly everything is finished and we are pretty happy with out program. Test programs have been created for both
+the linker and the simulator that throw every error that can be thrown (some errors won't get thrown unless 
+the simulator or linker procedures are used incorrectly which shouldn't be a problem unless a user goes poking around in the source code).
+Nearly 60 unit cases were created to test implementations in the simulator. Only one of them actually revealed an
+issue with our implementation. We like to think this is a result of great coding rather than bad testing. Our
+test programs would have revealed other issues if it was bad coding. Documentation has been created for almost everything.
+We have a few more things to touch up (such as finishing this log entry) and then we can submit.
+
+It's almost sad that we are done with this.  But not really.
+
+To to
+-----
+- Everyone - Celebrate!
+
+May 22, 2011 - 9:00 pm
+======================
+Both the linker and the simulator are now functional! The linker still needs more error checking which Mark has
+been working on lately. The simulator has most error chacking in place and we now need to shift our focus to
+testing it. Because of the nature of the linker, it would be very difficult to test it using unit tests, so we
+have decided to create many different test cases, some with errors that should be caught, and some without. The
+simulator is a little different and has some procedures that can be tested using unit tests. So while we will test
+what we can on the simulator using unit tests, it will also rely heavily on testing through test programs that
+we create.
+
+To do
+-----
+- Andrew - Create test programs that will throw every error on the error list for the simulator.
+- Jacob - Begin working on documentation for Simulator and Linker, specifically, write a user guide/how to for both.
+- Mark - Finish implementing error checking in the linker.
+
+May 20, 2011 - 7:00 pm
+======================
+Andrew isn't able to attend our meetings currently as he has gone home for the weekend, however we are still able to
+communicate with him online so he is up to date on the project and our plans.
+
+We've spent the last couple days getting these projects off the ground. The linker isn't functioning yet but has a
+pretty good start. We have decided to use the memory efficient way of linking after realizing it wouldn't really
+be all that difficult to implement. The Simulator is also doing pretty well. Parsing of the load file is just about
+finished and a little over half of the functions in FFA have been implemented. Andrew has been working on these and
+plans on having them finished in the next day or two so we can begin testing them.
+
+To do
+-----
+- Andrew - Finish implementations for FFA functions
+- Jacob - Work on error catching in parsing and runtime for the simulator
+- Mark - Continue work on linker
+
+May 17, 2011 - 5:00 pm
+======================
+We've begun working on SP3/SP4 already since we only have about a week to get both done. Our group only has 3 members
+but we have still decided to split the work to try to get everything done faster. Mark has started working on the linker
+while Jacob and Andrew are splitting the work on the Simulator. Once the simulator is finished (which will probably be
+done before the linker) we can all focus on the linker to get it working. Jacob has set up a new layout for
+the online documentation but currently has it under a different URL so we don't interupt grading for SP2.
+
+To do
+-----
+- Andrew and Jacob - Figure out how to structure the simulator. Come up with a list of possible errors that need to be caught so we are aware of them as we code.
+- Mark - Begin working on the Linker. Decide if we want to take the lazy, or more memory conservative approach.
 
 May 15, 2011 - 9:00 pm
 ======================
