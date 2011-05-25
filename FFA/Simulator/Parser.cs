@@ -30,10 +30,14 @@ namespace Simulator
          */
         private int totalLength = 0;
 
+        private int foundTextRecords = 0;
+
         /**
          * The total number of records in the loader file.
          */
         private int totalRecords = 0;
+
+        private int totalTextRecords = 0;
 
         /**
          * Location counter values that have been loaded.
@@ -141,6 +145,13 @@ namespace Simulator
             }
 
             file.Close();
+
+            if (this.totalLength != this.foundTextRecords + 2 ||
+                this.totalTextRecords != this.foundTextRecords)
+            {
+                Console.WriteLine(new Assembler.ErrorException(ErrCat.Serious, 33));
+            }
+
 
             return success;
         }
@@ -262,6 +273,16 @@ namespace Simulator
                 errors.Add(new Assembler.ErrorException(ErrCat.Serious, 19));
             }
 
+            // try to set the total number of text records
+            try
+            {
+                this.totalTextRecords = Convert.ToInt32(parts[6], 16);
+            }
+            catch (Exception)
+            {
+                errors.Add(new Assembler.ErrorException(ErrCat.Serious, 34));
+            }
+
             if (this.executionStart + totalLength > 1023)
             {
                 throw new Assembler.ErrorException(ErrCat.Fatal, 9);
@@ -323,6 +344,7 @@ namespace Simulator
             // add it
             mem.SetWord(lc, Convert.ToInt32(parts[2], 16));
             this.usedLC.Add(lc);
+            this.foundTextRecords++;
 
             // validate the program name
             if (parts[3] != this.programName)

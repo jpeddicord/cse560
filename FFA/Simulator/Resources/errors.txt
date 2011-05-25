@@ -34,6 +34,8 @@ ES.28 Too many items on the test stack, unable to add more. Ignoring push to sta
 ES.29 Data stack is empty, unable to remove an item.
 ES.30 Test stack is empty, unable to remove an item.
 ES.31 Value is too large to fit in memory. Must be within 0 and 65535.
+ES.33 Number of total and/or text records in header does not match number found in file.
+ES.34 Couldn't process number of text records.
 
 
 EW.01 Invalid character entry, too many characters given. Accepting up to the first two and ignoring the rest.
