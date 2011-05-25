@@ -460,7 +460,7 @@ namespace Linker
 
             if (fileNum == 0)
             {
-                head.LinkerLoadAddress = 0;
+                head.LinkerLoadAddress = assLoadVal;
                 address = modLenVal;
             }
             else
