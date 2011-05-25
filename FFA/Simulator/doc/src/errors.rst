@@ -5,7 +5,7 @@ Errors
 Below is a list of potential errors you may come across when running a simulated program:
 
 .. list-table::
-   :widths: 5 60 15
+   :widths: 5 55 20
    :header-rows: 1
    :stub-columns: 1
    
