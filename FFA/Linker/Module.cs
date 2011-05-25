@@ -143,7 +143,7 @@ namespace Linker
          * OB, LM
          * @errtest
          * @errmsg
-         *  ES.40, ES.41, ES.42
+         *  ES.40, ES.41, ES.42, ES.43
          * @author Mark Mathis
          * @creation May 21, 2011
          * @modlog

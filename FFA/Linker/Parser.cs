@@ -97,7 +97,7 @@ namespace Linker
                         // error, input present after the end record
                         throw new Error(ErrCat.Serious, 1);
                     }
-    
+
                     // process different types of records
                     if (rec[0] == 'H')
                     {
@@ -118,7 +118,18 @@ namespace Linker
                     else if (rec[0] == 'E')
                     {
                         endReached = ParseEnd(rec, mod);
-                    }                    
+
+                        if (mod.HeaderRecord != null)
+                        {
+                            // since end record has been reached there should be no more input
+                            // check to see if the correct number of records has been found
+                            CheckRecords(mod);
+
+                            // add linking records to the symbol table since all the data we
+                            // need should be there at this point
+                            DoLinkingRecords(mod);
+                        }
+                    }
                     else
                     {
                         // invalid record or garbage data
@@ -960,6 +971,7 @@ namespace Linker
             {
                 // record has the wrong number of fields
                 errPrinter.PrintError(ErrCat.Warning, 18);
+                return true;
             }
 
             // check that program name is valid
@@ -990,6 +1002,7 @@ namespace Linker
                 // error, must have the same program name at the end of the record as the
                 // module currently being parsed
                 errPrinter.PrintError(ErrCat.Serious, 35);
+                return true;
             }
 
             if (!symb.ContainsSymbol(prgmName))
@@ -997,14 +1010,6 @@ namespace Linker
                 // error, program name not in symbol table
                 errPrinter.PrintError(ErrCat.Serious, 36);
             }
-
-            // since end record has been reached there should be no more input
-            // check to see if the correct number of records has been found
-            CheckRecords(mod);
-
-            // add linking records to the symbol table since all the data we
-            // need should be there at this point
-            DoLinkingRecords(mod);
 
             return true;
         }

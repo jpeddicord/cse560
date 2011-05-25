@@ -106,8 +106,13 @@ namespace Linker
                             continue;
                         }
                     }
-                    // add the module to the module list
-                    modules.Add(mod);
+
+                    // make sure there is actually input
+                    if (mod.HeaderRecord != null)
+                    {
+                        // add the module to the module list
+                        modules.Add(mod);
+                    }
 
                     // a file has been parsed
                     file++;
@@ -139,12 +144,12 @@ namespace Linker
                 Console.WriteLine(symb);
                 System.Environment.Exit(1);
             }
-            catch (Exception)
-            {
-                // die with a bad excuse for anything else
-                Console.WriteLine("Something bad happened and the Linker could not recover.");
-                System.Environment.Exit(2);
-            }
+//            catch (Exception)
+//            {
+//                // die with a bad excuse for anything else
+//                Console.WriteLine("Something bad happened and the Linker could not recover.");
+//                System.Environment.Exit(2);
+//            }
         }
     }
 }
