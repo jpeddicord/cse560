@@ -12,9 +12,7 @@ Testing of individual instructions proves to be difficult when each instruction 
 Overall Program Testing
 =======================
 
-Testing for the Linker relies on both unit and general program testing. While unit tests provide us with an idea
-of how well our implementations work, they make it difficult to test for `errors <errors.html>`_ and they don't
-show how well everything works together. We have created some test programs which test various aspects of the
+Testing for the Linker relies on general program testing. We have created some test programs which test various aspects of the
 linker. Some just test that general functionality is there, while others have been edited to contain errors
 and will trip some of our error messages.
 
