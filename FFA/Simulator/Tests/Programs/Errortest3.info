@@ -1,0 +1,1 @@
+This tests error catching when the header record for the load file is missing some information.

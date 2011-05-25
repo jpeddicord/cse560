@@ -1,0 +1,1 @@
+Simple program testing the functionality of MOPER WRITEN and SOPER ADD. Should display the word "Hello" followed by the number 9 (push 7 on the stack, push 2 on the stack then add them and writen).

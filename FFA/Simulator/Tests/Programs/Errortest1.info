@@ -1,0 +1,3 @@
+Mostly testing runtime error catching. The errors that should be displayed from running this program are: ES.02, ES.10, ES.11, ES.22, ES.27, ES.28, ES.29 and ES.30. The descriptions for these errors can be found on the `errors page <errors.html>`_. This program also tests the functionality of CNTL DUMP (both memory and stacks).
+
+WARNING: This program contains a loop in order to test overflowing the datastack. Because of this the debug output is VERY large.

@@ -1,0 +1,1 @@
+A version of the program `Hello <testsim__hello.html>`_ that has been messed with. The version number of the linker has been changed, one of the location counters has been changed causing a duplication in LC for the text records and extra stuff has been added after the end record.

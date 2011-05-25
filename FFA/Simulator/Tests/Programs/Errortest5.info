@@ -1,0 +1,1 @@
+Testing error catching when the LC increments out of memory because there is nothing in memory to stop it before it reaches that point.

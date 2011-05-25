@@ -1,0 +1,1 @@
+Tests error catching when the program that is being loaded into memory is larger than can fit in memory. In this case it starts near the end of memory and trys to load into memory that doesn't exist.
