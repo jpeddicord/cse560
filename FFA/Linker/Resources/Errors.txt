@@ -3,7 +3,7 @@ EW.02 Version number of assembler should be 4 digits, but it doesn't matter. Lin
 EW.03 Total number of records should be 4 hex digits but is not, assuming valid hex. Linking continues.
 EW.04 Total number of records should be valid hex but is not. The linker will not be able to verify that the proper number of records have been read in. Linking continues, but things might get weird.
 EW.05 Total number of linking records should be 4 hex digits but is not, assuming valid hex. Linking continues.
-EW.06 Total number of linking records should be valid hex but is not. The linker will not be able to verify that the proper number of linking records have been read in. Linking continues, but beware the Kraken.
+EW.06 Total number of linking records should be valid hex but is not. The linker will not be able to verify that the proper number of linking records have been read in. Linking continues. Beware the Kraken.
 EW.07 Total number of modify records should be 4 hex digits but is not, assuming valid hex. Linking continues.
 EW.08 Total number of modify records should be valid hex but is not. The linker will not be able to verify that the proper number of linking records have been read in. Linking continues, danger: choking hazard.
 EW.09 Name of assembler does not match expected (FFA-ASM), it's probably okay. Linking continues.
@@ -51,8 +51,8 @@ ES.28 Modify record sign of adjustment must be either a + or - but is not. Modif
 ES.29 Modify record label to be adjusted must be between 2 and 32 characters long, start with a letter, and contain only letters and numbers. Linking continues.
 ES.30 Program name at the end of modify record does not match name of program being parsed. Modify record is ignored, linking continues.
 ES.31 Program name at the end of modify record does not exist in the symbol table. Modify record is ignored, linking continues.
-ES.32 Modify record adjustments contain mismatched sets. Modify record ignored, linking continues.
-ES.33 Invalid record type encountered. Record will be ignored, linking continues.
+ES.32 Modify record adjustments contain mismatched sets. Modify record ignored, licking continues.
+ES.33 Invalid record type encountered. Record will be ignored, licking continues.
 ES.34 Program name at end of end record must be between 2 and 32 characters long, start with a letter, and contain only letters and numbers. Linking continues.
 ES.35 Program name at end of end record does not match name of program being parsed. Linker will assume end record has been reached as normal. Linking continues.
 ES.36 Program name at end of end record does not exist in symbol table. Linker will assume end record has been reached and continue as normal. Linking continues.
